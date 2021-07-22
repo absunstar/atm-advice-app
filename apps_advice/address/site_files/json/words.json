@@ -1,0 +1,113 @@
+[
+    {
+        "name": "goves",
+        "en": "Goves",
+        "ar": "المحافظات"
+    },
+    {
+        "name": "goves_new",
+        "en": "New Gov",
+        "ar": "محافظة جديدة"
+    },
+    {
+        "name": "goves_add",
+        "en": "Add Gov",
+        "ar": "إضافة محافظة "
+    },
+    {
+        "name": "goves_edit",
+        "en": "Edit Gov",
+        "ar": "تعديل محافظة "
+    },
+    {
+        "name": "goves_details",
+        "en": "Gov Details",
+        "ar": "تفاصيل المحافظة "
+    },
+    {
+        "name": "goves_delete",
+        "en": "Delete Gov",
+        "ar": "حذف محافظة "
+    },
+    {
+        "name": "goves_name",
+        "en": "Gov Name",
+        "ar": "إسم المحافظة "
+    },
+    {
+        "name": "nameExist",
+        "en": "Name Exist",
+        "ar": "الاسم موجود من قبل "
+    },
+    {
+        "name": "addressCreated",
+        "en": "Address Created",
+        "ar": "تم انشاء عنوان"
+    },
+    
+    {
+        "name": "errorHappened",
+        "en": "Error Happened",
+        "ar": "حدث خطأ اثناء التنفيذ"
+    },
+    
+    {
+        "name": "updatedSuccessfully",
+        "en": "updated Successfully",
+        "ar": "تم التعديل بنجاح"
+    },
+    
+    {
+        "name": "failedUpdated",
+        "en": "failed Updated",
+        "ar": "فشل في عملية التعديل"
+    },
+    {
+        "name": "failedUpdate",
+        "en": "failed Updated",
+        "ar": "فشل في عملية التعديل"
+    },
+    
+    {
+        "name": "findSuccessfully",
+        "en": "find Successfully",
+        "ar": "تم العثور على نتيجة بنجاح"
+    },
+    
+    {
+        "name": "findFailed",
+        "en": "find Failed",
+        "ar": "لم يتم العثور على نتائج"
+    },
+    {
+        "name": "addressDeleted",
+        "en": "address Deleted",
+        "ar": "تم حذف العنوان"
+    },
+    {
+        "name": "failedDelete",
+        "en": "failed Delete",
+        "ar": "فشل في عملية الحذف"
+    },
+    {
+        "name": "findFailed",
+        "en": "find Failed",
+        "ar": "لم يتم العثور على نتائج"
+    },
+    {
+        "name": "findFailed",
+        "en": "find Failed",
+        "ar": "لم يتم العثور على نتائج"
+    },
+    {
+        "name": "findFailed",
+        "en": "find Failed",
+        "ar": "لم يتم العثور على نتائج"
+    },
+    {
+        "name": "findFailed",
+        "en": "find Failed",
+        "ar": "لم يتم العثور على نتائج"
+    }
+
+]

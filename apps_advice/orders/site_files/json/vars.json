@@ -1,0 +1,87 @@
+[
+    {
+        "name": "male",
+        "value": "male"
+    },
+    {
+        "name": "female",
+        "value": "female"
+    },
+    {
+        "name": "active",
+        "value": "active"
+    },
+    {
+        "name": "activeId",
+        "value": 1
+    },
+    {
+        "name": "inProgressId",
+        "value": 2
+    },
+    {
+        "name": "shippedId",
+        "value": 4
+    },
+    {
+        "name": "onWayId",
+        "value": 3
+    },
+    {
+        "name": "canceledId",
+        "value": 5
+    },
+    {
+        "name": "accepted",
+        "value": "accepted"
+    },
+    {
+        "name": "acceptedId",
+        "value": 7
+    }
+    ,
+    {
+        "name": "inProgress",
+        "value": "inProgress"
+    },
+    {
+        "name": "shipped",
+        "value": "shipped"
+    },
+    {
+        "name": "onWay",
+        "value": "onWay"
+    },
+    {
+        "name": "canceled",
+        "value": "canceled"
+    },
+    {
+        "name": "notActiveId",
+        "value": 6
+    },
+    {
+        "name": "notActive",
+        "value": "notActive"
+    },
+    {
+        "name": "succeed",
+        "value": 200
+    },
+    {
+        "name": "failed",
+        "value": 406
+    },
+    {
+        "name" : "finished",
+        "value" : "finished"
+    },
+    {
+        "name": "finishedId",
+        "value": 8
+    },
+    {
+        "name": "done",
+        "value": "done"
+    }
+]

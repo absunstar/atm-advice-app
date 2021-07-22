@@ -1,0 +1,6109 @@
+{
+	"info": {
+		"_postman_id": "70bd7b3c-6295-4d95-83db-2a0172b80d85",
+		"name": "isite Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "city",
+			"item": [
+				{
+					"name": "addCity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"city6\",\r\n    \"gov\" : {\r\n        \"_id\" : \"60d9da6cdac1b20214dc8959\",\r\n        \"name\": \"5\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/city/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"city",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\" : \"sff\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/city/update/60daf55a8f849f3200d44f4e",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"city",
+								"update",
+								"60daf55a8f849f3200d44f4e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/city/delete/60cef7fc0f71c329acfaadfa",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"city",
+								"delete",
+								"60cef7fc0f71c329acfaadfa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCities",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/city",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"city"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCityById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/city/60daf31d2cb52a320079c8ed",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"city",
+								"60daf31d2cb52a320079c8ed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchCity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n \"name\":\"c\"  \r\n\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/city/search",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"city",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCityByGov",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/city/getCityByGov/60d9da4400cbb91f389aba3a",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"city",
+								"getCityByGov",
+								"60d9da4400cbb91f389aba3a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "consultation",
+			"item": [
+				{
+					"name": "addConsultation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"60ec29b3eab0131088da67ed\",\r\n        \"userName\": \"tttt\",\r\n        \"department\": {\r\n            \"_id\": \"60e4265428580e28f8b2993c\",\r\n            \"name\": \"surgawerwry\",\r\n            \"period\": 30,\r\n            \"price\": 100\r\n        },\r\n        \"fullName\": \"ali\",\r\n        \"idNumber\": \"123456789\",\r\n        \"email\": \"test1@test.com\",\r\n        \"phone\": \"01004500958\",\r\n        \"gender\": \"male\"\r\n    },\r\n    \"user\": {\r\n        \"_id\": \"60ec132bda6e010f5827fd10\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"roles\": [],\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n                }\r\n            ],\r\n            \"balance\": 300\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"department\": {\r\n        \"_id\": \"60e4265428580e28f8b2993c\",\r\n         \"name\" : \"surgary\",\r\n    \"period\":30,\r\n    \"price\":100\r\n    },\r\n    \"period\": 30,\r\n    \"price\": 100,\r\n    \"attachments\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateConsultation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"status\" : \"finished\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/update/60e430a7b8516a329433d3f8",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"update",
+								"60e430a7b8516a329433d3f8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteConsultation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/delete/60e42f05b8516a329433d3f5",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"delete",
+								"60e42f05b8516a329433d3f5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getConsultation",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getConsultationById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/60daf31d2cb52a320079c8ed",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"60daf31d2cb52a320079c8ed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchConsultation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/search",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPreviousConsultation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "a93110be088958997b71010866c9daf7",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/getPreviousConsultation",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"getPreviousConsultation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getActiveConsultation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cc5aa7cd0442952525e41fb40e8b0a03",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/getActiveConsultation",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"getActiveConsultation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAcceptedConsultation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cc5aa7cd0442952525e41fb40e8b0a03",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/getAcceptedConsultation",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"getAcceptedConsultation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateToStatusAccepted",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cc5aa7cd0442952525e41fb40e8b0a03",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/updateToStatusAccepted",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"updateToStatusAccepted"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "increaseConsultationTime",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cc5aa7cd0442952525e41fb40e8b0a03",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/increaseConsultationTime",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"increaseConsultationTime"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "terminateConsultation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cc5aa7cd0442952525e41fb40e8b0a03",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/terminateConsultation",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"terminateConsultation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rateConsultation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cc5aa7cd0442952525e41fb40e8b0a03",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\"rate\":{\r\n    \"value\" : 6,\r\n    \"comment\" : \"123\"\r\n}\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/Consultation/rateConsultation",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"Consultation",
+								"rateConsultation"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "departments",
+			"item": [
+				{
+					"name": "addDepartments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"surgary\",\r\n    \"period\":30,\r\n    \"price\":100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/departments/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"departments",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDepartments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\" : \"bones\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/departments/update/60e4264428580e28f8b2993b",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"departments",
+								"update",
+								"60e4264428580e28f8b2993b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteDepartments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/departments/delete/60cef7fc0f71c329acfaadfa",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"departments",
+								"delete",
+								"60cef7fc0f71c329acfaadfa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDepartments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/departments",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDepartmentsById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/departments/60e4264428580e28f8b2993b",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"departments",
+								"60e4264428580e28f8b2993b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchDepartments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\"name\": \"b\"\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/departments/search",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"departments",
+								"search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "consultationDoctors",
+			"item": [
+				{
+					"name": "addConsultationDoctors",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\" : \"tttt\",\r\n    \"department\":{\r\n        \"_id\" : \"60e4265428580e28f8b2993c\",\r\n        \"name\" : \"surgawerwry\",\r\n        \"period\":30,\r\n    \"price\":100\r\n    },\r\n    \"fullName\" : \"ali\",\r\n    \"idNumber\" : \"123456789\",\r\n    \"email\" : \"test1@test.com\",\r\n    \"phone\" : \"01004500958\",\r\n    \"password\" : \"123\",\r\n    \"gender\" : \"male\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateConsultationDoctors",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"userName\" : \"aaa\",\r\n    \"department\":{\r\n        \"_id\" : \"60e4265428580e28f8b2993c\",\r\n        \"name\" : \"surgawerwry\",\r\n        \"period\":30,\r\n    \"price\":100\r\n    },\r\n    \"fullName\" : \"ali\",\r\n    \"idNumber\" : \"123456789\",\r\n    \"email\" : \"test1@test.com\",\r\n    \"phone\" : \"01004500958\",\r\n    \"password\" : \"123\",\r\n    \"gender\" : \"male\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/update/60e5565595d90e2d1c4432c0",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"update",
+								"60e5565595d90e2d1c4432c0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteConsultationDoctors",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/delete/60e428f2a8ce512d0409eb79",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"delete",
+								"60e428f2a8ce512d0409eb79"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getConsultationDoctors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getConsultationDoctorsById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/60e5565595d90e2d1c4432c0",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"60e5565595d90e2d1c4432c0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchConsultationDoctors",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\"name\": \"s\"\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/search",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFinishedConsultations",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/getFinishedConsultations",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"getFinishedConsultations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getActiveConsultations",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/getActiveConsultations",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"getActiveConsultations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateStatusUnAvailable",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/updateStatusUnAvailable",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"updateStatusUnAvailable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateStatusAvailable",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/updateStatusAvailable",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"updateStatusAvailable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authorizationLogin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"test1@test.com\",\r\n    \"password\" : \"123\",\r\n    \"type\" : \"consultationDoctor\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/user/login",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authorizationLogout",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/user/logout",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProfile",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/getProfile",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"getProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFinishedConsultationDetails",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n\"_id\" : \"60e57c269a70303730d95885\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/getFinishedConsultationDetails",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"getFinishedConsultationDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePassword",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n\"password\" : \"777\",\r\n\"newPassword\" : \"888\",\r\n\"repeatNewPassword\" : \"666\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/consultationDoctors/updatePassword",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consultationDoctors",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "govs",
+			"item": [
+				{
+					"name": "addGov",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/gov/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"gov",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateGov",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"name\" : \"gov10\"\r\n   \r\n\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/gov/update/60d9d59391a6f13f30da19d9",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"gov",
+								"update",
+								"60d9d59391a6f13f30da19d9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getGovs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/gov",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"gov"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getGovById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/gov/60ed5c97e0719809acdbc2d2",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"gov",
+								"60ed5c97e0719809acdbc2d2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchGov",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \"name\": \"gov166\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/gov/search",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"gov",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteGov",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/gov/delete/60d9d59391a6f13f30da19d9",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"gov",
+								"delete",
+								"60d9d59391a6f13f30da19d9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "complaints",
+			"item": [
+				{
+					"name": "addComplaints",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"comp 1\",\r\n    \"description\" : \"description 111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/complaints/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"complaints",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComplaints",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"title\" : \"comp 2\",\r\n    \"description\" : \"description 111\"\r\n   \r\n\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/complaints/update/60eeeb604b52de3da472ad85",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"complaints",
+								"update",
+								"60eeeb604b52de3da472ad85"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getComplaints",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/complaints",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"complaints"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getComplaintsById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/complaints/60eeeb604b52de3da472ad85",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"complaints",
+								"60eeeb604b52de3da472ad85"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchComplaints",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \"title\": \"111\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/complaints/search",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"complaints",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComplaints",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/complaints/delete/60d9d59391a6f13f30da19d9",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"complaints",
+								"delete",
+								"60d9d59391a6f13f30da19d9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "settings",
+			"item": [
+				{
+					"name": "addSetting",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aboutUs\": \"About Us\",\r\n        \"policy\": \"Policy\",\r\n        \"companyPhone\": \"0123456789\",\r\n        \"companyAddress\": \"address\",\r\n        \"companyEmail\": \"a.a@a.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/settings/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"settings",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSetting",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n  \"aboutUs\": \"About Us 1\",\r\n            \"policy\": \"Policy 1\",\r\n            \"companyPhone\": \"012345678933\",\r\n            \"companyAddress\": \"address1\",\r\n            \"companyEmail\": \"a1.a@a.com\" \r\n   \r\n\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/settings/update/60eedf6aed24c52214ee4974",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"settings",
+								"update",
+								"60eedf6aed24c52214ee4974"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSetting",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/settings",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSettingById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/settings/60eedf6aed24c52214ee4974",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"settings",
+								"60eedf6aed24c52214ee4974"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notificationData",
+			"item": [
+				{
+					"name": "getNotificationsData",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/notificationData",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"notificationData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNotificationsDataById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/notificationData/60ed5c97e0719809acdbc2d2",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"notificationData",
+								"60ed5c97e0719809acdbc2d2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteOne",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \"user\" : {\r\n       \"_id\" : \"60ec0d18c7549c899529f736\"\r\n   },\r\n\"notificationId\" : \"60eff4142705b5d8fc5ac0ef\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/notificationData/delete/deleteOne",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"notificationData",
+								"delete",
+								"deleteOne"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAll",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"user\" : {\r\n       \"_id\" : \"60e6d5bce94de330c00744aa\"\r\n   }\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/notificationData/delete/deleteAll",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"notificationData",
+								"delete",
+								"deleteAll"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "degree",
+			"item": [
+				{
+					"name": "addDegree",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"degree 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/degree/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"degree",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDegree",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"name\" : \"degree 4\"\r\n   \r\n\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/degree/update/60e88a81f28f0f2e486df348",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"degree",
+								"update",
+								"60e88a81f28f0f2e486df348"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDegrees",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/degree",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"degree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDegreeById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/degree/60e88a81f28f0f2e486df348",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"degree",
+								"60e88a81f28f0f2e486df348"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchDegree",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n   \"name\": \"4\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/degree/search",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"degree",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteDegree",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/degree/delete/60e88a81f28f0f2e486df348",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"degree",
+								"delete",
+								"60e88a81f28f0f2e486df348"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "doctors",
+			"item": [
+				{
+					"name": "addDoctor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ahmed_test9\",\r\n    \"image\": [\r\n        {\r\n            \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n        }\r\n    ],\r\n    \"degree\": {\r\n        \"_id\": \"60ed450882d81933a43c3a4e\",\r\n        \"name\": \"degree 2\"\r\n    },\r\n    \"department\": {\r\n        \"name\": \"surgary\",\r\n        \"period\": 30,\r\n        \"price\": 100\r\n    },\r\n    \"days\": [\r\n        {\r\n            \"date\": \"2021-07-13T07:20:56.355Z\",\r\n            \"times\": [\r\n                {\r\n                    \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                    \"sessionPeriod\": 20,\r\n                    \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                    \"status\": \"available\"\r\n                },\r\n                {\r\n                    \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                    \"sessionPeriod\": 20,\r\n                    \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                    \"status\": \"available\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"date\": \"2021-07-13T07:20:56.355Z\",\r\n            \"times\": [\r\n                {\r\n                    \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                    \"sessionPeriod\": 20,\r\n                    \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                    \"status\": \"available\"\r\n                },\r\n                {\r\n                    \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                    \"sessionPeriod\": 20,\r\n                    \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                    \"status\": \"available\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"hint\": \"test hint \",\r\n    \"price\": 100,\r\n    \"periodPerMinutes\": 30,\r\n    \"email\": \"a.a@a.com\",\r\n    \"password\": \"123\",\r\n    \"lat\": 30.974077,\r\n    \"long\": 31.272066,\r\n    \"title\": \"proff at ttt \",\r\n    \"city\": {\r\n        \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n        \"name\": \"city1\"\r\n    },\r\n    \"address\":\"cairo\",\r\n    \"gender\": \"male\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDoctor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"name\" : \"doc1\"\r\n   \r\n\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/update/60d9d59391a6f13f30da19d9",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"update",
+								"60d9d59391a6f13f30da19d9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDoctors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDoctorById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/60dadb13d81cc4059c5cfa6d",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"60dadb13d81cc4059c5cfa6d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchDoctor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n\r\n   \"lat\":30.971134699999997,\r\n    \"long\":31.187161300000003\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/search?page=2",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"search"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteDoctor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/delete/60d9d59391a6f13f30da19d9",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"delete",
+								"60d9d59391a6f13f30da19d9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addDoctorImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "fileToUpload",
+									"type": "file",
+									"src": "/C:/Users/ml_isl/Desktop/184554607_5425922027449472_7143362242002408811_n.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/doctors/upload/image/doctors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"upload",
+								"image",
+								"doctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDoctorDuringDistance",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lat\":30.971134699999997,\r\n    \"long\":31.187161300000003\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/getDoctorDuringDistance",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"getDoctorDuringDistance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDoctorByDepartments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"department\" : {\r\n        \"_id\" : \"60e88c87f28f0f2e486df34c\"\r\n    }\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/getDoctorByDepartments",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"getDoctorByDepartments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changeStatusActive",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\" : \"60e89ae6a2a38f29f850eaa4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/changeStatusActive",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"changeStatusActive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ratingDoctors",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"60ed3ed88c00530f146763b5\",\r\n        \"name\": \"ahmed_test9\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n            }\r\n        ],\r\n        \"degree\": {\r\n            \"_id\": \"60ed450882d81933a43c3a4e\",\r\n            \"name\": \"degree 2\"\r\n        },\r\n        \"department\": {\r\n            \"name\": \"surgary\",\r\n            \"period\": 30,\r\n            \"price\": 100\r\n        },\r\n        \"hint\": \"test hint \",\r\n        \"price\": 100,\r\n        \"periodPerMinutes\": 30,\r\n        \"email\": \"a.a@a.com\",\r\n        \"lat\": 30.974077,\r\n        \"long\": 31.272066,\r\n        \"title\": \"proff at ttt \",\r\n        \"city\": {\r\n            \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"gender\": \"male\"\r\n    },\r\n    \"user\": {\r\n        \"_id\": \"60ec132bda6e010f5827fd10\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"roles\": [],\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n                }\r\n            ],\r\n            \"balance\": 300\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"rating\": 4,\r\n    \"description\": \"too late\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/ratingDoctors",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"ratingDoctors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDoctorByRating",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"department\": {\r\n        \"_id\": \"60e4264428580e28f8b2993b\"\r\n    },\r\n    \"lat\":31.034108,\r\n    \"long\":31.241796\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/getDoctorByRating",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"getDoctorByRating"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "insuranceCompany",
+			"item": [
+				{
+					"name": "AddInsuranceCompany",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"company 1\",\r\n     \"image\" : [{\r\n        \"name\" : \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n    }],\r\n\"balance\" : 300\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/insuranceCompany/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"insuranceCompany",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getInsuranceCompany",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/insuranceCompany",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"insuranceCompany"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateInsuranceCompany",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"UpdatedinsuranceCompany\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/insuranceCompany/update/60dc34274a595a0a1cead1a7",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"insuranceCompany",
+								"update",
+								"60dc34274a595a0a1cead1a7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteInsuranceCompany",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/insuranceCompany/delete/60dc34274a595a0a1cead1a7",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"insuranceCompany",
+								"delete",
+								"60dc34274a595a0a1cead1a7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getInsuranceCompanyById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/insuranceCompany/60dc341f4a595a0a1cead1a6",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"insuranceCompany",
+								"60dc341f4a595a0a1cead1a6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchInsuranceCompany",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/insuranceCompany/search",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"insuranceCompany",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addInsuranceImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fileToUpload",
+									"type": "file",
+									"src": "/C:/Users/ahmed.yousry/Desktop/2.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/insuranceCompany/upload/image/insuranceCompany",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"insuranceCompany",
+								"upload",
+								"image",
+								"insuranceCompany"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "address",
+			"item": [
+				{
+					"name": "AddAddress",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"gov\":{\r\n    \"_id\" : \"60d9da4400cbb91f389aba3f\",\r\n    \"name\" : \"gov2\"\r\n},\r\n\"city\": {\r\n    \"_id\" : \"60daf31d2cb52a320079c8ed\",\r\n    \"name\" : \"city1\"\r\n},\r\n\"lat\":\"19.311143\",\r\n\"long\":\"8.684994\",\r\n\"district\":\"1-october\",\r\n\"streetName\":\"5 st\",\r\n\"buildingNumber\":\"1 d\",\r\n\"role\":\"3\",\r\n\"apartmentNumber\":\"3\",\r\n\"specialMark\":\"diaa school\",\r\n\"title\" : \"title1\",\r\n\"addressLocation\" : \"location 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/address/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"address",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAddress",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/address",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAddress",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"apartmentNumber\": \"9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/address/update/60e2d2b7cc9a463b1c331164",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"address",
+								"update",
+								"60e2d2b7cc9a463b1c331164"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAddress",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/address/delete/60dc2cb7f29bf01398dd92db",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"address",
+								"delete",
+								"60dc2cb7f29bf01398dd92db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAddressById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/address/60d1efbf6b83a73084147f8c",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"address",
+								"60d1efbf6b83a73084147f8c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchAddress",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"cityId\": {\r\n                \"_id\": \"60daf31d2cb52a320079c8ea\"\r\n            }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/address/search",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"address",
+								"search"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6W10sImlkIjoiNjBhY2U3MzkyYzE4YjIxZDVjZDY0MWU2IiwiYWxsUm9sZXMiOmZhbHNlLCJpYXQiOjE2MjE5NDQxMzAsImV4cCI6MTYyNzk5MjEzMH0.aGNYUTIMC9z5H7ugOk_Li1-eW_OLqA3SO5wsfUViCU0",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "booking",
+			"item": [
+				{
+					"name": "AddBooking",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"patient\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"password\": \"123\",\r\n        \"roles\": [],\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n                }\r\n            ],\r\n            \"balance\": 300\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"doctor\": {\r\n        \"_id\":\"60ed3ed88c00530f146763b5\",\r\n        \"name\": \"ahmed_test9\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n            }\r\n        ],\r\n        \"degree\": {\r\n            \"_id\": \"60ed450882d81933a43c3a4e\",\r\n            \"name\": \"degree 2\"\r\n        },\r\n        \"department\": {\r\n            \"name\": \"surgary\",\r\n            \"period\": 30,\r\n            \"price\": 100\r\n        },\r\n        \"days\": [\r\n            {\r\n                \"date\": \"2021-07-13T07:20:56.355Z\",\r\n                \"times\": [\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    },\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"date\": \"2021-07-13T07:20:56.355Z\",\r\n                \"times\": [\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    },\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    }\r\n                ]\r\n            }\r\n        ],\r\n        \"hint\": \"test hint \",\r\n        \"price\": 100,\r\n        \"periodPerMinutes\": 30,\r\n        \"email\": \"a.a@a.com\",\r\n        \"lat\": 30.974077,\r\n        \"long\": 31.272066,\r\n        \"title\": \"proff at ttt \",\r\n        \"city\": {\r\n            \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"gender\": \"male\",\r\n        \"address\":\"cairo\"\r\n    },\r\n    \"date\" : \"2021-07-13T07:20:56.355Z\",\r\n    \"time\" : \"2021-07-13T07:20:56.355Z\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/booking/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"booking",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBooking",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/booking",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBooking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"apartmentNumber\": \"9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/booking/update/60e2d2b7cc9a463b1c331164",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"booking",
+								"update",
+								"60e2d2b7cc9a463b1c331164"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBooking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/booking/delete/60dc2cb7f29bf01398dd92db",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"booking",
+								"delete",
+								"60dc2cb7f29bf01398dd92db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBookingById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/booking/60d1efbf6b83a73084147f8c",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"booking",
+								"60d1efbf6b83a73084147f8c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchBooking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"cityId\": {\r\n                \"_id\": \"60daf31d2cb52a320079c8ea\"\r\n            }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/booking/search",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"booking",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirmBooking",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"patient\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"password\": \"123\",\r\n        \"roles\": [],\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n                }\r\n            ],\r\n            \"balance\": 300\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"doctor\": {\r\n        \"_id\":\"60ed3ed88c00530f146763b5\",\r\n        \"name\": \"ahmed_test9\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n            }\r\n        ],\r\n        \"degree\": {\r\n            \"_id\": \"60ed450882d81933a43c3a4e\",\r\n            \"name\": \"degree 2\"\r\n        },\r\n        \"department\": {\r\n            \"name\": \"surgary\",\r\n            \"period\": 30,\r\n            \"price\": 100\r\n        },\r\n        \"days\": [\r\n            {\r\n                \"date\": \"2021-07-13T07:20:56.355Z\",\r\n                \"times\": [\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    },\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"date\": \"2021-07-13T07:20:56.355Z\",\r\n                \"times\": [\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    },\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    }\r\n                ]\r\n            }\r\n        ],\r\n        \"hint\": \"test hint \",\r\n        \"price\": 100,\r\n        \"periodPerMinutes\": 30,\r\n        \"email\": \"a.a@a.com\",\r\n        \"lat\": 30.974077,\r\n        \"long\": 31.272066,\r\n        \"title\": \"proff at ttt \",\r\n        \"city\": {\r\n            \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"gender\": \"male\",\r\n        \"address\":\"cairo\"\r\n    },\r\n    \"date\" : \"2021-07-13T07:20:56.355Z\",\r\n    \"time\" : \"2021-07-13T07:20:56.355Z\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/booking/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"booking",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6W10sImlkIjoiNjBhY2U3MzkyYzE4YjIxZDVjZDY0MWU2IiwiYWxsUm9sZXMiOmZhbHNlLCJpYXQiOjE2MjE5NDQxMzAsImV4cCI6MTYyNzk5MjEzMH0.aGNYUTIMC9z5H7ugOk_Li1-eW_OLqA3SO5wsfUViCU0",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "AddOrders",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\": \"mohamed\",\r\n    \"phone\": \"0123456789\",\r\n    \"hasInsurance\": false,\r\n    \"contractingCompany\": \"innovalz\",\r\n    \"insuranceCompany\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"name\": \"company 1\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n            }\r\n        ],\r\n        \"balance\": 300\r\n    },\r\n    \"insuranceNumber\": \"1111\",\r\n    \"address\": {\r\n        \"_id\": \"60dc2d33f29bf01398dd92dc\",\r\n        \"gov\": {\r\n            \"_id\": \"60d9da4400cbb91f389aba3f\",\r\n            \"name\": \"gov2\"\r\n        },\r\n        \"city\": {\r\n            \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"lat\": \"19.311143\",\r\n        \"long\": \"8.684994\",\r\n        \"district\": \"1-october\",\r\n        \"streetName\": \"5 st\",\r\n        \"buildingNumber\": \"1 d\",\r\n        \"role\": \"3\",\r\n        \"apartmentNumber\": \"3\",\r\n        \"specialMark\": \"diaa school\",\r\n        \"title\": \"title1\",\r\n        \"addressLocation\": \"location 1\"\r\n    },\r\n    \"user\": {\r\n        \"_id\": \"60e6d5bce94de330c00744aa\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\"\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"image\": [\r\n        {\r\n            \"name\": \"/api/image/orders/image_1625989779278.png\",\r\n            \"description\": \"-1\"\r\n        },\r\n        {\r\n            \"name\": \"/api/image/orders/image_1625989907321.png\",\r\n            \"description\": \"description 2\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOrders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"phone\": \"0123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/update/60dc5fc5a20b343a00ce226a",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"update",
+								"60dc5fc5a20b343a00ce226a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteOrders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/delete/60dc5fc5a20b343a00ce226a",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"delete",
+								"60dc5fc5a20b343a00ce226a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrdersById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/60dc5af4b401502f3010b966",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"60dc5af4b401502f3010b966"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchOrders",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/search?page=1",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"search"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getActiveOrders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "enLang",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://134.209.219.21:9090/api/orders/getActiveOrders",
+							"protocol": "http",
+							"host": [
+								"134",
+								"209",
+								"219",
+								"21"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"getActiveOrders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateToStatusInProgress",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderId\": {\r\n        \"fullName\": \"mohamed\",\r\n        \"phone\": \"0123456789\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n                }\r\n            ],\r\n            \"balance\": 300\r\n        },\r\n        \"insuranceNumber\": \"1111\",\r\n        \"address\": {\r\n            \"_id\": \"60dc2d33f29bf01398dd92dc\",\r\n            \"gov\": {\r\n                \"_id\": \"60d9da4400cbb91f389aba3f\",\r\n                \"name\": \"gov2\"\r\n            },\r\n            \"city\": {\r\n                \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n                \"name\": \"city1\"\r\n            },\r\n            \"lat\": \"19.311143\",\r\n            \"long\": \"8.684994\",\r\n            \"district\": \"1-october\",\r\n            \"streetName\": \"5 st\",\r\n            \"buildingNumber\": \"1 d\",\r\n            \"role\": \"3\",\r\n            \"apartmentNumber\": \"3\",\r\n            \"specialMark\": \"diaa school\",\r\n            \"title\": \"title1\",\r\n            \"addressLocation\": \"location 1\"\r\n        },\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/orders/image_1625989779278.png\",\r\n                \"description\": \"-1\"\r\n            },\r\n            {\r\n                \"name\": \"/api/image/orders/image_1625989907321.png\",\r\n                \"description\": \"description 2\"\r\n            }\r\n        ],\r\n        \"_id\": \"60f002327aa6e6153cfd46d8\"\r\n    },\r\n    \"user\": {\r\n        \"_id\": \"60e6d5bce94de330c00744aa\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\"\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"status\": 1,\r\n    \"price\": 100.25,\r\n    \"discountPercentage\": 10.25,\r\n    \"totalPrice\": 20.75,\r\n    \"deliveryTime\": 10,\r\n    \"pharmacy\": {\r\n        \"gov\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"gov1\"\r\n        },\r\n        \"city\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"pharmacyName\": \"ph_d14\",\r\n        \"userName\": \"td5\",\r\n        \"branch\": \"33636535\",\r\n        \"email\": \"4@dttest.com\",\r\n        \"phone\": \"123dt4567\",\r\n        \"address\": \"elmahalla elkobra\",\r\n        \"lat\": 31.009394,\r\n        \"long\": 31.390248,\r\n        \"_id\": \"60effbdf8231bb030870cec8\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/updateToStatusInProgress",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"updateToStatusInProgress"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "internetConnectivity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/internetConnectivity",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"internetConnectivity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateToStatusOnWay",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"60e6e111c4491808f0febb03\",\r\n    \"user\": {\r\n        \"_id\": \"60e6d5bce94de330c00744aa\"\r\n    },\r\n       \"pharmacy\": {\r\n        \"_id\": \"60ae26dba98def122859177f\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/updateToStatusOnWay",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"updateToStatusOnWay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateToStatusShipped",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"60e6e111c4491808f0febb03\",\r\n    \"user\": {\r\n        \"_id\": \"60e6d5bce94de330c00744aa\" \r\n    },\r\n   \r\n    \"pharmacy\": {\r\n        \"_id\": \"60ae26dba98def122859177f\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/updateToStatusShipped",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"updateToStatusShipped"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changeToStatusCanceled",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"_id\":\"60ed6c8e4cd0c621f3b83e33\",\r\n\"user\": {\r\n        \"_id\": \"60e6d5bce94de330c00744aa\",\r\n        \"name\" : \"asd\"\r\n    }\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://134.209.219.21:9090/api/orders/updateToStatusCanceled",
+							"protocol": "http",
+							"host": [
+								"134",
+								"209",
+								"219",
+								"21"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"updateToStatusCanceled"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCanceledOrdersByUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n\"user\": {\r\n        \"_id\": \"60d2e8f6037e1a23904f34f8\"\r\n    }\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/getCanceledOrdersByUser",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"getCanceledOrdersByUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getShippedOrdersByUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n\"user\": {\r\n        \"_id\": \"60e6d5bce94de330c00744aa\"\r\n    }\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/getShippedOrdersByUser",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"getShippedOrdersByUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ratingPharmacy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"60e6e111c4491808f0febb03\",\r\n    \"pharmacy\": {\r\n        \"gov\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"gov1\"\r\n        },\r\n        \"city\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"pharmacyName\": \"ph_d14\",\r\n        \"userName\": \"td5\",\r\n        \"branch\": \"33636535\",\r\n        \"email\": \"4@dttest.com\",\r\n        \"phone\": \"123dt4567\",\r\n        \"address\": \"elmahalla elkobra\",\r\n        \"lat\": 31.009394,\r\n        \"long\": 31.390248,\r\n        \"_id\": \"60effbdf8231bb030870cec8\"\r\n    },\r\n   \"user\": {\r\n        \"_id\": \"60e6d5bce94de330c00744aa\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\"\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"rating\":1,\r\n    \"description\": \"too late delivary\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/ratingPharmacy",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"ratingPharmacy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reOrderPreviousOrder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\": \"60ed6e86b1116b250da2fb6f\",\r\n    \"user\": {\r\n        \"_id\": \"60ec0d18c7549c899529f736\"\r\n    }\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://134.209.219.21:9090/api/orders/reOrderPreviousOrder",
+							"protocol": "http",
+							"host": [
+								"134",
+								"209",
+								"219",
+								"21"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"reOrderPreviousOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addOrderImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fileToUpload",
+									"type": "file",
+									"src": "/C:/Users/ahmed.yousry/Desktop/3.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/upload/cardImage/orders",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"upload",
+								"cardImage",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addOrderCardImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fileToUpload",
+									"type": "file",
+									"src": "/C:/Users/ahmed.yousry/Desktop/1.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/orders/upload/image/orders",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"orders",
+								"upload",
+								"image",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "patients",
+			"item": [
+				{
+					"name": "addPatients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idNumber\": \"1111\",\r\n    \"phone\": \"01004500950\",\r\n    \"password\": \"123\",\r\n    \"roles\": [],\r\n    \"fullName\": \"ahmed\",\r\n    \"insuranceCompany\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"name\": \"company 1\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n            }\r\n        ],\r\n        \"balance\": 300\r\n    },\r\n    \"gender\": \"male\",\r\n    \"hasInsurance\": false,\r\n    \"contractingCompany\": \"innovalz\",\r\n    \"image\": [\r\n        {\r\n            \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n        }\r\n    ],\r\n    \"email\": \"test3@test.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/patients/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authorizationLogin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsImlhdCI6MTYyMTc1NjA3MywiZXhwIjoxNjI3ODA0MDczfQ.256eph85BpE25-gOwMB5e8HMlKKiHbQ2Gdwv5NmnXiE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"a.uu45789@a.com\",\r\n    \"password\" : \"123\",\r\n    \"type\" : \"patient\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/user/login",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPatients",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/patients",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPatientsById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\" : \"012345567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/patients/60ddbcde144dfd24e83560bc",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"60ddbcde144dfd24e83560bc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePatients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\":\"7775\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/patients/update/60ddbcde144dfd24e83560bc",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"update",
+								"60ddbcde144dfd24e83560bc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePatients",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/patients/delete/60ddbcde144dfd24e83560bc",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"delete",
+								"60ddbcde144dfd24e83560bc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resetPassword",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\" : \"01004500950\",\r\n    \"password\" : \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/patients/resetPassword",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"resetPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkActivity",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\" : \"01004500930\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/patients/checkActivity",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"checkActivity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resendCode",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"phone\" : \"01004500953\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/patients/resendCode",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"resendCode"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchPatients",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"insuranceCompany\" : {\r\n        \"_id\" : \"60dc34da9bf545255844e30d\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/patients/search",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgetPassword",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"phone\": \"01004500956\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/patients/forgetPassword",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"forgetPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cf9ac45b52fea2e4a1756812ccc28c40",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/patients/getProfile",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"getProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addPatientImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fileToUpload",
+									"type": "file",
+									"src": "/C:/Users/ml_isl/Desktop/1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/patients/upload/image/patients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"upload",
+								"image",
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsImlhdCI6MTYyMTc1NjA3MywiZXhwIjoxNjI3ODA0MDczfQ.256eph85BpE25-gOwMB5e8HMlKKiHbQ2Gdwv5NmnXiE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/user/logout",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "chargeBalance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\" : \"60e717f6d974283778ec9ce5\",\r\n    \"balance\" : 30\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/patients/chargeBalance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"chargeBalance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changePassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"password\" : \"777\",\r\n\"newPassword\" : \"888\",\r\n\"repeatNewPassword\" : \"888\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/patients/changePassword",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"patients",
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "pharmacy",
+			"item": [
+				{
+					"name": "addPharmacy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6W10sImlkIjoiNjBhZTUyODI4ZDA4ZWUyMmZjNjA3NGEwIiwiYWxsUm9sZXMiOmZhbHNlLCJpYXQiOjE2MjIzNzQ5MDksImV4cCI6MTYyODQyMjkwOX0.Td0nKrmfQtx4Ww3aEDtIgdXC52mgnn5pYFtV5_xR0Es",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"gov\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"name\": \"gov1\"\r\n    },\r\n    \"city\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"name\": \"city1\"\r\n    },\r\n    \"pharmacyName\": \"ph_d14\",\r\n    \"userName\": \"td5\",\r\n    \"branch\": \"33636535\",\r\n    \"email\": \"4@dttest.com\",\r\n    \"phone\": \"123dt4567\",\r\n    \"password\": \"123\",\r\n    \"address\": \"elmahalla elkobra\",\r\n    \"lat\": 31.009394,\r\n    \"long\": 31.390248\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/add",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authorizationLogin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"diaa@gmail.com\",\r\n    \"password\" : \"123123\",\r\n    \"type\" : \"pharmacy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/user/login",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPharmacies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePharmacies",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyIiXSwiaWQiOiI2MGM1YmZjNDFiYWU4NDBhYWMyZmU0ZGQiLCJhbGxSb2xlcyI6ZmFsc2UsImlhdCI6MTYyMzU3MzIxMiwiZXhwIjoxNjI5NjIxMjEyfQ.MMefSvXG_DO3S-W5tx07TYvm-DpJofqvKo3mn4yw31g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/update/60c61d840dbe793bc8ebcc75",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"update",
+								"60c61d840dbe793bc8ebcc75"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePharmacy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/delete/60aa684a0e8a1026e049b830",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"delete",
+								"60aa684a0e8a1026e049b830"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPharmacyById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/60b4fc38f164b70e9cc03fcd",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"60b4fc38f164b70e9cc03fcd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/search?page=1",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"search"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changeStatusActive",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\" : \"60d845ff14cfa653354a1afc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/changeStatusActive",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"changeStatusActive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changePharmacyAvailable",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cf9ac45b52fea2e4a1756812ccc28c40",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/updatePharmacyAvailable",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"updatePharmacyAvailable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changePharmacyUnAvailable",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cf9ac45b52fea2e4a1756812ccc28c40",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/updatePharmacyUnAvailable",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"updatePharmacyUnAvailable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAvailablePharmacy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cf9ac45b52fea2e4a1756812ccc28c40",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/getAvailablePharmacy",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"getAvailablePharmacy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getActiveOrders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6W10sImlkIjoiNjBhZTUyODI4ZDA4ZWUyMmZjNjA3NGEwIiwiYWxsUm9sZXMiOmZhbHNlLCJpYXQiOjE2MjIzNzQ5MDksImV4cCI6MTYyODQyMjkwOX0.Td0nKrmfQtx4Ww3aEDtIgdXC52mgnn5pYFtV5_xR0Es",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"_id\" : \"60e30b9c71128710e8347904\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/getActiveOrders",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"getActiveOrders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPreviousOrders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "cf9ac45b52fea2e4a1756812ccc28c40",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/getPreviousOrders",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"getPreviousOrders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrderDetails",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"orderId\" : \"60dc5af4b401502f3010b966\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/getOrderDetails",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"getOrderDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPharmacyDuringDistance",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lat\":30.971134699999997,\r\n    \"long\":31.187161300000003\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/getPharmacyDuringDistance",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"getPharmacyDuringDistance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRecentOrders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/getRecentOrders",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"getRecentOrders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rtmtoken",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4650/api/pharmacy/rtmtoken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4650",
+							"path": [
+								"api",
+								"pharmacy",
+								"rtmtoken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rtctoken",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJ1c2VEYXNoYm9hcmQiLCJhZGRDaXR5Iiwidmlld0NpdHkiLCJ1cGRhdGVDaXR5IiwiZGVsZXRlQ2l0eSJdLCJpZCI6IjYwYWEwOGJkNTliNDliMjYxNGZhNjU0ZiIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIxNzU2NTY0LCJleHAiOjE2Mjc4MDQ1NjR9.8cFTk0jmExOsK_qQEC6xzD_v46cQsacqOdCjduJn874",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4650/api/pharmacy/rtctoken",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4650",
+							"path": [
+								"api",
+								"pharmacy",
+								"rtctoken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrdersCount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/getOrdersCount",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"getOrdersCount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addImagePharmacy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6W10sImlkIjoiNjBhZTUyODI4ZDA4ZWUyMmZjNjA3NGEwIiwiYWxsUm9sZXMiOmZhbHNlLCJpYXQiOjE2MjIzNzQ5MDksImV4cCI6MTYyODQyMjkwOX0.Td0nKrmfQtx4Ww3aEDtIgdXC52mgnn5pYFtV5_xR0Es",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fileToUpload",
+									"type": "file",
+									"src": "/C:/Users/ahmed.yousry/Desktop/1.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/pharmacy/upload/image/pharmacy",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pharmacy",
+								"upload",
+								"image",
+								"pharmacy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authorizationLogout",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"testUser11\",\r\n    \"password\" : \"123\",\r\n    \"type\" : \"pharmacy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/user/logout",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyIiXSwiYXZhaWxhYmxlIjp0cnVlLCJpZCI6IjYwYzYxZDg0MGRiZTc5M2JjOGViY2M3NSIsImFsbFJvbGVzIjpmYWxzZSwiaWF0IjoxNjIzOTIyNzg3LCJleHAiOjE2Mjk5NzA3ODd9.FaGEuXfZXxZA5oa2XCHdY00SXJVvenSqMuf35hcehGE",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseurl",
+			"value": "localhost"
+		}
+	]
+}

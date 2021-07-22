@@ -1,0 +1,99 @@
+[
+    {
+        "name": "goves",
+        "en": "Goves",
+        "ar": "المحافظات"
+    },
+    {
+        "name": "goves_new",
+        "en": "New Gov",
+        "ar": "محافظة جديدة"
+    },
+    {
+        "name": "goves_add",
+        "en": "Add Gov",
+        "ar": "إضافة محافظة "
+    },
+    {
+        "name": "goves_edit",
+        "en": "Edit Gov",
+        "ar": "تعديل محافظة "
+    },
+    {
+        "name": "goves_details",
+        "en": "Gov Details",
+        "ar": "تفاصيل المحافظة "
+    },
+    {
+        "name": "goves_delete",
+        "en": "Delete Gov",
+        "ar": "حذف محافظة "
+    },
+    {
+        "name": "goves_name",
+        "en": "Gov Name",
+        "ar": "إسم المحافظة "
+    },
+    {
+        "name": "nameExist",
+        "en": "Name Exist",
+        "ar": "الاسم موجود من قبل "
+    },
+    {
+        "name": "govCreated",
+        "en": "Gov Created",
+        "ar": "تم انشاء محافظة"
+    },
+    {
+        "name" : "consultationFound",
+        "en" : "consultations Found",
+        "ar" : "يوجد استشارات سابقة"
+    },
+    {
+        "name" : "noPreviousconsultation",
+        "en" : "No Previous Consultation",
+        "ar" : "لا يوجد استشارات سابقة"
+    },
+    {
+        "name" : "noActiveconsultation",
+        "en" : "No Active Consultation",
+        "ar" : "لا يوجد استشارات حالية"
+    },
+    {
+        "name" : "noAcceptedconsultation",
+        "en" : "No Accepted Consultation",
+        "ar" : "لا يوجد استشارات مقبولة"
+    },
+    {
+        "name" : "consultationUpdated",
+        "en" : "consultation Updated",
+        "ar" : "تم تعديل حالة الاستشارة"
+    },
+    {
+        "name" : "cantIncreaseTime",
+        "en" : "can`t Increase Time",
+        "ar" : "حدث خطأ اثناء زيادة الوقت"
+    },
+    {
+        "name" : "consultationTerminated",
+        "en" : "consultation Terminated",
+        "ar" : "تم انهاء الاستشارة"
+    },
+
+    {
+        "name" : "valueInCorrect",
+        "en" : "value InCorrect",
+        "ar" : "القيمة غير صحيحة"
+    },
+
+    {
+        "name" : "insuranceCompanyRecharge",
+        "en" : "insurance company balabce need to recharge again",
+        "ar" : "برجاء اعادة شحن رصيد شركة التامين"
+    }
+
+
+    
+    
+    
+]

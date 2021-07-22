@@ -1,0 +1,143 @@
+[
+    {
+        "name": "goves",
+        "en": "Goves",
+        "ar": "المحافظات"
+    },
+    {
+        "name": "goves_new",
+        "en": "New Gov",
+        "ar": "محافظة جديدة"
+    },
+    {
+        "name": "goves_add",
+        "en": "Add Gov",
+        "ar": "إضافة محافظة "
+    },
+    {
+        "name": "goves_edit",
+        "en": "Edit Gov",
+        "ar": "تعديل محافظة "
+    },
+    {
+        "name": "goves_details",
+        "en": "Gov Details",
+        "ar": "تفاصيل المحافظة "
+    },
+    {
+        "name": "goves_delete",
+        "en": "Delete Gov",
+        "ar": "حذف محافظة "
+    },
+    {
+        "name": "goves_name",
+        "en": "Gov Name",
+        "ar": "إسم المحافظة "
+    },
+    {
+        "name": "nameExist",
+        "en": "Name Exist",
+        "ar": "الاسم موجود من قبل "
+    },
+    {
+        "name": "percentageInCorrect",
+        "en": "percentage InCorrect",
+        "ar": "قيمة النسبة المئوية غير صحيحه"
+    },
+    {
+        "name": "insuranceCompanyMissing",
+        "en": "insurance Company Missing",
+        "ar": "شركة التامين غير موجودة"
+    },
+    {
+        "name": "insuranceNumberMissing",
+        "en": "insurance Number Missing",
+        "ar": "الرقم التامينى غير موجودة"
+    },
+    {
+        "name": "orderCreated",
+        "en": "Order Created",
+        "ar": "تم انشاء الطلب"
+    },
+    {
+        "name": "orderDeleted",
+        "en": "Order Deleted",
+        "ar": "تم حذف الطلب"
+    },
+    {
+        "name": "ordersUpdated",
+        "en": "Order Updated",
+        "ar": "تم تعديل الطلب"
+    },
+    {
+        "name": "ordersUpdated",
+        "en": "Order Updated",
+        "ar": "تم تعديل الطلب"
+    },
+    {
+        "name": "noActiveOrders",
+        "en": "No Active Orders",
+        "ar": "لا يوجد طلبات نشطة"
+    },
+    {
+        "name": "orderAccepted",
+        "en": "Order Accepted",
+        "ar": "تم قبول الطلب"
+    },
+   
+    {
+        "name": "ordersNotUpdated",
+        "en": "Order Not Accepted",
+        "ar": "لم يتم قبول الطلب"
+    },
+    {
+        "name": "ordersCanceled",
+        "en": "Order Canceled",
+        "ar": "تم الغاء الطلب"
+    },
+    {
+        "name": "orderscannotCanceled",
+        "en": "Order Can`t Canceled",
+        "ar": "لم يتم الغاء الطلب"
+    },
+    {
+        "name": "pharmacyRatingError",
+        "en": "pharmacy Rating Error",
+        "ar": "تقييم الصيدلية غير صحيح"
+    },
+    {
+        "name": "ratingCreated",
+        "en": "Rating Created",
+        "ar": "تم انشاء تقييم للصيدلية"
+    },
+    {
+        "name": "ratingFailed",
+        "en": "Rating Failed",
+        "ar": "فشل انشاء تقييم"
+    },
+    {
+        "name": "reOrderSuccessfully",
+        "en": "Re Order Successfully",
+        "ar": "تم اعادة الطلب بنجاح"
+    },
+    {
+        "name": "reOrderFailed",
+        "en": "Re Order Failed",
+        "ar": "فشل اعادة الطلب "
+    },
+    {
+        "name": "internetDisConnected",
+        "en": "Internet DisConnected",
+        "ar": "الانترنت غير موصل "
+    },
+    {
+        "name": "internetConnected",
+        "en": "Internet Connected",
+        "ar": "الانترنت موصل "
+    },
+    {
+        "name": "orderAdded",
+        "en": "Order Added",
+        "ar": "يوجد طلب جديد"
+    }
+]

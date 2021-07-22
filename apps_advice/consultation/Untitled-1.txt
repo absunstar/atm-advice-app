@@ -1,0 +1,19 @@
+{
+  _id: 60e57f059c69ad1578be4a3a,
+  doctor: { _id: '60ec29b3eab0131088da67ed', name: 'ahmed', gender: 'male' },
+  user: { _id: '60e2f80bc34b4821a42734e4', name: 'ahmed' },
+  department: { _id: '60e4265428580e28f8b2993c', name: 'surgary' },
+  period: 30,
+  price: 100,
+  attachments: [],
+  rate: { value: 1, comment: 'the good doctor' },
+  isActive: true,
+  isContinue: false,
+  consultationPeriod: null,
+  startConsultation: null,
+  time: 0,
+  status: { statusId: 1, name: 'active' },
+  createdAt: 2021-07-07T10:16:37.653Z,
+  updatedAt: 2021-07-07T10:16:37.653Z,
+  id: 13
+}

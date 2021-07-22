@@ -1,0 +1,113 @@
+[
+    {
+        "name": "goves",
+        "en": "Goves",
+        "ar": "المحافظات"
+    },
+    {
+        "name": "goves_new",
+        "en": "New Gov",
+        "ar": "محافظة جديدة"
+    },
+    {
+        "name": "goves_add",
+        "en": "Add Gov",
+        "ar": "إضافة محافظة "
+    },
+    {
+        "name": "goves_edit",
+        "en": "Edit Gov",
+        "ar": "تعديل محافظة "
+    },
+    {
+        "name": "goves_details",
+        "en": "Gov Details",
+        "ar": "تفاصيل المحافظة "
+    },
+    {
+        "name": "goves_delete",
+        "en": "Delete Gov",
+        "ar": "حذف محافظة "
+    },
+    {
+        "name": "goves_name",
+        "en": "Gov Name",
+        "ar": "إسم المحافظة "
+    },
+    {
+        "name": "nameExist",
+        "en": "Name Exist",
+        "ar": "الاسم موجود من قبل "
+    },
+    {
+        "name": "phoneExist",
+        "en": "Phone Exist",
+        "ar": "الرقم موجود من قبل"
+    },
+    {
+        "name": "findUser",
+        "en": "Find User",
+        "ar": "تم العثور على مستخدم"
+    },
+    {
+        "name": "emailExist",
+        "en": "Email Exist",
+        "ar": "الايميل موجود من قبل"
+    },
+    {
+        "name": "userCreated",
+        "en": "User Created",
+        "ar": "تم اضافة مستخدم"
+    },
+    {
+        "name": "resetPassword",
+        "en": "Reset Password Successfully",
+        "ar": "تم استعادة كلمة السر بنجاح"
+    },
+    {
+        "name": "balanceRecharge",
+        "en": "balance recharged",
+        "ar": "تم شحن رصيد العميل"
+    },
+    {
+        "name": "wrongHappened",
+        "en": "something wrong happened during excution",
+        "ar": "حدث خطأ اقناء التنفيذ"
+    },
+    {
+        "name": "phoneNotFound",
+        "en": "Phone Number Not Found",
+        "ar": "رقم التليفون غير موجود"
+    },
+    {
+        "name": "accountActivated",
+        "en": "account Has Activated",
+        "ar": "تم تفعيل الحساب"
+    },
+    {
+        "name": "accountAlreadyActivated",
+        "en": "account Already Activated",
+        "ar": " الحساب مفعل من قبل"
+    },
+    {
+        "name": "codeResend",
+        "en": "code Resend",
+        "ar": "تم اعادة ارسال كود التفعيل"
+    },
+    {
+        "name": "findProfile",
+        "en": "find  Profile",
+        "ar": "تم العثور على الملف الشخصي"
+    },
+    {
+        "name": "noProfileFound",
+        "en": "No Profile Found",
+        "ar": "لم يتم العثور على الملف الشخصي"
+    },
+    {
+        "name": "userDeleted",
+        "en": "user Deleted",
+        "ar": "تم حذف العميل"
+    }
+    
+]

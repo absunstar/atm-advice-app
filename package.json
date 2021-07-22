@@ -1,0 +1,19 @@
+{
+  "name": "smart_code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "advice.js",
+  "scripts": {
+    "start": "node advice.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fcm-notification": "^2.0.0",
+    "isite": "^1.14.57",
+    "moment": "^2.29.1",
+    "ws": "^7.5.3",
+    "zklib": "^0.2.11"
+  }
+}
