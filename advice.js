@@ -17,16 +17,22 @@ const site = require('isite')({
 });
 
 
-// site.get({
-//   name: '/',
-//   path: site.dir + '/',
-// });
+site.get({
+  name: '/',
+  path: site.dir + '/',
+  require:{
+    permissions : []
+  }
+});
 
-// site.get({
-//   name: '/',
-//   path: site.dir + '/html/index.html',
-//   parser: 'html css js',
-// });
+site.get({
+  name: '/',
+  path: site.dir + '/html/index.html',
+  parser: 'html css js',
+  require:{
+    permissions : []
+  }
+});
 
 site.get({
   name : '/',
