@@ -375,73 +375,16 @@ module.exports = function init(site) {
     }
     $orders.findMany({
       where: {
-        'status.statusId': site.var('activeId'),
+
+        $and: [{
+          "user._id": String(req.session.user.ref_info._id)
+        }, {
+          'status.statusId': {
+            $in: [site.var('inProgressId'), site.var('onWayId'), site.var('activeId')]
+          },
+        }]
       },
-      limit: limit,
-      skip: skip
-      // status id 1 active
     }, (err, docs, count) => {
-      if (docs.length > 0) {
-        let now = new Date();
-        for (const iterator of docs) {
-          let end = new Date(iterator['createdAt']);
-          let diff = now.getHours() - end.getHours()
-          let time = 3
-          if (diff > time == true) {
-            $orders.edit({
-              where: {
-                'status.statusId': site.var('activeId'),
-                _id: iterator._id,
-                "user._id": req.session.user.ref_info._id,
-              },
-              set: {
-                'status.statusId': site.var('notActiveId'),
-                'status.name': site.var('notActive')
-              },
-            })
-          } else {
-            $orders.findMany({
-              where: {
-
-                $and: [{
-                  "user._id": String(req.session.user.ref_info._id)
-                }, {
-                  'status.statusId': {
-                    $in: [site.var('inProgressId'), site.var('onWayId'), site.var('activeId')]
-                  },
-                }]
-              },
-            }, (err, docs, count) => {
-              if (docs.length == 0) {
-                let obj = {}
-                obj.data = {
-                  docs : docs
-                }
-                obj.errorCode = site.var('failed')
-                obj.message = site.word('noActiveOrders')[req.headers.language]
-                obj.done = false
-                res.json(obj)
-                return
-              } else {
-                let response = {}
-                response.data = {
-                  docs: docs,
-                  totalDocs: count,
-                  limit: 10,
-                  totalPages: Math.ceil(count / 10)
-                }
-                response.message = site.word('ordersUpdated')[req.headers.language]
-                response.done = true,
-                  response.errorCode = site.var('succeed')
-                res.json(response)
-              }
-
-            })
-          }
-
-        }
-
-      }
       if (docs.length == 0) {
         let obj = {}
         obj.data = {
@@ -452,8 +395,22 @@ module.exports = function init(site) {
         obj.done = false
         res.json(obj)
         return
+      } else {
+        let response = {}
+        response.data = {
+          docs: docs,
+          totalDocs: count,
+          limit: 10,
+          totalPages: Math.ceil(count / 10)
+        }
+        response.message = site.word('findSuccessfully')[req.headers.language]
+        response.done = true,
+          response.errorCode = site.var('succeed')
+        res.json(response)
       }
+
     })
+   
   });
 
 

@@ -878,17 +878,17 @@ module.exports = function init(site) {
       where['city._id'] = where['city']._id;
       delete where['city']
     }
-    if (where['lat']) {
-      delete where['lat']
-    }
-    if (where['long']) {
-      delete where['long']
+    if (where['days']) {
+
     }
 
-    // var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    // var d = new Date(where['date']);
-    // var dayName = days[d.getDay()];
-    // console.log(dayName);
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var d = new Date();
+    var dayName = days[d.getDay()];
+    console.log("1111111111111111111111111111111111111111111111111111", dayName == where['day']);
+
+
+
     let doctor_doc = req.body
     let lat = doctor_doc.lat
     let long = doctor_doc.long
@@ -937,7 +937,136 @@ module.exports = function init(site) {
         res.json(response)
       } else {
 
+        response.docs = docs || []
+        response.errorCode = site.var('failed')
+        response.message = site.word('findFailed')[req.headers.language]
+        response.done = false;
+        res.json(response)
+      }
+
+    })
+
+
+    // $doctors.findMany({
+    //   select: req.body.select || {},
+    //   where: where,
+    //   sort: req.body.sort || {
+    //     id: -1,
+    //   },
+    //   limit: req.body.limit || 10,
+    // },
+    //   (err, docs, count) => {
+    //     if (docs.length > 0) {
+    //       response.done = true
+    //       response.docs = docs
+    //       response.totalDocs = count
+    //       response.limit = 10
+    //       response.totalPages = Math.ceil(response.totalDocs / response.limit)
+    //     } else {
+    //       response.docs = docs
+    //       response.errorCode = site.var('failed')
+    //       response.message = site.word('findFailed')[req.headers.language]
+    //       response.done = false;
+    //     }
+    //     res.json(response);
+    //   },
+    // );
+  });
+
+
+
+
+
+
+
+  // Search doctors By Available Days 
+  site.post('/api/doctors/searchByDays', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {
+      done: false,
+    };
+
+
+    let doctor_doc = req.body
+    let lat = doctor_doc.lat
+    let long = doctor_doc.long
+    let daysArr = doctor_doc.days.map(li => li.day)
+    let limit = 10;
+    let skip;
+
+    if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+      skip = (parseInt(req.query.page) - 1) * 10
+    }
+    $doctors.aggregate([{
+        "$geoNear": {
+          "near": {
+            "type": "Point",
+            "coordinates": [
+              lat,
+              long
+            ]
+          },
+          "distanceField": "distance",
+          "spherical": true
+        }
+      },
+      {
+        "$unwind": {
+          "path": "$days"
+
+        }
+      },
+      {
+        "$project": {
+          "_id": 1.0,
+          "days": 1.0
+        }
+      },
+      {
+        "$addFields": {
+          "day": {
+            "$dayOfWeek": "$days.date"
+          }
+        }
+      },
+      {
+        "$match": {
+          "day": {
+            "$in": daysArr
+          }
+        }
+      },
+      {
+        "$lookup": {
+          "from": "doctors",
+          "localField": "_id",
+          "foreignField": "_id",
+          "as": "doctor"
+        }
+      },
+      {
+        "$unwind": {
+          "path": "$doctor"
+        }
+      },
+      {
+        $skip: skip || 0
+      },
+      {
+        $limit: limit
+      }
+
+    ], (err, docs) => {
+      if (docs && docs.length > 0) {
+        response.done = true
         response.docs = docs
+        response.totalDocs = docs.length
+        response.limit = 10
+        response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        res.json(response)
+      } else {
+
+        response.docs = docs || []
         response.errorCode = site.var('failed')
         response.message = site.word('findFailed')[req.headers.language]
         response.done = false;

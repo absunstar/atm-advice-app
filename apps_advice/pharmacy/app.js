@@ -277,7 +277,7 @@ module.exports = function init(site) {
           }, (err, result) => {
 
 
-            response.done = true
+            response.done = false
             response.message = site.word('acountNotAvailable')[req.headers.language]
             response.errorCode = site.var('succeed')
 

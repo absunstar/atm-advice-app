@@ -149,8 +149,8 @@ app.controller("gov", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: "POST",
-      url: "/api/gov/all",
+      method: "GET",
+      url: "/api/gov",
       data: {
         where: where
       }
@@ -173,7 +173,7 @@ app.controller("gov", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getNumberingAuto = function () {
+/*   $scope.getNumberingAuto = function () {
     $scope.error = '';
     $scope.busy = true;
     $http({
@@ -194,7 +194,7 @@ app.controller("gov", function ($scope, $http, $timeout) {
         $scope.error = err;
       }
     )
-  };
+  }; */
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
@@ -210,5 +210,4 @@ app.controller("gov", function ($scope, $http, $timeout) {
   };
 
   $scope.getGovList();
-  $scope.getNumberingAuto();
 });
