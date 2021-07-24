@@ -3,8 +3,19 @@ module.exports = function init(site) {
   const $notificationData = site.connectCollection('notificationData');
   const $rating = site.connectCollection('rating');
 
-  let ObjectID = require('mongodb').ObjectID
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
 
+  site.get({
+    name: 'orders',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
   // Add New Gov With Not Duplicate Name Validation
 
   site.post('/api/orders/add', (req, res) => {

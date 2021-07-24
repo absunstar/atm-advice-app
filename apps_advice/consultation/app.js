@@ -5,7 +5,19 @@ module.exports = function init(site) {
   const $insuranceCompany = site.connectCollection('insuranceCompany');
 
 
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
 
+  site.get({
+    name: 'consultation',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
   // Add New consultation With Not Duplicate Name Validation
 
   site.post('/api/consultation/add', (req, res) => {

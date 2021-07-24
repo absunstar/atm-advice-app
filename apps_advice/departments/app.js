@@ -1,6 +1,18 @@
 module.exports = function init(site) {
   const $departments = site.connectCollection('departments');
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
 
+  site.get({
+    name: 'departments',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
 
   // Add New departments With Not Duplicate Name Validation
 

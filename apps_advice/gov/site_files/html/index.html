@@ -18,11 +18,11 @@
     <div id="main-layout" class="container loaded">
         <div class="row">
             <div class="row" ng-controller="gov">
-                <div x-permissions="gov_add || gov_manage" x-import="gov/add_modal.html"></div>
-                <div x-permissions="gov_update || gov_manage" x-import="gov/update_modal.html"></div>
-                <div x-permissions="gov_delete || gov_manage" x-import="gov/delete_modal.html"></div>
-                <div x-permissions="gov_view || gov_manage" x-import="gov/view_modal.html"></div>
-                <div x-permissions="gov_search || gov_manage" x-import="gov/search_all_modal.html"></div>
+                <div  x-import="gov/add_modal.html"></div>
+                <div x-import="gov/update_modal.html"></div>
+                <div  x-import="gov/delete_modal.html"></div>
+                <div  x-import="gov/view_modal.html"></div>
+                <div x-import="gov/search_all_modal.html"></div>
 
                 <div class="row">
                     <h1 class="bold text-center">##word.goves##</h1>
@@ -31,10 +31,9 @@
                 <div class="top-actions">
                     <i-button  type="add" label="##word.goves_new##" ng-click="displayAddGov()"></i-button>
 
-                    <i-button x-permissions="gov_search || gov_manage" type="search" label="##word.search_all##"
+                    <i-button  type="search" label="##word.search_all##"
                         ng-click="displaySearchModal()"></i-button>
 
-                    <a class="btn left bg-green" target="blank" href="/area"> ##word.area_add##</a>
                     <a class="btn left bg-green" target="blank" href="/city"> ##word.city_add##</a>
                     <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
                     <h3 class="bold text-center red"> {{error}}</h3>

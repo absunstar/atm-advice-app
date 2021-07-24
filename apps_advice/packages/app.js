@@ -1,43 +1,19 @@
 module.exports = function init(site) {
   const $packages = site.connectCollection('packages');
 
-  // site.get({
-  //   name: 'images',
-  //   path: __dirname + '/site_files/images/',
-  // });
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
 
-  // site.get({
-  //   name: 'packages',
-  //   path: __dirname + '/site_files/html/index.html',
-  //   parser: 'html',
-  //   compress: true,
-  // });
-
-  // site.on('[company][created]', (doc) => {
-  //   $packages.add(
-  //     {
-  //       code: "1-Test",
-  //       name_ar: 'محافظة إفتراضية',
-  //       name_en: "Default packages",
-  //       image_url: '/images/packages.png',
-  //       company: {
-  //         id: doc.id,
-  //         name_ar: doc.name_ar,
-  //         name_en: doc.name_en
-  //       },
-  //       branch: {
-  //         code: doc.branch_list[0].code,
-  //         name_ar: doc.branch_list[0].name_ar,
-  //         name_en: doc.branch_list[0].name_en
-  //       },
-  //       active: true,
-  //     },
-  //     (err, doc1) => {
-  //       site.call('[register][city][add]', doc1);
-  //     },
-  //   );
-  // });
-
+  site.get({
+    name: 'packages',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
 
   // Add New packages With Not Duplicate Name Validation
 

@@ -1,98 +1,19 @@
 module.exports = function init(site) {
   const $degree = site.connectCollection('degree');
 
-  // site.get({
-  //   name: 'images',
-  //   path: __dirname + '/site_files/images/',
-  // });
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
 
-  // site.get({
-  //   name: 'degree',
-  //   path: __dirname + '/site_files/html/index.html',
-  //   parser: 'html',
-  //   compress: true,
-  // });
-
-  // site.on('[company][created]', (doc) => {
-  //   $degree.add(
-  //     {
-  //       code: "1-Test",
-  //       name_ar: 'محافظة إفتراضية',
-  //       name_en: "Default Degree",
-  //       image_url: '/images/degree.png',
-  //       company: {
-  //         id: doc.id,
-  //         name_ar: doc.name_ar,
-  //         name_en: doc.name_en
-  //       },
-  //       branch: {
-  //         code: doc.branch_list[0].code,
-  //         name_ar: doc.branch_list[0].name_ar,
-  //         name_en: doc.branch_list[0].name_en
-  //       },
-  //       active: true,
-  //     },
-  //     (err, doc1) => {
-  //       site.call('[register][city][add]', doc1);
-  //     },
-  //   );
-  // });
-
-
-
-
-  site.on('[test][city][+]', (obj, callback, next) => {
-console.log("from degree" , obj);
-    // $safes.find({
-    //   id: obj.safe.id,
-    // }, (err, doc) => {
-    //   if (!err && doc) {
-    //     doc.pre_balance = doc.balance
-    //     if (obj.transition_type == 'in')
-    //       doc.balance = site.toNumber(doc.balance) + site.toNumber(obj.value)
-    //     if (obj.transition_type == 'out')
-    //       doc.balance = site.toNumber(doc.balance) - site.toNumber(obj.value)
-    //     doc.description = obj.description
-    //     $safes.update(doc, (err, result) => {
-
-    //       if (!err) {
-    //         $safes.find({
-    //           id: result.doc.id
-    //         }, (err, doc) => {
-    //           obj.pre_balance = doc.pre_balance
-    //           obj.image_url = doc.image_url
-    //           obj.company = doc.company
-    //           obj.branch = doc.branch
-    //           obj.balance = doc.balance
-
-    //           site.quee('[safes][safes_payments][+]', Object.assign({}, obj))
-    //         })
-    //       }
-    //       next()
-    //     })
-    //   } else {
-    //     next()
-    //   }
-    // })
-  })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  site.get({
+    name: 'degree',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
 
   // Add New Degree With Not Duplicate Name Validation
 

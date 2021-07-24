@@ -1,7 +1,19 @@
 module.exports = function init(site) {
   const $insuranceCompany = site.connectCollection('insuranceCompany');
 
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
 
+  site.get({
+    name: 'insuranceCompany',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
   // Add New InsuranceCompany With Not Duplicate Name Validation
 
   site.post('/api/insuranceCompany/add', (req, res) => {

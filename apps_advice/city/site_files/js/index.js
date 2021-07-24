@@ -148,8 +148,8 @@ app.controller("city", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: "POST",
-      url: "/api/city/all",
+      method: "GET",
+      url: "/api/city",
       data: {
         where: where
       }
@@ -175,14 +175,14 @@ app.controller("city", function ($scope, $http, $timeout) {
   $scope.getGovesList = function (where) {
     $scope.busy = true;
     $http({
-      method: "POST",
-      url: "/api/goves/all",
+      method: "GET",
+      url: "/api/gov",
       data: {
         where: {
           active: true
         },
         select: {
-          id: 1, name_ar: 1, name_en: 1
+          id: 1, name: 1
         }
       }
     }).then(
@@ -200,28 +200,7 @@ app.controller("city", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getNumberingAuto = function () {
-    $scope.error = '';
-    $scope.busy = true;
-    $http({
-      method: "POST",
-      url: "/api/numbering/get_automatic",
-      data: {
-        screen: "city"
-      }
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          $scope.disabledCode = response.data.isAuto;
-        }
-      },
-      function (err) {
-        $scope.busy = false;
-        $scope.error = err;
-      }
-    )
-  };
+
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
@@ -240,5 +219,4 @@ app.controller("city", function ($scope, $http, $timeout) {
 
   $scope.getCityList();
   $scope.getGovesList();
-  $scope.getNumberingAuto();
 });

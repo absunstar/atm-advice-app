@@ -2,8 +2,20 @@ module.exports = function init(site) {
   const $city = site.connectCollection("city")
   const $gov = site.connectCollection("gov")
 
-  let ObjectID = require('mongodb').ObjectID
-  // var firebase = require('firebase');
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
+
+  site.get({
+    name: 'city',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
+
 
   site.post("/api/city/add", async (req, res) => {
     let response = {

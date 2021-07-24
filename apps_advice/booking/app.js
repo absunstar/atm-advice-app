@@ -3,6 +3,20 @@ module.exports = function init(site) {
   const $doctors = site.connectCollection('doctors');
   const $notificationData = site.connectCollection('notificationData');
 
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
+
+  site.get({
+    name: 'booking',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
+
   let ObjectID = require('mongodb').ObjectID
 
   // Add New booking With Not Duplicate Name Validation

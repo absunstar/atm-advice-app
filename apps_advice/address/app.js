@@ -1,7 +1,19 @@
 module.exports = function init(site) {
   const $address = site.connectCollection('address');
 
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
 
+  site.get({
+    name: 'address',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
 
   // Add New Address
 

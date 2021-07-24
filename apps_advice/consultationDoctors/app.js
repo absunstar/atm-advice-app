@@ -3,6 +3,19 @@ module.exports = function init(site) {
   const $consultation = site.connectCollection('consultation');
   let ObjectID = require('mongodb').ObjectID
 
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
+
+  site.get({
+    name: 'consultationDoctors',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
 
   // Add New consultationDoctors With Not Duplicate Name Validation
 

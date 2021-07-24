@@ -1,10 +1,20 @@
 module.exports = function init(site) {
   const $pharmacy = site.connectCollection('pharmacy');
   const $orders = site.connectCollection('orders');
-  let ObjectID = require('mongodb').ObjectID
-  // const FCM = require('fcm-notification')
-  // const serverKey = require('../../advice-a7486-firebase-adminsdk-atfnt-d3a2c46583.json')
-  // const fcm = new FCM(serverKey);
+ 
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
+
+  site.get({
+    name: 'pharmacy',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
 
   site.on('[orders][pharmacy][show]', (obj, callback) => {
     let response = {}

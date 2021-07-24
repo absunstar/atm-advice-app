@@ -1,42 +1,19 @@
 module.exports = function init(site) {
   const $rating = site.connectCollection('rating');
 
-  // site.get({
-  //   name: 'images',
-  //   path: __dirname + '/site_files/images/',
-  // });
+  site.get({
+    name: 'images',
+    path: __dirname + '/site_files/images/'
+    ,require : {permissions : []}
+  });
 
-  // site.get({
-  //   name: 'rating',
-  //   path: __dirname + '/site_files/html/index.html',
-  //   parser: 'html',
-  //   compress: true,
-  // });
-
-  // site.on('[company][created]', (doc) => {
-  //   $rating.add(
-  //     {
-  //       code: "1-Test",
-  //       name_ar: 'محافظة إفتراضية',
-  //       name_en: "Default Rating",
-  //       image_url: '/images/rating.png',
-  //       company: {
-  //         id: doc.id,
-  //         name_ar: doc.name_ar,
-  //         name_en: doc.name_en
-  //       },
-  //       branch: {
-  //         code: doc.branch_list[0].code,
-  //         name_ar: doc.branch_list[0].name_ar,
-  //         name_en: doc.branch_list[0].name_en
-  //       },
-  //       active: true,
-  //     },
-  //     (err, doc1) => {
-  //       site.call('[register][city][add]', doc1);
-  //     },
-  //   );
-  // });
+  site.get({
+    name: 'rating',
+    path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
 
 
   // Add New Rating With Not Duplicate Name Validation
