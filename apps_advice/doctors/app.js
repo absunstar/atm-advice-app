@@ -5,7 +5,7 @@ module.exports = function init(site) {
   site.get({
     name: 'images',
     path: __dirname + '/site_files/images/'
-    ,require : {permissions : []}
+    , require: { permissions: [] }
   });
 
   site.get({
@@ -13,7 +13,7 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
-    require : {permissions : []}
+    require: { permissions: [] }
   });
 
   // Add New Doctors With Not Duplicate Name Validation
@@ -180,24 +180,25 @@ module.exports = function init(site) {
     let doctor_doc = req.body
     req.headers.language = req.headers.language || "en"
     $doctors.findMany({
-        select: req.body.select || {},
-        sort: req.body.sort || {
-          id: -1,
-        },
-        where: {
-          'department._id': String(doctor_doc.department._id),
-          isAvailable: true,
-          isActive: true
-        },
-        limit: req.body.limit || 10,
+      select: req.body.select || {},
+      sort: req.body.sort || {
+        id: -1,
       },
+      where: {
+        'department._id': String(doctor_doc.department._id),
+        isAvailable: true,
+        isActive: true
+      },
+      limit: req.body.limit || 10,
+    },
       (err, docs, count) => {
         if (!err && docs) {
-          response.docs = docs
-          response.totalDocs = count
-          response.limit = 10
-          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+          response.data = { docs: docs, totalDocs: count, limit: 10, totalPages : Math.ceil(count / 10) }
+          response.errorCode = site.var('succeed')
+          response.message = site.word('findSuccessfully')[req.headers.language]
+          response.done = true;
         } else {
+          response.docs = []
           response.errorCode = site.var('failed')
           response.message = site.word('findFailed')[req.headers.language]
           response.done = false;
@@ -218,44 +219,73 @@ module.exports = function init(site) {
   site.post("/api/doctors/getDoctorDuringDistance", (req, res) => {
 
     let response = {}
+    let where = {
+      ...req.body
+    };
     let doctor_doc = req.body
+    let limit = 10;
+    let skip;
+
+    if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+      skip = (parseInt(req.query.page) - 1) * 10
+    }
     let distance = 30 * 1000
     req.headers.language = req.headers.language || 'en'
+    if ( where['department'] && where['department']._id != "") {
+      where['department._id'] = where['department']._id;
+      delete where['department']
+    }
+    if ( where['department'] && where['department']._id == "") {
+      delete where['department']
+    }
+
+
+
     $doctors.aggregate([{
-        "$geoNear": {
-          "near": {
-            "type": "Point",
-            "coordinates": [
-              doctor_doc.lat,
-              doctor_doc.long
-            ]
-          },
-          "distanceField": "distance",
-          "maxDistance": distance,
-          "spherical": true
-        }
-      },
-      {
-        "$sort": {
-          "distance": 1.0
-        }
-      },
-      {
-        "$match": {
-          "department._id": doctor_doc.departmentId,
-          isAvailable: true,
-          isActive: true
-        }
+      "$geoNear": {
+        "near": {
+          "type": "Point",
+          "coordinates": [
+            doctor_doc.lat,
+            doctor_doc.long
+          ]
+        },
+        "distanceField": "distance",
+        "maxDistance": distance,
+        "spherical": true
       }
+    },
+    {
+      "$sort": {
+        "distance": 1.0
+      }
+    },
+    {
+      "$match": where
+    },
+    {
+      "$match": {
+        "isActive": true,
+        "isAvailable": true
+      }
+    }
 
     ], (err, docs) => {
       if (docs && docs.length > 0) {
-        response.docs = docs
+        response.done = true
+        response.data = {
+          docs: docs,
+          totalDocs: docs.length,
+          limit: 10,
+          totalPages: Math.ceil(docs.length / 10)
+        }
         response.errorCode = site.var('succeed')
         response.message = site.word('findSuccessfully')[req.headers.language]
         res.json(response)
-      } else {
 
+      } else {
+        response.done = false
+        response.docs = []
         response.errorCode = site.var('failed')
         response.message = site.word('findFailed')[req.headers.language]
         res.json(response)
@@ -271,40 +301,52 @@ module.exports = function init(site) {
     req.headers.language = req.headers.language || 'en'
     let response = {}
     let doctor_doc = req.body
+    let where = {
+      ...req.body
+    };
+    if ( where['department'] && where['department']._id != "") {
+      where['department._id'] = where['department']._id;
+      delete where['department']
+    }
+    if ( where['department'] && where['department']._id == "") {
+      delete where['department']
+    }
     $doctors.aggregate([{
-        "$geoNear": {
-          "near": {
-            "type": "Point",
-            "coordinates": [
-              doctor_doc.lat,
-              doctor_doc.long
-            ]
-          },
-          "distanceField": "distance",
-          "spherical": true
-        }
-      },
-      {
-        "$match": {
-          "department._id": doctor_doc.department._id
-        }
-      },
-      {
-        "$sort": {
-          "rating": -1.0
-        }
+      "$geoNear": {
+        "near": {
+          "type": "Point",
+          "coordinates": [
+            doctor_doc.lat,
+            doctor_doc.long
+          ]
+        },
+        "distanceField": "distance",
+        "spherical": true
       }
+    },
+    {
+      "$match": where
+    },
+    {
+      "$sort": {
+        "rating": -1.0
+      }
+    }
 
 
     ], (err, docs) => {
 
       if (docs && docs.length > 0) {
-        response.docs = docs
+        response.data = {
+          docs: docs, totalDocs: docs.length,
+          limit: 10,
+          totalPages: Math.ceil(docs.length / 10)
+        }
         response.errorCode = site.var('succeed')
         response.message = site.word('findSuccessfully')[req.headers.language]
         res.json(response)
       } else {
-
+        response.docs = []
         response.errorCode = site.var('failed')
         response.message = site.word('findFailed')[req.headers.language]
         res.json(response)
@@ -563,19 +605,19 @@ module.exports = function init(site) {
           res.json(response)
 
         $rating.aggregate([{
-            "$match": {
-              "type": "doctor",
-              "target._id": doctors_doc.doctor._id
-            }
-          },
-          {
-            "$group": {
-              "_id": null,
-              "avgRating": {
-                "$avg": "$rating"
-              }
+          "$match": {
+            "type": "doctor",
+            "target._id": doctors_doc.doctor._id
+          }
+        },
+        {
+          "$group": {
+            "_id": null,
+            "avgRating": {
+              "$avg": "$rating"
             }
           }
+        }
         ], (err, docs) => {
           console.log(docs);
           if (docs && docs.length > 0) {
@@ -665,13 +707,13 @@ module.exports = function init(site) {
     }
     let response = {}
     $doctors.findMany({
-        select: req.body.select || {},
-        sort: req.body.sort || {
-          id: -1,
-        },
-        limit: limit,
-        skip: skip
+      select: req.body.select || {},
+      sort: req.body.sort || {
+        id: -1,
       },
+      limit: limit,
+      skip: skip
+    },
       (err, docs, count) => {
         if (!err) {
 
@@ -696,11 +738,11 @@ module.exports = function init(site) {
     req.headers.language = req.headers.language || 'en'
     let response = {}
     $doctors.findOne({
-        where: {
-          _id: req.params.id,
-        },
-
+      where: {
+        _id: req.params.id,
       },
+
+    },
       (err, doc) => {
         if (!err && doc) {
           response.data = doc
@@ -729,10 +771,10 @@ module.exports = function init(site) {
 
     if (id) {
       $doctors.delete({
-          _id: id,
-          $req: req,
-          $res: res,
-        },
+        _id: id,
+        $req: req,
+        $res: res,
+      },
         (err, result) => {
           if (!err) {
             response.done = true,
@@ -800,6 +842,10 @@ module.exports = function init(site) {
       delete where.toPrice
     }
 
+    if (where['name']) {
+      where['name'] = site.get_RegExp(where['name'], 'i');
+    }
+
     if (where['degree']) {
       where['degree._id'] = where['degree']._id;
       delete where['degree']
@@ -812,15 +858,6 @@ module.exports = function init(site) {
       where['city._id'] = where['city']._id;
       delete where['city']
     }
-    if (where['days']) {
-
-    }
-
-    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    var d = new Date();
-    var dayName = days[d.getDay()];
-    console.log("1111111111111111111111111111111111111111111111111111", dayName == where['day']);
-
 
 
     let doctor_doc = req.body
@@ -834,32 +871,32 @@ module.exports = function init(site) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
     $doctors.aggregate([{
-        "$geoNear": {
-          "near": {
-            "type": "Point",
-            "coordinates": [
-              lat,
-              long
-            ]
-          },
-          "distanceField": "distance",
-          "spherical": true
-        }
-      },
-      {
-        "$match": where
-      },
-      {
-        "$sort": {
-          "rating": -1.0
-        }
-      },
-      {
-        $skip: skip || 0
-      },
-      {
-        $limit: limit
+      "$geoNear": {
+        "near": {
+          "type": "Point",
+          "coordinates": [
+            lat,
+            long
+          ]
+        },
+        "distanceField": "distance",
+        "spherical": true
       }
+    },
+    {
+      "$match": where
+    },
+    {
+      "$sort": {
+        "rating": -1.0
+      }
+    },
+    {
+      $skip: skip || 0
+    },
+    {
+      $limit: limit
+    }
 
     ], (err, docs) => {
       if (docs && docs.length > 0) {
@@ -932,63 +969,63 @@ module.exports = function init(site) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
     $doctors.aggregate([{
-        "$geoNear": {
-          "near": {
-            "type": "Point",
-            "coordinates": [
-              lat,
-              long
-            ]
-          },
-          "distanceField": "distance",
-          "spherical": true
-        }
-      },
-      {
-        "$unwind": {
-          "path": "$days"
-
-        }
-      },
-      {
-        "$project": {
-          "_id": 1.0,
-          "days": 1.0
-        }
-      },
-      {
-        "$addFields": {
-          "day": {
-            "$dayOfWeek": "$days.date"
-          }
-        }
-      },
-      {
-        "$match": {
-          "day": {
-            "$in": daysArr
-          }
-        }
-      },
-      {
-        "$lookup": {
-          "from": "doctors",
-          "localField": "_id",
-          "foreignField": "_id",
-          "as": "doctor"
-        }
-      },
-      {
-        "$unwind": {
-          "path": "$doctor"
-        }
-      },
-      {
-        $skip: skip || 0
-      },
-      {
-        $limit: limit
+      "$geoNear": {
+        "near": {
+          "type": "Point",
+          "coordinates": [
+            lat,
+            long
+          ]
+        },
+        "distanceField": "distance",
+        "spherical": true
       }
+    },
+    {
+      "$unwind": {
+        "path": "$days"
+
+      }
+    },
+    {
+      "$project": {
+        "_id": 1.0,
+        "days": 1.0
+      }
+    },
+    {
+      "$addFields": {
+        "day": {
+          "$dayOfWeek": "$days.date"
+        }
+      }
+    },
+    {
+      "$match": {
+        "day": {
+          "$in": daysArr
+        }
+      }
+    },
+    {
+      "$lookup": {
+        "from": "doctors",
+        "localField": "_id",
+        "foreignField": "_id",
+        "as": "doctor"
+      }
+    },
+    {
+      "$unwind": {
+        "path": "$doctor"
+      }
+    },
+    {
+      $skip: skip || 0
+    },
+    {
+      $limit: limit
+    }
 
     ], (err, docs) => {
       if (docs && docs.length > 0) {

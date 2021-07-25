@@ -328,7 +328,6 @@ module.exports = function init(site) {
             company: req.body.company,
             branch: req.body.branch,
           });
-
           response.user = {
             id: user.id,
             _id: user._id,
@@ -336,6 +335,7 @@ module.exports = function init(site) {
             permissions: user.permissions,
             company: req.body.company,
             branch: req.body.branch,
+            ref_info : user.ref_info
           };
 
           response.done = true;

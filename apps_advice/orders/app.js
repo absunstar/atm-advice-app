@@ -103,19 +103,7 @@ module.exports = function init(site) {
         createdAt: new Date(),
       }
       $notificationData.add(notificationObj);
-      // let token = "fZbFSBcPQCO8v6Y6UjlOyF:APA91bHtFpsJ9HiJy36sZ1_2HFYQTItjddVQyM8srPQBohaLXk6Wix2v_gnlAKFDX4ts-KYmpJ_6Su9h-WcibYyM7uWtJHYQNZ2voTJD14lEgqqdt7JrrIlOJLyQlclrR2nQow_dJe2e"
-      // let obj = {
-      //   orders_doc: doc,
-      //   message: {
-
-      //     token: token,
-      //     notification: {
-      //       title: "tttttttttt",
-      //       body: 'receive New Order',
-      //     }
-      //   },
-      // }
-      // site.call('[orders][pharmacy][show]', obj)
+      
     });
 
 
@@ -999,13 +987,11 @@ skip : skip
 
 
   // Search Orders
-  let page
   site.post(`/api/orders/search`, (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {
       done: false,
     };
-    console.log(parseInt(req.query.page));
     let where = req.body || {};
 
     if (where['fullName']) {
@@ -1074,4 +1060,36 @@ skip : skip
       },
     );
   });
+ setInterval(() => {
+  $orders.findMany({
+    where: {
+      'status.statusId': site.var('activeId'),
+    },
+  }, (err, docs, count) => {
+    if (docs.length > 0) {
+      let now = new Date();
+      for (const iterator of docs) {
+        let end = new Date(iterator['createdAt']);
+        let xDiff = Math.abs(now - end) / 36e5
+        let time = 3
+        if (xDiff > time == true) {
+          $orders.edit({
+            where: {
+              'status.statusId': site.var('activeId'),
+            },
+            set: {
+              'status.statusId': site.var('notActiveId'),
+              'status.name': site.var('notActive')
+            },
+          })
+        } 
+
+      }
+
+    }
+    if (docs.length == 0) {
+      return
+    }
+  })
+ }, 20*60*1000);
 };

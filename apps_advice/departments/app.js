@@ -66,6 +66,37 @@ module.exports = function init(site) {
    
   });
 
+   // add image to departments
+   site.post('/api/departments/upload/image/departments', (req, res) => {
+    let response = {}
+    req.headers.language = req.headers.language || 'en'
+
+    site.createDir(site.dir + '/../../uploads/' + 'departments', () => {
+      site.createDir(site.dir + '/../../uploads/' + 'departments' + '/images', () => {
+        let response = {
+          done: !0,
+        };
+        let file = req.files.fileToUpload;
+        if (file) {
+          let newName = 'image_' + new Date().getTime().toString().replace('.', '_') + '.png';
+          let newpath = site.dir + '/../../uploads/' + 'departments' + '/images/' + newName;
+          site.mv(file.path, newpath, function (err) {
+            if (err) {
+              response.error = err;
+              response.done = !1;
+            }
+            response.image_url = '/api/image/' + 'departments' + '/' + newName;
+            res.json(response);
+          });
+        } else {
+          response.error = 'no file';
+          response.done = !1;
+          res.json(response);
+        }
+      });
+    });
+  });
+
   // Update departments 
 
   site.post('/api/departments/update/:id', (req, res) => {
