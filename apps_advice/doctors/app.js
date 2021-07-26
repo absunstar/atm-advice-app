@@ -193,7 +193,7 @@ module.exports = function init(site) {
     },
       (err, docs, count) => {
         if (!err && docs) {
-          response.data = { docs: docs, totalDocs: count, limit: 10, totalPages : Math.ceil(count / 10) }
+          response.data = { docs: docs, totalDocs: count, limit: 10, totalPages: Math.ceil(count / 10) }
           response.errorCode = site.var('succeed')
           response.message = site.word('findSuccessfully')[req.headers.language]
           response.done = true;
@@ -231,11 +231,11 @@ module.exports = function init(site) {
     }
     let distance = 30 * 1000
     req.headers.language = req.headers.language || 'en'
-    if ( where['department'] && where['department']._id != "") {
+    if (where['department'] && where['department']._id != "") {
       where['department._id'] = where['department']._id;
       delete where['department']
     }
-    if ( where['department'] && where['department']._id == "") {
+    if (where['department'] && where['department']._id == "") {
       delete where['department']
     }
 
@@ -304,11 +304,11 @@ module.exports = function init(site) {
     let where = {
       ...req.body
     };
-    if ( where['department'] && where['department']._id != "") {
+    if (where['department'] && where['department']._id != "") {
       where['department._id'] = where['department']._id;
       delete where['department']
     }
-    if ( where['department'] && where['department']._id == "") {
+    if (where['department'] && where['department']._id == "") {
       delete where['department']
     }
     $doctors.aggregate([{
@@ -717,11 +717,13 @@ module.exports = function init(site) {
       (err, docs, count) => {
         if (!err) {
 
-
-          response.docs = docs
-          response.totalDocs = count
-          response.limit = 10
-          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+          response.data = {
+            docs : docs,
+            totalDocs : docs.length,
+            limit : 10,
+            totalPages : Math.ceil(docs.length / 10)
+          }
+         
         } else {
           response.error = err.message;
         }
@@ -803,16 +805,25 @@ module.exports = function init(site) {
     };
 
 
-
-    if (where['gender']) {
+    if (where['gender'] == undefined) {
+      delete where['gender'];
+    }
+    if (where['gender'] != undefined && where['gender'] != "") {
       where['gender'] = String(where['gender']);
     }
-
-    if (where['rating']) {
-      where['rating'] = Number(where['rating']);
+    if (where['gender'] != undefined && where['gender'] == "") {
+      delete where['gender'];
     }
 
-    if (where.fromPrice && where.toPrice) {
+
+    if (where['rating'] && where['rating'] != -1) {
+      where['rating'] = Number(where['rating']);
+    }
+    if (where['rating'] && where['rating'] == -1) {
+      delete where['rating'];
+    }
+
+    if (where.fromPrice && where.fromPrice != -1 && where.toPrice && where.toPrice != -1) {
       let d1 = Number(where.fromPrice)
       let d2 = Number(where.toPrice)
 
@@ -823,39 +834,59 @@ module.exports = function init(site) {
       delete where.toPrice
       delete where.fromPrice
     }
-    if (where.fromPrice) {
+    if (where.fromPrice && where.fromPrice == -1) {
+      delete where.fromPrice
+    }
+    if (where.fromPrice && where.fromPrice != -1) {
       let d1 = Number(where.fromPrice)
-
-
       where.price = {
         '$gte': d1
       }
       delete where.fromPrice
     }
-    if (where.toPrice) {
+    if (where.toPrice && where.toPrice != -1) {
       let d1 = Number(where.toPrice)
-
-
       where.price = {
         '$lte': d1
       }
       delete where.toPrice
     }
-
-    if (where['name']) {
+    if (where.toPrice && where.toPrice == -1) {
+      delete where.toPrice
+    }
+    if (where['name'] == undefined) {
+      delete where['name'];
+    }
+    if (where['name'] != undefined && where['name'] != "") {
       where['name'] = site.get_RegExp(where['name'], 'i');
     }
+    if (where['name'] != undefined && where['name'] == "") {
+      delete where['name'];
+    }
 
-    if (where['degree']) {
+    if (where['degree'] && where['degree']._id != "") {
       where['degree._id'] = where['degree']._id;
       delete where['degree']
     }
-    if (where['department']) {
+
+    if (where['degree'] && where['degree']._id == "") {
+      delete where['degree']
+    }
+
+    if (where['department'] && where['department']._id != "") {
       where['department._id'] = where['department']._id;
       delete where['department']
     }
-    if (where['city']) {
+    if (where['department'] && where['department']._id == "") {
+      delete where['department']
+    }
+
+    if (where['city'] && where['city']._id != "") {
       where['city._id'] = where['city']._id;
+      delete where['city']
+    }
+
+    if (where['city'] && where['city']._id == "") {
       delete where['city']
     }
 
@@ -901,10 +932,12 @@ module.exports = function init(site) {
     ], (err, docs) => {
       if (docs && docs.length > 0) {
         response.done = true
-        response.docs = docs
-        response.totalDocs = docs.length
-        response.limit = 10
-        response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        response.data = {
+          docs : docs,
+          totalDocs : docs.length,
+          limit : 10,
+          totalPages : Math.ceil(docs.length / 10)
+        }
         res.json(response)
       } else {
 
@@ -961,7 +994,7 @@ module.exports = function init(site) {
     let doctor_doc = req.body
     let lat = doctor_doc.lat
     let long = doctor_doc.long
-    let daysArr = doctor_doc.days.map(li => li.day)
+    let daysArr = doctor_doc.selectedDay.map(li => li.day)
     let limit = 10;
     let skip;
 
@@ -1030,10 +1063,13 @@ module.exports = function init(site) {
     ], (err, docs) => {
       if (docs && docs.length > 0) {
         response.done = true
-        response.docs = docs
-        response.totalDocs = docs.length
-        response.limit = 10
-        response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        response.data = {
+          docs : docs,
+          totalDocs : docs.length,
+          limit : 10,
+          totalPages : Math.ceil(docs.length / 10)
+        }
+       
         res.json(response)
       } else {
 

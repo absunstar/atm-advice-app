@@ -82,7 +82,9 @@ module.exports = function init(site) {
       });
       orders_doc.image = combined
     }
-
+if (orders_doc.address && orders_doc.address.lat && orders_doc.address.long) {
+  orders_doc.location =  new Array(orders_doc.address.lat, orders_doc.address.long)
+}
     $orders.add(orders_doc, (err, doc) => {
       if (!err) {
         response.data = doc;
@@ -372,6 +374,7 @@ module.exports = function init(site) {
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
+    console.log(req.session.user.ref_info._id);
     $orders.findMany({
       where: {
 
@@ -383,6 +386,8 @@ module.exports = function init(site) {
           },
         }]
       },
+      skip : skip,
+      limit : limit
     }, (err, docs, count) => {
       if (docs.length == 0) {
         let obj = {}
