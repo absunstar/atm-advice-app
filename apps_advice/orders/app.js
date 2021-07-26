@@ -374,10 +374,8 @@ if (orders_doc.address && orders_doc.address.lat && orders_doc.address.long) {
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
-    console.log(req.session.user.ref_info._id);
     $orders.findMany({
       where: {
-
         $and: [{
           "user._id": String(req.session.user.ref_info._id)
         }, {

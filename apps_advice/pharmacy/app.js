@@ -585,100 +585,114 @@ module.exports = function init(site) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
 
-     $orders.findMany({
-          select: req.body.select || {},
-          sort: req.body.sort || {
-            id: -1,
-          },
-          where: {
-            'status.statusId': site.var('activeId')
-          },
-          limit: limit,
-          skip: skip
-        },
-        (err, docs, count) => {
-          if (!err && docs && docs.length > 0) {
-            for (const iterator of object) {
-
-            }
-            response.docs = docs
-            response.totalDocs = count
-            response.limit = 10
-            response.totalPages = Math.ceil(response.totalDocs / response.limit)
-          } else {
-            response.error = err.message;
-          }
-          res.json(response);
-        },
-      );
-
-
-    // $pharmacy.findOne({
-    //   where: {
-    //     _id: req.session.user.ref_info._id
-    //   }
-    // }, (err, doc) => {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //   $orders.aggregate([{
-    //     "$geoNear": {
-    //       "near": {
-    //         "type": "Point",
-    //         "coordinates": [
-    //           pharmacy_doc.lat,
-    //           pharmacy_doc.long
-    //         ]
+    let distance = 20/ 6378.1
+    //  $orders.findMany({
+    //       select: req.body.select || {},
+    //       sort: req.body.sort || {
+    //         id: -1,
     //       },
-    //       "distanceField": "distance",
-    //       "maxDistance": distance,
-    //       "spherical": true
-    //     }
-    //   },
-    //   {
-    //     "$sort": {
-    //       "distance": 1.0
-    //     }
-    //   }
-    //   ], (err, docs) => {
-    //     console.log(docs);
-    //     if (docs && docs.length > 0) {
+    //       where: {
+    //         'status.statusId': site.var('activeId')
+    //       },
+    //       limit: limit,
+    //       skip: skip
+    //     },
+    //     (err, docs, count) => {
+    //       if (!err && docs && docs.length > 0) {
+    //         for (const iterator of object) {
 
-    //       response.docs = docs
-    //       response.errorCode = site.var('succeed')
-    //       response.message = site.word('findSuccessfully')[req.headers.language]
-    //       res.json(response)
-    //     } else {
-
-    //       response.errorCode = site.var('failed')
-    //       response.message = site.word('findFailed')[req.headers.language]
-    //       res.json(response)
-    //     }
-
-    //   })
+    //         }
+    //         response.docs = docs
+    //         response.totalDocs = count
+    //         response.limit = 10
+    //         response.totalPages = Math.ceil(response.totalDocs / response.limit)
+    //       } else {
+    //         response.error = err.message;
+    //       }
+    //       res.json(response);
+    //     },
+    //   );
 
 
+    $pharmacy.findOne({
+      where: {
+        _id: req.session.user.ref_info._id
+      }
+    }, (err, doc) => {
 
-    // })
+      $orders.aggregate([
+
+        { 
+          "$match" : {
+              "$or" : [
+                  {
+                      "$and" : [
+                          {
+                              "status.statusId" : 1.0
+                          }, 
+                          {
+                              "address.lat" : {
+                                  "$ne" : 0.0
+                              }
+                          }, 
+                          {
+                              "location" : {
+                                  "$geoWithin" : {
+                                      "$centerSphere" : [
+                                          [
+                                              doc.lat, 
+                                              doc.long
+                                          ], 
+                                          distance
+                                      ]
+                                  }
+                              }
+                          }
+                      ]
+                  }, 
+                  {
+                      "$and" : [
+                          {
+                              "status.statusId" : 1.0
+                          }, 
+                          {
+                              "address.lat" : {
+                                  "$eq" : 0.0
+                              }
+                          }, 
+                          {
+                              "address.city._id" : doc.city._id
+                          }
+                      ]
+                  }
+              ]
+          }
+      },
+      { 
+        "$skip" : skip
+    }, 
+    { 
+        "$limit" : limit
+    }
+      ], (err, docs) => {
+        if (docs && docs.length > 0) {
+
+          response.docs = docs
+          response.errorCode = site.var('succeed')
+          response.message = site.word('findSuccessfully')[req.headers.language]
+          res.json(response)
+        } else {
+
+          response.errorCode = site.var('failed')
+          response.message = site.word('findFailed')[req.headers.language]
+          res.json(response)
+        }
+
+      })
+
+
+
+    })
 
   })
 

@@ -20,9 +20,9 @@
         "ar": "تعديل محافظة "
     },
     {
-        "name": "goves_details",
-        "en": "Gov Details",
-        "ar": "تفاصيل المحافظة "
+        "name": "acountActivated",
+        "en": "acount Activated",
+        "ar": "تم تفعيل الحساب"
     },
     {
         "name": "goves_delete",
