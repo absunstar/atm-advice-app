@@ -63,11 +63,12 @@ app.controller("gov", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/gov/update",
+      url: "/api/gov/update1",
       data: $scope.gov
     }).then(
       function (response) {
         $scope.busy = false;
+        
         if (response.data.done) {
           site.hideModal('#govUpdateModal');
           $scope.getGovList();
@@ -125,7 +126,7 @@ app.controller("gov", function ($scope, $http, $timeout) {
 
     $http({
       method: "POST",
-      url: "/api/gov/delete",
+      url: "/api/gov/delete1",
       data: {
         id: $scope.gov.id
       }
@@ -146,20 +147,20 @@ app.controller("gov", function ($scope, $http, $timeout) {
   };
 
   $scope.getGovList = function (where) {
+    console.log(where);
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: "GET",
-      url: "/api/gov",
-      data: {
-        where: where
-      }
+      method: "POST",
+      url: "/api/gov/search",
+      data: where
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
+        console.log(response.data);
+        if (response.data.docs.length > 0) {
+          $scope.list = response.data.docs;
+          $scope.count = response.data.totalDocs;
           site.hideModal('#govSearchModal');
           $scope.search = {};
 

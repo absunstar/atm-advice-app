@@ -449,6 +449,48 @@ module.exports = function init(site) {
   })
 
 
+  // get Active Orders
+  // need request session user
+  site.post("/api/pharmacy/getCurrentOrdersCount", (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    console.log(req.session.user.ref_info._id);
+    let limit = 10
+    let skip
+    if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+      skip = (parseInt(req.query.page) - 1) * 10
+    }
+    let response = {}
+    let pharmacy_doc = req.body
+    $orders.findMany({
+      select: req.body.select || {},
+      sort: req.body.sort || {
+        id: -1,
+      },
+      where: {
+        'pharmacy._id': String(req.session.user.ref_info._id),
+        'status.statusId': {
+          $in: [site.var('inProgressId'), site.var('onWayId')]
+        }
+      },
+      limit: limit,
+      skip: skip
+    },
+      (err, docs, count) => {
+        if (!err) {
+          response.totalDocs = count
+          response.limit = 10
+          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+
+
+  })
+
+
   // get Previous Orders
   // need request session user
   site.post("/api/pharmacy/getPreviousOrders", (req, res) => {
@@ -696,6 +738,35 @@ module.exports = function init(site) {
 
   })
 
+
+  // get Recent Orders Count
+  
+  site.post("/api/pharmacy/getRecentOrdersCount", (req, res) => {
+
+    let response = {}
+
+    $orders.findMany({
+      select: req.body.select || {},
+      sort: req.body.sort || {
+        id: -1,
+      },
+      where: {
+        'status.statusId': site.var('activeId')
+      },
+      limit: req.body.limit || 10,
+    },
+      (err, docs, count) => {
+        if (!err) {
+          response.totalDocs = count
+          response.limit = 10
+          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  })
 
   // get Recent Orders Count
   // need change to only count not find all

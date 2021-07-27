@@ -5,7 +5,7 @@ module.exports = function init(site) {
   site.get({
     name: 'images',
     path: __dirname + '/site_files/images/'
-    ,require : {permissions : []}
+    , require: { permissions: [] }
   });
 
   site.get({
@@ -13,7 +13,7 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
-    require : {permissions : []}
+    require: { permissions: [] }
   });
 
 
@@ -156,8 +156,8 @@ module.exports = function init(site) {
       sort: req.body.sort || {
         id: -1,
       },
-      limit: limit ,
-      skip: skip ,
+      limit: limit,
+      skip: skip,
     },
       (err, docs, count) => {
         if (!err) {
@@ -285,7 +285,86 @@ module.exports = function init(site) {
       res.json(response);
     })
   })
+  site.post("/api/city/update1", (req, res) => {
+    let response = {
+      done: false
+    }
 
+
+
+    let city_doc = req.body
+
+
+    if (city_doc.id) {
+
+      $city.edit({
+        where: {
+          id: city_doc.id
+        },
+        set: city_doc,
+        $req: req,
+        $res: res
+      }, err => {
+        if (!err) {
+          response.done = true
+        } else {
+          response.error = 'Code Already Exist'
+        }
+        res.json(response)
+      })
+    } else {
+      response.error = 'no id'
+      res.json(response)
+    }
+  })
+
+  site.post("/api/city/view", (req, res) => {
+    let response = {
+      done: false
+    }
+
+
+
+    $city.findOne({
+      where: {
+        id: req.body.id
+      }
+    }, (err, doc) => {
+      if (!err) {
+        response.done = true
+        response.doc = doc
+      } else {
+        response.error = err.message
+      }
+      res.json(response)
+    })
+  })
+
+  site.post("/api/city/delete1", (req, res) => {
+    let response = {
+      done: false
+    }
+    let id = req.body.id
+
+    if (id) {
+      $city.delete({
+        id: id,
+        $req: req,
+        $res: res
+      }, (err, result) => {
+        if (!err) {
+          response.done = true,
+            response.errorCode = site.var('succeed')
+          response.message = site.word('cityDeleted')[req.headers.language]
+        } else {
+          response.done = false,
+            response.errorCode = site.var('failed')
+          response.message = 'failedDelete'
+        }
+        res.json(response)
+      })
+    }
+  })
 
 
 }

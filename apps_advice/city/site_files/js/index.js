@@ -62,7 +62,7 @@ app.controller("city", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/city/update",
+      url: "/api/city/update1",
       data: $scope.city
     }).then(
       function (response) {
@@ -124,7 +124,7 @@ app.controller("city", function ($scope, $http, $timeout) {
 
     $http({
       method: "POST",
-      url: "/api/city/delete",
+      url: "/api/city/delete1",
       data: {
         id: $scope.city.id
       }
@@ -148,17 +148,15 @@ app.controller("city", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: "GET",
-      url: "/api/city",
-      data: {
-        where: where
-      }
+      method: "POST",
+      url: "/api/city/search",
+      data: where
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
+        if (response.data.docs.length > 0) {
+          $scope.list = response.data.docs;
+          $scope.count = response.data.totalDocs;
           site.hideModal('#citySearchModal');
 
         }
@@ -182,14 +180,14 @@ app.controller("city", function ($scope, $http, $timeout) {
           active: true
         },
         select: {
-          id: 1, name: 1
+          id: 1, name_ar: 1, name_en: 1
         }
       }
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.govesList = response.data.list;
+        if (response.data.docs.length > 0) {
+          $scope.govesList = response.data.docs;
 
         }
       },

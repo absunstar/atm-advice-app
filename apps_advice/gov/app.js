@@ -80,19 +80,7 @@ module.exports = function init(site) {
 
     // goves_doc.company = site.get_company(req);
     // goves_doc.branch = site.get_branch(req);
-
-    $gov.find({
-        where: {
-          'name': goves_doc.name,
-        },
-      },
-      (err, doc) => {
-        if (!err && doc) {
-          response.error = site.word('nameExist')[req.headers.language]
-          res.json(response);
-        } else {
-
-          $gov.add(goves_doc, (err, doc) => {
+  $gov.add(goves_doc, (err, doc) => {
             if (!err) {
               response.data = doc;
               response.errorCode = site.var('succeed')
@@ -108,9 +96,7 @@ module.exports = function init(site) {
 
             res.json(response);
           });
-        }
-      },
-    );
+    
   });
 
   // Update Gov 
@@ -198,6 +184,8 @@ module.exports = function init(site) {
 
   })
 
+ 
+
   // get Gov By Id
 
   site.get("/api/gov/:id", (req, res) => {
@@ -269,6 +257,12 @@ module.exports = function init(site) {
     if (where['name']) {
       where['name'] = site.get_RegExp(where['name'], 'i');
     }
+    if (where['name_ar']) {
+      where['name_ar'] = site.get_RegExp(where['name_ar'], 'i');
+    }
+    if (where['name_en']) {
+      where['name_en'] = site.get_RegExp(where['name_en'], 'i');
+    }
     let limit = 10;
     let skip;
    
@@ -301,5 +295,86 @@ module.exports = function init(site) {
         res.json(response);
       },
     );
+  });
+  site.post('/api/gov/update1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let goves_doc = req.body;
+    if (goves_doc.id) {
+      $gov.edit(
+        {
+          where: {
+            id: goves_doc.id,
+          },
+          set: goves_doc,
+          $req: req,
+          $res: res,
+        },
+        (err) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = 'Code Already Exist';
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
+  });
+
+  site.post('/api/gov/view', (req, res) => {
+    let response = {
+      done: false,
+    };
+
+  
+
+    $gov.findOne(
+      {
+        where: {
+          id: req.body.id,
+        },
+      },
+      (err, doc) => {
+        if (!err) {
+          response.done = true;
+          response.doc = doc;
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+  site.post('/api/gov/delete1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let id = req.body.id;
+
+    if (id) {
+      $gov.delete(
+        {
+          id: id,
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
   });
 };

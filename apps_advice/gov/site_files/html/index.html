@@ -36,14 +36,14 @@
 
                     <a class="btn left bg-green" target="blank" href="/city"> ##word.city_add##</a>
                     <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
-                    <h3 class="bold text-center red"> {{error}}</h3>
+                    <!-- <h3 class="bold text-center red"> {{error}}</h3> -->
 
                 </div>
 
-                <table x-permissions="login" class="table hover bold loaded" id="t1">
+                <table  class="table hover bold loaded" id="t1">
                     <tr>
                         <th class="not-print">##word.logo##</th>
-                        <th>##word.code##</th>
+                        
                         <th>##word.goves_name##</th>
 
                         <th>##word.status##</th>
@@ -53,7 +53,7 @@
                         <td class="center not-print">
                             <i-image view class="logo" ng-model="c.image_url"></i-image>
                         </td>
-                        <td class="center userPrint blue">{{c.code}}</td>
+                        
                         <td class="center title">{{c.name_##session.lang##}}</td>
                         <td class="center">
                             <p ng-show="c.active ==true" class="green"> ##word.active## </p>
@@ -61,19 +61,19 @@
                         </td>
 
                         <td class="center not-print">
-                            <i-button x-permissions="gov_view || gov_manage" type="view" label="##word.details##"
+                            <i-button  type="view" label="##word.details##"
                                 ng-click="displayDetailsGov(c)"></i-button>
 
-                            <i-button x-permissions="gov_update || gov_manage" type="edit" label="##word.edit##"
+                            <i-button  type="edit" label="##word.edit##"
                                 ng-click="displayUpdateGov(c)"></i-button>
 
-                            <i-button x-permissions="gov_delete || gov_manage" type="delete" label="##word.delete##"
+                            <i-button  type="delete" label="##word.delete##"
                                 ng-click="displayDeleteGov(c)"></i-button>
                         </td>
                     </tr>
                 </table>
 
-                <i-button x-permissions="gov_print || gov_manage" type="print" label="##word.print##" onclick="site.print('#t1')"></i-button>
+                <i-button  type="print" label="##word.print##" onclick="site.print('#t1')"></i-button>
 
                 
             </div>

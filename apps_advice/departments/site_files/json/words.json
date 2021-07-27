@@ -1,18 +1,18 @@
 [
     {
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+        "name": "departments",
+        "en": "Departments",
+        "ar": "الاقسام"
     },
     {
-        "name": "goves_new",
-        "en": "New Gov",
-        "ar": "محافظة جديدة"
+        "name": "departments_new",
+        "en": "New Departments",
+        "ar": "قسم جديد"
     },
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "departments_name",
+        "en": "Department Name",
+        "ar": "اسم القسم"
     },
     {
         "name": "goves_edit",

@@ -1,22 +1,22 @@
 app.controller("departments", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.gov = {};
+  $scope.department = {};
 
-  $scope.displayAddGov = function () {
+  $scope.displayAddDepartment = function () {
     $scope.error = '';
-    $scope.gov = {
-      image_url: '/images/gov.png',
+    $scope.department = {
+      image_url: '/images/department.png',
       active: true
     };
 
-    site.showModal('#govAddModal');
+    site.showModal('#departmentAddModal');
 
   };
 
-  $scope.addGov = function () {
+  $scope.addDepartment = function () {
     $scope.error = '';
-    const v = site.validated('#govAddModal');
+    const v = site.validated('#departmentAddModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -26,13 +26,13 @@ app.controller("departments", function ($scope, $http, $timeout) {
     $http({
       method: "POST",
       url: "/api/departments/add",
-      data: $scope.gov
+      data: $scope.department
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govAddModal');
-          $scope.getGovList();
+          site.hideModal('#departmentAddModal');
+          $scope.getDepartmentList();
         } else {
           $scope.error = response.data.error;
           if (response.data.error.like('*Must Enter Code*')) {
@@ -46,16 +46,16 @@ app.controller("departments", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayUpdateGov = function (gov) {
+  $scope.displayUpdateDepartment = function (department) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govUpdateModal');
+    $scope.viewDepartment(department);
+    $scope.department = {};
+    site.showModal('#departmentUpdateModal');
   };
 
-  $scope.updateGov = function () {
+  $scope.updateDepartment = function () {
     $scope.error = '';
-    const v = site.validated('#govUpdateModal');
+    const v = site.validated('#departmentUpdateModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -64,13 +64,13 @@ app.controller("departments", function ($scope, $http, $timeout) {
     $http({
       method: "POST",
       url: "/api/departments/update",
-      data: $scope.gov
+      data: $scope.department
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govUpdateModal');
-          $scope.getGovList();
+          site.hideModal('#departmentUpdateModal');
+          $scope.getDepartmentList();
         } else {
           $scope.error = 'Please Login First';
         }
@@ -81,27 +81,27 @@ app.controller("departments", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDetailsGov = function (gov) {
+  $scope.displayDetailsDepartment = function (department) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govViewModal');
+    $scope.viewDepartment(department);
+    $scope.department = {};
+    site.showModal('#departmentViewModal');
   };
 
-  $scope.viewGov = function (gov) {
+  $scope.viewDepartment = function (department) {
     $scope.busy = true;
     $scope.error = '';
     $http({
       method: "POST",
       url: "/api/departments/view",
       data: {
-        id: gov.id
+        id: department.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.gov = response.data.doc;
+          $scope.department = response.data.doc;
         } else {
           $scope.error = response.data.error;
         }
@@ -112,14 +112,14 @@ app.controller("departments", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDeleteGov = function (gov) {
+  $scope.displayDeleteDepartment = function (department) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govDeleteModal');
+    $scope.viewDepartment(department);
+    $scope.department = {};
+    site.showModal('#departmentDeleteModal');
   };
 
-  $scope.deleteGov = function () {
+  $scope.deleteDepartment = function () {
     $scope.busy = true;
     $scope.error = '';
 
@@ -127,14 +127,14 @@ app.controller("departments", function ($scope, $http, $timeout) {
       method: "POST",
       url: "/api/departments/delete",
       data: {
-        id: $scope.gov.id
+        id: $scope.department.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govDeleteModal');
-          $scope.getGovList();
+          site.hideModal('#departmentDeleteModal');
+          $scope.getDepartmentList();
         } else {
           $scope.error = response.data.error;
         }
@@ -145,7 +145,7 @@ app.controller("departments", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getGovList = function (where) {
+  $scope.getDepartmentList = function (where) {
     $scope.busy = true;
     $scope.list = [];
     $http({
@@ -160,7 +160,7 @@ app.controller("departments", function ($scope, $http, $timeout) {
         if (response.data.done && response.data.list.length > 0) {
           $scope.list = response.data.list;
           $scope.count = response.data.count;
-          site.hideModal('#govSearchModal');
+          site.hideModal('#departmentSearchModal');
           $scope.search = {};
 
         }
@@ -180,7 +180,7 @@ app.controller("departments", function ($scope, $http, $timeout) {
       method: "POST",
       url: "/api/numbering/get_automatic",
       data: {
-        screen: "gov"
+        screen: "department"
       }
     }).then(
       function (response) {
@@ -198,17 +198,17 @@ app.controller("departments", function ($scope, $http, $timeout) {
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
-    site.showModal('#govSearchModal');
+    site.showModal('#departmentSearchModal');
 
   };
 
   $scope.searchAll = function () {
 
-    $scope.getGovList($scope.search);
-    site.hideModal('#govSearchModal');
+    $scope.getDepartmentList($scope.search);
+    site.hideModal('#departmentSearchModal');
     $scope.search = {};
   };
 
-  $scope.getGovList();
+  $scope.getDepartmentList();
   $scope.getNumberingAuto();
 });

@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "fcm-notification": "^2.0.0",
-    "isite": "^1.14.58",
+    "isite": "^1.14.59",
     "moment": "^2.29.1",
     "ws": "^7.5.3",
     "zklib": "^0.2.11"

@@ -16,35 +16,34 @@
     </nav>
     <div id="main-layout" class="container loaded">
         <div class="row">
-            <div class="row" ng-controller="goves">
-                <div  x-import="goves/add_modal.html"></div>
-                <div  x-import="goves/update_modal.html"></div>
-                <div  x-import="goves/delete_modal.html"></div>
-                <div  x-import="goves/view_modal.html"></div>
-                <div  x-import="goves/search_all_modal.html"></div>
+            <div class="row" ng-controller="departments">
+                <div  x-import="departments/add_modal.html"></div>
+                <div  x-import="departments/update_modal.html"></div>
+                <div  x-import="departments/delete_modal.html"></div>
+                <div  x-import="departments/view_modal.html"></div>
+                <div  x-import="departments/search_all_modal.html"></div>
 
                 <div class="row">
-                    <h1 class="bold text-center">##word.goves##</h1>
+                    <h1 class="bold text-center">##word.departments##</h1>
                 </div>
 
                 <div class="top-actions">
-                    <i-button  type="add" label="##word.goves_new##" ng-click="displayAddGov()"></i-button>
+                    <i-button  type="add" label="##word.departments_new##" ng-click="displayAddDepartment()"></i-button>
 
                     <i-button  type="search" label="##word.search_all##"
                         ng-click="displaySearchModal()"></i-button>
 
-                    <a class="btn left bg-green" target="blank" href="/area"> ##word.area_add##</a>
-                    <a class="btn left bg-green" target="blank" href="/city"> ##word.city_add##</a>
+                   
                     <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
-                    <h3 class="bold text-center red"> {{error}}</h3>
+                    <!-- <h3 class="bold text-center red"> {{error}}</h3> -->
 
                 </div>
 
                 <table  class="table hover bold loaded" id="t1">
                     <tr>
                         <th class="not-print">##word.logo##</th>
-                        <th>##word.code##</th>
-                        <th>##word.goves_name##</th>
+                        <!-- <th>##word.code##</th> -->
+                        <th>##word.departments_name##</th>
 
                         <th>##word.status##</th>
                         <th class="not-print">##word.actions##</th>
@@ -53,7 +52,7 @@
                         <td class="center not-print">
                             <i-image view class="logo" ng-model="c.image_url"></i-image>
                         </td>
-                        <td class="center userPrint blue">{{c.code}}</td>
+                        <!-- <td class="center userPrint blue">{{c.code}}</td> -->
                         <td class="center title">{{c.name_##session.lang##}}</td>
                         <td class="center">
                             <p ng-show="c.active ==true" class="green"> ##word.active## </p>
@@ -62,13 +61,13 @@
 
                         <td class="center not-print">
                             <i-button  type="view" label="##word.details##"
-                                ng-click="displayDetailsGov(c)"></i-button>
+                                ng-click="displayDetailsDepartment(c)"></i-button>
 
                             <i-button  type="edit" label="##word.edit##"
-                                ng-click="displayUpdateGov(c)"></i-button>
+                                ng-click="displayUpdateDepartment(c)"></i-button>
 
                             <i-button  type="delete" label="##word.delete##"
-                                ng-click="displayDeleteGov(c)"></i-button>
+                                ng-click="displayDeleteDepartment(c)"></i-button>
                         </td>
                     </tr>
                 </table>
@@ -81,7 +80,7 @@
     </div>
 
     <div x-import="scripts.html"></div>
-    <script x-import="goves/index.js"></script>
+    <script x-import="departments/index.js"></script>
 </body>
 
 </html>
