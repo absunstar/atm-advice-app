@@ -1,22 +1,22 @@
 app.controller("settings", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.gov = {};
+  $scope.settings = {};
 
-  $scope.displayAddGov = function () {
+  $scope.displayAddSettings = function () {
     $scope.error = '';
-    $scope.gov = {
-      image_url: '/images/gov.png',
+    $scope.settings = {
+      image_url: '/images/settings.png',
       active: true
     };
 
-    site.showModal('#govAddModal');
+    site.showModal('#settingsAddModal');
 
   };
 
-  $scope.addGov = function () {
+  $scope.addSettings = function () {
     $scope.error = '';
-    const v = site.validated('#govAddModal');
+    const v = site.validated('#settingsAddModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -26,13 +26,13 @@ app.controller("settings", function ($scope, $http, $timeout) {
     $http({
       method: "POST",
       url: "/api/settings/add",
-      data: $scope.gov
+      data: $scope.settings
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govAddModal');
-          $scope.getGovList();
+          site.hideModal('#settingsAddModal');
+          $scope.getSettingsList();
         } else {
           $scope.error = response.data.error;
           if (response.data.error.like('*Must Enter Code*')) {
@@ -46,16 +46,16 @@ app.controller("settings", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayUpdateGov = function (gov) {
+  $scope.displayUpdateSettings = function (settings) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govUpdateModal');
+    $scope.viewSettings(settings);
+    $scope.settings = {};
+    site.showModal('#settingsUpdateModal');
   };
 
-  $scope.updateGov = function () {
+  $scope.updateSettings = function () {
     $scope.error = '';
-    const v = site.validated('#govUpdateModal');
+    const v = site.validated('#settingsUpdateModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -63,14 +63,14 @@ app.controller("settings", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/settings/update",
-      data: $scope.gov
+      url: "/api/settings/update1",
+      data: $scope.settings
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govUpdateModal');
-          $scope.getGovList();
+          site.hideModal('#settingsUpdateModal');
+          $scope.getSettingsList();
         } else {
           $scope.error = 'Please Login First';
         }
@@ -81,27 +81,27 @@ app.controller("settings", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDetailsGov = function (gov) {
+  $scope.displayDetailsSettings = function (settings) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govViewModal');
+    $scope.viewSettings(settings);
+    $scope.settings = {};
+    site.showModal('#settingsViewModal');
   };
 
-  $scope.viewGov = function (gov) {
+  $scope.viewSettings = function (settings) {
     $scope.busy = true;
     $scope.error = '';
     $http({
       method: "POST",
       url: "/api/settings/view",
       data: {
-        id: gov.id
+        id: settings.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.gov = response.data.doc;
+          $scope.settings = response.data.doc;
         } else {
           $scope.error = response.data.error;
         }
@@ -112,29 +112,29 @@ app.controller("settings", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDeleteGov = function (gov) {
+  $scope.displayDeleteSettings = function (settings) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govDeleteModal');
+    $scope.viewSettings(settings);
+    $scope.settings = {};
+    site.showModal('#settingsDeleteModal');
   };
 
-  $scope.deleteGov = function () {
+  $scope.deleteSettings = function () {
     $scope.busy = true;
     $scope.error = '';
 
     $http({
       method: "POST",
-      url: "/api/settings/delete",
+      url: "/api/settings/delete1",
       data: {
-        id: $scope.gov.id
+        id: $scope.settings.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govDeleteModal');
-          $scope.getGovList();
+          site.hideModal('#settingsDeleteModal');
+          $scope.getSettingsList();
         } else {
           $scope.error = response.data.error;
         }
@@ -145,22 +145,20 @@ app.controller("settings", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getGovList = function (where) {
+  $scope.getSettingsList = function (where) {
     $scope.busy = true;
     $scope.list = [];
     $http({
       method: "POST",
-      url: "/api/settings/all",
-      data: {
-        where: where
-      }
+      url: "/api/settings/search",
+      data:where 
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
-          site.hideModal('#govSearchModal');
+        if ( response.data.docs.length > 0) {
+          $scope.list = response.data.docs;
+          $scope.count = response.data.totalDocs;
+          site.hideModal('#settingsSearchModal');
           $scope.search = {};
 
         }
@@ -180,7 +178,7 @@ app.controller("settings", function ($scope, $http, $timeout) {
       method: "POST",
       url: "/api/numbering/get_automatic",
       data: {
-        screen: "gov"
+        screen: "settings"
       }
     }).then(
       function (response) {
@@ -198,17 +196,16 @@ app.controller("settings", function ($scope, $http, $timeout) {
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
-    site.showModal('#govSearchModal');
+    site.showModal('#settingsSearchModal');
 
   };
 
   $scope.searchAll = function () {
 
-    $scope.getGovList($scope.search);
-    site.hideModal('#govSearchModal');
+    $scope.getSettingsList($scope.search);
+    site.hideModal('#settingsSearchModal');
     $scope.search = {};
   };
 
-  $scope.getGovList();
-  $scope.getNumberingAuto();
+  $scope.getSettingsList();
 });

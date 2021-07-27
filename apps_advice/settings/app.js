@@ -221,8 +221,20 @@ module.exports = function init(site) {
 
     let where = req.body || {};
 
-    if (where['name']) {
-      where['name'] = site.get_RegExp(where['name'], 'i');
+    if (where['aboutUs']) {
+      where['aboutUs'] = site.get_RegExp(where['aboutUs'], 'i');
+    }
+    if (where['policy']) {
+      where['policy'] = site.get_RegExp(where['policy'], 'i');
+    }
+    if (where['companyPhone']) {
+      where['companyPhone'] = site.get_RegExp(where['companyPhone'], 'i');
+    }
+    if (where['companyAddress']) {
+      where['companyAddress'] = site.get_RegExp(where['companyAddress'], 'i');
+    }
+    if (where['companyEmail']) {
+      where['companyEmail'] = site.get_RegExp(where['companyEmail'], 'i');
     }
 
     let limit = 10;
@@ -257,5 +269,86 @@ module.exports = function init(site) {
         res.json(response);
       },
     );
+  });
+  site.post('/api/settings/update1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let settings_doc = req.body;
+    if (settings_doc.id) {
+      $settings.edit(
+        {
+          where: {
+            id: settings_doc.id,
+          },
+          set: settings_doc,
+          $req: req,
+          $res: res,
+        },
+        (err) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = 'Code Already Exist';
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
+  });
+
+  site.post('/api/settings/view', (req, res) => {
+    let response = {
+      done: false,
+    };
+
+  
+
+    $settings.findOne(
+      {
+        where: {
+          id: req.body.id,
+        },
+      },
+      (err, doc) => {
+        if (!err) {
+          response.done = true;
+          response.doc = doc;
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+  site.post('/api/settings/delete1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let id = req.body.id;
+
+    if (id) {
+      $settings.delete(
+        {
+          id: id,
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
   });
 };

@@ -1,22 +1,22 @@
 app.controller("degree", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.gov = {};
+  $scope.degree = {};
 
-  $scope.displayAddGov = function () {
+  $scope.displayAddDegree = function () {
     $scope.error = '';
-    $scope.gov = {
-      image_url: '/images/gov.png',
+    $scope.degree = {
+      image_url: '/images/degree.png',
       active: true
     };
 
-    site.showModal('#govAddModal');
+    site.showModal('#degreeAddModal');
 
   };
 
-  $scope.addGov = function () {
+  $scope.addDegree = function () {
     $scope.error = '';
-    const v = site.validated('#govAddModal');
+    const v = site.validated('#degreeAddModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -26,13 +26,13 @@ app.controller("degree", function ($scope, $http, $timeout) {
     $http({
       method: "POST",
       url: "/api/degree/add",
-      data: $scope.gov
+      data: $scope.degree
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govAddModal');
-          $scope.getGovList();
+          site.hideModal('#degreeAddModal');
+          $scope.getDegreeList();
         } else {
           $scope.error = response.data.error;
           if (response.data.error.like('*Must Enter Code*')) {
@@ -46,16 +46,16 @@ app.controller("degree", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayUpdateGov = function (gov) {
+  $scope.displayUpdateDegree = function (degree) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govUpdateModal');
+    $scope.viewDegree(degree);
+    $scope.degree = {};
+    site.showModal('#degreeUpdateModal');
   };
 
-  $scope.updateGov = function () {
+  $scope.updateDegree = function () {
     $scope.error = '';
-    const v = site.validated('#govUpdateModal');
+    const v = site.validated('#degreeUpdateModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -63,14 +63,14 @@ app.controller("degree", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/degree/update",
-      data: $scope.gov
+      url: "/api/degree/update1",
+      data: $scope.degree
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govUpdateModal');
-          $scope.getGovList();
+          site.hideModal('#degreeUpdateModal');
+          $scope.getDegreeList();
         } else {
           $scope.error = 'Please Login First';
         }
@@ -81,27 +81,27 @@ app.controller("degree", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDetailsGov = function (gov) {
+  $scope.displayDetailsDegree = function (degree) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govViewModal');
+    $scope.viewDegree(degree);
+    $scope.degree = {};
+    site.showModal('#degreeViewModal');
   };
 
-  $scope.viewGov = function (gov) {
+  $scope.viewDegree = function (degree) {
     $scope.busy = true;
     $scope.error = '';
     $http({
       method: "POST",
       url: "/api/degree/view",
       data: {
-        id: gov.id
+        id: degree.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.gov = response.data.doc;
+          $scope.degree = response.data.doc;
         } else {
           $scope.error = response.data.error;
         }
@@ -112,29 +112,29 @@ app.controller("degree", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDeleteGov = function (gov) {
+  $scope.displayDeleteDegree = function (degree) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govDeleteModal');
+    $scope.viewDegree(degree);
+    $scope.degree = {};
+    site.showModal('#degreeDeleteModal');
   };
 
-  $scope.deleteGov = function () {
+  $scope.deleteDegree = function () {
     $scope.busy = true;
     $scope.error = '';
 
     $http({
       method: "POST",
-      url: "/api/degree/delete",
+      url: "/api/degree/delete1",
       data: {
-        id: $scope.gov.id
+        id: $scope.degree.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govDeleteModal');
-          $scope.getGovList();
+          site.hideModal('#degreeDeleteModal');
+          $scope.getDegreeList();
         } else {
           $scope.error = response.data.error;
         }
@@ -145,22 +145,20 @@ app.controller("degree", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getGovList = function (where) {
+  $scope.getDegreeList = function (where) {
     $scope.busy = true;
     $scope.list = [];
     $http({
       method: "POST",
-      url: "/api/degree/all",
-      data: {
-        where: where
-      }
+      url: "/api/degree/search",
+      data: where
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
-          site.hideModal('#govSearchModal');
+        if (response.data.docs.length > 0) {
+          $scope.list = response.data.docs;
+          $scope.count = response.data.totalDocs;
+          site.hideModal('#degreeSearchModal');
           $scope.search = {};
 
         }
@@ -180,7 +178,7 @@ app.controller("degree", function ($scope, $http, $timeout) {
       method: "POST",
       url: "/api/numbering/get_automatic",
       data: {
-        screen: "gov"
+        screen: "degree"
       }
     }).then(
       function (response) {
@@ -198,17 +196,16 @@ app.controller("degree", function ($scope, $http, $timeout) {
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
-    site.showModal('#govSearchModal');
+    site.showModal('#degreeSearchModal');
 
   };
 
   $scope.searchAll = function () {
 
-    $scope.getGovList($scope.search);
-    site.hideModal('#govSearchModal');
+    $scope.getDegreeList($scope.search);
+    site.hideModal('#degreeSearchModal');
     $scope.search = {};
   };
 
-  $scope.getGovList();
-  $scope.getNumberingAuto();
+  $scope.getDegreeList();
 });

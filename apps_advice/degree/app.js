@@ -236,8 +236,11 @@ module.exports = function init(site) {
 
     let where = req.body || {};
 
-    if (where['name']) {
-      where['name'] = site.get_RegExp(where['name'], 'i');
+    if (where['name_ar']) {
+      where['name_ar'] = site.get_RegExp(where['name_ar'], 'i');
+    }
+    if (where['name_en']) {
+      where['name_en'] = site.get_RegExp(where['name_en'], 'i');
     }
     let limit = 10;
     let skip 
@@ -271,4 +274,85 @@ module.exports = function init(site) {
       },
     );
   });
+
+  site.post("/api/degree/update1", (req, res) => {
+    let response = {
+      done: false
+    }
+
+
+
+    let degree_doc = req.body
+
+
+    if (degree_doc.id) {
+
+      $degree.edit({
+        where: {
+          id: degree_doc.id
+        },
+        set: degree_doc,
+        $req: req,
+        $res: res
+      }, err => {
+        if (!err) {
+          response.done = true
+        } else {
+          response.error = 'Code Already Exist'
+        }
+        res.json(response)
+      })
+    } else {
+      response.error = 'no id'
+      res.json(response)
+    }
+  })
+
+  site.post("/api/degree/view", (req, res) => {
+    let response = {
+      done: false
+    }
+
+
+
+    $degree.findOne({
+      where: {
+        id: req.body.id
+      }
+    }, (err, doc) => {
+      if (!err) {
+        response.done = true
+        response.doc = doc
+      } else {
+        response.error = err.message
+      }
+      res.json(response)
+    })
+  })
+
+  site.post("/api/degree/delete1", (req, res) => {
+    let response = {
+      done: false
+    }
+    let id = req.body.id
+
+    if (id) {
+      $degree.delete({
+        id: id,
+        $req: req,
+        $res: res
+      }, (err, result) => {
+        if (!err) {
+          response.done = true,
+            response.errorCode = site.var('succeed')
+          response.message = site.word('cityDeleted')[req.headers.language]
+        } else {
+          response.done = false,
+            response.errorCode = site.var('failed')
+          response.message = 'failedDelete'
+        }
+        res.json(response)
+      })
+    }
+  })
 };

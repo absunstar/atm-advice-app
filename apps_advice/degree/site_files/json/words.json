@@ -1,38 +1,38 @@
 [
     {
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+        "name": "degrees",
+        "en": "Degrees",
+        "ar": "الدرجات العلمية"
     },
     {
-        "name": "goves_new",
-        "en": "New Gov",
-        "ar": "محافظة جديدة"
+        "name": "degree_new",
+        "en": "New Degree",
+        "ar": "درجة علمية جديدة"
     },
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "degrees_add",
+        "en": "Add Degree",
+        "ar": "إضافة درجة علمية "
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "degrees_edit",
+        "en": "Edit Degree",
+        "ar": "تعديل درجة علمية "
     },
     {
-        "name": "goves_details",
-        "en": "Gov Details",
-        "ar": "تفاصيل المحافظة "
+        "name": "degrees_details",
+        "en": "Degree Details",
+        "ar": "تفاصيل الدرجة العلمية "
     },
     {
-        "name": "goves_delete",
-        "en": "Delete Gov",
-        "ar": "حذف محافظة "
+        "name": "degrees_delete",
+        "en": "Delete Degree",
+        "ar": "حذف درجة علمية "
     },
     {
-        "name": "goves_name",
-        "en": "Gov Name",
-        "ar": "إسم المحافظة "
+        "name": "degrees_name",
+        "en": "Degree Name",
+        "ar": "إسم الدرجة العلمية "
     },
     {
         "name": "nameExist",
@@ -40,13 +40,13 @@
         "ar": "الاسم موجود من قبل "
     },
     {
-        "name": "govDeleted",
-        "en": "Gov Deleted",
+        "name": "DegreeDeleted",
+        "en": "Degree Deleted",
         "ar": "تم حذف المحافظة"
     },
     {
-        "name":"govCreated",
-        "en": "Gov Created",
+        "name":"DegreeCreated",
+        "en": "Degree Created",
         "ar": "تم انشاء المحافظة"
     }
    

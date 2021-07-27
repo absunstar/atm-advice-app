@@ -5,22 +5,37 @@
             <div class="row">
                 <div class="col9">
                     <div class="row">
-                        <i-control ng-hide="disabledCode" class="col2" label="##word.code##" ng-model="gov.code"></i-control>
-                        </i-control>
-                        <i-control help-id="goves_name" v="r ll2" class="col4" label="##word.goves_name##"
-                            ng-model="gov.name_ar"></i-control>
+                        
+                        <i-control help-id="companyName" v="r ll2" class="col4" label="##word.companyName##"
+                            ng-model="settings.companyName"></i-control>
 
-                        <i-control help-id="goves_name_en" class="col4" label="##word.name_en##"
-                            ng-model="gov.name_en"></i-control>
+                        <i-control help-id="companyEmail" class="col4" label="##word.companyEmail##"
+                            ng-model="settings.companyEmail"></i-control>
 
-                        <i-checkbox help-id="goves_active" class="col2" label="##word.active##" ng-model="gov.active">
-                        </i-checkbox>
+                            <i-control help-id="companyPhone" class="col4" label="##word.companyPhone##"
+                            ng-model="settings.companyPhone"></i-control>
+
                     </div>
+                    <div class="row">
+                        
+                        <i-control help-id="companyAddress" v="r ll2" class="col4" label="##word.companyAddress##"
+                            ng-model="settings.companyAddress"></i-control>
+
+                        <i-control help-id="aboutUs" class="col4" label="##word.aboutUs##"
+                            ng-model="settings.aboutUs"></i-control>
+
+                            <i-control help-id="policy" class="col4" label="##word.policy##"
+                            ng-model="settings.policy"></i-control>
+
+                    </div>
+                   
+                    
+
 
                 </div>
 
                 <div class="col3">
-                    <i-image help-id="goves_logo" ng-model="gov.image_url"></i-image>
+                    <i-image help-id="settings_logo" ng-model="settings.image_url"></i-image>
                 </div>
             </div>
         </fieldset>

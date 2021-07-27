@@ -1,49 +1,69 @@
 [{
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+        "name": "settings",
+        "en": "Settings",
+        "ar": "الاعدادات"
     },
     {
-        "name": "goves_new",
-        "en": "New Gov",
-        "ar": "محافظة جديدة"
+        "name": "settings_new",
+        "en": "New Settings",
+        "ar": "اعدادات جديدة"
     },
 
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "settings_add",
+        "en": "Add Settings",
+        "ar": "إضافة اعدادات "
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "settings_edit",
+        "en": "Edit Settings",
+        "ar": "تعديل اعدادات "
     },
     {
-        "name": "goves_details",
-        "en": "Gov Details",
-        "ar": "تفاصيل المحافظة "
+        "name": "settings_details",
+        "en": "Settings Details",
+        "ar": "تفاصيل الاعدادات "
     },
     {
-        "name": "goves_delete",
-        "en": "Delete Gov",
-        "ar": "حذف محافظة "
+        "name": "settings_delete",
+        "en": "Delete Settings",
+        "ar": "حذف الاعدادات "
     },
     {
-        "name": "goves_name",
-        "en": "Gov Name",
-        "ar": "إسم المحافظة "
+        "name": "companyName",
+        "en": "Company Name",
+        "ar": "إسم الشركة "
     },
-{
-    "name" : "settingExist",
-    "en": "Setting Exist",
-    "ar": "يوجد اعداد من قبل"
-},
+    {
+        "name": "settingExist",
+        "en": "Setting Exist",
+        "ar": "يوجد اعداد من قبل"
+    },
 
-{
-"name" : "govCreated",
-"en": "Gov Created",
-    "ar": "تم انشاء محافظة"
-}
+    {
+        "name": "companyEmail",
+        "en": "Company Email",
+        "ar": "ايميل الشركة"
+    },
+    {
+        "name": "companyPhone",
+        "en": "Company Phone",
+        "ar": "تليفون الشركة"
+    },
+    {
+        "name": "companyAddress",
+        "en": "Company Address",
+        "ar": "عنوان الشركة"
+    },
+    {
+        "name": "aboutUs",
+        "en": "About Us",
+        "ar": "من نحن"
+    },
+    {
+        "name": "policy",
+        "en": "Policy",
+        "ar": "سياسة الشركة"
+    }
 
 ]
