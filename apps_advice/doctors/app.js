@@ -1,7 +1,8 @@
 module.exports = function init(site) {
   const $doctors = site.connectCollection('doctors');
   const $rating = site.connectCollection('rating');
-
+  const $booking = site.connectCollection('booking');
+  
   site.get({
     name: 'images',
     path: __dirname + '/site_files/images/'
@@ -584,13 +585,9 @@ module.exports = function init(site) {
     }
 
     let createdObj = {
-      user: {
-        _id: doctors_doc.user._id
-      },
-
-      target: {
-        _id: doctors_doc.doctor._id
-      },
+      user: doctors_doc.user,
+date : new Date().toISOString().split('T')[0],
+      target:  doctors_doc.doctor,
       rating: doctors_doc.rating,
       type: "doctor",
       description: doctors_doc.description,
@@ -615,7 +612,11 @@ module.exports = function init(site) {
             "_id": null,
             "avgRating": {
               "$avg": "$rating"
+            }, 
+            "docs" : {
+                "$push" : "$$ROOT"
             }
+
           }
         }
         ], (err, docs) => {
@@ -628,7 +629,9 @@ module.exports = function init(site) {
                 _id: doctors_doc.doctor._id,
               },
               set: {
-                rating: avg ? avg.avgRating : 0
+                rating: avg ? avg.avgRating : 0,
+                ratingArr:avg ? avg.docs : [],
+                
               },
               $req: req,
               $res: res
@@ -979,7 +982,39 @@ module.exports = function init(site) {
 
 
 
+// get All Booking Done 
+site.post('/api/booking/getAllDoneBooking', (req, res) => {
+  req.headers.language = req.headers.language || 'en'
+  let response = {}
 
+  let booking_doc = req.body;
+ 
+  $booking.findMany({
+    where: {
+      'status': site.var('done'),
+      'doctor._id': booking_doc.doctor._id,
+    },
+    
+    $req: req,
+    $res: res
+  }, (err, docs, count) => {
+    if (docs && docs.length > 0) {
+      response.done = true
+      response.data = {
+        docs : docs,
+        totalDocs : count
+      }
+
+      response.message = site.word('findBooking')[req.headers.language],
+        response.errorCode = site.var('succeed')
+    }
+response.docs = []
+    response.done = true
+    response.message = site.word('bookingDone')[req.headers.language],
+      response.errorCode = site.var('succeed')
+    res.json(response)
+  })
+});
 
 
 

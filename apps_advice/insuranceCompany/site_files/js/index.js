@@ -1,22 +1,22 @@
 app.controller("insuranceCompany", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.gov = {};
+  $scope.insuranceCompany = {};
 
-  $scope.displayAddGov = function () {
+  $scope.displayAddInsuranceCompany = function () {
     $scope.error = '';
-    $scope.gov = {
-      image_url: '/images/gov.png',
+    $scope.insuranceCompany = {
+      image_url: '/images/insuranceCompany.png',
       active: true
     };
 
-    site.showModal('#govAddModal');
+    site.showModal('#insuranceCompanyAddModal');
 
   };
 
-  $scope.addGov = function () {
+  $scope.addInsuranceCompany = function () {
     $scope.error = '';
-    const v = site.validated('#govAddModal');
+    const v = site.validated('#insuranceCompanyAddModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -26,13 +26,13 @@ app.controller("insuranceCompany", function ($scope, $http, $timeout) {
     $http({
       method: "POST",
       url: "/api/insuranceCompany/add",
-      data: $scope.gov
+      data: $scope.insuranceCompany
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govAddModal');
-          $scope.getGovList();
+          site.hideModal('#insuranceCompanyAddModal');
+          $scope.getInsuranceCompanyList();
         } else {
           $scope.error = response.data.error;
           if (response.data.error.like('*Must Enter Code*')) {
@@ -46,16 +46,16 @@ app.controller("insuranceCompany", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayUpdateGov = function (gov) {
+  $scope.displayUpdateInsuranceCompany = function (insuranceCompany) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govUpdateModal');
+    $scope.viewInsuranceCompany(insuranceCompany);
+    $scope.insuranceCompany = {};
+    site.showModal('#insuranceCompanyUpdateModal');
   };
 
-  $scope.updateGov = function () {
+  $scope.updateInsuranceCompany = function () {
     $scope.error = '';
-    const v = site.validated('#govUpdateModal');
+    const v = site.validated('#insuranceCompanyUpdateModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -63,14 +63,14 @@ app.controller("insuranceCompany", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/insuranceCompany/update",
-      data: $scope.gov
+      url: "/api/insuranceCompany/update1",
+      data: $scope.insuranceCompany
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govUpdateModal');
-          $scope.getGovList();
+          site.hideModal('#insuranceCompanyUpdateModal');
+          $scope.getInsuranceCompanyList();
         } else {
           $scope.error = 'Please Login First';
         }
@@ -81,27 +81,27 @@ app.controller("insuranceCompany", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDetailsGov = function (gov) {
+  $scope.displayDetailsInsuranceCompany = function (insuranceCompany) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govViewModal');
+    $scope.viewInsuranceCompany(insuranceCompany);
+    $scope.insuranceCompany = {};
+    site.showModal('#insuranceCompanyViewModal');
   };
 
-  $scope.viewGov = function (gov) {
+  $scope.viewInsuranceCompany = function (insuranceCompany) {
     $scope.busy = true;
     $scope.error = '';
     $http({
       method: "POST",
       url: "/api/insuranceCompany/view",
       data: {
-        id: gov.id
+        id: insuranceCompany.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.gov = response.data.doc;
+          $scope.insuranceCompany = response.data.doc;
         } else {
           $scope.error = response.data.error;
         }
@@ -112,29 +112,29 @@ app.controller("insuranceCompany", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDeleteGov = function (gov) {
+  $scope.displayDeleteInsuranceCompany = function (insuranceCompany) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govDeleteModal');
+    $scope.viewInsuranceCompany(insuranceCompany);
+    $scope.insuranceCompany = {};
+    site.showModal('#insuranceCompanyDeleteModal');
   };
 
-  $scope.deleteGov = function () {
+  $scope.deleteInsuranceCompany = function () {
     $scope.busy = true;
     $scope.error = '';
 
     $http({
       method: "POST",
-      url: "/api/insuranceCompany/delete",
+      url: "/api/insuranceCompany/delete1",
       data: {
-        id: $scope.gov.id
+        id: $scope.insuranceCompany.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govDeleteModal');
-          $scope.getGovList();
+          site.hideModal('#insuranceCompanyDeleteModal');
+          $scope.getInsuranceCompanyList();
         } else {
           $scope.error = response.data.error;
         }
@@ -145,22 +145,20 @@ app.controller("insuranceCompany", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getGovList = function (where) {
+  $scope.getInsuranceCompanyList = function (where) {
     $scope.busy = true;
     $scope.list = [];
     $http({
       method: "POST",
-      url: "/api/insuranceCompany/all",
-      data: {
-        where: where
-      }
+      url: "/api/insuranceCompany/search",
+      data: where
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
-          site.hideModal('#govSearchModal');
+        if (response.data.docs.length > 0) {
+          $scope.list = response.data.docs;
+          $scope.count = response.data.totalDocs;
+          site.hideModal('#insuranceCompanySearchModal');
           $scope.search = {};
 
         }
@@ -173,42 +171,22 @@ app.controller("insuranceCompany", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getNumberingAuto = function () {
-    $scope.error = '';
-    $scope.busy = true;
-    $http({
-      method: "POST",
-      url: "/api/numbering/get_automatic",
-      data: {
-        screen: "gov"
-      }
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          $scope.disabledCode = response.data.isAuto;
-        }
-      },
-      function (err) {
-        $scope.busy = false;
-        $scope.error = err;
-      }
-    )
-  };
+
+  
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
-    site.showModal('#govSearchModal');
+    site.showModal('#insuranceCompanySearchModal');
 
   };
 
   $scope.searchAll = function () {
 
-    $scope.getGovList($scope.search);
-    site.hideModal('#govSearchModal');
+    $scope.getInsuranceCompanyList($scope.search);
+    site.hideModal('#insuranceCompanySearchModal');
     $scope.search = {};
   };
 
-  $scope.getGovList();
-  $scope.getNumberingAuto();
+  $scope.getInsuranceCompanyList();
+
 });

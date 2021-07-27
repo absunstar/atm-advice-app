@@ -15,24 +15,24 @@
         "ar": "اسم القسم"
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "departments_add",
+        "en": "Add Department",
+        "ar": "اضافة قسم"
     },
     {
-        "name": "goves_details",
-        "en": "Gov Details",
-        "ar": "تفاصيل المحافظة "
+        "name": "departments_edit",
+        "en": "Edit departments",
+        "ar": "تعديل الاقسام"
     },
     {
-        "name": "goves_delete",
-        "en": "Delete Gov",
-        "ar": "حذف محافظة "
+        "name": "departments_details",
+        "en": "Department Details",
+        "ar": "تفاصيل القسم"
     },
     {
-        "name": "goves_name",
-        "en": "Gov Name",
-        "ar": "إسم المحافظة "
+        "name": "departments_delete",
+        "en": "Delete Department",
+        "ar": "حذف القسم"
     },
     {
         "name": "nameExist",

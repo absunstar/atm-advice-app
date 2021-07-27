@@ -240,8 +240,8 @@ module.exports = function init(site) {
 
     let where = req.body || {};
 
-    if (where['name']) {
-      where['name'] = site.get_RegExp(where['name'], 'i');
+    if (where['name_ar']) {
+      where['name_ar'] = site.get_RegExp(where['name_ar'], 'i');
     }
 
     let limit = 10;
@@ -277,5 +277,86 @@ module.exports = function init(site) {
         res.json(response);
       },
     );
+  });
+  site.post('/api/insuranceCompany/update1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let insuranceCompany_doc = req.body;
+    if (insuranceCompany_doc.id) {
+      $insuranceCompany.edit(
+        {
+          where: {
+            id: insuranceCompany_doc.id,
+          },
+          set: insuranceCompany_doc,
+          $req: req,
+          $res: res,
+        },
+        (err) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = 'Code Already Exist';
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
+  });
+
+  site.post('/api/insuranceCompany/view', (req, res) => {
+    let response = {
+      done: false,
+    };
+
+  
+
+    $insuranceCompany.findOne(
+      {
+        where: {
+          id: req.body.id,
+        },
+      },
+      (err, doc) => {
+        if (!err) {
+          response.done = true;
+          response.doc = doc;
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+  site.post('/api/insuranceCompany/delete1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let id = req.body.id;
+
+    if (id) {
+      $insuranceCompany.delete(
+        {
+          id: id,
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
   });
 };

@@ -1,4 +1,4 @@
-<div id="govUpdateModal" class="modal" fixed>
+<div id="insuranceCompanyUpdateModal" class="modal" fixed>
         
     <div class="modal-content ">
         <div class="modal-header">
@@ -11,14 +11,14 @@
 
         <div class="modal-body">
 
-            <div x-import="goves/content.html"></div>
-            <div x-import="goves/action_info.html"></div>
+            <div x-import="insuranceCompany/content.html"></div>
+            <!-- <div x-import="goves/action_info.html"></div> -->
         </div>
 
         <div class="modal-footer center">
             <h2 class="error"> {{error}} </h2>
-            <i-button type="edit" label="##word.edit##" ng-click="updateGov(gov)"></i-button>
-            <i-button type="close" label="##word.close##" onclick="site.hideModal( '#govUpdateModal')"></i-button>
+            <i-button type="edit" label="##word.edit##" ng-click="updateInsuranceCompany(insuranceCompany)"></i-button>
+            <i-button type="close" label="##word.close##" onclick="site.hideModal( '#insuranceCompanyUpdateModal')"></i-button>
         </div>
     </div>
     

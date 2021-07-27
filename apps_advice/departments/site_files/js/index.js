@@ -63,7 +63,7 @@ app.controller("departments", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/departments/update",
+      url: "/api/departments/update1",
       data: $scope.department
     }).then(
       function (response) {
@@ -125,7 +125,7 @@ app.controller("departments", function ($scope, $http, $timeout) {
 
     $http({
       method: "POST",
-      url: "/api/departments/delete",
+      url: "/api/departments/delete1",
       data: {
         id: $scope.department.id
       }
@@ -150,16 +150,15 @@ app.controller("departments", function ($scope, $http, $timeout) {
     $scope.list = [];
     $http({
       method: "POST",
-      url: "/api/departments/all",
-      data: {
-        where: where
-      }
+      url: "/api/departments/search",
+      data: where 
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
+        console.log(response.data);
+        if (response.data.docs.length > 0) {
+          $scope.list = response.data.docs;
+          $scope.count = response.data.totalDocs||0;
           site.hideModal('#departmentSearchModal');
           $scope.search = {};
 
@@ -173,28 +172,6 @@ app.controller("departments", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getNumberingAuto = function () {
-    $scope.error = '';
-    $scope.busy = true;
-    $http({
-      method: "POST",
-      url: "/api/numbering/get_automatic",
-      data: {
-        screen: "department"
-      }
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          $scope.disabledCode = response.data.isAuto;
-        }
-      },
-      function (err) {
-        $scope.busy = false;
-        $scope.error = err;
-      }
-    )
-  };
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
@@ -210,5 +187,4 @@ app.controller("departments", function ($scope, $http, $timeout) {
   };
 
   $scope.getDepartmentList();
-  $scope.getNumberingAuto();
 });

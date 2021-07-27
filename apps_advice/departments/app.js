@@ -252,8 +252,11 @@ module.exports = function init(site) {
 
     let where = req.body || {};
 
-    if (where['name']) {
-      where['name'] = site.get_RegExp(where['name'], 'i');
+    if (where['name_en']) {
+      where['name_en'] = site.get_RegExp(where['name_en'], 'i');
+    }
+    if (where['name_ar']) {
+      where['name_ar'] = site.get_RegExp(where['name_ar'], 'i');
     }
     let limit = 10;
     let skip 
@@ -280,6 +283,7 @@ module.exports = function init(site) {
           response.totalPages = Math.ceil(response.totalDocs / response.limit)
         } else {
           response.docs = docs
+          response.totalDocs = count
           response.errorCode = site.var('failed')
           response.message = site.word('findFailed')[req.headers.language]
           response.done = false;
@@ -287,5 +291,86 @@ module.exports = function init(site) {
         res.json(response);
       },
     );
+  });
+  site.post('/api/departments/update1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let department_doc = req.body;
+    if (department_doc.id) {
+      $departments.edit(
+        {
+          where: {
+            id: department_doc.id,
+          },
+          set: department_doc,
+          $req: req,
+          $res: res,
+        },
+        (err) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = 'Code Already Exist';
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
+  });
+
+  site.post('/api/departments/view', (req, res) => {
+    let response = {
+      done: false,
+    };
+
+  
+
+    $departments.findOne(
+      {
+        where: {
+          id: req.body.id,
+        },
+      },
+      (err, doc) => {
+        if (!err) {
+          response.done = true;
+          response.doc = doc;
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+  site.post('/api/departments/delete1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let id = req.body.id;
+
+    if (id) {
+      $departments.delete(
+        {
+          id: id,
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
   });
 };
