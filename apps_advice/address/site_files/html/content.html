@@ -5,22 +5,45 @@
             <div class="row">
                 <div class="col9">
                     <div class="row">
-                        <i-control ng-hide="disabledCode" class="col2" label="##word.code##" ng-model="gov.code"></i-control>
-                        </i-control>
-                        <i-control help-id="goves_name" v="r ll2" class="col4" label="##word.goves_name##"
-                            ng-model="gov.name_ar"></i-control>
+                        <i-list help-id="" v="r" class="col4" label="##word.goves_name##" ng-model="address.gov"
+                        display="name_##session.lang##" items="govesList" ng-search="_search.$city_gov"></i-list>
 
-                        <i-control help-id="goves_name_en" class="col4" label="##word.name_en##"
-                            ng-model="gov.name_en"></i-control>
-
-                        <i-checkbox help-id="goves_active" class="col2" label="##word.active##" ng-model="gov.active">
+                        <i-list help-id="" v="r" class="col4" label="##word.city_name##" ng-model="address.city"
+                        display="name_##session.lang##" items="citiesList" ng-search="_search.$city_gov"></i-list>
+                        <i-checkbox help-id="address_active" class="col2" label="##word.active##"
+                            ng-model="address.active">
                         </i-checkbox>
                     </div>
-
+                    <div class="row">
+                        <i-control help-id="lat" type="number" class="col4" label="##word.lat##"
+                        ng-model="city.lat"></i-control>
+                        <i-control help-id="long" type="number"  class="col4" label="##word.long##"
+                        ng-model="city.long"></i-control>
+                        <i-control help-id="district"  class="col4" label="##word.district##"
+                        ng-model="city.district"></i-control>
+                    </div>
+                    <div class="row">
+                        <i-control help-id="streetName"  class="col4" label="##word.streetName##"
+                        ng-model="city.streetName"></i-control>
+                        <i-control help-id="buildingNumber" type="number" class="col4" label="##word.buildingNumber##"
+                        ng-model="city.buildingNumber"></i-control>
+                        <i-control help-id="role" type="number" class="col4" label="##word.role##"
+                        ng-model="city.role"></i-control>
+                    </div>
+                    <div class="row">
+                        <i-control help-id="apartmentNumber"  class="col3" label="##word.apartmentNumber##"
+                        ng-model="city.apartmentNumber"></i-control>
+                        <i-control help-id="specialMark"  class="col3" label="##word.specialMark##"
+                        ng-model="city.specialMark"></i-control>
+                        <i-control help-id="title"  class="col3" label="##word.title##"
+                        ng-model="city.title"></i-control>
+                        <i-control help-id="addressLocation"  class="col3" label="##word.addressLocation##"
+                        ng-model="city.addressLocation"></i-control>
+                    </div>
                 </div>
 
                 <div class="col3">
-                    <i-image help-id="goves_logo" ng-model="gov.image_url"></i-image>
+                    <i-image help-id="address_logo" ng-model="address.image_url"></i-image>
                 </div>
             </div>
         </fieldset>

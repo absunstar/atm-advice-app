@@ -2,7 +2,7 @@ module.exports = function init(site) {
   const $doctors = site.connectCollection('doctors');
   const $rating = site.connectCollection('rating');
   const $booking = site.connectCollection('booking');
-  
+  let ObjectID = require('mongodb').ObjectID
   site.get({
     name: 'images',
     path: __dirname + '/site_files/images/'
@@ -374,13 +374,9 @@ module.exports = function init(site) {
           date.setHours(0, 0, 0, 0)
           let bodyDate = new Date(doctor_doc.date)
           bodyDate.setHours(0, 0, 0, 0)
-          console.log("date", date);
-          console.log("bodyDate", bodyDate);
           if (String(date) == String(bodyDate)) {
             _d.times.push({
               "startSession": doctor_doc.startSession,
-              "sessionPeriod": doctor_doc.sessionPeriod,
-              "endSession": doctor_doc.endSession,
               status: "available"
             })
 
@@ -423,18 +419,23 @@ module.exports = function init(site) {
           bodyDate.setHours(0, 0, 0, 0)
           if (String(date) == String(bodyDate)) {
             doc.days.push({
-              date: doctor_doc.newDate,
+              date: (doctor_doc.newDate),
               times: _d.times
             })
 
           }
 
         });
-        response.done = true,
+        $doctors.update(doc, (err, result) => {
+
+          response.done = true,
           response.data = doc
         response.errorCode = site.var('succeed')
         response.message = site.word('updatedSuccessfully')[req.headers.language]
         res.json(response)
+        })
+          
+       
       } else {
         response.done = false,
           response.errorCode = site.var('failed')

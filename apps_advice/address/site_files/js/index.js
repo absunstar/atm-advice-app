@@ -1,22 +1,22 @@
 app.controller("address", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.gov = {};
+  $scope.address = {};
 
-  $scope.displayAddGov = function () {
+  $scope.displayAddAddress = function () {
     $scope.error = '';
-    $scope.gov = {
-      image_url: '/images/gov.png',
+    $scope.address = {
+      image_url: '/images/address.png',
       active: true
     };
 
-    site.showModal('#govAddModal');
+    site.showModal('#addressAddModal');
 
   };
 
-  $scope.addGov = function () {
+  $scope.addAddress = function () {
     $scope.error = '';
-    const v = site.validated('#govAddModal');
+    const v = site.validated('#addressAddModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -26,18 +26,17 @@ app.controller("address", function ($scope, $http, $timeout) {
     $http({
       method: "POST",
       url: "/api/address/add",
-      data: $scope.gov
+      data: $scope.address
     }).then(
       function (response) {
         $scope.busy = false;
+        console.log(response.data);
         if (response.data.done) {
-          site.hideModal('#govAddModal');
-          $scope.getGovList();
+          site.hideModal('#addressAddModal');
+          $scope.getAddressList();
         } else {
           $scope.error = response.data.error;
-          if (response.data.error.like('*Must Enter Code*')) {
-            $scope.error = "##word.must_enter_code##"
-          }
+          
         }
       },
       function (err) {
@@ -46,16 +45,16 @@ app.controller("address", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayUpdateGov = function (gov) {
+  $scope.displayUpdateAddress = function (address) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govUpdateModal');
+    $scope.viewAddress(address);
+    $scope.address = {};
+    site.showModal('#addressUpdateModal');
   };
 
-  $scope.updateGov = function () {
+  $scope.updateAddress = function () {
     $scope.error = '';
-    const v = site.validated('#govUpdateModal');
+    const v = site.validated('#addressUpdateModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -63,14 +62,14 @@ app.controller("address", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/address/update",
-      data: $scope.gov
+      url: "/api/address/update1",
+      data: $scope.address
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govUpdateModal');
-          $scope.getGovList();
+          site.hideModal('#addressUpdateModal');
+          $scope.getAddressList();
         } else {
           $scope.error = 'Please Login First';
         }
@@ -81,27 +80,27 @@ app.controller("address", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDetailsGov = function (gov) {
+  $scope.displayDetailsAddress = function (address) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govViewModal');
+    $scope.viewAddress(address);
+    $scope.address = {};
+    site.showModal('#addressViewModal');
   };
 
-  $scope.viewGov = function (gov) {
+  $scope.viewAddress = function (address) {
     $scope.busy = true;
     $scope.error = '';
     $http({
       method: "POST",
       url: "/api/address/view",
       data: {
-        id: gov.id
+        id: address.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.gov = response.data.doc;
+          $scope.address = response.data.doc;
         } else {
           $scope.error = response.data.error;
         }
@@ -112,29 +111,29 @@ app.controller("address", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDeleteGov = function (gov) {
+  $scope.displayDeleteAddress = function (address) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govDeleteModal');
+    $scope.viewAddress(address);
+    $scope.address = {};
+    site.showModal('#addressDeleteModal');
   };
 
-  $scope.deleteGov = function () {
+  $scope.deleteAddress = function () {
     $scope.busy = true;
     $scope.error = '';
 
     $http({
       method: "POST",
-      url: "/api/address/delete",
+      url: "/api/address/delete1",
       data: {
-        id: $scope.gov.id
+        id: $scope.address.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govDeleteModal');
-          $scope.getGovList();
+          site.hideModal('#addressDeleteModal');
+          $scope.getAddressList();
         } else {
           $scope.error = response.data.error;
         }
@@ -145,25 +144,24 @@ app.controller("address", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getGovList = function (where) {
+  $scope.getAddressList = function (where) {
     $scope.busy = true;
     $scope.list = [];
     $http({
       method: "POST",
-      url: "/api/address/all",
-      data: {
-        where: where
-      }
+      url: "/api/address/search",
+      data:where 
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
-          site.hideModal('#govSearchModal');
+        console.log(response.data);
+       
+          $scope.list = response.data.docs;
+          $scope.count = response.data.totalDocs;
+          site.hideModal('#addressSearchModal');
           $scope.search = {};
 
-        }
+        
       },
       function (err) {
         $scope.busy = false;
@@ -180,7 +178,7 @@ app.controller("address", function ($scope, $http, $timeout) {
       method: "POST",
       url: "/api/numbering/get_automatic",
       data: {
-        screen: "gov"
+        screen: "address"
       }
     }).then(
       function (response) {
@@ -198,17 +196,73 @@ app.controller("address", function ($scope, $http, $timeout) {
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
-    site.showModal('#govSearchModal');
+    site.showModal('#addressSearchModal');
 
+  };
+
+  $scope.getGovesList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/gov",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.govesList = response.data.docs;
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+
+  $scope.getCitiesList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/city",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.citiesList = response.data.docs;
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
   };
 
   $scope.searchAll = function () {
 
-    $scope.getGovList($scope.search);
-    site.hideModal('#govSearchModal');
+    $scope.getAddressList($scope.search);
+    site.hideModal('#addressSearchModal');
     $scope.search = {};
   };
-
-  $scope.getGovList();
-  $scope.getNumberingAuto();
+  $scope.getAddressList();
+  $scope.getGovesList();
+  $scope.getCitiesList()
 });

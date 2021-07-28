@@ -22,15 +22,16 @@ module.exports = function init(site) {
       done: false,
     };
     req.headers.language = req.headers.language || 'en'
-    if (!req.session.user) {
-      response.errorCode = site.var('failed')
-      response.message = site.word('loginFirst')[req.headers.language]
-      response.done = false;
-      res.json(response);
-      return;
-    }
+    // if (!req.session.user) {
+    //   response.errorCode = site.var('failed')
+    //   response.message = site.word('loginFirst')[req.headers.language]
+    //   response.done = false;
+    //   res.json(response);
+    //   return;
+    // }
     
     let address_doc = req.body;
+    console.log(address_doc);
     address_doc.$req = req;
     address_doc.$res = res;
     address_doc.isActive = true,
@@ -352,4 +353,84 @@ module.exports = function init(site) {
       },
     );
   });
+  site.post("/api/address/update1", (req, res) => {
+    let response = {
+      done: false
+    }
+
+
+
+    let address_doc = req.body
+
+
+    if (address_doc.id) {
+
+      $address.edit({
+        where: {
+          id: address_doc.id
+        },
+        set: address_doc,
+        $req: req,
+        $res: res
+      }, err => {
+        if (!err) {
+          response.done = true
+        } else {
+          response.error = 'Code Already Exist'
+        }
+        res.json(response)
+      })
+    } else {
+      response.error = 'no id'
+      res.json(response)
+    }
+  })
+
+  site.post("/api/address/view", (req, res) => {
+    let response = {
+      done: false
+    }
+
+
+
+    $address.findOne({
+      where: {
+        id: req.body.id
+      }
+    }, (err, doc) => {
+      if (!err) {
+        response.done = true
+        response.doc = doc
+      } else {
+        response.error = err.message
+      }
+      res.json(response)
+    })
+  })
+
+  site.post("/api/address/delete1", (req, res) => {
+    let response = {
+      done: false
+    }
+    let id = req.body.id
+
+    if (id) {
+      $address.delete({
+        id: id,
+        $req: req,
+        $res: res
+      }, (err, result) => {
+        if (!err) {
+          response.done = true,
+            response.errorCode = site.var('succeed')
+          response.message = site.word('addressDeleted')[req.headers.language]
+        } else {
+          response.done = false,
+            response.errorCode = site.var('failed')
+          response.message = 'failedDelete'
+        }
+        res.json(response)
+      })
+    }
+  })
 };

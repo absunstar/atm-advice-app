@@ -89,11 +89,17 @@ module.exports = function init(site) {
         }
       }, (err1, doctorsDoc) => {
         doctorsDoc.days.forEach(_d => {
-          _d.times.forEach(_t => {
-            if (_t.status = 'available' && new Date(_t.startSession).getTime() >= new Date(bookingDoc.time).getTime() && new Date(bookingDoc.time).getTime() < new Date(_t.endSession).getTime()) {
-              _t.status = 'unAvailable'
-            }
-          });
+          let date = new Date(_d.date)
+          date.setHours(0, 0, 0, 0)
+          let bodyDate = new Date(bookingDoc.date)
+          bodyDate.setHours(0, 0, 0, 0)
+          if (String(date) == String(bodyDate)) {
+            _d.times.forEach(_t => {
+              if (_t.status = 'available' && (_t.startSession) ==(bookingDoc.time) ) {
+                _t.status = 'unAvailable'
+              }
+            });
+          }
         });
 
         $doctors.update(doctorsDoc, (err, result) => {
