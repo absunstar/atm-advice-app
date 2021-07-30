@@ -15,9 +15,9 @@
         "ar": "إضافة محافظة "
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "doctorRatingError",
+        "en": "doctor Rating Error",
+        "ar": "حدث خطا في تقييم الدكتور"
     },
     {
         "name": "appointmentClosed",

@@ -1,16 +1,16 @@
-<div id="govDeleteModal" class="modal">
+<div id="patientsDeleteModal" class="modal">
     
     <div class="modal-content">
         <div class="modal-header">
             <span class="close">&times;</span>
             <h2>
-                ##word.goves_delete##
+                ##word.patients_delete##
                 <i class="fa fa-trash"></i>
             </h2>
         </div>
 
         <div class="modal-body">
-               <div x-import="goves/view.html"></div>
+               <div x-import="patients/view.html"></div>
 
         </div>
 
@@ -19,9 +19,9 @@
         <div class="modal-footer center">
             <i-button type="print" label="##word.print##" onclick="site.print('#v1')"></i-button>
 
-            <i-button type="delete" label="##word.delete##" ng-click="deleteGov(gov)"> </i-button>
+            <i-button type="delete" label="##word.delete##" ng-click="deletePatients(patients)"> </i-button>
 
-            <i-button type="close" label="##word.close##" onclick="site.hideModal('#govDeleteModal')"> </i-button>
+            <i-button type="close" label="##word.close##" onclick="site.hideModal('#patientsDeleteModal')"> </i-button>
 
         </div>
     </div>

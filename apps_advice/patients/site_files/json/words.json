@@ -1,38 +1,38 @@
 [
     {
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+        "name": "patients",
+        "en": "Patients",
+        "ar": "المرضى"
     },
     {
-        "name": "goves_new",
-        "en": "New Gov",
-        "ar": "محافظة جديدة"
+        "name": "patients_new",
+        "en": "New Patient",
+        "ar": "مريض جديد"
     },
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "idNumber",
+        "en": "ID Number",
+        "ar": "رقم البطاقة"
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "hasInsurance",
+        "en": "has Insurance",
+        "ar": "يملك تامين طبي"
     },
     {
-        "name": "goves_details",
-        "en": "Gov Details",
-        "ar": "تفاصيل المحافظة "
+        "name": "contractingCompany",
+        "en": "Contracting Company",
+        "ar": "اسم شركة التعاقد"
     },
     {
-        "name": "goves_delete",
-        "en": "Delete Gov",
-        "ar": "حذف محافظة "
+        "name": "insuranceNumber",
+        "en": "Insurance Number",
+        "ar": "الرقم التاميني"
     },
     {
-        "name": "goves_name",
-        "en": "Gov Name",
-        "ar": "إسم المحافظة "
+        "name": "insuranceCompany",
+        "en": "Insurance Company",
+        "ar": "اسم شركة التامين"
     },
     {
         "name": "nameExist",
@@ -40,9 +40,24 @@
         "ar": "الاسم موجود من قبل "
     },
     {
-        "name": "phoneExist",
-        "en": "Phone Exist",
-        "ar": "الرقم موجود من قبل"
+        "name": "patients_add",
+        "en": "Patient Add",
+        "ar": "اضافة مريض"
+    },
+    {
+        "name": "patients_delete",
+        "en": "Patient Delete",
+        "ar": "حذف مريض"
+    },
+    {
+        "name": "patients_edit",
+        "en": "Patient Edit",
+        "ar": "تعديل مريض"
+    },
+    {
+        "name": "patients_details",
+        "en": "Patient Details",
+        "ar": "تفاصيل مريض"
     },
     {
         "name": "findUser",

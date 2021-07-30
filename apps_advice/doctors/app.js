@@ -370,10 +370,10 @@ module.exports = function init(site) {
     }, (err, doc) => {
       if (doc) {
         doc.days.forEach(_d => {
-          let date = new Date(_d.date)
-          date.setHours(0, 0, 0, 0)
-          let bodyDate = new Date(doctor_doc.date)
-          bodyDate.setHours(0, 0, 0, 0)
+          let date = _d.date
+         
+          let bodyDate = doctor_doc.date
+      
           if (String(date) == String(bodyDate)) {
             _d.times.push({
               "startSession": doctor_doc.startSession,
@@ -460,10 +460,10 @@ module.exports = function init(site) {
       if (doc) {
         let arr = []
         doc.days.forEach(_d => {
-          let date = new Date(_d.date)
-          date.setHours(0, 0, 0, 0)
-          let bodyDate = new Date(doctor_doc.date)
-          bodyDate.setHours(0, 0, 0, 0)
+          let date = _d.date
+  
+          let bodyDate = doctor_doc.date
+          
           if (String(date) == String(bodyDate)) {
             arr = _d.times
           }
@@ -485,6 +485,113 @@ module.exports = function init(site) {
   })
 
 
+  // change Password
+
+  site.post("/api/doctors/changePassword", (req, res) => {
+    let response = {}
+    req.headers.language = req.headers.language || 'en'
+    let doctors_doc = req.body
+   
+    $doctors.findOne({
+      where: {
+        _id:doctors_doc.doctor._id
+      },
+    }, (err, doc) => {
+     
+     
+      if (doc && doc.password == doctors_doc.password) {
+        $doctors.edit({
+          where: {
+            _id: doctors_doc.doctor._id
+          },
+          set: { password: doctors_doc.newPassword },
+          $req: req,
+          $res: res
+        }, (err, result) => {
+          
+            response.done = true
+            response.message = site.word('updatePassword')[req.headers.language]
+            response.errorCode = site.var('succeed')
+          
+          res.json(response)
+        })
+      }
+      if(!doc || doc.password != doctors_doc.password) {
+        response.done = false
+        response.message = site.word('passwordNotCorrect')[req.headers.language]
+        response.errorCode = site.var('failed')
+        res.json(response)
+      }
+    })
+  })
+
+
+
+// get All Days By Doctor
+  
+site.post("/api/doctors/getAllDays", (req, res) => {
+  req.headers.language = req.headers.language || 'en'
+  let response = {}
+  let doctor_doc = req.body
+  $doctors.findOne({
+    where: {
+      _id: doctor_doc.doctor._id
+    }
+  }, (err, doc) => {
+    if (doc) {
+      let arr = []
+     
+      response.done = true,
+        response.data = doc.days
+      response.errorCode = site.var('succeed')
+      response.message = site.word('findSuccessfully')[req.headers.language]
+      res.json(response)
+    } else {
+      response.done = false,
+        response.errorCode = site.var('failed')
+      response.message = site.word('failedUpdated')[req.headers.language]
+      res.json(response)
+    }
+
+  })
+})
+
+// add Doctor day
+  
+site.post("/api/doctors/addDoctorDate", (req, res) => {
+  req.headers.language = req.headers.language || 'en'
+  let response = {}
+  let doctor_doc = req.body
+  $doctors.findOne({
+    where: {
+      _id: doctor_doc.doctor._id
+    }
+  }, (err, doc) => {
+    if (doc) {
+      let arr = []
+      doc.days.push({
+        date : doctor_doc.date,
+        times : []
+      })
+      $doctors.update(doc, (err, result) => {
+        response.done = true,
+        response.data = doc.days
+      response.errorCode = site.var('succeed')
+      response.message = site.word('findSuccessfully')[req.headers.language]
+      res.json(response)
+      })
+    
+    } else {
+      response.done = false,
+        response.errorCode = site.var('failed')
+      response.message = site.word('failedUpdated')[req.headers.language]
+      res.json(response)
+    }
+
+  })
+})
+
+
 
   // close appointment
 
@@ -500,13 +607,13 @@ module.exports = function init(site) {
       if (doc) {
         let arr = []
         doc.days.forEach(_d => {
-          let date = new Date(_d.date)
-          date.setHours(0, 0, 0, 0)
-          let bodyDate = new Date(doctor_doc.date)
-          bodyDate.setHours(0, 0, 0, 0)
+          let date = _d.date
+         
+          let bodyDate = doctor_doc.date
+         
           if (String(date) == String(bodyDate)) {
             _d.times.forEach(_t => {
-              if (_t.status = 'available' && new Date(_t.startSession).getTime() == new Date(doctor_doc.startSession).getTime()) {
+              if (_t.status = 'available' && _t.startSession == doctor_doc.startSession) {
 
                 _t.status = 'unAvailable'
               }
@@ -517,7 +624,7 @@ module.exports = function init(site) {
         $doctors.update(doc, (err, result) => {
 
           response.done = true,
-            response.data = doc,
+            // response.data = doc,
             response.errorCode = site.var('succeed')
           response.message = site.word('appointmentClosed')[req.headers.language]
 
@@ -555,7 +662,7 @@ module.exports = function init(site) {
         $doctors.update(doc, (err, result) => {
 
           response.done = true,
-            response.data = doc,
+            // response.data = doc,
             response.errorCode = site.var('succeed')
           response.message = site.word('dateRemoved')[req.headers.language]
 
@@ -581,7 +688,7 @@ module.exports = function init(site) {
     };
 
     if (!doctors_doc.rating.between(0, 5.1)) {
-      response.message = site.word('pharmacyRatingError')[req.headers.language],
+      response.message = site.word('doctorRatingError')[req.headers.language],
         res.json(response)
     }
 
@@ -981,41 +1088,6 @@ date : new Date().toISOString().split('T')[0],
     // );
   });
 
-
-
-// get All Booking Done 
-site.post('/api/booking/getAllDoneBooking', (req, res) => {
-  req.headers.language = req.headers.language || 'en'
-  let response = {}
-
-  let booking_doc = req.body;
- 
-  $booking.findMany({
-    where: {
-      'status': site.var('done'),
-      'doctor._id': booking_doc.doctor._id,
-    },
-    
-    $req: req,
-    $res: res
-  }, (err, docs, count) => {
-    if (docs && docs.length > 0) {
-      response.done = true
-      response.data = {
-        docs : docs,
-        totalDocs : count
-      }
-
-      response.message = site.word('findBooking')[req.headers.language],
-        response.errorCode = site.var('succeed')
-    }
-response.docs = []
-    response.done = true
-    response.message = site.word('bookingDone')[req.headers.language],
-      response.errorCode = site.var('succeed')
-    res.json(response)
-  })
-});
 
 
 

@@ -5,22 +5,46 @@
             <div class="row">
                 <div class="col9">
                     <div class="row">
-                        <i-control ng-hide="disabledCode" class="col2" label="##word.code##" ng-model="gov.code"></i-control>
+                        <i-control class="col4" v="r ll2" label="##word.name##" ng-model="patients.fullName">
                         </i-control>
-                        <i-control help-id="goves_name" v="r ll2" class="col4" label="##word.goves_name##"
-                            ng-model="gov.name_ar"></i-control>
+                        </i-control>
+                        <i-control help-id="idNumber" class="col4" label="##word.idNumber##"
+                            ng-model="patients.idNumber"></i-control>
 
-                        <i-control help-id="goves_name_en" class="col4" label="##word.name_en##"
-                            ng-model="gov.name_en"></i-control>
+                        <i-control help-id="phone" class="col4" label="##word.phone##" ng-model="patients.phone">
+                        </i-control>
+                        <i-control help-id="password" class="col4" label="##word.password##"
+                            ng-model="patients.password"></i-control>
 
-                        <i-checkbox help-id="goves_active" class="col2" label="##word.active##" ng-model="gov.active">
-                        </i-checkbox>
+                        <i-list help-id="" v="r" class="col4" label="##word.gender##" ng-model="patients.gender"
+                            display="name_##session.lang##" items="genderList" ng-search="_search.gender"></i-list>
+
+                        <i-control help-id="email" v="r ll2" class="col4" label="##word.email##"
+                            ng-model="patients.email"></i-control>
+
                     </div>
+                    <div class="row">
+                        <i-checkbox help-id="hasInsurance" class="col2" label="##word.hasInsurance##"
+                            ng-model="patients.hasInsurance">
+                        </i-checkbox>
+                        <i-control ng-show="patients.hasInsurance" help-id="contractingCompany" class="col3" label="##word.contractingCompany##"
+                            ng-model="patients.contractingCompany">
+                        </i-control>
+                        <i-control ng-show="patients.hasInsurance" help-id="insuranceNumber" class="col3"
+                            label="##word.insuranceNumber##" ng-model="patients.insuranceNumber"></i-control>
+                        <i-list ng-show="patients.hasInsurance" help-id="" v="r" class="col3" label="##word.insuranceCompany##"
+                            ng-model="patients.insuranceCompany" display="name_##session.lang##" items="insuranceCompanyList"
+                            ng-search="_search.insuranceCompany"></i-list>
 
+                       
+                    </div>
+                    <div ng-show="patients.hasInsurance" class="col3">
+                        <i-image   help-id="patients_logo" ng-model="patients.card_url"></i-image>
+                    </div>
                 </div>
 
                 <div class="col3">
-                    <i-image help-id="goves_logo" ng-model="gov.image_url"></i-image>
+                    <i-image help-id="patients_logo" ng-model="patients.image_url"></i-image>
                 </div>
             </div>
         </fieldset>

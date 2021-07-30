@@ -1,22 +1,54 @@
 app.controller("patients", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.gov = {};
+  $scope.patients = {};
 
-  $scope.displayAddGov = function () {
+  $scope.displayAddPatients = function () {
     $scope.error = '';
-    $scope.gov = {
-      image_url: '/images/gov.png',
-      active: true
+    $scope.patients = {
+      image_url: '/images/patients.png',
+      card_url:"/images/cardImage.png",
+      active: true,
+      hasInsurance : false
     };
 
-    site.showModal('#govAddModal');
+    site.showModal('#patientsAddModal');
 
   };
+  
 
-  $scope.addGov = function () {
+
+  $scope.getInsuranceCompanyList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/insuranceCompany",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1 , balance : 1 , image : 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.insuranceCompanyList = response.data.docs;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+
+
+  $scope.addPatients = function () {
     $scope.error = '';
-    const v = site.validated('#govAddModal');
+    const v = site.validated('#patientsAddModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -26,13 +58,13 @@ app.controller("patients", function ($scope, $http, $timeout) {
     $http({
       method: "POST",
       url: "/api/patients/add",
-      data: $scope.gov
+      data: $scope.patients
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govAddModal');
-          $scope.getGovList();
+          site.hideModal('#patientsAddModal');
+          $scope.getPatientsList();
         } else {
           $scope.error = response.data.error;
           if (response.data.error.like('*Must Enter Code*')) {
@@ -46,16 +78,16 @@ app.controller("patients", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayUpdateGov = function (gov) {
+  $scope.displayUpdatePatients = function (patients) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govUpdateModal');
+    $scope.viewPatients(patients);
+    $scope.patients = {};
+    site.showModal('#patientsUpdateModal');
   };
 
-  $scope.updateGov = function () {
+  $scope.updatePatients = function () {
     $scope.error = '';
-    const v = site.validated('#govUpdateModal');
+    const v = site.validated('#patientsUpdateModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -63,14 +95,14 @@ app.controller("patients", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/patients/update",
-      data: $scope.gov
+      url: "/api/patients/update1",
+      data: $scope.patients
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govUpdateModal');
-          $scope.getGovList();
+          site.hideModal('#patientsUpdateModal');
+          $scope.getPatientsList();
         } else {
           $scope.error = 'Please Login First';
         }
@@ -81,27 +113,27 @@ app.controller("patients", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDetailsGov = function (gov) {
+  $scope.displayDetailsPatients = function (patients) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govViewModal');
+    $scope.viewPatients(patients);
+    $scope.patients = {};
+    site.showModal('#patientsViewModal');
   };
 
-  $scope.viewGov = function (gov) {
+  $scope.viewPatients = function (patients) {
     $scope.busy = true;
     $scope.error = '';
     $http({
       method: "POST",
       url: "/api/patients/view",
       data: {
-        id: gov.id
+        id: patients.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.gov = response.data.doc;
+          $scope.patients = response.data.doc;
         } else {
           $scope.error = response.data.error;
         }
@@ -112,29 +144,29 @@ app.controller("patients", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDeleteGov = function (gov) {
+  $scope.displayDeletePatients = function (patients) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govDeleteModal');
+    $scope.viewPatients(patients);
+    $scope.patients = {};
+    site.showModal('#patientsDeleteModal');
   };
 
-  $scope.deleteGov = function () {
+  $scope.deletePatients = function () {
     $scope.busy = true;
     $scope.error = '';
 
     $http({
       method: "POST",
-      url: "/api/patients/delete",
+      url: "/api/patients/delete1",
       data: {
-        id: $scope.gov.id
+        id: $scope.patients.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govDeleteModal');
-          $scope.getGovList();
+          site.hideModal('#patientsDeleteModal');
+          $scope.getPatientsList();
         } else {
           $scope.error = response.data.error;
         }
@@ -145,24 +177,21 @@ app.controller("patients", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getGovList = function (where) {
+  $scope.getPatientsList = function (where) {
     $scope.busy = true;
     $scope.list = [];
     $http({
       method: "POST",
-      url: "/api/patients/all",
-      data: {
-        where: where
-      }
+      url: "/api/patients/search",
+      data: where
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
-          site.hideModal('#govSearchModal');
+        if (response.data.docs.length > 0) {
+          $scope.list = response.data.docs;
+          $scope.count = response.data.totalDocs;
+          site.hideModal('#patientsSearchModal');
           $scope.search = {};
-
         }
       },
       function (err) {
@@ -173,42 +202,24 @@ app.controller("patients", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getNumberingAuto = function () {
+    $scope.displaySearchModal = function () {
     $scope.error = '';
-    $scope.busy = true;
-    $http({
-      method: "POST",
-      url: "/api/numbering/get_automatic",
-      data: {
-        screen: "gov"
-      }
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          $scope.disabledCode = response.data.isAuto;
-        }
-      },
-      function (err) {
-        $scope.busy = false;
-        $scope.error = err;
-      }
-    )
+    site.showModal('#patientsSearchModal');
   };
 
-  $scope.displaySearchModal = function () {
-    $scope.error = '';
-    site.showModal('#govSearchModal');
-
+  $scope.getGenderList = function () {
+    $scope.genderList = [{name_ar:"ذكر", name_en:"male"},{name_ar:"انثى", name_en:"female"}];
+    
   };
 
   $scope.searchAll = function () {
 
-    $scope.getGovList($scope.search);
-    site.hideModal('#govSearchModal');
+    $scope.getPatientsList($scope.search);
+    site.hideModal('#patientsSearchModal');
     $scope.search = {};
   };
 
-  $scope.getGovList();
-  $scope.getNumberingAuto();
+  $scope.getGenderList ();
+  $scope.getPatientsList();
+  $scope.getInsuranceCompanyList();
 });

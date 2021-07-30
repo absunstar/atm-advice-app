@@ -31,7 +31,11 @@ module.exports = function init(site) {
     let insuranceCompany_doc = req.body;
     insuranceCompany_doc.$req = req;
     insuranceCompany_doc.$res = res;
-   
+    if (insuranceCompany_doc.image_url) {
+      insuranceCompany_doc.image = new Array({
+        name : insuranceCompany_doc.image_url
+      })
+    }
       insuranceCompany_doc.isActive = true,
       insuranceCompany_doc.createdAt = new Date()
     insuranceCompany_doc.updatedAt = new Date()
