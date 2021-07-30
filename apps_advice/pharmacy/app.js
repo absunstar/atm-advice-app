@@ -57,7 +57,17 @@ module.exports = function init(site) {
     let pharmacy_doc = req.body
     pharmacy_doc.$req = req;
     pharmacy_doc.$res = res;
-
+if (typeof pharmacy_doc.lat == 'string') {
+  pharmacy_doc.lat = Number(pharmacy_doc.lat)
+}
+if (typeof pharmacy_doc.long == 'string') {
+  pharmacy_doc.long = Number(pharmacy_doc.long)
+}
+if (pharmacy_doc.image_url) {
+  pharmacy_doc.image = new Array({
+    name : pharmacy_doc.image_url
+  })
+}
     pharmacy_doc.isActive = false
     pharmacy_doc.isAvailable = false
     pharmacy_doc.createdAt = new Date()
@@ -262,13 +272,9 @@ module.exports = function init(site) {
             $req: req,
             $res: res
           }, (err, result) => {
-
-
-            response.done = true
+            response.done = false
             response.message = site.word('acountAvailable')[req.headers.language]
             response.errorCode = site.var('succeed')
-
-
             res.json(response)
           })
         }
@@ -285,13 +291,9 @@ module.exports = function init(site) {
             $req: req,
             $res: res
           }, (err, result) => {
-
-
-            response.done = false
+            response.done = true
             response.message = site.word('acountNotAvailable')[req.headers.language]
             response.errorCode = site.var('succeed')
-
-
             res.json(response)
           })
         }
@@ -1054,5 +1056,86 @@ module.exports = function init(site) {
         res.json(response);
       },
     );
+  });
+  site.post('/api/pharmacy/update1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let pharmacy_doc = req.body;
+    if (pharmacy_doc.id) {
+      $pharmacy.edit(
+        {
+          where: {
+            id: pharmacy_doc.id,
+          },
+          set: pharmacy_doc,
+          $req: req,
+          $res: res,
+        },
+        (err) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = 'Code Already Exist';
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
+  });
+
+  site.post('/api/pharmacy/view', (req, res) => {
+    let response = {
+      done: false,
+    };
+
+  
+
+    $pharmacy.findOne(
+      {
+        where: {
+          id: req.body.id,
+        },
+      },
+      (err, doc) => {
+        if (!err) {
+          response.done = true;
+          response.doc = doc;
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+  site.post('/api/pharmacy/delete1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let id = req.body.id;
+
+    if (id) {
+      $pharmacy.delete(
+        {
+          id: id,
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
   });
 };

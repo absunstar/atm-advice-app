@@ -5,22 +5,29 @@
             <div class="row">
                 <div class="col9">
                     <div class="row">
-                        <i-control ng-hide="disabledCode" class="col2" label="##word.code##" ng-model="gov.code"></i-control>
+                        <i-control class="col4" v="r ll2" label="##word.title##" ng-model="complaints.title"></i-control>
                         </i-control>
-                        <i-control help-id="goves_name" v="r ll2" class="col4" label="##word.goves_name##"
-                            ng-model="gov.name_ar"></i-control>
+                      
 
-                        <i-control help-id="goves_name_en" class="col4" label="##word.name_en##"
-                            ng-model="gov.name_en"></i-control>
-
-                        <i-checkbox help-id="goves_active" class="col2" label="##word.active##" ng-model="gov.active">
+                        <i-checkbox help-id="complaints_active" class="col2" label="##word.active##" ng-model="complaints.active">
                         </i-checkbox>
+                        <div class="row">
+                            <div class="col8">
+                                <i-textarea class="col" label="##word.description##" ng-model="complaints.description">
+                                </i-textarea>
+        
+                            </div>
+                        </div>
+                        
                     </div>
-
+                    
                 </div>
-
+                
+                   
+                
+               
                 <div class="col3">
-                    <i-image help-id="goves_logo" ng-model="gov.image_url"></i-image>
+                    <i-image help-id="complaints_logo" ng-model="complaints.image_url"></i-image>
                 </div>
             </div>
         </fieldset>

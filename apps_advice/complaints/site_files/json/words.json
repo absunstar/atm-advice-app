@@ -1,38 +1,38 @@
 [{
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+        "name": "title",
+        "en": "Title",
+        "ar": "العنوان"
     },
     {
-        "name": "goves_new",
-        "en": "New Gov",
-        "ar": "محافظة جديدة"
+        "name": "complaints",
+        "en": "Complaints",
+        "ar": "الشكاوى"
     },
 
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "complaints_new",
+        "en": "New Complaints",
+        "ar": "شكوى جديدة"
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "complaints_add",
+        "en": "Add Complaints",
+        "ar": "اضافة شكوى"
     },
     {
-        "name": "goves_details",
-        "en": "Gov Details",
-        "ar": "تفاصيل المحافظة "
+        "name": "complaints_delete",
+        "en": "Delete Complaints",
+        "ar": "حذف شكوى "
     },
     {
-        "name": "goves_delete",
-        "en": "Delete Gov",
-        "ar": "حذف محافظة "
+        "name": "complaints_edit",
+        "en": "Edit Complaints",
+        "ar": "تعديل شكوى"
     },
     {
-        "name": "goves_name",
-        "en": "Gov Name",
-        "ar": "إسم المحافظة "
+        "name": "complaints_details",
+        "en": "Complaints Details",
+        "ar": "تفاصيل الشكوى"
     },
 {
     "name" : "nameExist",

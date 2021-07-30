@@ -1,23 +1,61 @@
 [
     {
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+        "name": "userName",
+        "en": "UserName",
+        "ar": "اسم المستخدم"
+    },
+   
+    {
+        "name": "pharmacyName",
+        "en": "pharmacy Name",
+        "ar": "اسم الصيدلية"
     },
     {
-        "name": "goves_new",
-        "en": "New Gov",
-        "ar": "محافظة جديدة"
+        "name": "branch",
+        "en": "branch",
+        "ar": "الفرع"
     },
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "lat",
+        "en": "latitude",
+        "ar": "دوائر العرض "
+    },
+    
+    {
+        "name": "long",
+        "en": "longitude",
+        "ar": " خطوط الطول "
+    },
+
+
+
+
+
+
+    {
+        "name": "pharmacy",
+        "en": "Pharmacy",
+        "ar": "الصيدلية"
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "pharmacy_new",
+        "en": "New Pharmacy",
+        "ar": "صيدلية جديدة"
+    },
+    {
+        "name": "pharmacy_add",
+        "en": "Add Pharmacy",
+        "ar": "إضافة صيدلية "
+    },
+    {
+        "name": "pharmacy_edit",
+        "en": "Edit Pharmacy",
+        "ar": "تعديل صيدلية "
+    },
+    {
+        "name": "pharmacy_details",
+        "en": "Pharmacy Details",
+        "ar": "تفاصيل صيدلية "
     },
     {
         "name": "acountActivated",
@@ -25,14 +63,14 @@
         "ar": "تم تفعيل الحساب"
     },
     {
-        "name": "goves_delete",
-        "en": "Delete Gov",
-        "ar": "حذف محافظة "
+        "name": "pharmacy_delete",
+        "en": "Delete Pharmacy",
+        "ar": "حذف صيدلية "
     },
     {
-        "name": "goves_name",
-        "en": "Gov Name",
-        "ar": "إسم المحافظة "
+        "name": "pharmacy_name",
+        "en": "Pharmacy Name",
+        "ar": "إسم الصيدلية "
     },
     {
         "name": "nameExist",

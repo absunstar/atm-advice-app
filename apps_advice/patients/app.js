@@ -27,7 +27,6 @@ module.exports = function init(site) {
     //   return;
     // }
     let patients_doc = req.body;
-   console.log(patients_doc);
     if (patients_doc.image_url) {
       patients_doc.image = new Array({
         name : patients_doc.image_url

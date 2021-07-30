@@ -239,4 +239,84 @@ module.exports = function init(site) {
       },
     );
   });
+  site.post("/api/complaints/update1", (req, res) => {
+    let response = {
+      done: false
+    }
+
+
+
+    let address_doc = req.body
+
+
+    if (address_doc.id) {
+
+      $complaints.edit({
+        where: {
+          id: address_doc.id
+        },
+        set: address_doc,
+        $req: req,
+        $res: res
+      }, err => {
+        if (!err) {
+          response.done = true
+        } else {
+          response.error = 'Code Already Exist'
+        }
+        res.json(response)
+      })
+    } else {
+      response.error = 'no id'
+      res.json(response)
+    }
+  })
+
+  site.post("/api/complaints/view", (req, res) => {
+    let response = {
+      done: false
+    }
+
+
+
+    $complaints.findOne({
+      where: {
+        id: req.body.id
+      }
+    }, (err, doc) => {
+      if (!err) {
+        response.done = true
+        response.doc = doc
+      } else {
+        response.error = err.message
+      }
+      res.json(response)
+    })
+  })
+
+  site.post("/api/complaints/delete1", (req, res) => {
+    let response = {
+      done: false
+    }
+    let id = req.body.id
+
+    if (id) {
+      $complaints.delete({
+        id: id,
+        $req: req,
+        $res: res
+      }, (err, result) => {
+        if (!err) {
+          response.done = true,
+            response.errorCode = site.var('succeed')
+          response.message = site.word('complaintsDeleted')[req.headers.language]
+        } else {
+          response.done = false,
+            response.errorCode = site.var('failed')
+          response.message = 'failedDelete'
+        }
+        res.json(response)
+      })
+    }
+  })
 };
