@@ -39,7 +39,17 @@ module.exports = function init(site) {
     let doctors_doc = req.body;
     doctors_doc.$req = req;
     doctors_doc.$res = res;
-
+    if (typeof doctors_doc.lat == 'string') {
+      doctors_doc.lat = Number(doctors_doc.lat)
+    }
+    if (typeof doctors_doc.long == 'string') {
+      doctors_doc.long = Number(doctors_doc.long)
+    }
+    if (doctors_doc.image_url) {
+      doctors_doc.image = new Array({
+        name : doctors_doc.image_url
+      })
+    }
     doctors_doc.isActive = false,
       doctors_doc.isAvailable = false,
       doctors_doc.createdAt = new Date()
@@ -59,7 +69,7 @@ module.exports = function init(site) {
     $doctors.createIndex({
       location: "2dsphere"
     })
-
+console.log(doctors_doc);
     $doctors.add(doctors_doc, (err, doc) => {
       if (!err) {
         let user = {
@@ -1215,5 +1225,89 @@ date : new Date().toISOString().split('T')[0],
     //     res.json(response);
     //   },
     // );
+  });
+
+
+
+  site.post('/api/doctors/update1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let doctors_doc = req.body;
+    if (doctors_doc.id) {
+      $doctors.edit(
+        {
+          where: {
+            id: doctors_doc.id,
+          },
+          set: doctors_doc,
+          $req: req,
+          $res: res,
+        },
+        (err) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = 'Code Already Exist';
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
+  });
+
+  site.post('/api/doctors/view', (req, res) => {
+    let response = {
+      done: false,
+    };
+
+  
+
+    $doctors.findOne(
+      {
+        where: {
+          id: req.body.id,
+        },
+      },
+      (err, doc) => {
+        if (!err) {
+          response.done = true;
+          response.doc = doc;
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+  site.post('/api/doctors/delete1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let id = req.body.id;
+
+    if (id) {
+      $doctors.delete(
+        {
+          id: id,
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
   });
 };

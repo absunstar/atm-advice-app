@@ -4,8 +4,10 @@ module.exports = function init(site) {
 
   site.get({
     name: 'images',
-    path: __dirname + '/site_files/images/'
-    , require: { permissions: [] }
+    path: __dirname + '/site_files/images/',
+    require: {
+      permissions: []
+    }
   });
 
   site.get({
@@ -13,7 +15,9 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
-    require: { permissions: [] }
+    require: {
+      permissions: []
+    }
   });
 
   site.on('[orders][pharmacy][show]', (obj, callback) => {
@@ -57,17 +61,17 @@ module.exports = function init(site) {
     let pharmacy_doc = req.body
     pharmacy_doc.$req = req;
     pharmacy_doc.$res = res;
-if (typeof pharmacy_doc.lat == 'string') {
-  pharmacy_doc.lat = Number(pharmacy_doc.lat)
-}
-if (typeof pharmacy_doc.long == 'string') {
-  pharmacy_doc.long = Number(pharmacy_doc.long)
-}
-if (pharmacy_doc.image_url) {
-  pharmacy_doc.image = new Array({
-    name : pharmacy_doc.image_url
-  })
-}
+    if (typeof pharmacy_doc.lat == 'string') {
+      pharmacy_doc.lat = Number(pharmacy_doc.lat)
+    }
+    if (typeof pharmacy_doc.long == 'string') {
+      pharmacy_doc.long = Number(pharmacy_doc.long)
+    }
+    if (pharmacy_doc.image_url) {
+      pharmacy_doc.image = new Array({
+        name: pharmacy_doc.image_url
+      })
+    }
     pharmacy_doc.isActive = false
     pharmacy_doc.isAvailable = false
     pharmacy_doc.createdAt = new Date()
@@ -76,19 +80,19 @@ if (pharmacy_doc.image_url) {
 
     req.headers.language = req.headers.language || 'en'
     $pharmacy.find({
-      where: {
-        $or: [{
-          'userName': pharmacy_doc.userName
+        where: {
+          $or: [{
+              'userName': pharmacy_doc.userName
+            },
+            {
+              'email': pharmacy_doc.email
+            },
+            {
+              'phone': pharmacy_doc.phone
+            },
+          ]
         },
-        {
-          'email': pharmacy_doc.email
-        },
-        {
-          'phone': pharmacy_doc.phone
-        },
-        ]
       },
-    },
       (err, findDoc) => {
         if (!err && findDoc) {
           response.done = false
@@ -350,7 +354,9 @@ if (pharmacy_doc.image_url) {
           where: {
             _id: req.session.user.ref_info._id
           },
-          set: { password: pharmacy_doc.newPassword },
+          set: {
+            password: pharmacy_doc.newPassword
+          },
           $req: req,
           $res: res
         }, (err, result) => {
@@ -381,16 +387,16 @@ if (pharmacy_doc.image_url) {
     }
     let response = {}
     $pharmacy.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          isAvailable: true
+        },
+        limit: limit,
+        skip: skip
       },
-      where: {
-        isAvailable: true
-      },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (!err) {
           response.docs = docs
@@ -421,19 +427,19 @@ if (pharmacy_doc.image_url) {
     let response = {}
     let pharmacy_doc = req.body
     $orders.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          'pharmacy._id': String(req.session.user.ref_info._id),
+          'status.statusId': {
+            $in: [site.var('inProgressId'), site.var('onWayId')]
+          }
+        },
+        limit: limit,
+        skip: skip
       },
-      where: {
-        'pharmacy._id': String(req.session.user.ref_info._id),
-        'status.statusId': {
-          $in: [site.var('inProgressId'), site.var('onWayId')]
-        }
-      },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (!err) {
           response.docs = docs
@@ -464,19 +470,19 @@ if (pharmacy_doc.image_url) {
     let response = {}
     let pharmacy_doc = req.body
     $orders.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          'pharmacy._id': String(req.session.user.ref_info._id),
+          'status.statusId': {
+            $in: [site.var('inProgressId'), site.var('onWayId')]
+          }
+        },
+        limit: limit,
+        skip: skip
       },
-      where: {
-        'pharmacy._id': String(req.session.user.ref_info._id),
-        'status.statusId': {
-          $in: [site.var('inProgressId'), site.var('onWayId')]
-        }
-      },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (!err) {
           response.totalDocs = count
@@ -505,19 +511,19 @@ if (pharmacy_doc.image_url) {
     let response = {}
     let pharmacy_doc = req.body
     $orders.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          'pharmacy._id': String(req.session.user.ref_info._id),
+          'status.statusId': {
+            $in: [site.var('shippedId'), site.var('canceledId')]
+          }
+        },
+        limit: limit,
+        skip: skip
       },
-      where: {
-        'pharmacy._id': String(req.session.user.ref_info._id),
-        'status.statusId': {
-          $in: [site.var('shippedId'), site.var('canceledId')]
-        }
-      },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (!err && docs) {
           response.docs = docs
@@ -573,24 +579,24 @@ if (pharmacy_doc.image_url) {
     let distance = 20 * 1000
 
     $pharmacy.aggregate([{
-      "$geoNear": {
-        "near": {
-          "type": "Point",
-          "coordinates": [
-            pharmacy_doc.lat,
-            pharmacy_doc.long
-          ]
-        },
-        "distanceField": "distance",
-        "maxDistance": distance,
-        "spherical": true
+        "$geoNear": {
+          "near": {
+            "type": "Point",
+            "coordinates": [
+              pharmacy_doc.lat,
+              pharmacy_doc.long
+            ]
+          },
+          "distanceField": "distance",
+          "maxDistance": distance,
+          "spherical": true
+        }
+      },
+      {
+        "$sort": {
+          "distance": 1.0
+        }
       }
-    },
-    {
-      "$sort": {
-        "distance": 1.0
-      }
-    }
     ], (err, docs) => {
       console.log(docs);
       if (docs && docs.length > 0) {
@@ -625,11 +631,12 @@ if (pharmacy_doc.image_url) {
     let response = {}
     let limit = 10
     let skip
+    req.headers.language = req.headers.language || 'en'
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
 
-    let distance = 20/ 6378.1
+    let distance = 20 / 6378.1
     //  $orders.findMany({
     //       select: req.body.select || {},
     //       sort: req.body.sort || {
@@ -663,70 +670,66 @@ if (pharmacy_doc.image_url) {
         _id: req.session.user.ref_info._id
       }
     }, (err, doc) => {
-
+      let cityId = doc.city._id
       $orders.aggregate([
 
-        { 
-          "$match" : {
-              "$or" : [
+        {
+          "$match": {
+            "$or": [{
+                "$and": [{
+                    "status.statusId": 1.0
+                  },
                   {
-                      "$and" : [
-                          {
-                              "status.statusId" : 1.0
-                          }, 
-                          {
-                              "address.lat" : {
-                                  "$ne" : 0.0
-                              }
-                          }, 
-                          {
-                              "location" : {
-                                  "$geoWithin" : {
-                                      "$centerSphere" : [
-                                          [
-                                              doc.lat, 
-                                              doc.long
-                                          ], 
-                                          distance
-                                      ]
-                                  }
-                              }
-                          }
-                      ]
-                  }, 
+                    "address.lat": {
+                      "$ne": 0.0
+                    }
+                  },
                   {
-                      "$and" : [
-                          {
-                              "status.statusId" : 1.0
-                          }, 
-                          {
-                              "address.lat" : {
-                                  "$eq" : 0.0
-                              }
-                          }, 
-                          {
-                              "address.city._id" : doc.city._id
-                          }
-                      ]
+                    "location": {
+                      "$geoWithin": {
+                        "$centerSphere": [
+                          [
+                            doc.lat,
+                            doc.long
+                          ],
+                          distance
+                        ]
+                      }
+                    }
                   }
-              ]
+                ]
+              },
+              {
+                "$and": [{
+                    "status.statusId": 1.0
+                  },
+                  {
+                    "address.lat": {
+                      "$eq": 0.0
+                    }
+                  },
+                  {
+                    "address.city._id": cityId
+                  }
+                ]
+              }
+            ]
           }
-      },
-      { 
-        "$skip" : skip
-    }, 
-    { 
-        "$limit" : limit
-    }
+        },
+
       ], (err, docs) => {
         if (docs && docs.length > 0) {
 
-          response.docs = docs
+          response.data = {
+            docs,
+            totalDocs: docs.length
+          }
           response.errorCode = site.var('succeed')
+          response.done = true
           response.message = site.word('findSuccessfully')[req.headers.language]
           res.json(response)
         } else {
-
+          response.done = false
           response.errorCode = site.var('failed')
           response.message = site.word('findFailed')[req.headers.language]
           res.json(response)
@@ -742,21 +745,21 @@ if (pharmacy_doc.image_url) {
 
 
   // get Recent Orders Count
-  
+
   site.post("/api/pharmacy/getRecentOrdersCount", (req, res) => {
 
     let response = {}
 
     $orders.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          'status.statusId': site.var('activeId')
+        },
+        limit: req.body.limit || 10,
       },
-      where: {
-        'status.statusId': site.var('activeId')
-      },
-      limit: req.body.limit || 10,
-    },
       (err, docs, count) => {
         if (!err) {
           response.totalDocs = count
@@ -777,15 +780,15 @@ if (pharmacy_doc.image_url) {
     let response = {}
 
     $orders.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          'status.statusId': site.var('activeId')
+        },
+        limit: req.body.limit || 10,
       },
-      where: {
-        'status.statusId': site.var('activeId')
-      },
-      limit: req.body.limit || 10,
-    },
       (err, docs, count) => {
         if (!err) {
           response.totalDocs = count
@@ -863,13 +866,13 @@ if (pharmacy_doc.image_url) {
     }
     let response = {}
     $pharmacy.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        limit: limit,
+        skip: skip
       },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (!err) {
 
@@ -895,11 +898,11 @@ if (pharmacy_doc.image_url) {
     let response = {}
     let pharmacy_doc = req.body
     $pharmacy.findOne({
-      where: {
-        _id: pharmacy_doc._id,
-      },
+        where: {
+          _id: pharmacy_doc._id,
+        },
 
-    },
+      },
       (err, doc) => {
         if (!err && doc) {
           let {
@@ -929,11 +932,11 @@ if (pharmacy_doc.image_url) {
     req.headers.language = req.headers.language || 'en'
     let response = {}
     $pharmacy.findOne({
-      where: {
-        _id: req.params.id,
-      },
+        where: {
+          _id: req.params.id,
+        },
 
-    },
+      },
       (err, doc) => {
         if (!err && doc) {
           let {
@@ -966,10 +969,10 @@ if (pharmacy_doc.image_url) {
 
     if (id) {
       $pharmacy.delete({
-        _id: id,
-        $req: req,
-        $res: res,
-      },
+          _id: id,
+          $req: req,
+          $res: res,
+        },
         (err, result) => {
           if (!err) {
             response.done = true,
@@ -1032,14 +1035,14 @@ if (pharmacy_doc.image_url) {
 
 
     $pharmacy.findMany({
-      select: req.body.select || {},
-      where: where,
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        where: where,
+        sort: req.body.sort || {
+          id: -1,
+        },
+        limit: limit,
+        skip: skip
       },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (docs.length > 0) {
           response.done = true
@@ -1063,8 +1066,7 @@ if (pharmacy_doc.image_url) {
     };
     let pharmacy_doc = req.body;
     if (pharmacy_doc.id) {
-      $pharmacy.edit(
-        {
+      $pharmacy.edit({
           where: {
             id: pharmacy_doc.id,
           },
@@ -1092,10 +1094,9 @@ if (pharmacy_doc.image_url) {
       done: false,
     };
 
-  
 
-    $pharmacy.findOne(
-      {
+
+    $pharmacy.findOne({
         where: {
           id: req.body.id,
         },
@@ -1118,8 +1119,7 @@ if (pharmacy_doc.image_url) {
     let id = req.body.id;
 
     if (id) {
-      $pharmacy.delete(
-        {
+      $pharmacy.delete({
           id: id,
           $req: req,
           $res: res,

@@ -1,18 +1,60 @@
-[
-    {
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+[{
+        "name": "doctorTitle",
+        "en": "doctor Title",
+        "ar": "اللقب"
     },
     {
-        "name": "goves_new",
-        "en": "New Gov",
-        "ar": "محافظة جديدة"
+        "name": "degree",
+        "en": "degree",
+        "ar": "الدرجة العلمية"
+    }, {
+        "name": "department",
+        "en": "department",
+        "ar": "القسم"
+    }, {
+        "name": "doctors",
+        "en": "doctors",
+        "ar": "الاطباء"
+    }, {
+        "name": "doctors_new",
+        "en": "new Doctors",
+        "ar": "طبيب جديد"
     },
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "doctors_name",
+        "en": "Doctor Name",
+        "ar": "اسم الطبيب"
+    },
+    {
+        "name": "doctors_delete",
+        "en": "Delete Doctors",
+        "ar":"حذف طبيب"
+    },
+    {
+        "name": "doctors_add",
+        "en": "Add Doctor",
+        "ar":"اضافة طبيب"
+    },
+    {
+        "name": "doctors_edit",
+        "en": "Edit Doctors",
+        "ar":"تعديل طبيب"
+    },
+    {
+        "name": "doctors_details",
+        "en": "Doctor Details",
+        "ar":"تفاصيل الطبيب"
+    },
+  
+    {
+        "name": "hint",
+        "en": "Hint",
+        "ar": "نبذه"
+    },
+    {
+        "name": "periodPerMinutes",
+        "en": "period Per Minutes",
+        "ar": "مدة الكشف بالدقائق"
     },
     {
         "name": "doctorRatingError",
@@ -45,7 +87,7 @@
         "ar": "تم حذف المحافظة"
     },
     {
-        "name":"govCreated",
+        "name": "govCreated",
         "en": "Gov Created",
         "ar": "تم انشاء المحافظة"
     },
@@ -54,5 +96,5 @@
         "en": "date Removed",
         "ar": "تم حذف اليوم "
     }
-   
+
 ]

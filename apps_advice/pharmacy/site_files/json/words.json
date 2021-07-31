@@ -140,5 +140,16 @@
         "en": "pharmacy Deleted",
         "ar": "تم حذف الصيدليه"
     }
+    ,
+    {
+        "name": "findFailed",
+        "en": "find Failed",
+        "ar": "لم يتم العثور على بيانات"
+    }
+
+
+
+
+    
 
 ]
