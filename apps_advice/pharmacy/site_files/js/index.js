@@ -29,6 +29,7 @@ app.controller("pharmacy", function ($scope, $http, $timeout) {
       data: $scope.pharmacy
     }).then(
       function (response) {
+        console.log(response.data);
         $scope.busy = false;
        
           site.hideModal('#pharmacyAddModal');
@@ -165,6 +166,27 @@ app.controller("pharmacy", function ($scope, $http, $timeout) {
 
     )
   };
+
+
+  $scope.activateStatus = function (where) {
+    $scope.busy = true;
+    $scope.list = [];
+    $http({
+      method: "POST",
+      url: "/api/pharmacy/changeStatusActive",
+      data: where
+    }).then(
+      function (response) {
+        $scope.getNotActivePharmacy()
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+  
 
   $scope.getNotActivePharmacy = function (where) {
     $scope.busy = true;

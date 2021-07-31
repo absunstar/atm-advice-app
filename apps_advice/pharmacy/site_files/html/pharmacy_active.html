@@ -1,0 +1,49 @@
+<div class="form" >
+    <div id="basicInformation" class="">
+        <div class="row">
+            <h1 class="bold text-center">الصيدلية الجامدة</h1>
+        </div>
+
+        <div class="top-actions">
+          
+
+            <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
+            <h3 class="bold text-center red"> {{error}}</h3>
+
+        </div>
+
+        <table class="table hover bold loaded" id="t1">
+            <tr>
+                <th class="not-print">##word.logo##</th>
+                <th>##word.pharmacy_name##</th>
+                <th>##word.userName##</th>
+                <th>##word.phone##</th>
+                <th>##word.email##</th>
+
+                <th>##word.status##</th>
+                <th class="not-print">##word.actions##</th>
+            </tr>
+            <tr ng-repeat="c in ph_not_active_list">
+                <td class="center not-print">
+                    <i-image view class="logo" ng-model="c.image_url"></i-image>
+                </td>
+                <td class="center userPrint blue">{{c.pharmacyName}}</td>
+                <td class="center title">{{c.userName}}</td>
+                <td class="center title">{{c.phone}}</td>
+                <td class="center title">{{c.email}}</td>
+                <td class="center">
+                    <p ng-show="c.active ==true" class="green"> ##word.active## </p>
+                    <p ng-show="c.active ==false" class="red"> ##word.not_active## </p>
+                </td>
+
+                <td class="center not-print">
+                    <i-button type="view" label="##word.activatePharmacy##" ng-click="activateStatus(c)"></i-button>
+
+                   
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+</div>

@@ -133,16 +133,20 @@ module.exports = function init(site) {
             res.json(response);
             return
           }
-
-          let location = new Array(pharmacy_doc.lat, pharmacy_doc.long)
-          pharmacy_doc.location = {
-            type: "Point",
-            coordinates: location
+          if (pharmacy_doc.lat && pharmacy_doc.long) {
+            let location = new Array(pharmacy_doc.lat, pharmacy_doc.long)
+            pharmacy_doc.location = {
+              type: "Point",
+              coordinates: location
+            }
+            $pharmacy.createIndex({
+              location: "2dsphere"
+            })
           }
-          $pharmacy.createIndex({
-            location: "2dsphere"
-          })
+
+
           $pharmacy.add(pharmacy_doc, (err, doc) => {
+            console.log(err);
             if (!err) {
               let {
                 password,
@@ -153,6 +157,7 @@ module.exports = function init(site) {
                 _id: doc._id
               }
 
+              console.log("111111111111111111111111111111111111111");
               site.security.addUser(user, (err, userDoc) => {
                 if (!err) {
                   delete user._id
@@ -213,36 +218,35 @@ module.exports = function init(site) {
   });
 
 
- // get not active
- site.post('/api/pharmacy/getNotActivePharmacy', (req, res) => {
-  req.headers.language = req.headers.language || 'en'
-  let response = {}
-  let pharmacy_doc = req.body;
+  // get not active
+  site.post('/api/pharmacy/getNotActivePharmacy', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+    let pharmacy_doc = req.body;
 
-  $pharmacy.findMany({
-    select: req.body.select || {},
-    sort: req.body.sort || {
-      id: -1,
-    },
-    where: {
-      isActive :false
-    },
-    limit: limit,
-    skip: skip
-  },
-  (err, docs, count) => {
-    if (!err) {
-      response.docs = docs
-      response.totalDocs = count
-      response.limit = 10
-      response.totalPages = Math.ceil(response.totalDocs / response.limit)
-    } else {
-      response.error = err.message;
-    }
-    res.json(response);
-  },
-);
-});
+    $pharmacy.findMany({
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          isActive: false
+        },
+
+      },
+      (err, docs, count) => {
+        if (!err) {
+          response.docs = docs
+          response.totalDocs = count
+          response.limit = 10
+          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
 
 
   // change status active
@@ -1054,7 +1058,7 @@ module.exports = function init(site) {
       where['address._id'] = where['address']._id;
       delete where['address']
     }
-
+    where.isActive = true
     let limit = 10;
     let skip;
 

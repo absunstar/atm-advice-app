@@ -558,6 +558,7 @@ site.post("/api/doctors/getAllDays", (req, res) => {
       res.json(response)
     } else {
       response.done = false,
+      response.docs = doc.days
         response.errorCode = site.var('failed')
       response.message = site.word('failedUpdated')[req.headers.language]
       res.json(response)
@@ -579,10 +580,20 @@ site.post("/api/doctors/addDoctorDate", (req, res) => {
   }, (err, doc) => {
     if (doc) {
       let arr = []
-      doc.days.push({
-        date : doctor_doc.date,
-        times : []
-      })
+      console.log(doc.days);
+      if (doc.days) {
+        
+        doc.days.push({
+          date : doctor_doc.date,
+          times : []
+        })
+      }
+      else {
+        doc.days = [{
+          date : doctor_doc.date,
+          times : []
+        }]
+      }
       $doctors.update(doc, (err, result) => {
         response.done = true,
         response.data = doc.days

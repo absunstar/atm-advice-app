@@ -3,7 +3,7 @@ const site = require('isite')({
   lang: 'ar',
   version: '1.0.7',
   name: 'advice',
-  theme: 'theme_dark',
+  theme: 'theme_paper',
   mongodb: {
     db: 'advice',
     limit: 100000,
