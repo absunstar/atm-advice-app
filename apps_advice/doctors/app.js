@@ -367,6 +367,39 @@ console.log(doctors_doc);
   })
 
 
+
+   // get not active
+   site.post('/api/doctors/getNotActiveDoctors', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+    let doctors_doc = req.body;
+
+    $doctors.findMany({
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          isActive: false
+        },
+
+      },
+      (err, docs, count) => {
+        if (!err) {
+          response.docs = docs
+          response.totalDocs = count
+          response.limit = 10
+          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+
+
+
   // add doctor appointment
 
   site.post("/api/doctors/addDoctorAppointment", (req, res) => {
@@ -393,11 +426,15 @@ console.log(doctors_doc);
           }
 
         });
-        response.done = true,
+        $doctors.update(doc, (err, result) => {
+
+          response.done = true,
           response.data = doc
         response.errorCode = site.var('succeed')
         response.message = site.word('updatedSuccessfully')[req.headers.language]
         res.json(response)
+        })
+       
       } else {
         response.done = false,
           response.errorCode = site.var('failed')
@@ -473,17 +510,21 @@ console.log(doctors_doc);
           let date = _d.date
   
           let bodyDate = doctor_doc.date
-          
           if (String(date) == String(bodyDate)) {
+
             arr = _d.times
           }
 
         });
-        response.done = true,
+      
+
+          response.done = true,
           response.data = arr
         response.errorCode = site.var('succeed')
         response.message = site.word('updatedSuccessfully')[req.headers.language]
         res.json(response)
+        
+       
       } else {
         response.done = false,
           response.errorCode = site.var('failed')
@@ -843,6 +884,7 @@ date : new Date().toISOString().split('T')[0],
       sort: req.body.sort || {
         id: -1,
       },
+      where : {isActive : true},
       limit: limit,
       skip: skip
     },
@@ -1021,7 +1063,7 @@ date : new Date().toISOString().split('T')[0],
     if (where['city'] && where['city']._id == "") {
       delete where['city']
     }
-
+where.isActive = true
 
     let doctor_doc = req.body
     let lat = doctor_doc.lat

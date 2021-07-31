@@ -29,7 +29,6 @@ app.controller("pharmacy", function ($scope, $http, $timeout) {
       data: $scope.pharmacy
     }).then(
       function (response) {
-        console.log(response.data);
         $scope.busy = false;
        
           site.hideModal('#pharmacyAddModal');

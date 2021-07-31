@@ -145,8 +145,12 @@
         "name": "findFailed",
         "en": "find Failed",
         "ar": "لم يتم العثور على بيانات"
+    },
+    {
+        "name": "activatePharmacy",
+        "en": "Activate Pharmacy",
+        "ar": "تنشيط الصيدليات"
     }
-
 
 
 

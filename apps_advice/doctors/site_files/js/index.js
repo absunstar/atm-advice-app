@@ -78,6 +78,51 @@ app.controller("doctors", function ($scope, $http, $timeout) {
     )
   };
 
+  $scope.activateStatus = function (where) {
+    $scope.busy = true;
+    $scope.list = [];
+    $http({
+      method: "POST",
+      url: "/api/doctors/changeStatusActive",
+      data: where
+    }).then(
+      function (response) {
+        $scope.getNotActiveDoctors()
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+  
+
+  $scope.getNotActiveDoctors = function (where) {
+    $scope.busy = true;
+    $scope.doc_not_active_list = [];
+    $http({
+      method: "POST",
+      url: "/api/doctors/getNotActiveDoctors",
+      data: where
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.doc_not_active_list = response.data.docs;
+          $scope.count = response.data.totalDocs;
+          $scope.search = {};
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
   $scope.displayDetailsDoctors = function (doctors) {
     $scope.error = '';
     $scope.viewDoctors(doctors);
@@ -275,6 +320,8 @@ app.controller("doctors", function ($scope, $http, $timeout) {
     site.hideModal('#doctorsSearchModal');
     $scope.search = {};
   };
+
+  $scope.getNotActiveDoctors();
 
   $scope.getDoctorsList();
   $scope.getGenderList();
