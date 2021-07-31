@@ -1,22 +1,22 @@
 app.controller("consultationDoctors", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.gov = {};
+  $scope.consultationDoctors = {};
 
-  $scope.displayAddGov = function () {
+  $scope.displayAddConsultationDoctors = function () {
     $scope.error = '';
-    $scope.gov = {
-      image_url: '/images/gov.png',
+    $scope.consultationDoctors = {
+      image_url: '/images/consultationDoctors.png',
       active: true
     };
 
-    site.showModal('#govAddModal');
+    site.showModal('#consultationDoctorsAddModal');
 
   };
 
-  $scope.addGov = function () {
+  $scope.addConsultationDoctors = function () {
     $scope.error = '';
-    const v = site.validated('#govAddModal');
+    const v = site.validated('#consultationDoctorsAddModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -26,13 +26,13 @@ app.controller("consultationDoctors", function ($scope, $http, $timeout) {
     $http({
       method: "POST",
       url: "/api/consultationDoctors/add",
-      data: $scope.gov
+      data: $scope.consultationDoctors
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govAddModal');
-          $scope.getGovList();
+          site.hideModal('#consultationDoctorsAddModal');
+          $scope.getConsultationDoctorsList();
         } else {
           $scope.error = response.data.error;
           if (response.data.error.like('*Must Enter Code*')) {
@@ -46,16 +46,16 @@ app.controller("consultationDoctors", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayUpdateGov = function (gov) {
+  $scope.displayUpdateConsultationDoctors = function (consultationDoctors) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govUpdateModal');
+    $scope.viewConsultationDoctors(consultationDoctors);
+    $scope.consultationDoctors = {};
+    site.showModal('#consultationDoctorsUpdateModal');
   };
 
-  $scope.updateGov = function () {
+  $scope.updateConsultationDoctors = function () {
     $scope.error = '';
-    const v = site.validated('#govUpdateModal');
+    const v = site.validated('#consultationDoctorsUpdateModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -63,14 +63,14 @@ app.controller("consultationDoctors", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/consultationDoctors/update",
-      data: $scope.gov
+      url: "/api/consultationDoctors/update1",
+      data: $scope.consultationDoctors
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govUpdateModal');
-          $scope.getGovList();
+          site.hideModal('#consultationDoctorsUpdateModal');
+          $scope.getConsultationDoctorsList();
         } else {
           $scope.error = 'Please Login First';
         }
@@ -81,27 +81,27 @@ app.controller("consultationDoctors", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDetailsGov = function (gov) {
+  $scope.displayDetailsConsultationDoctors = function (consultationDoctors) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govViewModal');
+    $scope.viewConsultationDoctors(consultationDoctors);
+    $scope.consultationDoctors = {};
+    site.showModal('#consultationDoctorsViewModal');
   };
 
-  $scope.viewGov = function (gov) {
+  $scope.viewConsultationDoctors = function (consultationDoctors) {
     $scope.busy = true;
     $scope.error = '';
     $http({
       method: "POST",
       url: "/api/consultationDoctors/view",
       data: {
-        id: gov.id
+        id: consultationDoctors.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.gov = response.data.doc;
+          $scope.consultationDoctors = response.data.doc;
         } else {
           $scope.error = response.data.error;
         }
@@ -112,29 +112,29 @@ app.controller("consultationDoctors", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDeleteGov = function (gov) {
+  $scope.displayDeleteConsultationDoctors = function (consultationDoctors) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govDeleteModal');
+    $scope.viewConsultationDoctors(consultationDoctors);
+    $scope.consultationDoctors = {};
+    site.showModal('#consultationDoctorsDeleteModal');
   };
 
-  $scope.deleteGov = function () {
+  $scope.deleteConsultationDoctors = function () {
     $scope.busy = true;
     $scope.error = '';
 
     $http({
       method: "POST",
-      url: "/api/consultationDoctors/delete",
+      url: "/api/consultationDoctors/delete1",
       data: {
-        id: $scope.gov.id
+        id: $scope.consultationDoctors.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govDeleteModal');
-          $scope.getGovList();
+          site.hideModal('#consultationDoctorsDeleteModal');
+          $scope.getConsultationDoctorsList();
         } else {
           $scope.error = response.data.error;
         }
@@ -145,22 +145,22 @@ app.controller("consultationDoctors", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getGovList = function (where) {
+  $scope.getConsultationDoctorsList = function (where) {
     $scope.busy = true;
     $scope.list = [];
     $http({
       method: "POST",
-      url: "/api/consultationDoctors/all",
+      url: "/api/consultationDoctors/search",
       data: {
         where: where
       }
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
-          site.hideModal('#govSearchModal');
+        if (response.data.docs.length > 0) {
+          $scope.list = response.data.docs;
+          $scope.count = response.data.totalDocs;
+          site.hideModal('#consultationDoctorsSearchModal');
           $scope.search = {};
 
         }
@@ -173,20 +173,29 @@ app.controller("consultationDoctors", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getNumberingAuto = function () {
-    $scope.error = '';
+  $scope.getGenderList = function () {
+    $scope.genderList = [{name_ar:"ذكر", name_en:"male"},{name_ar:"انثى", name_en:"female"}];
+    
+  };
+  $scope.getDepartmentsList = function (where) {
     $scope.busy = true;
     $http({
-      method: "POST",
-      url: "/api/numbering/get_automatic",
+      method: "GET",
+      url: "/api/departments",
       data: {
-        screen: "gov"
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
       }
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done) {
-          $scope.disabledCode = response.data.isAuto;
+        if (response.data.docs.length > 0) {
+          $scope.departmentList = response.data.docs;
+
         }
       },
       function (err) {
@@ -198,17 +207,18 @@ app.controller("consultationDoctors", function ($scope, $http, $timeout) {
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
-    site.showModal('#govSearchModal');
+    site.showModal('#consultationDoctorsSearchModal');
 
   };
 
   $scope.searchAll = function () {
 
-    $scope.getGovList($scope.search);
-    site.hideModal('#govSearchModal');
+    $scope.getConsultationDoctorsList($scope.search);
+    site.hideModal('#consultationDoctorsSearchModal');
     $scope.search = {};
   };
 
-  $scope.getGovList();
-  $scope.getNumberingAuto();
+  $scope.getConsultationDoctorsList();
+  $scope.getGenderList();
+  $scope.getDepartmentsList();
 });

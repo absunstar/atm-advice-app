@@ -166,6 +166,33 @@ app.controller("pharmacy", function ($scope, $http, $timeout) {
     )
   };
 
+  $scope.getNotActivePharmacy = function (where) {
+    $scope.busy = true;
+    $scope.ph_not_active_list = [];
+    $http({
+      method: "POST",
+      url: "/api/pharmacy/getNotActivePharmacy",
+      data: where
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.ph_not_active_list = response.data.docs;
+          $scope.count = response.data.totalDocs;
+          $scope.search = {};
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
+
+  
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
@@ -234,6 +261,7 @@ app.controller("pharmacy", function ($scope, $http, $timeout) {
     $scope.search = {};
   };
 
+  $scope.getNotActivePharmacy();
   $scope.getPharmacyList();
   $scope.getGovesList();
   $scope.getCitiesList()

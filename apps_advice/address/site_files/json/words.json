@@ -1,33 +1,63 @@
 [
     {
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+        "name": "address_new",
+        "en": "new Address",
+        "ar": "عنوان جديد"
     },
     {
-        "name": "goves_new",
-        "en": "New Gov",
-        "ar": "محافظة جديدة"
+        "name": "address_add",
+        "en": "Add Address",
+        "ar": "اضافة عنوان"
     },
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "district",
+        "en": "district",
+        "ar": "المنطقة "
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "streetName",
+        "en": "street Name",
+        "ar": "اسم الشارع "
     },
     {
-        "name": "goves_details",
-        "en": "Gov Details",
-        "ar": "تفاصيل المحافظة "
+        "name": "buildingNumber",
+        "en": "building Number",
+        "ar": "رقم البناء "
     },
     {
-        "name": "goves_delete",
-        "en": "Delete Gov",
-        "ar": "حذف محافظة "
+        "name": "role",
+        "en": "role",
+        "ar": "الدور "
+    },
+    {
+        "name": "apartmentNumber",
+        "en": "apartment Number",
+        "ar": "رقم الشقة "
+    },
+    {
+        "name": "specialMark",
+        "en": "special Mark",
+        "ar": "علامة مميزة "
+    },
+    {
+        "name": "addressLocation",
+        "en": "address Location",
+        "ar": "الموقع"
+    },
+    {
+        "name": "address_delete",
+        "en": "Delete address",
+        "ar": "حذف العنوان"
+    },
+    {
+        "name": "address_edit",
+        "en": "Edit address",
+        "ar": "تعديل العنوان"
+    },
+    {
+        "name": "address_details",
+        "en": "address Details",
+        "ar": "تفاصيل العنوان"
     },
     {
         "name": "goves_name",

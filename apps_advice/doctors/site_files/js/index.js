@@ -7,7 +7,9 @@ app.controller("doctors", function ($scope, $http, $timeout) {
     $scope.error = '';
     $scope.doctors = {
       image_url: '/images/doctors.png',
-      active: true
+      active: true,
+      lat:0,
+      long:0
     };
 
     site.showModal('#doctorsAddModal');
@@ -144,19 +146,26 @@ app.controller("doctors", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: "POST",
-      url: "/api/doctors/search",
+      method: "GET",
+      url: "api/doctors",
       data: where
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.docs.length > 0) {
-          $scope.list = response.data.docs;
-          $scope.count = response.data.totalDocs;
-          site.hideModal('#doctorsSearchModal');
-          $scope.search = {};
-
+        for (const key in response.data) {
+          if (Object.hasOwnProperty.call(response.data, key)) {
+            const element = response.data[key];
+            if (element.docs.length > 0) {
+              $scope.list = element.docs;
+              $scope.count = element.totalDocs;
+              site.hideModal('#doctorsSearchModal');
+              $scope.search = {};
+    
+            }
+            
+          }
         }
+       
       },
       function (err) {
         $scope.busy = false;

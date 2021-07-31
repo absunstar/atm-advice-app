@@ -213,7 +213,36 @@ module.exports = function init(site) {
   });
 
 
+ // get not active
+ site.post('/api/pharmacy/getNotActivePharmacy', (req, res) => {
+  req.headers.language = req.headers.language || 'en'
+  let response = {}
+  let pharmacy_doc = req.body;
 
+  $pharmacy.findMany({
+    select: req.body.select || {},
+    sort: req.body.sort || {
+      id: -1,
+    },
+    where: {
+      isActive :false
+    },
+    limit: limit,
+    skip: skip
+  },
+  (err, docs, count) => {
+    if (!err) {
+      response.docs = docs
+      response.totalDocs = count
+      response.limit = 10
+      response.totalPages = Math.ceil(response.totalDocs / response.limit)
+    } else {
+      response.error = err.message;
+    }
+    res.json(response);
+  },
+);
+});
 
 
   // change status active

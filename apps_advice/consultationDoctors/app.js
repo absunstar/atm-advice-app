@@ -633,4 +633,86 @@ module.exports = function init(site) {
       },
     );
   });
+  site.post('/api/consultationDoctors/update1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let consultationDoctors_doc = req.body;
+    if (consultationDoctors_doc.id) {
+      $consultationDoctors.edit(
+        {
+          where: {
+            id: consultationDoctors_doc.id,
+          },
+          set: consultationDoctors_doc,
+          $req: req,
+          $res: res,
+        },
+        (err) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = 'Code Already Exist';
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
+  });
+
+  site.post('/api/consultationDoctors/view', (req, res) => {
+    let response = {
+      done: false,
+    };
+
+  
+
+    $consultationDoctors.findOne(
+      {
+        where: {
+          id: req.body.id,
+        },
+      },
+      (err, doc) => {
+        if (!err) {
+          response.done = true;
+          response.doc = doc;
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+  site.post('/api/consultationDoctors/delete1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let id = req.body.id;
+
+    if (id) {
+      $consultationDoctors.delete(
+        {
+          id: id,
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
+  });
+
 };

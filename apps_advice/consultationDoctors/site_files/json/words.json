@@ -1,38 +1,38 @@
 [
     {
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+        "name": "consultationDoctors_add",
+        "en": "Add consultation Doctors",
+        "ar": "اضافة استشاري"
     },
     {
-        "name": "goves_new",
-        "en": "New Gov",
-        "ar": "محافظة جديدة"
+        "name": "fullName",
+        "en": "Full Name",
+        "ar": "الاسم بالكامل"
     },
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "consultationDoctors_delete",
+        "en": "Delete consultation Doctors",
+        "ar": "حذف استشاري "
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "consultationDoctors",
+        "en": "consultation Doctors",
+        "ar": "الاستشاريين"
     },
     {
-        "name": "goves_details",
-        "en": "Gov Details",
-        "ar": "تفاصيل المحافظة "
+        "name": "consultationDoctors_new",
+        "en": "New consultation Doctors",
+        "ar": "استشاري جديد "
     },
     {
-        "name": "goves_delete",
-        "en": "Delete Gov",
-        "ar": "حذف محافظة "
+        "name": "consultationDoctors_edit",
+        "en": "Edit Consultation Doctor",
+        "ar": "تعديل الاستشاريين"
     },
     {
-        "name": "goves_name",
-        "en": "Gov Name",
-        "ar": "إسم المحافظة "
+        "name": "consultationDoctors_details",
+        "en": "consultation Doctors details",
+        "ar": "تفاصيل الاستشاريين "
     },
     {
         "name": "nameExist",

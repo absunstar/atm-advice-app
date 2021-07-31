@@ -263,13 +263,13 @@ module.exports = function init(site) {
       done: false,
     };
     req.headers.language = req.headers.language || 'en'
-    if (!req.session.user) {
-      response.errorCode = site.var('failed')
-      response.message = site.word('loginFirst')[req.headers.language]
-      response.done = false;
-      res.json(response);
-      return;
-    }
+    // if (!req.session.user) {
+    //   response.errorCode = site.var('failed')
+    //   response.message = site.word('loginFirst')[req.headers.language]
+    //   response.done = false;
+    //   res.json(response);
+    //   return;
+    // }
     
 
     let where = req.body || {};
@@ -337,6 +337,7 @@ module.exports = function init(site) {
         skip: skip
       },
       (err, docs, count) => {
+        console.log(docs);
         if (docs.length > 0) {
           response.done = true
           response.docs = docs
