@@ -1,0 +1,59 @@
+<div id="personalData" class="modal" fixed>
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>
+                ##word.orders_add##
+                <i class="fa fa-plus "></i>
+            </h2>
+
+        </div>
+
+        <div class="modal-body">
+            <div class="row">
+                <i-control class="col3" label="##word.fullName##" ng-model="orders.fullName"></i-control>
+                <i-control class="col3" label="##word.phone##" ng-model="orders.phone"></i-control>
+                <i-list class="col3" label="##word.goves_name##" ng-model="orders.address.gov"
+                    display="name_##session.lang##" items="govesList" ng-search="_search.$city_gov"></i-list>
+                <i-list class="col3" label="##word.city_name##" ng-model="orders.address.city"
+                    display="name_##session.lang##" items="citiesList" ng-search="_search.$city_gov"></i-list>
+                <i-control class="col3" label="##word.district##" ng-model="orders.address.district"></i-control>
+                <i-control class="col3" label="##word.streetName##" ng-model="orders.address.streetName"></i-control>
+                <i-control class="col3" label="##word.buildingNumber##" ng-model="orders.address.buildingNumber">
+                </i-control>
+                <i-control class="col3" label="##word.role##" ng-model="orders.address.role"></i-control>
+                <i-control class="col3" label="##word.apartmentNumber##" ng-model="orders.address.apartmentNumber">
+                </i-control>
+                <i-control class="col3" label="##word.specialMark##" ng-model="orders.address.specialMark"></i-control>
+            </div>
+            <div class="row">
+                <i-checkbox help-id="hasInsurance" class="col2" label="##word.hasInsurance##"
+                    ng-model="orders.hasInsurance">
+                </i-checkbox>
+                <i-control ng-show="orders.hasInsurance" help-id="contractingCompany" class="col3" label="##word.contractingCompany##"
+                    ng-model="orders.contractingCompany">
+                </i-control>
+                <i-control ng-show="orders.hasInsurance" help-id="insuranceNumber" class="col3"
+                    label="##word.insuranceNumber##" ng-model="orders.insuranceNumber"></i-control>
+                <i-list ng-show="orders.hasInsurance" help-id="" v="r" class="col3" label="##word.insuranceCompany##"
+                    ng-model="orders.insuranceCompany" display="name_##session.lang##" items="insuranceCompanyList"
+                    ng-search="_search.insuranceCompany"></i-list>
+                    <div ng-show="orders.hasInsurance" class="col3">
+                        <i-image   h ng-model="orders.card_url"></i-image>
+                    </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="modal-footer center">
+            <h2 class="error"> {{error}} </h2>
+            <i-button type="add" label="##word.add##" ng-click="addOrders()"></i-button>
+
+            <i-button type="close" label="##word.close##" onclick="site.hideModal( '#ordersAddModal')"></i-button>
+        </div>
+    </div>
+
+</div>

@@ -14,6 +14,35 @@ module.exports = function init(site) {
     require : {permissions : []}
   });
 
+
+  site.get({
+    name: 'patients/forgetPassword',
+    path: __dirname + '/site_files/html/forgetPassword.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
+
+  site.get({
+    name: 'patients/resendCode',
+    path: __dirname + '/site_files/html/resendCode.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
+
+  site.get({
+    name: 'patients/checkCorrectPassword',
+    path: __dirname + '/site_files/html/checkCorrectPassword.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
+
+
+
+
+  
   // Add New patients 
 
   site.post({name:'/api/patients/add' ,require : {permissions : []} }, (req, res) => {

@@ -1,0 +1,50 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+
+<head x-import="head.html">
+
+</head>
+
+<body class="##session.lang##">
+
+    <nav x-import="sitebar/index.html" class="sitebar" data-ng-controller="sitebar">
+
+    </nav>
+
+    <nav class="sitebottom" x-import="sitebottom/index.html" ng-controller="sitebottom">
+
+    </nav>
+    <div id="main-layout" class="container loaded">
+
+<div class="form"  >
+    <div id="basicInformation" class="">
+        <div class="row">
+            <h1 class="bold text-center">##word.resendCode##</h1>
+        </div>
+
+        <div class="row">
+            <i-control class="col4"  label="##word.phone##" ng-model="phone">
+            </i-control>
+            <div class="col9"></div>
+            <i-button class="col4" type="add" label="##word.sendPhone##" ng-click="reSendPhone(phone)"></i-button>
+        </div>
+        <br>
+        <div>
+            
+        </div>
+       
+        
+        <script x-import="patients/index.js"></script>
+
+    </div>
+</div>
+
+</div>
+
+<div x-import="scripts.html"></div>
+<script x-import="patients/index.js"></script>
+</body>
+
+</html>

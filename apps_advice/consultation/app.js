@@ -3,12 +3,12 @@ module.exports = function init(site) {
   const $consultationDoctors = site.connectCollection('consultationDoctors');
   const $patients = site.connectCollection('patients');
   const $insuranceCompany = site.connectCollection('insuranceCompany');
-
+  // const Agora = require('agora-access-token')
 
   site.get({
     name: 'images',
     path: __dirname + '/site_files/images/'
-    ,require : {permissions : []}
+    , require: { permissions: [] }
   });
 
   site.get({
@@ -16,7 +16,7 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
-    require : {permissions : []}
+    require: { permissions: [] }
   });
   // Add New consultation With Not Duplicate Name Validation
 
@@ -147,6 +147,107 @@ module.exports = function init(site) {
       },
     );
   })
+
+  // // RTC Token
+
+  // site.post("/api/consultation/rtctoken", (req, res) => {
+  //   let response = {}
+  //   let consultation_doc = req.body
+  //   const appID = "210ed2de0c3e46fbb02596beb3699813";
+  //   const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
+  //   const expirationTimeInSeconds = 3600;
+  //   const uid = Math.floor(Math.random() * 100000);
+  //   req.headers.language = req.headers.language || 'en'
+  //   const role = consultation_doc.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
+  //   const channel = consultation_doc.channel || "test";
+  //   const currentTimestamp = Math.floor(Date.now() / 1000);
+  //   const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
+
+  //   const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channel, uid, role, expirationTimestamp);
+
+  //   let obj = {
+  //     done: true,
+  //     errorCode: site.var('succeed'),
+  //     data: {
+  //       token: token,
+  //       uid: uid
+  //     },
+  //     message: site.word('tokenAvailable')[req.headers.language]
+
+  //   }
+  //   res.json(obj)
+  // })
+
+
+  //  // generate Access Token
+
+  //  site.post("/api/consultation/generateAccessToken", (req, res) => {
+  //   let consultation_doc = req.body
+  //   const appID = "210ed2de0c3e46fbb02596beb3699813";
+  //   const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
+  //   const channelName = consultation_doc.channelName || "testChannel";
+    
+  //   // get uid 
+  //   let uid = Math.floor(Math.random() * 100000);
+    
+  //   // get role
+  //   let role = consultation_doc.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
+  
+  //   // get the expire time
+  //   let expireTime = req.query.expireTime;
+  //   if (!expireTime || expireTime == '') {
+  //     expireTime = 3600;
+  //   } else {
+  //     expireTime = parseInt(expireTime, 10);
+  //   }
+  //   // calculate privilege expire time
+  //   const currentTime = Math.floor(Date.now() / 1000);
+  //   const privilegeExpireTime = currentTime + expireTime;
+  //   // build the token
+  //   const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpireTime);
+  //   // return the token
+  //   let obj = {
+  //     done: true,
+  //     errorCode: site.var('succeed'),
+  //     data: {
+  //       token: token,
+  //       uid: uid
+  //     },
+  //     message: site.word('tokenAvailable')[req.headers.language]
+
+  //   }
+  //   res.json(obj)
+  // })
+
+
+
+  //  // RTM Token
+
+  //  site.post("/api/consultation/rtmtoken", (req, res) => {
+  //   let response = {}
+  //   let consultation_doc = req.body
+  //   const appID = "210ed2de0c3e46fbb02596beb3699813";
+  //   const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
+  //   const userName = consultation_doc.userName || "user1";
+  //   const role = Agora.RtmRole.Rtm_User;
+    
+  //   const expirationTimeInSeconds = 3600;
+  //   const currentTimestamp = Math.floor(Date.now() / 1000);
+  //   const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
+  
+  //   const token = Agora.RtmTokenBuilder.buildToken(appID, appCertificate, userName, role, expirationTimestamp);
+  //   let obj = {
+  //     done: true,
+  //     errorCode: site.var('succeed'),
+  //     data: {
+  //       token: token,
+     
+  //     },
+  //     message: site.word('tokenAvailable')[req.headers.language]
+
+  //   }
+  //   res.json(obj)
+  // })
 
   // get previous consultation
   site.post('/api/consultation/getPreviousConsultation', (req, res) => {
@@ -527,7 +628,7 @@ module.exports = function init(site) {
               },
             })
 
-            
+
 
             response.message = site.word('consultationTimeIncreased')[req.headers.language]
             response.done = true,
@@ -778,13 +879,13 @@ module.exports = function init(site) {
     if (where['name']) {
       where['name'] = site.get_RegExp(where['name'], 'i');
     }
-    let limit 
-    let skip 
-    if (!req.query.page ||( parseInt(req.query.page)&&parseInt(req.query.page)==1)) {
-      limit=10
+    let limit
+    let skip
+    if (!req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) == 1)) {
+      limit = 10
     }
-    if (req.query.page ||( parseInt(req.query.page)&&parseInt(req.query.page)>1)) {
-      skip=(parseInt(req.query.page)-1)*10
+    if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+      skip = (parseInt(req.query.page) - 1) * 10
     }
 
     $consultation.findMany({

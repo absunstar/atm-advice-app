@@ -7,15 +7,94 @@ app.controller("patients", function ($scope, $http, $timeout) {
     $scope.error = '';
     $scope.patients = {
       image_url: '/images/patients.png',
-      card_url:"/images/cardImage.png",
+      card_url: "/images/cardImage.png",
       active: true,
-      hasInsurance : false
+      hasInsurance: false
     };
 
     site.showModal('#patientsAddModal');
 
   };
+
+
+
+  $scope.sendPhone = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/patients/forgetPassword",
+      data:
+      {
+        phone: where
+      }
+
+
+    }).then(
+      function (response) {
+
+        $scope.busy = false;
+        const person = {
+          phone: where,
+          code: response.data.code,
+        };
+
+        window.localStorage.setItem('user', JSON.stringify(person));
+
+
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+
+
+  $scope.reSendPhone = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "api/patients/resendCode",
+      data:
+      {
+        phone: where
+      }
+
+
+    }).then(
+      function (response) {
+
+        $scope.busy = false;
+        const person = {
+          phone: where,
+          code: response.data.varifyMessage,
+        };
+
+        window.localStorage.setItem('user', JSON.stringify(person));
+
+
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+
+
+
+
   
+  $scope.checkVarificationCode = function (where) {
+
+    let code = JSON.parse(localStorage.user).code;
+    console.log(code);
+    if (where == code) {
+$scope.success = "varification code success"
+    }
+
+
+  };
 
 
   $scope.getInsuranceCompanyList = function (where) {
@@ -28,7 +107,7 @@ app.controller("patients", function ($scope, $http, $timeout) {
           active: true
         },
         select: {
-          id: 1, name_ar: 1, name_en: 1 , balance : 1 , image : 1
+          id: 1, name_ar: 1, name_en: 1, balance: 1, image: 1
         }
       }
     }).then(
@@ -53,7 +132,7 @@ app.controller("patients", function ($scope, $http, $timeout) {
       $scope.error = v.messages[0].ar;
       return;
     }
-    
+
     $scope.busy = true;
     $http({
       method: "POST",
@@ -202,14 +281,14 @@ app.controller("patients", function ($scope, $http, $timeout) {
     )
   };
 
-    $scope.displaySearchModal = function () {
+  $scope.displaySearchModal = function () {
     $scope.error = '';
     site.showModal('#patientsSearchModal');
   };
 
   $scope.getGenderList = function () {
-    $scope.genderList = [{name_ar:"ذكر", name_en:"male"},{name_ar:"انثى", name_en:"female"}];
-    
+    $scope.genderList = [{ name_ar: "ذكر", name_en: "male" }, { name_ar: "انثى", name_en: "female" }];
+
   };
 
   $scope.searchAll = function () {
@@ -219,7 +298,7 @@ app.controller("patients", function ($scope, $http, $timeout) {
     $scope.search = {};
   };
 
-  $scope.getGenderList ();
+  $scope.getGenderList();
   $scope.getPatientsList();
   $scope.getInsuranceCompanyList();
 });

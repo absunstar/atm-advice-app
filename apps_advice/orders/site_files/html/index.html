@@ -16,25 +16,25 @@
     </nav>
     <div id="main-layout" class="container loaded">
         <div class="row">
-            <div class="row" ng-controller="goves">
-                <div  x-import="goves/add_modal.html"></div>
-                <div  x-import="goves/update_modal.html"></div>
-                <div  x-import="goves/delete_modal.html"></div>
-                <div  x-import="goves/view_modal.html"></div>
-                <div  x-import="goves/search_all_modal.html"></div>
+            <div class="row" ng-controller="orders">
+                <div  x-import="orders/add_modal.html"></div>
+                <div  x-import="orders/update_modal.html"></div>
+                <div  x-import="orders/delete_modal.html"></div>
+                <div  x-import="orders/view_modal.html"></div>
+                <div  x-import="orders/search_all_modal.html"></div>
+                
 
                 <div class="row">
-                    <h1 class="bold text-center">##word.goves##</h1>
+                    <h1 class="bold text-center">##word.orders##</h1>
                 </div>
 
                 <div class="top-actions">
-                    <i-button  type="add" label="##word.goves_new##" ng-click="displayAddGov()"></i-button>
+                    <i-button  type="add" label="##word.orders_new##" ng-click="displayAddOrders()"></i-button>
 
                     <i-button  type="search" label="##word.search_all##"
                         ng-click="displaySearchModal()"></i-button>
 
-                    <a class="btn left bg-green" target="blank" href="/area"> ##word.area_add##</a>
-                    <a class="btn left bg-green" target="blank" href="/city"> ##word.city_add##</a>
+                   
                     <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
                     <h3 class="bold text-center red"> {{error}}</h3>
 
@@ -44,7 +44,7 @@
                     <tr>
                         <th class="not-print">##word.logo##</th>
                         <th>##word.code##</th>
-                        <th>##word.goves_name##</th>
+                        <th>##word.orders_name##</th>
 
                         <th>##word.status##</th>
                         <th class="not-print">##word.actions##</th>
@@ -62,13 +62,13 @@
 
                         <td class="center not-print">
                             <i-button  type="view" label="##word.details##"
-                                ng-click="displayDetailsGov(c)"></i-button>
+                                ng-click="displayDetailsOrders(c)"></i-button>
 
                             <i-button  type="edit" label="##word.edit##"
-                                ng-click="displayUpdateGov(c)"></i-button>
+                                ng-click="displayUpdateOrders(c)"></i-button>
 
                             <i-button  type="delete" label="##word.delete##"
-                                ng-click="displayDeleteGov(c)"></i-button>
+                                ng-click="displayDeleteOrders(c)"></i-button>
                         </td>
                     </tr>
                 </table>
@@ -81,7 +81,7 @@
     </div>
 
     <div x-import="scripts.html"></div>
-    <script x-import="goves/index.js"></script>
+    <script x-import="orders/index.js"></script>
 </body>
 
 </html>

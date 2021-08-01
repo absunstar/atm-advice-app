@@ -24,17 +24,22 @@ module.exports = function init(site) {
     let response = {
       done: false,
     };
-    if (!req.session.user) {
-      response.errorCode = site.var('failed')
-      response.message = site.word('loginFirst')[req.headers.language]
-      response.done = false;
-      res.json(response);
-      return;
-    }
+    // if (!req.session.user) {
+    //   response.errorCode = site.var('failed')
+    //   response.message = site.word('loginFirst')[req.headers.language]
+    //   response.done = false;
+    //   res.json(response);
+    //   return;
+    // }
 
     let orders_doc = req.body;
     // orders_doc.$req = req;
     // orders_doc.$res = res;
+    if (orders_doc.card_url) {
+      orders_doc.cardImage = new Array({
+        name : orders_doc.card_url
+      })
+    }
     orders_doc.isActive = true,
       orders_doc.createdAt = new Date()
     orders_doc.updatedAt = new Date()
@@ -1095,4 +1100,87 @@ skip : skip
     }
   })
  }, 20*60*1000);
+
+
+ site.post('/api/orders/update1', (req, res) => {
+  let response = {
+    done: false,
+  };
+  let orders_doc = req.body;
+  if (orders_doc.id) {
+    $orders.edit(
+      {
+        where: {
+          id: orders_doc.id,
+        },
+        set: orders_doc,
+        $req: req,
+        $res: res,
+      },
+      (err) => {
+        if (!err) {
+          response.done = true;
+        } else {
+          response.error = 'Code Already Exist';
+        }
+        res.json(response);
+      },
+    );
+  } else {
+    response.error = 'no id';
+    res.json(response);
+  }
+});
+
+site.post('/api/orders/view', (req, res) => {
+  let response = {
+    done: false,
+  };
+
+
+
+  $orders.findOne(
+    {
+      where: {
+        id: req.body.id,
+      },
+    },
+    (err, doc) => {
+      if (!err) {
+        response.done = true;
+        response.doc = doc;
+      } else {
+        response.error = err.message;
+      }
+      res.json(response);
+    },
+  );
+});
+site.post('/api/orders/delete1', (req, res) => {
+  let response = {
+    done: false,
+  };
+  let id = req.body.id;
+
+  if (id) {
+    $orders.delete(
+      {
+        id: id,
+        $req: req,
+        $res: res,
+      },
+      (err, result) => {
+        if (!err) {
+          response.done = true;
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  } else {
+    response.error = 'no id';
+    res.json(response);
+  }
+});
 };

@@ -6,7 +6,7 @@ module.exports = function init(site) {
   site.get({
     name: 'images',
     path: __dirname + '/site_files/images/'
-    ,require : {permissions : []}
+    , require: { permissions: [] }
   });
 
   site.get({
@@ -14,7 +14,7 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
-    require : {permissions : []}
+    require: { permissions: [] }
   });
 
   let ObjectID = require('mongodb').ObjectID
@@ -33,12 +33,72 @@ module.exports = function init(site) {
 
 
     booking_doc.isActive = true,
-      booking_doc.status = site.var('active'),
+      booking_doc.status = site.var('accepted'),
       booking_doc.createdAt = new Date()
     booking_doc.updatedAt = new Date()
 
     $booking.add(booking_doc, (err, doc) => {
       if (!err) {
+
+
+
+
+
+
+
+
+        $doctors.findOne({
+          where: {
+            "_id": booking_doc.doctor._id
+          }
+        }, (err1, doctorsDoc) => {
+          console.log("1111111111111", doctorsDoc);
+          if (doctorsDoc && doctorsDoc.days.length > 0) {
+            doctorsDoc.days.forEach(_d => {
+              let date = _d.date
+
+              let bodyDate = booking_doc.date
+
+              if (String(date) == String(bodyDate)) {
+                _d.times.forEach(_t => {
+                  if (_t.status == 'available' && (_t.startSession) == (booking_doc.time)) {
+                    _t.status = 'unAvailable'
+                  }
+                });
+              }
+            });
+          }
+
+
+          $doctors.update(doctorsDoc, (err, result) => {
+            if (result.count > 0) {
+              response.done = true,
+                response.errorCode = site.var('succeed')
+              response.message = site.word('appointmentConfirmed')[req.headers.language]
+            } else {
+              response.done = false,
+                response.errorCode = site.var('failed')
+              response.message = site.word('appointmentAlreadyConfirmed')[req.headers.language]
+            }
+
+            res.json(response)
+          })
+
+
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
         response.data = doc;
         response.errorCode = site.var('succeed')
         response.message = site.word('bookingCreated')[req.headers.language]
@@ -95,7 +155,7 @@ module.exports = function init(site) {
           bodyDate.setHours(0, 0, 0, 0)
           if (String(date) == String(bodyDate)) {
             _d.times.forEach(_t => {
-              if (_t.status = 'available' && (_t.startSession) ==(bookingDoc.time) ) {
+              if (_t.status = 'available' && (_t.startSession) == (bookingDoc.time)) {
                 _t.status = 'unAvailable'
               }
             });
@@ -232,11 +292,11 @@ module.exports = function init(site) {
     }, (err, result) => {
       if (result.count > 0) {
         $booking.findOne({
-            where: {
-              _id: new ObjectID(booking_doc.bookingId)
-            },
-
+          where: {
+            _id: new ObjectID(booking_doc.bookingId)
           },
+
+        },
           (err, doc) => {
             if (!err && doc) {
               let notificationObj = {
@@ -369,7 +429,7 @@ module.exports = function init(site) {
     $booking.findMany({
       where: {
         'status': {
-          $in: [site.var('done'), site.var('accepted'), ]
+          $in: [site.var('done'), site.var('accepted'),]
         },
         'doctor._id': booking_doc.doctor._id,
         date: {
@@ -406,22 +466,19 @@ module.exports = function init(site) {
     let response = {}
 
     let booking_doc = req.body;
-    let start = new Date(booking_doc.date);
-    start.setHours(0, 0, 0, 0);
+    let start = booking_doc.date;
 
-    let end = new Date(booking_doc.date);
-    end.setHours(23, 59, 59, 999);
+
+    let end = booking_doc.date;
+
 
     $booking.findMany({
       where: {
         'status': {
-          $in: [site.var('accepted'), ]
+          $in: [site.var('accepted'),]
         },
         'doctor._id': booking_doc.doctor._id,
-        date: {
-          $gte: start,
-          $lt: end
-        }
+        date: booking_doc.date
       },
 
       $req: req,
@@ -446,6 +503,166 @@ module.exports = function init(site) {
 
 
 
+  // get All Booking For date
+  site.post('/api/booking/getAllCountBookingDoneDoctor', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    let booking_doc = req.body;
+
+    console.log(booking_doc.doctor._id);
+    $booking.aggregate([
+      {
+        "$match": {
+          "doctor._id": booking_doc.doctor._id
+        }
+      },
+      {
+        "$match": {
+          "status": "done"
+        }
+      },
+      {
+        "$project": {
+          
+          "count": {
+            "$sum": 1.0
+          },
+         
+        }
+      }
+    ], (err, docs) => {
+      if (docs) {
+        response.done = true
+        response.data = docs
+        response.errorCode = site.var('succeed')
+        response.message = site.word('findSuccessfully')[req.headers.language]
+        res.json(response)
+      }
+      else {
+        response.done = false
+
+        response.errorCode = site.var('failed')
+        response.message = site.word('findFailed')[req.headers.language]
+        res.json(response)
+      }
+
+
+    })
+
+  });
+
+  // get All Booking For date
+  site.post('/api/booking/getAllCountBookingAllDoctor', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    let booking_doc = req.body;
+
+    $booking.aggregate([
+      {
+        "$match": {
+          "doctor._id": booking_doc.doctor._id
+        }
+      },
+     
+      {
+        "$group": {
+          "_id": null,
+          "count": {
+            "$sum": 1.0
+          }
+        }
+      },
+      {
+        "$project": {
+        
+          "count": "$count",
+          "_id": 0.0
+        }
+      }
+    ], (err, docs) => {
+      if (docs) {
+        response.done = true
+        response.data = docs
+        response.errorCode = site.var('succeed')
+        response.message = site.word('findSuccessfully')[req.headers.language]
+        res.json(response)
+      }
+      else {
+        response.done = false
+
+        response.errorCode = site.var('failed')
+        response.message = site.word('findFailed')[req.headers.language]
+        res.json(response)
+      }
+
+
+    })
+
+  });
+
+  
+
+
+
+  
+
+
+  // get All Booking For date
+  site.post('/api/booking/getAllCountBookingDoctor', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    let booking_doc = req.body;
+
+    console.log(booking_doc.doctor._id);
+    $booking.aggregate([
+      {
+        "$match": {
+          "doctor._id": booking_doc.doctor._id
+        }
+      },
+      {
+        "$group": {
+          "_id": {
+            "date": "$date"
+          },
+          "count": {
+            "$sum": 1.0
+          }
+        }
+      },
+      {
+        "$project": {
+          "date": "$_id.date",
+          "count": "$count",
+          "_id": 0.0
+        }
+      }
+    ], (err, docs) => {
+      if (docs) {
+        response.done = true
+        response.data = docs
+        response.errorCode = site.var('succeed')
+        response.message = site.word('findSuccessfully')[req.headers.language]
+        res.json(response)
+      }
+      else {
+        response.done = false
+
+        response.errorCode = site.var('failed')
+        response.message = site.word('findFailed')[req.headers.language]
+        res.json(response)
+      }
+
+
+    })
+
+  });
+
+
+
 
 
   // get All packageses
@@ -458,13 +675,13 @@ module.exports = function init(site) {
     }
     let response = {}
     $booking.findMany({
-        select: req.body.select || {},
-        sort: req.body.sort || {
-          id: -1,
-        },
-        limit: limit,
-        skip: skip
+      select: req.body.select || {},
+      sort: req.body.sort || {
+        id: -1,
       },
+      limit: limit,
+      skip: skip
+    },
       (err, docs, count) => {
         if (!err) {
 
@@ -489,11 +706,11 @@ module.exports = function init(site) {
     req.headers.language = req.headers.language || 'en'
     let response = {}
     $booking.findOne({
-        where: {
-          _id: req.params.id,
-        },
-
+      where: {
+        _id: req.params.id,
       },
+
+    },
       (err, doc) => {
         if (!err && doc) {
           response.data = doc
@@ -522,10 +739,10 @@ module.exports = function init(site) {
 
     if (id) {
       $booking.delete({
-          _id: id,
-          $req: req,
-          $res: res,
-        },
+        _id: id,
+        $req: req,
+        $res: res,
+      },
         (err, result) => {
           if (!err) {
             response.done = true,
@@ -562,14 +779,14 @@ module.exports = function init(site) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
     $booking.findMany({
-        select: req.body.select || {},
-        where: where,
-        sort: req.body.sort || {
-          id: -1,
-        },
-        limit: limit,
-        skip: skip
+      select: req.body.select || {},
+      where: where,
+      sort: req.body.sort || {
+        id: -1,
       },
+      limit: limit,
+      skip: skip
+    },
       (err, docs, count) => {
         if (docs.length > 0) {
           response.done = true

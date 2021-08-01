@@ -198,6 +198,8 @@ app.controller("city", function ($scope, $http, $timeout) {
     )
   };
 
+  
+
 
 
   $scope.displaySearchModal = function () {

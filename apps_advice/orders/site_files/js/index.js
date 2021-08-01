@@ -1,38 +1,40 @@
 app.controller("orders", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.gov = {};
+  $scope.orders = {};
 
-  $scope.displayAddGov = function () {
+  $scope.displayAddOrders = function () {
     $scope.error = '';
-    $scope.gov = {
-      image_url: '/images/gov.png',
-      active: true
+    $scope.orders = {
+      image_url: '/images/orders.png',
+      card_url: "/images/cardImage.png",
+      active: true,
+      hasInsurance: false
     };
 
-    site.showModal('#govAddModal');
+    site.showModal('#ordersAddModal');
 
   };
 
-  $scope.addGov = function () {
+  $scope.addOrders = function () {
     $scope.error = '';
-    const v = site.validated('#govAddModal');
+    const v = site.validated('#ordersAddModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
     }
-    
+   console.log($scope.orders);
     $scope.busy = true;
     $http({
       method: "POST",
       url: "/api/orders/add",
-      data: $scope.gov
+      data: $scope.orders
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govAddModal');
-          $scope.getGovList();
+          site.hideModal('#ordersAddModal');
+          $scope.getOrdersList();
         } else {
           $scope.error = response.data.error;
           if (response.data.error.like('*Must Enter Code*')) {
@@ -46,16 +48,16 @@ app.controller("orders", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayUpdateGov = function (gov) {
+  $scope.displayUpdateOrders = function (orders) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govUpdateModal');
+    $scope.viewOrders(orders);
+    $scope.orders = {};
+    site.showModal('#ordersUpdateModal');
   };
 
-  $scope.updateGov = function () {
+  $scope.updateOrders = function () {
     $scope.error = '';
-    const v = site.validated('#govUpdateModal');
+    const v = site.validated('#ordersUpdateModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -63,14 +65,14 @@ app.controller("orders", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/orders/update",
-      data: $scope.gov
+      url: "/api/orders/update1",
+      data: $scope.orders
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govUpdateModal');
-          $scope.getGovList();
+          site.hideModal('#ordersUpdateModal');
+          $scope.getOrdersList();
         } else {
           $scope.error = 'Please Login First';
         }
@@ -81,27 +83,27 @@ app.controller("orders", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDetailsGov = function (gov) {
+  $scope.displayDetailsOrders = function (orders) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govViewModal');
+    $scope.viewOrders(orders);
+    $scope.orders = {};
+    site.showModal('#ordersViewModal');
   };
 
-  $scope.viewGov = function (gov) {
+  $scope.viewOrders = function (orders) {
     $scope.busy = true;
     $scope.error = '';
     $http({
       method: "POST",
       url: "/api/orders/view",
       data: {
-        id: gov.id
+        id: orders.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.gov = response.data.doc;
+          $scope.orders = response.data.doc;
         } else {
           $scope.error = response.data.error;
         }
@@ -112,29 +114,29 @@ app.controller("orders", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDeleteGov = function (gov) {
+  $scope.displayDeleteOrders = function (orders) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govDeleteModal');
+    $scope.viewOrders(orders);
+    $scope.orders = {};
+    site.showModal('#ordersDeleteModal');
   };
 
-  $scope.deleteGov = function () {
+  $scope.deleteOrders = function () {
     $scope.busy = true;
     $scope.error = '';
 
     $http({
       method: "POST",
-      url: "/api/orders/delete",
+      url: "/api/orders/delete1",
       data: {
-        id: $scope.gov.id
+        id: $scope.orders.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govDeleteModal');
-          $scope.getGovList();
+          site.hideModal('#ordersDeleteModal');
+          $scope.getOrdersList();
         } else {
           $scope.error = response.data.error;
         }
@@ -145,22 +147,20 @@ app.controller("orders", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getGovList = function (where) {
+  $scope.getOrdersList = function (where) {
     $scope.busy = true;
     $scope.list = [];
     $http({
       method: "POST",
-      url: "/api/orders/all",
-      data: {
-        where: where
-      }
+      url: "/api/orders/search",
+      data: where
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
-          site.hideModal('#govSearchModal');
+        if (response.data.docs.length > 0) {
+          $scope.list = response.data.docs;
+          $scope.count = response.data.totalDocs;
+          site.hideModal('#ordersSearchModal');
           $scope.search = {};
 
         }
@@ -173,20 +173,25 @@ app.controller("orders", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getNumberingAuto = function () {
-    $scope.error = '';
+  $scope.getGovesList = function (where) {
     $scope.busy = true;
     $http({
-      method: "POST",
-      url: "/api/numbering/get_automatic",
+      method: "GET",
+      url: "/api/gov",
       data: {
-        screen: "gov"
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
       }
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done) {
-          $scope.disabledCode = response.data.isAuto;
+        if (response.data.docs.length > 0) {
+          $scope.govesList = response.data.docs;
+
         }
       },
       function (err) {
@@ -195,20 +200,88 @@ app.controller("orders", function ($scope, $http, $timeout) {
       }
     )
   };
+  
+  $scope.getCitiesList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/city",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.citiesList = response.data.docs;
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+  $scope.getInsuranceCompanyList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/insuranceCompany",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1, balance: 1, image: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.insuranceCompanyList = response.data.docs;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+  $scope.addImgArr = function (name , img) {
+   
+    let obj = {
+      name : img , 
+      description : name
+    };
+    $scope.orders.image= [];
+
+    $scope.orders.image.push(obj);
+    site.showModal('#personalData');
+  
+  };
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
-    site.showModal('#govSearchModal');
+    site.showModal('#ordersSearchModal');
 
   };
 
   $scope.searchAll = function () {
 
-    $scope.getGovList($scope.search);
-    site.hideModal('#govSearchModal');
+    $scope.getOrdersList($scope.search);
+    site.hideModal('#ordersSearchModal');
     $scope.search = {};
   };
 
-  $scope.getGovList();
-  $scope.getNumberingAuto();
+  $scope.getOrdersList();
+  $scope.getGovesList();
+  $scope.getCitiesList();
+  $scope.getInsuranceCompanyList();
 });
