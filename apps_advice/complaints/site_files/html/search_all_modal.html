@@ -1,4 +1,4 @@
-<div id="govSearchModal" class="modal">
+<div id="complaintsSearchModal" class="modal">
     <div class="col2"></div>
     <div class="modal-content col8">
         <div class="modal-header">
@@ -15,7 +15,7 @@
                     <legend>##word.search_all##</legend>
                     <div class="row">
 
-                        <i-control class="col3" label="##word.goves_name##" ng-model="search.name"></i-control>
+                        <i-control class="col3" label="##word.title##" ng-model="search.title"></i-control>
 
                         <div class="control col3">
                             <label> ##word.status## </label>
@@ -37,7 +37,7 @@
 
             <i-button type="clear" label="##word.empty_search##" ng-click="search = {}"> </i-button>
 
-            <i-button type="close" label="##word.close##" onclick="site.hideModal('#govSearchModal')"> </i-button>
+            <i-button type="close" label="##word.close##" onclick="site.hideModal('#complaintsSearchModal')"> </i-button>
 
         </div>
     </div>

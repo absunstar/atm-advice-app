@@ -5,22 +5,39 @@
             <div class="row">
                 <div class="col9">
                     <div class="row">
-                        <i-control ng-hide="disabledCode" class="col2" label="##word.code##" ng-model="gov.code"></i-control>
+                        <i-control class="col3" label="##word.pharmacyName##" ng-model="pharmacy.pharmacyName">
                         </i-control>
-                        <i-control help-id="goves_name" v="r ll2" class="col4" label="##word.goves_name##"
-                            ng-model="gov.name_ar"></i-control>
+                        <i-control help-id="userName" v="r ll2" class="col3" label="##word.userName##"
+                            ng-model="pharmacy.userName"></i-control>
 
-                        <i-control help-id="goves_name_en" class="col4" label="##word.name_en##"
-                            ng-model="gov.name_en"></i-control>
+                        <i-control help-id="branch" class="col3" label="##word.branch##" ng-model="pharmacy.branch">
+                        </i-control>
 
-                        <i-checkbox help-id="goves_active" class="col2" label="##word.active##" ng-model="gov.active">
-                        </i-checkbox>
+                        <i-control help-id="email" class="col3" label="##word.email##" ng-model="pharmacy.email">
+                        </i-control>
+                    </div>
+                    <div class="row">
+                        <i-list help-id="" v="r" class="col3" label="##word.goves_name##" ng-model="pharmacy.gov"
+                            display="name_##session.lang##" items="govesList" ng-search="_search.$city_gov"></i-list>
+
+                        <i-list help-id="" v="r" class="col3" label="##word.city_name##" ng-model="pharmacy.city"
+                            display="name_##session.lang##" items="citiesList" ng-search="_search.$city_gov"></i-list>
+                        <i-control class="col3" label="##word.lat##" ng-model="pharmacy.lat">
+                        </i-control>
+                        <i-control class="col3" label="##word.long##" ng-model="pharmacy.long"></i-control>
+                    </div>
+                    <div class="row">
+                     
+                        <i-control class="col4" label="##word.phone##" ng-model="pharmacy.phone">
+                        </i-control>
+                        <i-control class="col4" label="##word.password##" ng-model="pharmacy.password"></i-control>
+                        <i-control class="col4" label="##word.address##" ng-model="pharmacy.address"></i-control>
                     </div>
 
                 </div>
 
                 <div class="col3">
-                    <i-image help-id="goves_logo" ng-model="gov.image_url"></i-image>
+                    <i-image help-id="pharmacy_logo" ng-model="pharmacy.image_url"></i-image>
                 </div>
             </div>
         </fieldset>

@@ -27,6 +27,16 @@ module.exports = function init(site) {
     //   return;
     // }
     let patients_doc = req.body;
+    if (patients_doc.image_url) {
+      patients_doc.image = new Array({
+        name : patients_doc.image_url
+      })
+    }
+    if (patients_doc.card_url) {
+      patients_doc.cardImage = new Array({
+        name : patients_doc.card_url
+      })
+    }
     patients_doc.$req = req;
     patients_doc.$res = res;
     patients_doc.isActive = false,
@@ -674,5 +684,86 @@ module.exports = function init(site) {
         res.json(response);
       },
     );
+  });
+  site.post('/api/patients/update1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let patients_doc = req.body;
+    if (patients_doc.id) {
+      $patients.edit(
+        {
+          where: {
+            id: patients_doc.id,
+          },
+          set: patients_doc,
+          $req: req,
+          $res: res,
+        },
+        (err) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = 'Code Already Exist';
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
+  });
+
+  site.post('/api/patients/view', (req, res) => {
+    let response = {
+      done: false,
+    };
+
+  
+
+    $patients.findOne(
+      {
+        where: {
+          id: req.body.id,
+        },
+      },
+      (err, doc) => {
+        if (!err) {
+          response.done = true;
+          response.doc = doc;
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+  site.post('/api/patients/delete1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let id = req.body.id;
+
+    if (id) {
+      $patients.delete(
+        {
+          id: id,
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
   });
 };

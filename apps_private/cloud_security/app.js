@@ -335,6 +335,7 @@ module.exports = function init(site) {
             permissions: user.permissions,
             company: req.body.company,
             branch: req.body.branch,
+            ref : user.ref_info,
             targetUserId : user.ref_info._id
           };
 

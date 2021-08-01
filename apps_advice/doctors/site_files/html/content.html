@@ -5,22 +5,34 @@
             <div class="row">
                 <div class="col9">
                     <div class="row">
-                        <i-control ng-hide="disabledCode" class="col2" label="##word.code##" ng-model="gov.code"></i-control>
+                        <i-control class="col3" label="##word.name##" ng-model="doctors.name"></i-control>
                         </i-control>
-                        <i-control help-id="goves_name" v="r ll2" class="col4" label="##word.goves_name##"
-                            ng-model="gov.name_ar"></i-control>
-
-                        <i-control help-id="goves_name_en" class="col4" label="##word.name_en##"
-                            ng-model="gov.name_en"></i-control>
-
-                        <i-checkbox help-id="goves_active" class="col2" label="##word.active##" ng-model="gov.active">
-                        </i-checkbox>
+                        <i-control class="col3" label="##word.email##" ng-model="doctors.email"></i-control>
+                        <i-control class="col3" label="##word.phone##" ng-model="doctors.phone"></i-control>
+                        <i-control class="col3" label="##word.price##" ng-model="doctors.price" type="number"></i-control>
+                        <i-control class="col3" label="##word.periodPerMinutes##" ng-model="doctors.periodPerMinutes" type="number"></i-control>
+                        <i-control class="col3" label="##word.password##" ng-model="doctors.password"></i-control>
+                        <i-control class="col3" label="##word.lat##" ng-model="doctors.lat" type="number"></i-control>
+                        <i-control class="col3" label="##word.long##" ng-model="doctors.long" type="number"></i-control>
+                        <i-control class="col3" label="##word.doctorTitle##" ng-model="doctors.title"></i-control>
+                        <i-control class="col3" label="##word.address##" ng-model="doctors.address"></i-control>
+                        <i-list help-id="" class="col3" label="##word.gender##" ng-model="doctors.gender"
+                        display="name_##session.lang##" items="genderList" ng-search="_search.gender"></i-list>
+                        <i-control class="col3" label="##word.hint##" ng-model="doctors.hint"></i-control>
+                        <i-list class="col3" label="##word.degree##"
+                        ng-model="doctors.degree" display="name_##session.lang##" items="degreesList"
+                        ng-search="_search.degree"></i-list>
+                        <i-list class="col3" label="##word.department##"
+                        ng-model="doctors.department" display="name_##session.lang##" items="departmentList"
+                        ng-search="_search.department"></i-list>
+                        <i-list class="col3" label="##word.city_name##" ng-model="doctors.city"
+                        display="name_##session.lang##" items="citiesList" ng-search="_search.$city_gov"></i-list>
                     </div>
 
                 </div>
 
                 <div class="col3">
-                    <i-image help-id="goves_logo" ng-model="gov.image_url"></i-image>
+                    <i-image help-id="doctors_logo" ng-model="doctors.image_url"></i-image>
                 </div>
             </div>
         </fieldset>

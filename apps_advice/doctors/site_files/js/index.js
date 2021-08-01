@@ -1,22 +1,24 @@
 app.controller("doctors", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.gov = {};
+  $scope.doctors = {};
 
-  $scope.displayAddGov = function () {
+  $scope.displayAddDoctors = function () {
     $scope.error = '';
-    $scope.gov = {
-      image_url: '/images/gov.png',
-      active: true
+    $scope.doctors = {
+      image_url: '/images/doctors.png',
+      active: true,
+      lat:0,
+      long:0
     };
 
-    site.showModal('#govAddModal');
+    site.showModal('#doctorsAddModal');
 
   };
 
-  $scope.addGov = function () {
+  $scope.addDoctors = function () {
     $scope.error = '';
-    const v = site.validated('#govAddModal');
+    const v = site.validated('#doctorsAddModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -26,19 +28,14 @@ app.controller("doctors", function ($scope, $http, $timeout) {
     $http({
       method: "POST",
       url: "/api/doctors/add",
-      data: $scope.gov
+      data: $scope.doctors
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done) {
-          site.hideModal('#govAddModal');
-          $scope.getGovList();
-        } else {
-          $scope.error = response.data.error;
-          if (response.data.error.like('*Must Enter Code*')) {
-            $scope.error = "##word.must_enter_code##"
-          }
-        }
+       
+          site.hideModal('#doctorsAddModal');
+          $scope.getDoctorsList();
+        
       },
       function (err) {
         console.log(err);
@@ -46,16 +43,16 @@ app.controller("doctors", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayUpdateGov = function (gov) {
+  $scope.displayUpdateDoctors = function (doctors) {
     $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govUpdateModal');
+    $scope.viewDoctors(doctors);
+    $scope.doctors = {};
+    site.showModal('#doctorsUpdateModal');
   };
 
-  $scope.updateGov = function () {
+  $scope.updateDoctors = function () {
     $scope.error = '';
-    const v = site.validated('#govUpdateModal');
+    const v = site.validated('#doctorsUpdateModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
@@ -63,14 +60,14 @@ app.controller("doctors", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/doctors/update",
-      data: $scope.gov
+      url: "/api/doctors/update1",
+      data: $scope.doctors
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal('#govUpdateModal');
-          $scope.getGovList();
+          site.hideModal('#doctorsUpdateModal');
+          $scope.getDoctorsList();
         } else {
           $scope.error = 'Please Login First';
         }
@@ -81,86 +78,39 @@ app.controller("doctors", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.displayDetailsGov = function (gov) {
-    $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govViewModal');
-  };
-
-  $scope.viewGov = function (gov) {
-    $scope.busy = true;
-    $scope.error = '';
-    $http({
-      method: "POST",
-      url: "/api/doctors/view",
-      data: {
-        id: gov.id
-      }
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          $scope.gov = response.data.doc;
-        } else {
-          $scope.error = response.data.error;
-        }
-      },
-      function (err) {
-        console.log(err);
-      }
-    )
-  };
-
-  $scope.displayDeleteGov = function (gov) {
-    $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govDeleteModal');
-  };
-
-  $scope.deleteGov = function () {
-    $scope.busy = true;
-    $scope.error = '';
-
-    $http({
-      method: "POST",
-      url: "/api/doctors/delete",
-      data: {
-        id: $scope.gov.id
-      }
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          site.hideModal('#govDeleteModal');
-          $scope.getGovList();
-        } else {
-          $scope.error = response.data.error;
-        }
-      },
-      function (err) {
-        console.log(err);
-      }
-    )
-  };
-
-  $scope.getGovList = function (where) {
+  $scope.activateStatus = function (where) {
     $scope.busy = true;
     $scope.list = [];
     $http({
       method: "POST",
-      url: "/api/doctors/all",
-      data: {
-        where: where
+      url: "/api/doctors/changeStatusActive",
+      data: where
+    }).then(
+      function (response) {
+        $scope.getNotActiveDoctors()
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
       }
+
+    )
+  };
+  
+
+  $scope.getNotActiveDoctors = function (where) {
+    $scope.busy = true;
+    $scope.doc_not_active_list = [];
+    $http({
+      method: "POST",
+      url: "/api/doctors/getNotActiveDoctors",
+      data: where
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
-          site.hideModal('#govSearchModal');
+        if (response.data.docs.length > 0) {
+          $scope.doc_not_active_list = response.data.docs;
+          $scope.count = response.data.totalDocs;
           $scope.search = {};
 
         }
@@ -173,20 +123,182 @@ app.controller("doctors", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.getNumberingAuto = function () {
+  $scope.displayDetailsDoctors = function (doctors) {
     $scope.error = '';
+    $scope.viewDoctors(doctors);
+    $scope.doctors = {};
+    site.showModal('#doctorsViewModal');
+  };
+
+  $scope.viewDoctors = function (doctors) {
     $scope.busy = true;
+    $scope.error = '';
     $http({
       method: "POST",
-      url: "/api/numbering/get_automatic",
+      url: "/api/doctors/view",
       data: {
-        screen: "gov"
+        id: doctors.id
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          $scope.disabledCode = response.data.isAuto;
+          $scope.doctors = response.data.doc;
+        } else {
+          $scope.error = response.data.error;
+        }
+      },
+      function (err) {
+        console.log(err);
+      }
+    )
+  };
+
+  $scope.displayDeleteDoctors = function (doctors) {
+    $scope.error = '';
+    $scope.viewDoctors(doctors);
+    $scope.doctors = {};
+    site.showModal('#doctorsDeleteModal');
+  };
+
+  $scope.deleteDoctors = function () {
+    $scope.busy = true;
+    $scope.error = '';
+
+    $http({
+      method: "POST",
+      url: "/api/doctors/delete1",
+      data: {
+        id: $scope.doctors.id
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          site.hideModal('#doctorsDeleteModal');
+          $scope.getDoctorsList();
+        } else {
+          $scope.error = response.data.error;
+        }
+      },
+      function (err) {
+        console.log(err);
+      }
+    )
+  };
+
+  $scope.getDoctorsList = function (where) {
+    $scope.busy = true;
+    $scope.list = [];
+    $http({
+      method: "GET",
+      url: "api/doctors",
+      data: where
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        for (const key in response.data) {
+          if (Object.hasOwnProperty.call(response.data, key)) {
+            const element = response.data[key];
+            if (element.docs.length > 0) {
+              $scope.list = element.docs;
+              $scope.count = element.totalDocs;
+              site.hideModal('#doctorsSearchModal');
+              $scope.search = {};
+    
+            }
+            
+          }
+        }
+       
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+  $scope.getGenderList = function () {
+    $scope.genderList = [{name_ar:"ذكر", name_en:"male"},{name_ar:"انثى", name_en:"female"}];
+    
+  };
+  $scope.getDepartmentsList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/departments",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.departmentList = response.data.docs;
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+
+
+  $scope.getDegreeList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/degree",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.degreesList = response.data.docs;
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+
+  $scope.getCitiesList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/city",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.citiesList = response.data.docs;
+
         }
       },
       function (err) {
@@ -198,17 +310,22 @@ app.controller("doctors", function ($scope, $http, $timeout) {
 
   $scope.displaySearchModal = function () {
     $scope.error = '';
-    site.showModal('#govSearchModal');
+    site.showModal('#doctorsSearchModal');
 
   };
 
   $scope.searchAll = function () {
 
-    $scope.getGovList($scope.search);
-    site.hideModal('#govSearchModal');
+    $scope.getDoctorsList($scope.search);
+    site.hideModal('#doctorsSearchModal');
     $scope.search = {};
   };
 
-  $scope.getGovList();
-  $scope.getNumberingAuto();
+  $scope.getNotActiveDoctors();
+
+  $scope.getDoctorsList();
+  $scope.getGenderList();
+  $scope.getDepartmentsList();
+  $scope.getDegreeList();
+  $scope.getCitiesList()
 });

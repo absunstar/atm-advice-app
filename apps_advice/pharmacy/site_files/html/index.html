@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  data-ng-app="myApp">
+<html lang="en" data-ng-app="myApp">
 
 <head x-import="head.html">
 
@@ -16,72 +16,24 @@
     </nav>
     <div id="main-layout" class="container loaded">
         <div class="row">
-            <div class="row" ng-controller="goves">
-                <div  x-import="goves/add_modal.html"></div>
-                <div  x-import="goves/update_modal.html"></div>
-                <div  x-import="goves/delete_modal.html"></div>
-                <div  x-import="goves/view_modal.html"></div>
-                <div  x-import="goves/search_all_modal.html"></div>
-
-                <div class="row">
-                    <h1 class="bold text-center">##word.goves##</h1>
-                </div>
-
-                <div class="top-actions">
-                    <i-button  type="add" label="##word.goves_new##" ng-click="displayAddGov()"></i-button>
-
-                    <i-button  type="search" label="##word.search_all##"
-                        ng-click="displaySearchModal()"></i-button>
-
-                    <a class="btn left bg-green" target="blank" href="/area"> ##word.area_add##</a>
-                    <a class="btn left bg-green" target="blank" href="/city"> ##word.city_add##</a>
-                    <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
-                    <h3 class="bold text-center red"> {{error}}</h3>
-
-                </div>
-
-                <table  class="table hover bold loaded" id="t1">
-                    <tr>
-                        <th class="not-print">##word.logo##</th>
-                        <th>##word.code##</th>
-                        <th>##word.goves_name##</th>
-
-                        <th>##word.status##</th>
-                        <th class="not-print">##word.actions##</th>
-                    </tr>
-                    <tr ng-repeat="c in list">
-                        <td class="center not-print">
-                            <i-image view class="logo" ng-model="c.image_url"></i-image>
-                        </td>
-                        <td class="center userPrint blue">{{c.code}}</td>
-                        <td class="center title">{{c.name_##session.lang##}}</td>
-                        <td class="center">
-                            <p ng-show="c.active ==true" class="green"> ##word.active## </p>
-                            <p ng-show="c.active ==false" class="red"> ##word.not_active## </p>
-                        </td>
-
-                        <td class="center not-print">
-                            <i-button  type="view" label="##word.details##"
-                                ng-click="displayDetailsGov(c)"></i-button>
-
-                            <i-button  type="edit" label="##word.edit##"
-                                ng-click="displayUpdateGov(c)"></i-button>
-
-                            <i-button  type="delete" label="##word.delete##"
-                                ng-click="displayDeleteGov(c)"></i-button>
-                        </td>
-                    </tr>
-                </table>
+            <div class="row" ng-controller="pharmacy">
+                <div x-import="pharmacy/add_modal.html"></div>
+                <div x-import="pharmacy/update_modal.html"></div>
+                <div x-import="pharmacy/delete_modal.html"></div>
+                <div x-import="pharmacy/view_modal.html"></div>
+                <div x-import="pharmacy/search_all_modal.html"></div>
+                <div x-import="pharmacy/pharmacy_core.html" ng-show="##query.type## == 2"></div>
+                <div x-import="pharmacy/pharmacy_active.html"ng-show="##query.type## == 1"  ></div>
 
                 <i-button type="print" label="##word.print##" onclick="site.print('#t1')"></i-button>
 
-                
+
             </div>
         </div>
     </div>
 
     <div x-import="scripts.html"></div>
-    <script x-import="goves/index.js"></script>
+    <script x-import="pharmacy/index.js"></script>
 </body>
 
 </html>

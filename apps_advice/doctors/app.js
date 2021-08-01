@@ -5,8 +5,10 @@ module.exports = function init(site) {
   let ObjectID = require('mongodb').ObjectID
   site.get({
     name: 'images',
-    path: __dirname + '/site_files/images/'
-    , require: { permissions: [] }
+    path: __dirname + '/site_files/images/',
+    require: {
+      permissions: []
+    }
   });
 
   site.get({
@@ -14,7 +16,9 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
-    require: { permissions: [] }
+    require: {
+      permissions: []
+    }
   });
 
   // Add New Doctors With Not Duplicate Name Validation
@@ -39,7 +43,17 @@ module.exports = function init(site) {
     let doctors_doc = req.body;
     doctors_doc.$req = req;
     doctors_doc.$res = res;
-
+    if (typeof doctors_doc.lat == 'string') {
+      doctors_doc.lat = Number(doctors_doc.lat)
+    }
+    if (typeof doctors_doc.long == 'string') {
+      doctors_doc.long = Number(doctors_doc.long)
+    }
+    if (doctors_doc.image_url) {
+      doctors_doc.image = new Array({
+        name: doctors_doc.image_url
+      })
+    }
     doctors_doc.isActive = false,
       doctors_doc.isAvailable = false,
       doctors_doc.createdAt = new Date()
@@ -59,7 +73,7 @@ module.exports = function init(site) {
     $doctors.createIndex({
       location: "2dsphere"
     })
-
+    console.log(doctors_doc);
     $doctors.add(doctors_doc, (err, doc) => {
       if (!err) {
         let user = {
@@ -181,20 +195,25 @@ module.exports = function init(site) {
     let doctor_doc = req.body
     req.headers.language = req.headers.language || "en"
     $doctors.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          'department._id': String(doctor_doc.department._id),
+          isAvailable: true,
+          isActive: true
+        },
+        limit: req.body.limit || 10,
       },
-      where: {
-        'department._id': String(doctor_doc.department._id),
-        isAvailable: true,
-        isActive: true
-      },
-      limit: req.body.limit || 10,
-    },
       (err, docs, count) => {
         if (!err && docs) {
-          response.data = { docs: docs, totalDocs: count, limit: 10, totalPages: Math.ceil(count / 10) }
+          response.data = {
+            docs: docs,
+            totalDocs: count,
+            limit: 10,
+            totalPages: Math.ceil(count / 10)
+          }
           response.errorCode = site.var('succeed')
           response.message = site.word('findSuccessfully')[req.headers.language]
           response.done = true;
@@ -243,33 +262,33 @@ module.exports = function init(site) {
 
 
     $doctors.aggregate([{
-      "$geoNear": {
-        "near": {
-          "type": "Point",
-          "coordinates": [
-            doctor_doc.lat,
-            doctor_doc.long
-          ]
-        },
-        "distanceField": "distance",
-        "maxDistance": distance,
-        "spherical": true
+        "$geoNear": {
+          "near": {
+            "type": "Point",
+            "coordinates": [
+              doctor_doc.lat,
+              doctor_doc.long
+            ]
+          },
+          "distanceField": "distance",
+          "maxDistance": distance,
+          "spherical": true
+        }
+      },
+      {
+        "$sort": {
+          "distance": 1.0
+        }
+      },
+      {
+        "$match": where
+      },
+      {
+        "$match": {
+          "isActive": true,
+          "isAvailable": true
+        }
       }
-    },
-    {
-      "$sort": {
-        "distance": 1.0
-      }
-    },
-    {
-      "$match": where
-    },
-    {
-      "$match": {
-        "isActive": true,
-        "isAvailable": true
-      }
-    }
 
     ], (err, docs) => {
       if (docs && docs.length > 0) {
@@ -313,33 +332,34 @@ module.exports = function init(site) {
       delete where['department']
     }
     $doctors.aggregate([{
-      "$geoNear": {
-        "near": {
-          "type": "Point",
-          "coordinates": [
-            doctor_doc.lat,
-            doctor_doc.long
-          ]
-        },
-        "distanceField": "distance",
-        "spherical": true
+        "$geoNear": {
+          "near": {
+            "type": "Point",
+            "coordinates": [
+              doctor_doc.lat,
+              doctor_doc.long
+            ]
+          },
+          "distanceField": "distance",
+          "spherical": true
+        }
+      },
+      {
+        "$match": where
+      },
+      {
+        "$sort": {
+          "rating": -1.0
+        }
       }
-    },
-    {
-      "$match": where
-    },
-    {
-      "$sort": {
-        "rating": -1.0
-      }
-    }
 
 
     ], (err, docs) => {
 
       if (docs && docs.length > 0) {
         response.data = {
-          docs: docs, totalDocs: docs.length,
+          docs: docs,
+          totalDocs: docs.length,
           limit: 10,
           totalPages: Math.ceil(docs.length / 10)
         }
@@ -357,6 +377,39 @@ module.exports = function init(site) {
   })
 
 
+
+  // get not active
+  site.post('/api/doctors/getNotActiveDoctors', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+    let doctors_doc = req.body;
+
+    $doctors.findMany({
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          isActive: false
+        },
+
+      },
+      (err, docs, count) => {
+        if (!err) {
+          response.docs = docs
+          response.totalDocs = count
+          response.limit = 10
+          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+
+
+
   // add doctor appointment
 
   site.post("/api/doctors/addDoctorAppointment", (req, res) => {
@@ -369,25 +422,30 @@ module.exports = function init(site) {
       }
     }, (err, doc) => {
       if (doc) {
+        let OBJ = {
+          "startSession": doctor_doc.startSession,
+          status: "available"
+        }
         doc.days.forEach(_d => {
-          let date = new Date(_d.date)
-          date.setHours(0, 0, 0, 0)
-          let bodyDate = new Date(doctor_doc.date)
-          bodyDate.setHours(0, 0, 0, 0)
+          let date = _d.date
+
+          let bodyDate = doctor_doc.date
+
           if (String(date) == String(bodyDate)) {
-            _d.times.push({
-              "startSession": doctor_doc.startSession,
-              status: "available"
-            })
+            _d.times.push(OBJ)
 
           }
 
         });
-        response.done = true,
-          response.data = doc
-        response.errorCode = site.var('succeed')
-        response.message = site.word('updatedSuccessfully')[req.headers.language]
-        res.json(response)
+        $doctors.update(doc, (err, result) => {
+
+          response.done = true,
+            response.data = doc
+          response.errorCode = site.var('succeed')
+          response.message = site.word('updatedSuccessfully')[req.headers.language]
+          res.json(response)
+        })
+
       } else {
         response.done = false,
           response.errorCode = site.var('failed')
@@ -429,13 +487,13 @@ module.exports = function init(site) {
         $doctors.update(doc, (err, result) => {
 
           response.done = true,
-          response.data = doc
-        response.errorCode = site.var('succeed')
-        response.message = site.word('updatedSuccessfully')[req.headers.language]
-        res.json(response)
+            response.data = doc
+          response.errorCode = site.var('succeed')
+          response.message = site.word('updatedSuccessfully')[req.headers.language]
+          res.json(response)
         })
-          
-       
+
+
       } else {
         response.done = false,
           response.errorCode = site.var('failed')
@@ -460,20 +518,143 @@ module.exports = function init(site) {
       if (doc) {
         let arr = []
         doc.days.forEach(_d => {
-          let date = new Date(_d.date)
-          date.setHours(0, 0, 0, 0)
-          let bodyDate = new Date(doctor_doc.date)
-          bodyDate.setHours(0, 0, 0, 0)
+          let date = _d.date
+
+          let bodyDate = doctor_doc.date
           if (String(date) == String(bodyDate)) {
+
             arr = _d.times
           }
 
         });
+
+
         response.done = true,
           response.data = arr
         response.errorCode = site.var('succeed')
         response.message = site.word('updatedSuccessfully')[req.headers.language]
         res.json(response)
+
+
+      } else {
+        response.done = false,
+          response.errorCode = site.var('failed')
+        response.message = site.word('failedUpdated')[req.headers.language]
+        res.json(response)
+      }
+
+    })
+  })
+
+
+  // change Password
+
+  site.post("/api/doctors/changePassword", (req, res) => {
+    let response = {}
+    req.headers.language = req.headers.language || 'en'
+    let doctors_doc = req.body
+
+    $doctors.findOne({
+      where: {
+        _id: doctors_doc.doctor._id
+      },
+    }, (err, doc) => {
+
+
+      if (doc && doc.password == doctors_doc.password) {
+        $doctors.edit({
+          where: {
+            _id: doctors_doc.doctor._id
+          },
+          set: {
+            password: doctors_doc.newPassword
+          },
+          $req: req,
+          $res: res
+        }, (err, result) => {
+
+          response.done = true
+          response.message = site.word('updatePassword')[req.headers.language]
+          response.errorCode = site.var('succeed')
+
+          res.json(response)
+        })
+      }
+      if (!doc || doc.password != doctors_doc.password) {
+        response.done = false
+        response.message = site.word('passwordNotCorrect')[req.headers.language]
+        response.errorCode = site.var('failed')
+        res.json(response)
+      }
+    })
+  })
+
+
+
+  // get All Days By Doctor
+
+  site.post("/api/doctors/getAllDays", (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+    let doctor_doc = req.body
+    $doctors.findOne({
+      where: {
+        _id: doctor_doc.doctor._id
+      }
+    }, (err, doc) => {
+      if (doc) {
+        let arr = []
+
+        response.done = true,
+          response.data = doc.days
+        response.errorCode = site.var('succeed')
+        response.message = site.word('findSuccessfully')[req.headers.language]
+        res.json(response)
+      } else {
+        response.done = false,
+          response.docs = []
+        response.errorCode = site.var('failed')
+        response.message = site.word('failedUpdated')[req.headers.language]
+        res.json(response)
+      }
+
+    })
+  })
+
+  // add Doctor day
+
+  site.post("/api/doctors/addDoctorDate", (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+    let doctor_doc = req.body
+    $doctors.findOne({
+      where: {
+        _id: doctor_doc.doctor._id
+      }
+    }, (err, doc) => {
+      if (doc) {
+        let arr = []
+        console.log(doc.days);
+        if (doc.days) {
+
+          doc.days.push({
+            date: doctor_doc.date,
+            times: []
+          })
+        } else {
+          doc.days = [{
+            date: doctor_doc.date,
+            times: []
+          }]
+        }
+        $doctors.update(doc, (err, result) => {
+          response.done = true,
+            response.data = doc.days
+          response.errorCode = site.var('succeed')
+          response.message = site.word('findSuccessfully')[req.headers.language]
+          res.json(response)
+        })
+
       } else {
         response.done = false,
           response.errorCode = site.var('failed')
@@ -500,13 +681,13 @@ module.exports = function init(site) {
       if (doc) {
         let arr = []
         doc.days.forEach(_d => {
-          let date = new Date(_d.date)
-          date.setHours(0, 0, 0, 0)
-          let bodyDate = new Date(doctor_doc.date)
-          bodyDate.setHours(0, 0, 0, 0)
+          let date = _d.date
+
+          let bodyDate = doctor_doc.date
+
           if (String(date) == String(bodyDate)) {
             _d.times.forEach(_t => {
-              if (_t.status = 'available' && new Date(_t.startSession).getTime() == new Date(doctor_doc.startSession).getTime()) {
+              if (_t.status == 'available' && _t.startSession == doctor_doc.startSession) {
 
                 _t.status = 'unAvailable'
               }
@@ -517,7 +698,7 @@ module.exports = function init(site) {
         $doctors.update(doc, (err, result) => {
 
           response.done = true,
-            response.data = doc,
+            // response.data = doc,
             response.errorCode = site.var('succeed')
           response.message = site.word('appointmentClosed')[req.headers.language]
 
@@ -555,7 +736,7 @@ module.exports = function init(site) {
         $doctors.update(doc, (err, result) => {
 
           response.done = true,
-            response.data = doc,
+            // response.data = doc,
             response.errorCode = site.var('succeed')
           response.message = site.word('dateRemoved')[req.headers.language]
 
@@ -581,14 +762,14 @@ module.exports = function init(site) {
     };
 
     if (!doctors_doc.rating.between(0, 5.1)) {
-      response.message = site.word('pharmacyRatingError')[req.headers.language],
+      response.message = site.word('doctorRatingError')[req.headers.language],
         res.json(response)
     }
 
     let createdObj = {
       user: doctors_doc.user,
-date : new Date().toISOString().split('T')[0],
-      target:  doctors_doc.doctor,
+      date: new Date().toISOString().split('T')[0],
+      target: doctors_doc.doctor,
       rating: doctors_doc.rating,
       type: "doctor",
       description: doctors_doc.description,
@@ -603,23 +784,23 @@ date : new Date().toISOString().split('T')[0],
           res.json(response)
 
         $rating.aggregate([{
-          "$match": {
-            "type": "doctor",
-            "target._id": doctors_doc.doctor._id
-          }
-        },
-        {
-          "$group": {
-            "_id": null,
-            "avgRating": {
-              "$avg": "$rating"
-            }, 
-            "docs" : {
-                "$push" : "$$ROOT"
+            "$match": {
+              "type": "doctor",
+              "target._id": doctors_doc.doctor._id
             }
+          },
+          {
+            "$group": {
+              "_id": null,
+              "avgRating": {
+                "$avg": "$rating"
+              },
+              "docs": {
+                "$push": "$$ROOT"
+              }
 
+            }
           }
-        }
         ], (err, docs) => {
           console.log(docs);
           if (docs && docs.length > 0) {
@@ -631,8 +812,8 @@ date : new Date().toISOString().split('T')[0],
               },
               set: {
                 rating: avg ? avg.avgRating : 0,
-                ratingArr:avg ? avg.docs : [],
-                
+                ratingArr: avg ? avg.docs : [],
+
               },
               $req: req,
               $res: res
@@ -711,23 +892,26 @@ date : new Date().toISOString().split('T')[0],
     }
     let response = {}
     $doctors.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          isActive: true
+        },
+        limit: limit,
+        skip: skip
       },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (!err) {
 
           response.data = {
-            docs : docs,
-            totalDocs : docs.length,
-            limit : 10,
-            totalPages : Math.ceil(docs.length / 10)
+            docs: docs,
+            totalDocs: docs.length,
+            limit: 10,
+            totalPages: Math.ceil(docs.length / 10)
           }
-         
+
         } else {
           response.error = err.message;
         }
@@ -744,11 +928,11 @@ date : new Date().toISOString().split('T')[0],
     req.headers.language = req.headers.language || 'en'
     let response = {}
     $doctors.findOne({
-      where: {
-        _id: req.params.id,
-      },
+        where: {
+          _id: req.params.id,
+        },
 
-    },
+      },
       (err, doc) => {
         if (!err && doc) {
           response.data = doc
@@ -777,10 +961,10 @@ date : new Date().toISOString().split('T')[0],
 
     if (id) {
       $doctors.delete({
-        _id: id,
-        $req: req,
-        $res: res,
-      },
+          _id: id,
+          $req: req,
+          $res: res,
+        },
         (err, result) => {
           if (!err) {
             response.done = true,
@@ -893,7 +1077,7 @@ date : new Date().toISOString().split('T')[0],
     if (where['city'] && where['city']._id == "") {
       delete where['city']
     }
-
+    where.isActive = true
 
     let doctor_doc = req.body
     let lat = doctor_doc.lat
@@ -906,41 +1090,41 @@ date : new Date().toISOString().split('T')[0],
       skip = (parseInt(req.query.page) - 1) * 10
     }
     $doctors.aggregate([{
-      "$geoNear": {
-        "near": {
-          "type": "Point",
-          "coordinates": [
-            lat,
-            long
-          ]
-        },
-        "distanceField": "distance",
-        "spherical": true
+        "$geoNear": {
+          "near": {
+            "type": "Point",
+            "coordinates": [
+              lat,
+              long
+            ]
+          },
+          "distanceField": "distance",
+          "spherical": true
+        }
+      },
+      {
+        "$match": where
+      },
+      {
+        "$sort": {
+          "rating": -1.0
+        }
+      },
+      {
+        $skip: skip || 0
+      },
+      {
+        $limit: limit
       }
-    },
-    {
-      "$match": where
-    },
-    {
-      "$sort": {
-        "rating": -1.0
-      }
-    },
-    {
-      $skip: skip || 0
-    },
-    {
-      $limit: limit
-    }
 
     ], (err, docs) => {
       if (docs && docs.length > 0) {
         response.done = true
         response.data = {
-          docs : docs,
-          totalDocs : docs.length,
-          limit : 10,
-          totalPages : Math.ceil(docs.length / 10)
+          docs: docs,
+          totalDocs: docs.length,
+          limit: 10,
+          totalPages: Math.ceil(docs.length / 10)
         }
         res.json(response)
       } else {
@@ -983,41 +1167,6 @@ date : new Date().toISOString().split('T')[0],
 
 
 
-// get All Booking Done 
-site.post('/api/booking/getAllDoneBooking', (req, res) => {
-  req.headers.language = req.headers.language || 'en'
-  let response = {}
-
-  let booking_doc = req.body;
- 
-  $booking.findMany({
-    where: {
-      'status': site.var('done'),
-      'doctor._id': booking_doc.doctor._id,
-    },
-    
-    $req: req,
-    $res: res
-  }, (err, docs, count) => {
-    if (docs && docs.length > 0) {
-      response.done = true
-      response.data = {
-        docs : docs,
-        totalDocs : count
-      }
-
-      response.message = site.word('findBooking')[req.headers.language],
-        response.errorCode = site.var('succeed')
-    }
-response.docs = []
-    response.done = true
-    response.message = site.word('bookingDone')[req.headers.language],
-      response.errorCode = site.var('succeed')
-    res.json(response)
-  })
-});
-
-
 
   // Search doctors By Available Days 
   site.post('/api/doctors/searchByDays', (req, res) => {
@@ -1038,74 +1187,74 @@ response.docs = []
       skip = (parseInt(req.query.page) - 1) * 10
     }
     $doctors.aggregate([{
-      "$geoNear": {
-        "near": {
-          "type": "Point",
-          "coordinates": [
-            lat,
-            long
-          ]
-        },
-        "distanceField": "distance",
-        "spherical": true
-      }
-    },
-    {
-      "$unwind": {
-        "path": "$days"
+        "$geoNear": {
+          "near": {
+            "type": "Point",
+            "coordinates": [
+              lat,
+              long
+            ]
+          },
+          "distanceField": "distance",
+          "spherical": true
+        }
+      },
+      {
+        "$unwind": {
+          "path": "$days"
 
-      }
-    },
-    {
-      "$project": {
-        "_id": 1.0,
-        "days": 1.0
-      }
-    },
-    {
-      "$addFields": {
-        "day": {
-          "$dayOfWeek": "$days.date"
         }
-      }
-    },
-    {
-      "$match": {
-        "day": {
-          "$in": daysArr
+      },
+      {
+        "$project": {
+          "_id": 1.0,
+          "days": 1.0
         }
+      },
+      {
+        "$addFields": {
+          "day": {
+            "$dayOfWeek": "$days.date"
+          }
+        }
+      },
+      {
+        "$match": {
+          "day": {
+            "$in": daysArr
+          }
+        }
+      },
+      {
+        "$lookup": {
+          "from": "doctors",
+          "localField": "_id",
+          "foreignField": "_id",
+          "as": "doctor"
+        }
+      },
+      {
+        "$unwind": {
+          "path": "$doctor"
+        }
+      },
+      {
+        $skip: skip || 0
+      },
+      {
+        $limit: limit
       }
-    },
-    {
-      "$lookup": {
-        "from": "doctors",
-        "localField": "_id",
-        "foreignField": "_id",
-        "as": "doctor"
-      }
-    },
-    {
-      "$unwind": {
-        "path": "$doctor"
-      }
-    },
-    {
-      $skip: skip || 0
-    },
-    {
-      $limit: limit
-    }
 
     ], (err, docs) => {
       if (docs && docs.length > 0) {
         response.done = true
         response.data = {
-          docs : docs,
-          totalDocs : docs.length,
-          limit : 10,
-          totalPages : Math.ceil(docs.length / 10)
+          docs: docs,
+          totalDocs: docs.length,
+          limit: 10,
+          totalPages: Math.ceil(docs.length / 10)
         }
-       
+
         res.json(response)
       } else {
 
@@ -1143,5 +1292,86 @@ response.docs = []
     //     res.json(response);
     //   },
     // );
+  });
+
+
+
+  site.post('/api/doctors/update1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let doctors_doc = req.body;
+    if (doctors_doc.id) {
+      $doctors.edit({
+          where: {
+            id: doctors_doc.id,
+          },
+          set: doctors_doc,
+          $req: req,
+          $res: res,
+        },
+        (err) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = 'Code Already Exist';
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
+  });
+
+  site.post('/api/doctors/view', (req, res) => {
+    let response = {
+      done: false,
+    };
+
+
+
+    $doctors.findOne({
+        where: {
+          id: req.body.id,
+        },
+      },
+      (err, doc) => {
+        if (!err) {
+          response.done = true;
+          response.doc = doc;
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+  site.post('/api/doctors/delete1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let id = req.body.id;
+
+    if (id) {
+      $doctors.delete({
+          id: id,
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
   });
 };

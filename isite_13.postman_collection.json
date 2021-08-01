@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6a9f5a33-f202-4435-b5fa-f609e6b6dec5",
+		"_postman_id": "ef10d14b-9fb9-4a19-8cbc-3cff75585455",
 		"name": "isite Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -30,10 +30,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{baseurl}}:9090/api/city/add",
+							"raw": "http://143.198.139.18:9090/api/city/add",
 							"protocol": "http",
 							"host": [
-								"{{baseurl}}"
+								"143",
+								"198",
+								"139",
+								"18"
 							],
 							"port": "9090",
 							"path": [
@@ -143,10 +146,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{baseurl}}:9090/api/city",
+							"raw": "http://143.198.139.18:9090/api/city",
 							"protocol": "http",
 							"host": [
-								"{{baseurl}}"
+								"143",
+								"198",
+								"139",
+								"18"
 							],
 							"port": "9090",
 							"path": [
@@ -2671,7 +2677,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"ahmed_test5\",\r\n    \"image\": [\r\n        {\r\n            \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n        }\r\n    ],\r\n    \"degree\": {\r\n        \"_id\": \"60fd243b95d87618e017ab2f\",\r\n        \"name\": \"degree 4\"\r\n    },\r\n    \"department\": {\r\n        \"_id\" : \"60fd247c95d87618e017ab34\",\r\n        \"name\": \"department 4\",\r\n        \"period\": 30,\r\n        \"price\": 100\r\n    },\r\n    \"days\": [\r\n        {\r\n            \"date\": \"2021-07-19T07:20:56.355Z\",\r\n            \"times\": [\r\n                {\r\n                    \"startSession\": \"2021-07-19T07:20:56.355Z\",\r\n                    \"sessionPeriod\": 20,\r\n                    \"endSession\": \"2021-07-19T08:20:56.355Z\",\r\n                    \"status\": \"available\"\r\n                },\r\n                {\r\n                    \"startSession\": \"2021-07-19T09:20:56.355Z\",\r\n                    \"sessionPeriod\": 20,\r\n                    \"endSession\": \"2021-07-19T10:20:56.355Z\",\r\n                    \"status\": \"available\"\r\n                }\r\n            ]\r\n        },\r\n        {\r\n            \"date\": \"2021-07-20T07:20:56.355Z\",\r\n            \"times\": [\r\n                {\r\n                    \"startSession\": \"2021-07-20T07:20:56.355Z\",\r\n                    \"sessionPeriod\": 20,\r\n                    \"endSession\": \"2021-07-20T08:20:56.355Z\",\r\n                    \"status\": \"available\"\r\n                },\r\n                {\r\n                    \"startSession\": \"2021-07-20T09:20:56.355Z\",\r\n                    \"sessionPeriod\": 20,\r\n                    \"endSession\": \"2021-07-20T10:20:56.355Z\",\r\n                    \"status\": \"available\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"hint\": \"test hint \",\r\n    \"price\": 100,\r\n    \"periodPerMinutes\": 30,\r\n    \"email\": \"a.a@a.com\",\r\n    \"password\": \"123\",\r\n    \"lat\": 30.974077,\r\n    \"long\": 31.272066,\r\n    \"title\": \"proff at ttt \",\r\n    \"city\": {\r\n        \"_id\" : \"60ee9b9cf8a8ee52ca3f5b4f\", \r\n        \"name\" : \"Doki\"\r\n    },\r\n    \"address\":\"cairo\",\r\n    \"gender\": \"male\"\r\n}",
+							"raw": "{\r\n    \"name\": \"diaa\",\r\n    \"image\": [\r\n        {\r\n            \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n        }\r\n    ],\r\n    \"degree\": {\r\n        \"_id\": \"60fd243b95d87618e017ab2f\",\r\n        \"name\": \"degree 4\"\r\n    },\r\n    \"department\": {\r\n        \"_id\": \"60fd247195d87618e017ab31\",\r\n        \"name\": \"department 1\",\r\n        \"period\": 30,\r\n        \"price\": 100\r\n    },\r\n  \r\n    \"hint\": \"test hint \",\r\n    \"price\": 100,\r\n    \"periodPerMinutes\": 30,\r\n    \"email\": \"a.a@a.com\",\r\n    \"password\": \"123\",\r\n    \"lat\": 30.974077,\r\n    \"long\": 31.272066,\r\n    \"title\": \"proff at ttt \",\r\n    \"city\": {\r\n        \"_id\": \"60ee9b9cf8a8ee52ca3f5b4f\",\r\n        \"name\": \"Doki\"\r\n    },\r\n    \"address\": \"cairo\",\r\n    \"gender\": \"male\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2707,7 +2713,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n    \"name\" : \"doc1\"\r\n   \r\n\r\n    \r\n}",
+							"raw": "{\r\n    \"name\": \"diaa\",\r\n    \"image\": [\r\n        {\r\n            \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n        }\r\n    ],\r\n    \"degree\": {\r\n        \"_id\": \"60fd243b95d87618e017ab2f\",\r\n        \"name\": \"degree 4\"\r\n    },\r\n    \"department\": {\r\n        \"_id\": \"60fd247195d87618e017ab31\",\r\n        \"name\": \"department 1\",\r\n        \"period\": 30,\r\n        \"price\": 100\r\n    },\r\n    \"days\": [\r\n        {\r\n            \"date\": \"2021-07-28\",\r\n            \"times\": [\r\n                {\r\n                    \"startSession\": \"07:20\",\r\n                    \"status\": \"available\"\r\n                },\r\n                {\r\n                    \"startSession\": \"08:20\",\r\n                    \"status\": \"available\"\r\n                },\r\n                {\r\n                    \"startSession\": \"20:20\",\r\n                    \"status\": \"available\"\r\n                }\r\n               \r\n            ]\r\n        },\r\n        {\r\n            \"date\": \"2021-07-29\",\r\n            \"times\": [\r\n                {\r\n                    \"startSession\": \"07:20\",\r\n                    \"status\": \"available\"\r\n                },\r\n                {\r\n                    \"startSession\": \"08:20\",\r\n                    \"status\": \"available\"\r\n                },\r\n                {\r\n                    \"startSession\": \"20:20\",\r\n                    \"status\": \"available\"\r\n                }\r\n               \r\n            ]\r\n        }\r\n     \r\n    ],\r\n    \"hint\": \"test hint \",\r\n    \"price\": 100,\r\n    \"periodPerMinutes\": 30,\r\n    \"email\": \"a.a@a.com\",\r\n    \"password\": \"123\",\r\n    \"lat\": 30.974077,\r\n    \"long\": 31.272066,\r\n    \"title\": \"proff at ttt \",\r\n    \"city\": {\r\n        \"_id\": \"60ee9b9cf8a8ee52ca3f5b4f\",\r\n        \"name\": \"Doki\"\r\n    },\r\n    \"address\": \"cairo\",\r\n    \"gender\": \"male\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2793,16 +2799,19 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{baseurl}}:9090/api/doctors/60dadb13d81cc4059c5cfa6d",
+							"raw": "http://134.209.219.21:9090/api/doctors/61012eeb85f0f55e6c975cc9",
 							"protocol": "http",
 							"host": [
-								"{{baseurl}}"
+								"134",
+								"209",
+								"219",
+								"21"
 							],
 							"port": "9090",
 							"path": [
 								"api",
 								"doctors",
-								"60dadb13d81cc4059c5cfa6d"
+								"61012eeb85f0f55e6c975cc9"
 							]
 						}
 					},
@@ -3223,7 +3232,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"60f2ec5855d84516ac0f3f4a\"\r\n    },\r\n    \"date\": \"2021-07-13T07:20:56.355Z\",\r\n    \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n    \"sessionPeriod\": 20,\r\n    \"endSession\": \"2021-07-13T07:20:56.355Z\"\r\n}",
+							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"61029deef68c911fc41b721c\"\r\n    },\r\n    \"date\": \"2021-07-28\",\r\n    \"startSession\": \"07:20\"\r\n   \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3256,7 +3265,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"60f2ec5855d84516ac0f3f4a\"\r\n    },\r\n    \"oldDate\": \"2021-07-13T07:20:56.355Z\",\r\n    \"newDate\": \"2021-07-15T07:20:56.355Z\"\r\n  \r\n}",
+							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"61012eeb85f0f55e6c975cc9\"\r\n    },\r\n    \"oldDate\": \"2021-07-28\",\r\n    \"newDate\": \"2021-07-30\"\r\n  \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3264,10 +3273,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{baseurl}}:9090/api/doctors/repeatDoctorDay",
+							"raw": "http://134.209.219.21:9090/api/doctors/repeatDoctorDay",
 							"protocol": "http",
 							"host": [
-								"{{baseurl}}"
+								"134",
+								"209",
+								"219",
+								"21"
 							],
 							"port": "9090",
 							"path": [
@@ -3289,7 +3301,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"60f2ec5855d84516ac0f3f4a\"\r\n    },\r\n    \"date\": \"2021-07-13T07:20:56.355Z\"\r\n  \r\n}",
+							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"60f988983b568f5bb070e579\"\r\n    },\r\n    \"date\": \"2021-07-22\"\r\n  \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3343,6 +3355,168 @@
 								"api",
 								"doctors",
 								"searchByDays"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDoctorDays",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"61029deef68c911fc41b721c\"\r\n    }\r\n   \r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/getAllDays",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"getAllDays"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "closeAppointment",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"61029deef68c911fc41b721c\"\r\n    },\r\n    \"date\": \"2021-07-28\",\r\n    \"startSession\" : \"07:20\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/closeAppointment",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"closeAppointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeDayByDate",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"61029deef68c911fc41b721c\"\r\n    },\r\n    \"date\": \"2021-07-28\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/removeDayByDate",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"removeDayByDate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addDoctorDate",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"61029deef68c911fc41b721c\"\r\n    },\r\n    \"date\": \"2021-07-28\"\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/addDoctorDate",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"addDoctorDate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "changePassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"doctor\" : {\r\n        \"_id\" : \"61029deef68c911fc41b721c\"\r\n    },\r\n   \"password\" : \"123\",\r\n\"newPassword\" : \"444\",\r\n\"repeatNewPassword\" : \"444\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{baseurl}}:9090/api/doctors/changePassword",
+							"protocol": "http",
+							"host": [
+								"{{baseurl}}"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"doctors",
+								"changePassword"
 							]
 						}
 					},
@@ -3655,10 +3829,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{baseurl}}:9090/api/address/add",
+							"raw": "http://143.198.139.18:9090/api/address/add",
 							"protocol": "http",
 							"host": [
-								"{{baseurl}}"
+								"143",
+								"198",
+								"139",
+								"18"
 							],
 							"port": "9090",
 							"path": [
@@ -3908,7 +4085,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"patient\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"password\": \"123\",\r\n        \"roles\": [],\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n                }\r\n            ],\r\n            \"balance\": 300\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"doctor\": {\r\n        \"_id\":\"60f2ec5855d84516ac0f3f4a\",\r\n        \"name\": \"ahmed_test9\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n            }\r\n        ],\r\n        \"degree\": {\r\n            \"_id\": \"60ed450882d81933a43c3a4e\",\r\n            \"name\": \"degree 2\"\r\n        },\r\n        \"department\": {\r\n            \"name\": \"surgary\",\r\n            \"period\": 30,\r\n            \"price\": 100\r\n        },\r\n        \"days\": [\r\n            {\r\n                \"date\": \"2021-07-13T07:20:56.355Z\",\r\n                \"times\": [\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    },\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"date\": \"2021-07-13T07:20:56.355Z\",\r\n                \"times\": [\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    },\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    }\r\n                ]\r\n            }\r\n        ],\r\n        \"hint\": \"test hint \",\r\n        \"price\": 100,\r\n        \"periodPerMinutes\": 30,\r\n        \"email\": \"a.a@a.com\",\r\n        \"lat\": 30.974077,\r\n        \"long\": 31.272066,\r\n        \"title\": \"proff at ttt \",\r\n        \"city\": {\r\n            \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"gender\": \"male\",\r\n        \"address\":\"cairo\"\r\n    },\r\n    \"date\" : \"2021-07-13T07:20:56.355Z\",\r\n    \"time\" : \"2021-07-13T07:20:56.355Z\"\r\n}",
+							"raw": "{\r\n    \"patient\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"password\": \"123\",\r\n        \"roles\": [],\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n                }\r\n            ],\r\n            \"balance\": 300\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"doctor\": {\r\n        \"_id\":\"610124fc8e4256390c847d9b\",\r\n        \"name\": \"ahmed_test9\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n            }\r\n        ],\r\n        \"degree\": {\r\n            \"_id\": \"60ed450882d81933a43c3a4e\",\r\n            \"name\": \"degree 2\"\r\n        },\r\n        \"department\": {\r\n            \"name\": \"surgary\",\r\n            \"period\": 30,\r\n            \"price\": 100\r\n        },\r\n        \"days\": [\r\n            {\r\n                \"date\": \"2021-07-13T07:20:56.355Z\",\r\n                \"times\": [\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    },\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"date\": \"2021-07-13T07:20:56.355Z\",\r\n                \"times\": [\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    },\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    }\r\n                ]\r\n            }\r\n        ],\r\n        \"hint\": \"test hint \",\r\n        \"price\": 100,\r\n        \"periodPerMinutes\": 30,\r\n        \"email\": \"a.a@a.com\",\r\n        \"lat\": 30.974077,\r\n        \"long\": 31.272066,\r\n        \"title\": \"proff at ttt \",\r\n        \"city\": {\r\n            \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"gender\": \"male\",\r\n        \"address\":\"cairo\"\r\n    },\r\n    \"date\" : \"2021-07-19\",\r\n    \"time\" : \"07:20\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4134,7 +4311,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"bookingId\" : \"60f2ec6455d84516ac0f3f4f\"\r\n}",
+							"raw": "{\r\n  \"bookingId\" : \"610125398e4256390c847d9d\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4329,7 +4506,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"date\" :\"2021-07-17T14:42:44.320+0000\",\r\n    \"doctor\":{\r\n        \"_id\" : \"60f2ec5855d84516ac0f3f4a\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"date\" :\"2021-07-17\",\r\n    \"doctor\":{\r\n        \"_id\" : \"60f2ec5855d84516ac0f3f4a\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

@@ -4,8 +4,10 @@ module.exports = function init(site) {
 
   site.get({
     name: 'images',
-    path: __dirname + '/site_files/images/'
-    , require: { permissions: [] }
+    path: __dirname + '/site_files/images/',
+    require: {
+      permissions: []
+    }
   });
 
   site.get({
@@ -13,7 +15,9 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
-    require: { permissions: [] }
+    require: {
+      permissions: []
+    }
   });
 
   site.on('[orders][pharmacy][show]', (obj, callback) => {
@@ -57,7 +61,17 @@ module.exports = function init(site) {
     let pharmacy_doc = req.body
     pharmacy_doc.$req = req;
     pharmacy_doc.$res = res;
-
+    if (typeof pharmacy_doc.lat == 'string') {
+      pharmacy_doc.lat = Number(pharmacy_doc.lat)
+    }
+    if (typeof pharmacy_doc.long == 'string') {
+      pharmacy_doc.long = Number(pharmacy_doc.long)
+    }
+    if (pharmacy_doc.image_url) {
+      pharmacy_doc.image = new Array({
+        name: pharmacy_doc.image_url
+      })
+    }
     pharmacy_doc.isActive = false
     pharmacy_doc.isAvailable = false
     pharmacy_doc.createdAt = new Date()
@@ -66,19 +80,19 @@ module.exports = function init(site) {
 
     req.headers.language = req.headers.language || 'en'
     $pharmacy.find({
-      where: {
-        $or: [{
-          'userName': pharmacy_doc.userName
+        where: {
+          $or: [{
+              'userName': pharmacy_doc.userName
+            },
+            {
+              'email': pharmacy_doc.email
+            },
+            {
+              'phone': pharmacy_doc.phone
+            },
+          ]
         },
-        {
-          'email': pharmacy_doc.email
-        },
-        {
-          'phone': pharmacy_doc.phone
-        },
-        ]
       },
-    },
       (err, findDoc) => {
         if (!err && findDoc) {
           response.done = false
@@ -119,16 +133,20 @@ module.exports = function init(site) {
             res.json(response);
             return
           }
-
-          let location = new Array(pharmacy_doc.lat, pharmacy_doc.long)
-          pharmacy_doc.location = {
-            type: "Point",
-            coordinates: location
+          if (pharmacy_doc.lat && pharmacy_doc.long) {
+            let location = new Array(pharmacy_doc.lat, pharmacy_doc.long)
+            pharmacy_doc.location = {
+              type: "Point",
+              coordinates: location
+            }
+            $pharmacy.createIndex({
+              location: "2dsphere"
+            })
           }
-          $pharmacy.createIndex({
-            location: "2dsphere"
-          })
+
+
           $pharmacy.add(pharmacy_doc, (err, doc) => {
+            console.log(err);
             if (!err) {
               let {
                 password,
@@ -139,6 +157,7 @@ module.exports = function init(site) {
                 _id: doc._id
               }
 
+              console.log("111111111111111111111111111111111111111");
               site.security.addUser(user, (err, userDoc) => {
                 if (!err) {
                   delete user._id
@@ -199,7 +218,35 @@ module.exports = function init(site) {
   });
 
 
+  // get not active
+  site.post('/api/pharmacy/getNotActivePharmacy', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+    let pharmacy_doc = req.body;
 
+    $pharmacy.findMany({
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          isActive: false
+        },
+
+      },
+      (err, docs, count) => {
+        if (!err) {
+          response.docs = docs
+          response.totalDocs = count
+          response.limit = 10
+          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
 
 
   // change status active
@@ -262,13 +309,9 @@ module.exports = function init(site) {
             $req: req,
             $res: res
           }, (err, result) => {
-
-
-            response.done = true
+            response.done = false
             response.message = site.word('acountAvailable')[req.headers.language]
             response.errorCode = site.var('succeed')
-
-
             res.json(response)
           })
         }
@@ -285,13 +328,9 @@ module.exports = function init(site) {
             $req: req,
             $res: res
           }, (err, result) => {
-
-
-            response.done = false
+            response.done = true
             response.message = site.word('acountNotAvailable')[req.headers.language]
             response.errorCode = site.var('succeed')
-
-
             res.json(response)
           })
         }
@@ -348,7 +387,9 @@ module.exports = function init(site) {
           where: {
             _id: req.session.user.ref_info._id
           },
-          set: { password: pharmacy_doc.newPassword },
+          set: {
+            password: pharmacy_doc.newPassword
+          },
           $req: req,
           $res: res
         }, (err, result) => {
@@ -379,16 +420,16 @@ module.exports = function init(site) {
     }
     let response = {}
     $pharmacy.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          isAvailable: true
+        },
+        limit: limit,
+        skip: skip
       },
-      where: {
-        isAvailable: true
-      },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (!err) {
           response.docs = docs
@@ -419,19 +460,19 @@ module.exports = function init(site) {
     let response = {}
     let pharmacy_doc = req.body
     $orders.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          'pharmacy._id': String(req.session.user.ref_info._id),
+          'status.statusId': {
+            $in: [site.var('inProgressId'), site.var('onWayId')]
+          }
+        },
+        limit: limit,
+        skip: skip
       },
-      where: {
-        'pharmacy._id': String(req.session.user.ref_info._id),
-        'status.statusId': {
-          $in: [site.var('inProgressId'), site.var('onWayId')]
-        }
-      },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (!err) {
           response.docs = docs
@@ -462,19 +503,19 @@ module.exports = function init(site) {
     let response = {}
     let pharmacy_doc = req.body
     $orders.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          'pharmacy._id': String(req.session.user.ref_info._id),
+          'status.statusId': {
+            $in: [site.var('inProgressId'), site.var('onWayId')]
+          }
+        },
+        limit: limit,
+        skip: skip
       },
-      where: {
-        'pharmacy._id': String(req.session.user.ref_info._id),
-        'status.statusId': {
-          $in: [site.var('inProgressId'), site.var('onWayId')]
-        }
-      },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (!err) {
           response.totalDocs = count
@@ -503,19 +544,19 @@ module.exports = function init(site) {
     let response = {}
     let pharmacy_doc = req.body
     $orders.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          'pharmacy._id': String(req.session.user.ref_info._id),
+          'status.statusId': {
+            $in: [site.var('shippedId'), site.var('canceledId')]
+          }
+        },
+        limit: limit,
+        skip: skip
       },
-      where: {
-        'pharmacy._id': String(req.session.user.ref_info._id),
-        'status.statusId': {
-          $in: [site.var('shippedId'), site.var('canceledId')]
-        }
-      },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (!err && docs) {
           response.docs = docs
@@ -571,24 +612,24 @@ module.exports = function init(site) {
     let distance = 20 * 1000
 
     $pharmacy.aggregate([{
-      "$geoNear": {
-        "near": {
-          "type": "Point",
-          "coordinates": [
-            pharmacy_doc.lat,
-            pharmacy_doc.long
-          ]
-        },
-        "distanceField": "distance",
-        "maxDistance": distance,
-        "spherical": true
+        "$geoNear": {
+          "near": {
+            "type": "Point",
+            "coordinates": [
+              pharmacy_doc.lat,
+              pharmacy_doc.long
+            ]
+          },
+          "distanceField": "distance",
+          "maxDistance": distance,
+          "spherical": true
+        }
+      },
+      {
+        "$sort": {
+          "distance": 1.0
+        }
       }
-    },
-    {
-      "$sort": {
-        "distance": 1.0
-      }
-    }
     ], (err, docs) => {
       console.log(docs);
       if (docs && docs.length > 0) {
@@ -623,11 +664,12 @@ module.exports = function init(site) {
     let response = {}
     let limit = 10
     let skip
+    req.headers.language = req.headers.language || 'en'
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
 
-    let distance = 20/ 6378.1
+    let distance = 20 / 6378.1
     //  $orders.findMany({
     //       select: req.body.select || {},
     //       sort: req.body.sort || {
@@ -661,70 +703,66 @@ module.exports = function init(site) {
         _id: req.session.user.ref_info._id
       }
     }, (err, doc) => {
-
+      let cityId = doc.city._id
       $orders.aggregate([
 
-        { 
-          "$match" : {
-              "$or" : [
+        {
+          "$match": {
+            "$or": [{
+                "$and": [{
+                    "status.statusId": 1.0
+                  },
                   {
-                      "$and" : [
-                          {
-                              "status.statusId" : 1.0
-                          }, 
-                          {
-                              "address.lat" : {
-                                  "$ne" : 0.0
-                              }
-                          }, 
-                          {
-                              "location" : {
-                                  "$geoWithin" : {
-                                      "$centerSphere" : [
-                                          [
-                                              doc.lat, 
-                                              doc.long
-                                          ], 
-                                          distance
-                                      ]
-                                  }
-                              }
-                          }
-                      ]
-                  }, 
+                    "address.lat": {
+                      "$ne": 0.0
+                    }
+                  },
                   {
-                      "$and" : [
-                          {
-                              "status.statusId" : 1.0
-                          }, 
-                          {
-                              "address.lat" : {
-                                  "$eq" : 0.0
-                              }
-                          }, 
-                          {
-                              "address.city._id" : doc.city._id
-                          }
-                      ]
+                    "location": {
+                      "$geoWithin": {
+                        "$centerSphere": [
+                          [
+                            doc.lat,
+                            doc.long
+                          ],
+                          distance
+                        ]
+                      }
+                    }
                   }
-              ]
+                ]
+              },
+              {
+                "$and": [{
+                    "status.statusId": 1.0
+                  },
+                  {
+                    "address.lat": {
+                      "$eq": 0.0
+                    }
+                  },
+                  {
+                    "address.city._id": cityId
+                  }
+                ]
+              }
+            ]
           }
-      },
-      { 
-        "$skip" : skip
-    }, 
-    { 
-        "$limit" : limit
-    }
+        },
+
       ], (err, docs) => {
         if (docs && docs.length > 0) {
 
-          response.docs = docs
+          response.data = {
+            docs,
+            totalDocs: docs.length
+          }
           response.errorCode = site.var('succeed')
+          response.done = true
           response.message = site.word('findSuccessfully')[req.headers.language]
           res.json(response)
         } else {
-
+          response.done = false
           response.errorCode = site.var('failed')
           response.message = site.word('findFailed')[req.headers.language]
           res.json(response)
@@ -740,21 +778,21 @@ module.exports = function init(site) {
 
 
   // get Recent Orders Count
-  
+
   site.post("/api/pharmacy/getRecentOrdersCount", (req, res) => {
 
     let response = {}
 
     $orders.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          'status.statusId': site.var('activeId')
+        },
+        limit: req.body.limit || 10,
       },
-      where: {
-        'status.statusId': site.var('activeId')
-      },
-      limit: req.body.limit || 10,
-    },
       (err, docs, count) => {
         if (!err) {
           response.totalDocs = count
@@ -775,15 +813,15 @@ module.exports = function init(site) {
     let response = {}
 
     $orders.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          'status.statusId': site.var('activeId')
+        },
+        limit: req.body.limit || 10,
       },
-      where: {
-        'status.statusId': site.var('activeId')
-      },
-      limit: req.body.limit || 10,
-    },
       (err, docs, count) => {
         if (!err) {
           response.totalDocs = count
@@ -861,13 +899,13 @@ module.exports = function init(site) {
     }
     let response = {}
     $pharmacy.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        limit: limit,
+        skip: skip
       },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (!err) {
 
@@ -893,11 +931,11 @@ module.exports = function init(site) {
     let response = {}
     let pharmacy_doc = req.body
     $pharmacy.findOne({
-      where: {
-        _id: pharmacy_doc._id,
-      },
+        where: {
+          _id: pharmacy_doc._id,
+        },
 
-    },
+      },
       (err, doc) => {
         if (!err && doc) {
           let {
@@ -927,11 +965,11 @@ module.exports = function init(site) {
     req.headers.language = req.headers.language || 'en'
     let response = {}
     $pharmacy.findOne({
-      where: {
-        _id: req.params.id,
-      },
+        where: {
+          _id: req.params.id,
+        },
 
-    },
+      },
       (err, doc) => {
         if (!err && doc) {
           let {
@@ -964,10 +1002,10 @@ module.exports = function init(site) {
 
     if (id) {
       $pharmacy.delete({
-        _id: id,
-        $req: req,
-        $res: res,
-      },
+          _id: id,
+          $req: req,
+          $res: res,
+        },
         (err, result) => {
           if (!err) {
             response.done = true,
@@ -1020,7 +1058,7 @@ module.exports = function init(site) {
       where['address._id'] = where['address']._id;
       delete where['address']
     }
-
+    where.isActive = true
     let limit = 10;
     let skip;
 
@@ -1030,14 +1068,14 @@ module.exports = function init(site) {
 
 
     $pharmacy.findMany({
-      select: req.body.select || {},
-      where: where,
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        where: where,
+        sort: req.body.sort || {
+          id: -1,
+        },
+        limit: limit,
+        skip: skip
       },
-      limit: limit,
-      skip: skip
-    },
       (err, docs, count) => {
         if (docs.length > 0) {
           response.done = true
@@ -1054,5 +1092,83 @@ module.exports = function init(site) {
         res.json(response);
       },
     );
+  });
+  site.post('/api/pharmacy/update1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let pharmacy_doc = req.body;
+    if (pharmacy_doc.id) {
+      $pharmacy.edit({
+          where: {
+            id: pharmacy_doc.id,
+          },
+          set: pharmacy_doc,
+          $req: req,
+          $res: res,
+        },
+        (err) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = 'Code Already Exist';
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
+  });
+
+  site.post('/api/pharmacy/view', (req, res) => {
+    let response = {
+      done: false,
+    };
+
+
+
+    $pharmacy.findOne({
+        where: {
+          id: req.body.id,
+        },
+      },
+      (err, doc) => {
+        if (!err) {
+          response.done = true;
+          response.doc = doc;
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+  site.post('/api/pharmacy/delete1', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let id = req.body.id;
+
+    if (id) {
+      $pharmacy.delete({
+          id: id,
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.done = true;
+          } else {
+            response.error = err.message;
+          }
+          res.json(response);
+        },
+      );
+    } else {
+      response.error = 'no id';
+      res.json(response);
+    }
   });
 };
