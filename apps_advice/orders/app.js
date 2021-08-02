@@ -362,7 +362,7 @@ if (orders_doc.address && orders_doc.address.lat && orders_doc.address.long) {
     }
   });
 
-
+//test
   // get Active Orders
   site.post('/api/orders/getActiveOrders', (req, res) => {
     let response = {}
@@ -382,7 +382,7 @@ if (orders_doc.address && orders_doc.address.lat && orders_doc.address.long) {
     $orders.findMany({
       where: {
         $and: [{
-          "user._id": req.data._id
+          "user._id": req.session.user.ref_info._id
         }, {
           'status.statusId': {
             $in: [site.var('inProgressId'), site.var('onWayId'), site.var('activeId')]
