@@ -482,12 +482,7 @@ module.exports = function init(site) {
           response.done = true
           response.message = site.word('findSuccessfully')[req.headers.language]
           response.errorCode = site.var('succeed')
-
-
-          response.docs = docs
-          response.totalDocs = count
-          response.limit = 10
-          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+          response.data = {docs : docs , totalDocs : count , limit : 10 , totalPages : Math.ceil(count / 10) }
         } else {
           response.done = false
           response.message = site.word('findFailed')[req.headers.language]
@@ -575,10 +570,8 @@ module.exports = function init(site) {
           response.message = site.word('findSuccessfully')[req.headers.language]
           response.errorCode = site.var('succeed')
 
-          response.docs = docs
-          response.totalDocs = count
-          response.limit = 10
-          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+          response.data = {docs : docs , totalDocs : count , limit : 10 , totalPages : Math.ceil(count / 10) }
+        
         } else {
           response.done = false
           response.message = site.word('findFailed')[req.headers.language]
