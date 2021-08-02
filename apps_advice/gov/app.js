@@ -69,6 +69,8 @@ module.exports = function init(site) {
     goves_doc.createdAt = new Date()
     goves_doc.updatedAt = new Date()
 
+    console.log(goves_doc.createdAt);
+
     // goves_doc.add_user_info = site.security.getUserFinger({
     //   $req: req,
     //   $res: res,

@@ -4,6 +4,7 @@ app.controller("patients", function ($scope, $http, $timeout) {
   $scope.patients = {};
 
   $scope.displayAddPatients = function () {
+    console.log(111111111111111111);
     $scope.error = '';
     $scope.patients = {
       image_url: '/images/patients.png',
@@ -17,8 +18,15 @@ app.controller("patients", function ($scope, $http, $timeout) {
   };
 
 
+  $scope.test = function () {
+    console.log("test");
+    
+  };
+
 
   $scope.sendPhone = function (where) {
+    console.log(where);
+    console.log("1111111111111111111111");
     $scope.busy = true;
     $http({
       method: "POST",
@@ -86,7 +94,7 @@ app.controller("patients", function ($scope, $http, $timeout) {
 
   
   $scope.checkVarificationCode = function (where) {
-
+console.log(where);
     let code = JSON.parse(localStorage.user).code;
     console.log(code);
     if (where == code) {
@@ -281,6 +289,9 @@ $scope.success = "varification code success"
     )
   };
 
+
+ 
+
   $scope.displaySearchModal = function () {
     $scope.error = '';
     site.showModal('#patientsSearchModal');
@@ -298,7 +309,7 @@ $scope.success = "varification code success"
     $scope.search = {};
   };
 
-  $scope.getGenderList();
   $scope.getPatientsList();
+  $scope.getGenderList();
   $scope.getInsuranceCompanyList();
 });
