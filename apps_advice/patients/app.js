@@ -38,13 +38,13 @@ module.exports = function init(site) {
     compress: true,
     require : {permissions : []}
   });
-  // site.get({
-  //   name: 'patients/myOrders',
-  //   path: __dirname + '/site_files/html/myOrders.html',
-  //   parser: 'html',
-  //   compress: true,
-  //   require : {permissions : []}
-  // });
+  site.get({
+    name: 'patients/myOrders',
+    path: __dirname + '/site_files/html/myOrders.html',
+    parser: 'html',
+    compress: true,
+    require : {permissions : []}
+  });
 
 
 

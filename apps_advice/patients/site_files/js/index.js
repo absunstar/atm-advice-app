@@ -4,7 +4,6 @@ app.controller("patients", function ($scope, $http, $timeout) {
   $scope.patients = {};
 
   $scope.displayAddPatients = function () {
-    console.log(111111111111111111);
     $scope.error = '';
     $scope.patients = {
       image_url: '/images/patients.png',
@@ -18,15 +17,10 @@ app.controller("patients", function ($scope, $http, $timeout) {
   };
 
 
-  $scope.test = function () {
-    console.log("test");
-    
-  };
+ 
 
 
   $scope.sendPhone = function (where) {
-    console.log(where);
-    console.log("1111111111111111111111");
     $scope.busy = true;
     $http({
       method: "POST",
@@ -94,9 +88,9 @@ app.controller("patients", function ($scope, $http, $timeout) {
 
   
   $scope.checkVarificationCode = function (where) {
-console.log(where);
+
     let code = JSON.parse(localStorage.user).code;
-    console.log(code);
+
     if (where == code) {
 $scope.success = "varification code success"
     }
@@ -289,6 +283,36 @@ $scope.success = "varification code success"
     )
   };
 
+
+  $scope.myCurrentOrders = function (patients) {
+    console.log(patients);
+    $scope.busy = true;
+    $scope.list = [];
+    $http({
+      method: "POST",
+      url: "/api/orders/getActiveOrders",
+      data: {
+        '_id': patients._id
+
+      }
+    }).then(
+      function (response) {
+        console.log("111111111" , response.data);
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.list = response.data.docs;
+          $scope.count = response.data.totalDocs;
+          site.hideModal('#patientsSearchModal');
+          $scope.search = {};
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
 
  
 

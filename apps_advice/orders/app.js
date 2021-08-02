@@ -382,7 +382,7 @@ if (orders_doc.address && orders_doc.address.lat && orders_doc.address.long) {
     $orders.findMany({
       where: {
         $and: [{
-          "user._id": String(req.session.user.ref_info._id)
+          "user._id": req.data._id
         }, {
           'status.statusId': {
             $in: [site.var('inProgressId'), site.var('onWayId'), site.var('activeId')]

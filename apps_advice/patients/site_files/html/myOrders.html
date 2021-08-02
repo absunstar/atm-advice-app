@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+
+<head x-import="head.html">
+
+</head>
+
+<body class="##session.lang##">
+
+    <nav x-import="sitebar/index.html" class="sitebar" data-ng-controller="sitebar">
+
+    </nav>
+
+    <nav class="sitebottom" x-import="sitebottom/index.html" ng-controller="sitebottom">
+
+    </nav>
+    <div id="main-layout" class="container loaded">
+        <div class="row">
+            <div class="row" ng-controller="patients">
+
+
+                <div class="row">
+                    <h1 class="bold text-center">##word.myOrders##</h1>
+                </div>
+
+                <div class="top-actions">
+                    <i-list class="col3" label="##word.user##" ng-model="user" display="fullName" items="list"
+                        ng-search="_search.$city_gov"></i-list>
+
+                </div>
+                <div class="row">
+                    <i-button class="col4" type="view" label="##word.myCurrentOrders##" ng-click="myCurrentOrders(user)"></i-button>
+
+                    <i-button class="col4" type="edit" label="##word.myPreviousOrders##" ng-click="myPreviousOrders(user)"></i-button>
+
+                    <i-button class="col4" type="delete" label="##word.myCanceledOrders##" ng-click="myCanceledOrders(user)"></i-button>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div x-import="scripts.html"></div>
+    <script x-import="patients/index.js"></script>
+</body>
+
+</html>
