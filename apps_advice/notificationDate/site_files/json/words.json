@@ -1,7 +1,12 @@
 [{
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+        "name": "notificationDeleted",
+        "en": "notification Deleted",
+        "ar": "تم حذف الاشعار"
+    },
+    {
+        "name": "notificationsDeleted",
+        "en": "notifications Deleted",
+        "ar": "تم حذف الاشعارات"
     },
     {
         "name": "goves_new",
@@ -10,14 +15,14 @@
     },
 
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "findNotification",
+        "en": "find Notification",
+        "ar": "تم العثور على اشعارات "
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "notFindNotification",
+        "en": "not Find Notification",
+        "ar": "لم يتم العثور على اشعارات"
     },
     {
         "name": "goves_details",

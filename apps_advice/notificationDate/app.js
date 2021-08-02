@@ -3,8 +3,10 @@ module.exports = function init(site) {
 
   site.get({
     name: 'images',
-    path: __dirname + '/site_files/images/'
-    ,require : {permissions : []}
+    path: __dirname + '/site_files/images/',
+    require: {
+      permissions: []
+    }
   });
 
   site.get({
@@ -12,7 +14,9 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
-    require : {permissions : []}
+    require: {
+      permissions: []
+    }
   });
 
   // Add notificationData
@@ -31,8 +35,8 @@ module.exports = function init(site) {
     let notificationData_doc = req.body;
     notificationData_doc.$req = req;
     notificationData_doc.$res = res;
-    
-      notificationData_doc.isActive = true,
+
+    notificationData_doc.isActive = true,
       notificationData_doc.createdAt = new Date()
     notificationData_doc.updatedAt = new Date()
 
@@ -116,7 +120,7 @@ module.exports = function init(site) {
   })
 
 
-// get All notificationData
+  // get All notificationData
 
   site.get("/api/notificationData", (req, res) => {
     let limit = 10
@@ -125,14 +129,13 @@ module.exports = function init(site) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
     let response = {}
-    $notificationData.findMany(
-      {
+    $notificationData.findMany({
         select: req.body.select || {},
         sort: req.body.sort || {
           id: -1,
         },
         limit: limit,
-        skip : skip
+        skip: skip
       },
       (err, docs, count) => {
         if (!err) {
@@ -152,12 +155,79 @@ module.exports = function init(site) {
 
   })
 
-// get Notification By Id
+
+
+
+
+
+
+
+
+  // get All Booking Done For Today
+  site.post('/api/notificationData/getAllDoctorNotifications', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+    let limit = 10
+    let skip
+    if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+      skip = (parseInt(req.query.page) - 1) * 10
+    }
+
+    let notification_doc = req.body;
+
+    $notificationData.findMany({
+      where: {
+        'type': "booking",
+        'doctor._id': notification_doc.doctor._id,
+      },
+      limit: limit,
+      skip: skip,
+      $req: req,
+      $res: res
+    }, (err, docs, count) => {
+      if (docs && docs.length > 0) {
+        response.data = {
+          docs: docs,
+          totalDocs: count,
+          limit: 10,
+          totalPages: Math.ceil(count / 10)
+        }
+
+        response.done = true
+
+        response.message = site.word('findNotification')[req.headers.language],
+          response.errorCode = site.var('succeed')
+        res.json(response)
+      } else {
+
+        response.done = false
+        response.message = site.word('notFindNotification')[req.headers.language],
+          response.errorCode = site.var('failed')
+        res.json(response)
+      }
+    })
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // get Notification By Id
 
   site.get("/api/notificationData/:id", (req, res) => {
     let response = {}
-    $notificationData.findOne(
-      {
+    $notificationData.findOne({
         where: {
           _id: req.params.id,
         },
@@ -181,35 +251,35 @@ module.exports = function init(site) {
 
   })
 
-// Hard Delete Notification
+  // Hard Delete Notification
   site.post('/api/notificationData/delete/deleteOne', (req, res) => {
     let response = {
       done: false,
     };
-    let notification_doc=req.body
-    
-    
-      $notificationData.delete(
-        {
-          "user._id": notification_doc.user._id,
-          "_id": notification_doc.notificationId,
-          $req: req,
-          $res: res,
-        },
-        (err, result) => {
-          if (!err) {
-            response.done = true,
-              response.errorCode = 200
-            response.message = 'notificationDeleted'
-          } else {
-            response.done = false,
-              response.errorCode = 406
-            response.message = 'failedDelete'
-          }
-          res.json(response);
-        },
-      );
-    
+    let notification_doc = req.body
+    req.headers.language = req.headers.language || 'en'
+
+    $notificationData.delete({
+        "user._id": notification_doc.user._id,
+        "_id": notification_doc.notificationId,
+        $req: req,
+        $res: res,
+      },
+      (err, result) => {
+        if (!err) {
+          response.errorCode = site.var('succeed')
+        response.message = site.word('notificationDeleted')[req.headers.language]
+        response.done = true;
+        
+        } else {
+          response.errorCode = site.var('failed')
+        response.message = site.word('failedDelete')[req.headers.language]
+        response.done = false;
+        }
+        res.json(response);
+      },
+    );
+
   });
 
   // Hard Delete All notifications
@@ -217,32 +287,101 @@ module.exports = function init(site) {
     let response = {
       done: false,
     };
-    let notification_doc=req.body
-    
-   
-      $notificationData.deleteAll(
-        {
-          where: {
-            "user._id": notification_doc.user._id,
-          },
-          $req: req,
-          $res: res,
+    let notification_doc = req.body
+
+
+    $notificationData.deleteAll({
+        where: {
+          "user._id": notification_doc.user._id,
         },
-        (err, result) => {
-          if (!err) {
-            response.done = true,
-              response.errorCode = 200
-            response.message = 'notificationDeleted'
-          } else {
-            response.done = false,
-              response.errorCode = 406
-            response.message = 'failedDelete'
-          }
-          res.json(response);
-        },
-      );
-    
+        $req: req,
+        $res: res,
+      },
+      (err, result) => {
+        if (!err) {
+          response.errorCode = site.var('succeed')
+          response.message = site.word('notificationsDeleted')[req.headers.language]
+          response.done = true;
+        } else {
+          response.done = false,
+            response.errorCode = 406
+          response.message = 'failedDelete'
+        }
+        res.json(response);
+      },
+    );
+
   });
+
+
+
+
+   // Hard Delete Notification
+   site.post('/api/notificationData/deleteByDoctor/deleteOne', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let notification_doc = req.body
+    req.headers.language = req.headers.language || 'en'
+
+    $notificationData.delete({
+        "doctor._id": notification_doc.doctor._id,
+        "_id": notification_doc.notificationId,
+        $req: req,
+        $res: res,
+      },
+      (err, result) => {
+        if (!err) {
+          response.errorCode = site.var('succeed')
+        response.message = site.word('notificationDeleted')[req.headers.language]
+        response.done = true;
+        
+        } else {
+          response.errorCode = site.var('failed')
+        response.message = site.word('failedDelete')[req.headers.language]
+        response.done = false;
+        }
+        res.json(response);
+      },
+    );
+
+  });
+
+  // Hard Delete All notifications
+  site.post('/api/notificationData/deleteByDoctor/deleteAll', (req, res) => {
+    let response = {
+      done: false,
+    };
+    let notification_doc = req.body
+
+
+    $notificationData.deleteAll({
+        where: {
+          "doctor._id": notification_doc.doctor._id,
+        },
+        $req: req,
+        $res: res,
+      },
+      (err, result) => {
+        if (!err) {
+          response.errorCode = site.var('succeed')
+          response.message = site.word('notificationsDeleted')[req.headers.language]
+          response.done = true;
+        } else {
+          response.done = false,
+            response.errorCode = 406
+          response.message = 'failedDelete'
+        }
+        res.json(response);
+      },
+    );
+
+  });
+
+
+
+
+
 
   // Search notificationData
   site.post('/api/notificationData/search', (req, res) => {
@@ -258,19 +397,18 @@ module.exports = function init(site) {
 
     let limit = 10;
     let skip;
-   
+
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
-    $notificationData.findMany(
-      {
+    $notificationData.findMany({
         select: req.body.select || {},
         where: where,
         sort: req.body.sort || {
           id: -1,
         },
         limit: limit,
-        skip : skip
+        skip: skip
       },
       (err, docs, count) => {
         if (docs.length > 0) {

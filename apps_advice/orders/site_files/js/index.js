@@ -200,6 +200,43 @@ app.controller("orders", function ($scope, $http, $timeout) {
       }
     )
   };
+
+
+  $scope.getUsersList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/patients",
+      data: {
+        where: {
+          active: true
+        },
+       
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.userList = response.data.docs;
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+
+
+
+
+
+
+
+
+
+  
   
   $scope.getCitiesList = function (where) {
     $scope.busy = true;
@@ -283,5 +320,8 @@ app.controller("orders", function ($scope, $http, $timeout) {
   $scope.getOrdersList();
   $scope.getGovesList();
   $scope.getCitiesList();
+  $scope.getUsersList();
+
+  
   $scope.getInsuranceCompanyList();
 });

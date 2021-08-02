@@ -1,7 +1,7 @@
 module.exports = function init(site) {
   const $doctors = site.connectCollection('doctors');
   const $rating = site.connectCollection('rating');
-  const $booking = site.connectCollection('booking');
+  
   let ObjectID = require('mongodb').ObjectID
   site.get({
     name: 'images',

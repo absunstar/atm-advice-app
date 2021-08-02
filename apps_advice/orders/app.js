@@ -107,7 +107,7 @@ if (orders_doc.address && orders_doc.address.lat && orders_doc.address.long) {
         order: doc,
         type: "order",
         user: orders_doc.user,
-        createdAt: new Date(),
+        createdAt: new Date().toLocaleString('en-US'),
       }
       $notificationData.add(notificationObj);
       
@@ -477,7 +477,7 @@ if (orders_doc.address && orders_doc.address.lat && orders_doc.address.long) {
           user: orders_doc.user,
           type : "order",
           pharmacy: orders_doc.pharmacy,
-          createdAt: new Date(),
+          createdAt: new Date().toLocaleString('en-US'),
           price: orders_doc.totalPrice,
           deliveryTime: orders_doc.deliveryTime
         }
