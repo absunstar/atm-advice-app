@@ -17,6 +17,10 @@ app.controller("patients", function ($scope, $http, $timeout) {
   };
 
 
+
+ 
+
+
  
 
 
@@ -301,10 +305,10 @@ $scope.success = "varification code success"
         console.log("111111111" , response.data.data.docs);
         $scope.busy = false;
         if (response.data.data && response.data.data.docs.length > 0) {
-          $scope.list =response.data.data.docs;
-          console.log("xxxxxxxxxxxxxxxxxx" , $scope.list);
+          $scope.currentOrderList =response.data.data.docs;
+          console.log("xxxxxxxxxxxxxxxxxx" , $scope.currentOrderList);
           $scope.count = response.data.totalDocs;
-          site.hideModal('#patientsSearchModal');
+         
           $scope.search = {};
         }
       },
@@ -316,7 +320,13 @@ $scope.success = "varification code success"
     )
   };
 
- 
+  $scope.displayGetCurrentOrders = function () {
+   
+    $scope.myCurrentOrders();
+    
+    site.showModal('#myCurrentOrders');
+
+  };
 
   $scope.displaySearchModal = function () {
     $scope.error = '';

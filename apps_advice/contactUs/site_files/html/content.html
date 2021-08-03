@@ -1,0 +1,28 @@
+<div class="form">
+    <div id="basicInformation" class="">
+        <fieldset>
+            <legend> ##word.basic_information## </legend>
+            <div class="row">
+                <div class="col9">
+                    <div class="row">
+                       
+                        <i-control help-id="goves_name" v="r ll2" class="col4" label="##word.contactUs_name##"
+                            ng-model="contactUs.name_ar"></i-control>
+
+                        <i-control help-id="goves_name_en" class="col4" label="##word.name_en##"
+                            ng-model="contactUs.name_en"></i-control>
+
+                        <i-checkbox help-id="goves_active" class="col2" label="##word.active##" ng-model="contactUs.active">
+                        </i-checkbox>
+                    </div>
+
+                </div>
+
+                <div class="col3">
+                    <i-image help-id="goves_logo" ng-model="contactUs.image_url"></i-image>
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
+</div>

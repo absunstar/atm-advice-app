@@ -2,7 +2,8 @@ module.exports = function init(site) {
   const $orders = site.connectCollection('orders');
   const $notificationData = site.connectCollection('notificationData');
   const $rating = site.connectCollection('rating');
-
+const $patients = site.connectCollection('patients');
+let ObjectID = require('mongodb').ObjectID
   site.get({
     name: 'images',
     path: __dirname + '/site_files/images/'
@@ -33,6 +34,9 @@ module.exports = function init(site) {
     // }
 
     let orders_doc = req.body;
+  
+      
+    
     // orders_doc.$req = req;
     // orders_doc.$res = res;
     if (orders_doc.card_url) {
@@ -382,12 +386,15 @@ if (orders_doc.address && orders_doc.address.lat && orders_doc.address.long) {
     $orders.findMany({
       where: {
         $and: [{
-          "user._id": req.session.user.ref_info._id
+          "user._id": String(req.session.user.ref_info._id)
         }, {
           'status.statusId': {
             $in: [site.var('inProgressId'), site.var('onWayId'), site.var('activeId')]
           },
         }]
+      },
+      sort: {
+        id: -1,
       },
       skip : skip,
       limit : limit

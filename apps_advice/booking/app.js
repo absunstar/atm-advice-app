@@ -249,9 +249,6 @@ module.exports = function init(site) {
     })
   });
 
-
-
-
   
   // update Booking To Status Done By Patient
   site.post('/api/booking/updateToStatusDoneByPatient', (req, res) => {

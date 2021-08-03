@@ -767,7 +767,8 @@ module.exports = function init(site) {
 
           response.data = {
             docs,
-            totalDocs: docs.length
+            totalDocs: docs.length,
+            totalPages : Math.ceil(docs.length / 10)
           }
           response.errorCode = site.var('succeed')
           response.done = true

@@ -1,0 +1,53 @@
+[
+    {
+        "name": "degrees",
+        "en": "Degrees",
+        "ar": "الدرجات العلمية"
+    },
+    {
+        "name": "degree_new",
+        "en": "New Degree",
+        "ar": "درجة علمية جديدة"
+    },
+    {
+        "name": "degrees_add",
+        "en": "Add Degree",
+        "ar": "إضافة درجة علمية "
+    },
+    {
+        "name": "degrees_edit",
+        "en": "Edit Degree",
+        "ar": "تعديل درجة علمية "
+    },
+    {
+        "name": "degrees_details",
+        "en": "Degree Details",
+        "ar": "تفاصيل الدرجة العلمية "
+    },
+    {
+        "name": "degrees_delete",
+        "en": "Delete Degree",
+        "ar": "حذف درجة علمية "
+    },
+    {
+        "name": "degrees_name",
+        "en": "Degree Name",
+        "ar": "إسم الدرجة العلمية "
+    },
+    {
+        "name": "nameExist",
+        "en": "Name Exist",
+        "ar": "الاسم موجود من قبل "
+    },
+    {
+        "name": "DegreeDeleted",
+        "en": "Degree Deleted",
+        "ar": "تم حذف المحافظة"
+    },
+    {
+        "name":"DegreeCreated",
+        "en": "Degree Created",
+        "ar": "تم انشاء المحافظة"
+    }
+   
+]
