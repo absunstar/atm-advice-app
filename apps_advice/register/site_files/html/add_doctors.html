@@ -1,0 +1,45 @@
+<div id="registerAddDoctor" class="modal" fixed>
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>
+                ##word.register_doctors##
+                <i class="fa fa-plus "></i>
+            </h2>
+
+        </div>
+
+        <form class="form">
+            <div class="col9">
+
+                <div class="row">
+                    <i-control help-id="" v="r" class="col4" type="text" label="##word.name##" ng-model="doctor.doctor_name"></i-control>
+                    <i-control help-id="" v="r" class="col4" label="##word.mobile##" ng-model="doctor.doctor_mobile"></i-control>
+
+                </div>
+
+                <div class="row">
+                    <i-control help-id="" v="r" class="col4" label="##word.email##" ng-model="doctor.doctor_user_name"></i-control>
+                    <i-control help-id="" v="r" class="col4" type="password" label="##word.password##" ng-model="doctor.doctor_password"></i-control>
+                    <i-control help-id="" v="r" class="col4" type="password" label="##word.password_return##" ng-model="doctor.doctor_password_return"></i-control>
+                </div>
+            </div>
+
+            <div class="col3">
+                <i-image help-id="cities_logo" ng-model="doctor.image_url"></i-image>
+            </div>
+        </form>
+        <div class="row">
+            <div class="modal-footer center">
+                <h2 class="error"> {{error}} </h2>
+                <i-button type="add" label="##word.add##" ng-click="addDoctors()"></i-button>
+
+                <i-button type="close" label="##word.close##" onclick="site.hideModal( '#registerAddDoctor')"></i-button>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

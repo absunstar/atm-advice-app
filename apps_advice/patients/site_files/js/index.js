@@ -285,22 +285,24 @@ $scope.success = "varification code success"
 
 
   $scope.myCurrentOrders = function (patients) {
-    console.log(patients);
+    console.log(` ##user##`);
+   
     $scope.busy = true;
     $scope.list = [];
     $http({
       method: "POST",
       url: "/api/orders/getActiveOrders",
       data: {
-        '_id': patients._id
+        where: { 'user._id': '##user.ref_info._id##'  }
 
       }
     }).then(
       function (response) {
-        console.log("111111111" , response.data);
+        console.log("111111111" , response.data.data.docs);
         $scope.busy = false;
-        if (response.data.docs.length > 0) {
-          $scope.list = response.data.docs;
+        if (response.data.data && response.data.data.docs.length > 0) {
+          $scope.list =response.data.data.docs;
+          console.log("xxxxxxxxxxxxxxxxxx" , $scope.list);
           $scope.count = response.data.totalDocs;
           site.hideModal('#patientsSearchModal');
           $scope.search = {};

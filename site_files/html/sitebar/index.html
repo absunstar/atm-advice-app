@@ -7,21 +7,21 @@
 
       <a href="/"> ##word.brand_title## <span> ##word.brand_tag##</span> </a>
     </div>
+
     <!-- style=" margin-left: 400px;
       margin-right: 400px;" -->
-    <div class="inline text-center desktop">
-      <div class="info bord" x-features="login">
-        <a id="btn_change_branch" onclick="site.showModal('#changeBranchModal');">
-          <i ng-show="'##session.lang##' == 'ar'"> ##session.company.name_ar## - ##session.branch.name_ar## </i>
-          <i ng-show="'##session.lang##' == 'en'"> ##session.company.name_en## - ##session.branch.name_en## </i>
-        </a>
-      </div>
-    </div>
+
     <div class="info">
       <a x-features="login" href="#" onclick="event.stopPropagation(); $('.user-menu').toggle()"> <img
           src="##user.profile.image_url##" alt="" /> </a>
 
-      <a x-features="!login" id="btn_register" ng-click="customerRegister()"> ##word.customer_register## </a>
+      <a x-features="!login" href="/register" id="btn_register" >  ##word.security_register## </a>
+
+      <!-- <li x-features="!login">
+        <a class="item" href="/register">
+            ##word.security_register##
+        </a> -->
+    </li>
 
       <a x-features="!login" id="btn_login" ng-click="login()"> ##word.security_login## </a>
     </div>

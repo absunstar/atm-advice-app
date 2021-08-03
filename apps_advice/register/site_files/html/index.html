@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="myApp">
+
+<head x-import="head.html">
+
+</head>
+
+<body class="##session.lang##">
+    <nav x-import="sitebar/index.html" class="sitebar" data-ng-controller="sitebar">
+
+    </nav>
+
+    <nav class="sitebottom" x-import="sitebottom/index.html" ng-controller="sitebottom">
+
+    </nav>
+
+    <div id="main-layout" class="container loaded">
+        <div class="row">
+            <div class="row" ng-controller="register">
+                <div  x-import="patients/add_modal.html"></div>
+                <div x-import="register/add_hospital.html"></div>
+                <div x-import="register/add_analyses_centers.html"></div>
+                <div x-import="register/add_clinic.html"></div>
+                <div x-import="register/add_doctors.html"></div>
+                <div x-import="register/add_insurance_company.html"></div>
+                <div x-import="register/add_nursing.html"></div>
+                <div x-import="register/add_patient.html"></div>
+                <div x-import="register/add_pharmacy.html"></div>
+                <div x-import="register/add_scan_centers.html"></div>
+                <div x-permission="deleteregister" x-import="register/delete_modal.html"></div>
+                <div x-permission="searchregister" x-import="register/update_modal.html"></div>
+
+                <div class="row">
+                    <h1 class="bold text-center">##word.register##</h1>
+                </div>
+
+                <div class="top-actions">
+
+                    <div class="form">
+
+                        <div class="tabs">
+                            <div class="tabs-header">
+                                <a class="tab-link" ng-click="displayAddPatients()">
+                                    ##word.register_patient##
+                                </a>
+
+                                <a class="tab-link" ng-click="displayAddPharmacy()">
+                                    ##word.register_pharmacy##
+                                </a>
+
+                                <a class="tab-link" ng-click="displayAddDoctors()">
+                                    ##word.register_doctors##
+                                </a>
+                          
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 
+                        <i-button x-permission="addregister" type="add" label="##word.register_new##" ng-click="displayAddregister()"></i-button>
+
+                        <i-button x-permission="searchregister" type="search" label="##word.search_all##" ng-click="displaySearchModal()"></i-button>
+
+                        <h3 x-permission="searchregister" class="bold text-center"> ##word.count## : {{count}}</h3>
+                    </div>
+
+                    <table x-permission="searchregister" class="table bold loaded" id="t1">
+                        <tr>
+                            <th>##word.register_name##</th>
+
+                            <th>##word.status##</th>
+                            <th class="not-print">##word.actions##</th>
+                        </tr>
+                        <tr ng-repeat="c in list">
+
+                            <td class="center">{{c.name}}</td>
+                            <td class="center">
+                                <p ng-show="c.active ==true" class="green"> ##word.active## </p>
+                                <p ng-show="c.active ==false" class="red"> ##word.not_active## </p>
+                            </td>
+
+                            <td class="center not-print">
+                                <i-button x-permission="viewregister" type="view" label="##word.details##" ng-click="displayDetailsregister(c)"></i-button>
+
+                                <i-button x-permission="editregister" type="edit" label="##word.edit##" ng-click="displayUpdateregister(c)"></i-button>
+
+                                <i-button x-permission="deleteregister" type="delete" label="##word.delete##" ng-click="displayDeleteregister(c)"></i-button>
+                            </td>
+                        </tr>
+                    </table> 
+                    <i-button x-permission="print" type="print" label="##word.print##" onclick="site.print('#t1')"></i-button>
+
+                    <i-button x-permission="export" type="export" label="##word.export_to_excel##" onclick="export_to_xlsx('t1' , 'register.xlsx')"></i-button>
+            -->
+                </div>
+            </div>
+        </div>
+
+        <div x-import="scripts.html"></div>
+        <script x-import="register/index.js"></script>
+</body>
+
+</html>

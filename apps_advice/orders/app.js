@@ -395,7 +395,8 @@ if (orders_doc.address && orders_doc.address.lat && orders_doc.address.long) {
       if (docs.length == 0) {
         let obj = {}
         obj.data = {
-          docs : docs
+          docs : docs,
+          totalDocs:count
         }
         obj.errorCode = site.var('failed')
         obj.message = site.word('noActiveOrders')[req.headers.language]

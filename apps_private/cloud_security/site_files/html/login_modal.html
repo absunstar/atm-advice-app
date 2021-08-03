@@ -15,35 +15,18 @@
 
             <form ng-hide="busy">
                 <div class="row">
-                    <i-control class="col4" ng-model="user.email" type="text" label="##word.security_user_email##"
-                        ng-keydown="loadUserBranches()"></i-control>
+
+                    <i-control class="col4" ng-model="user.email" type="text" label="##word.security_user_email##">
+                    </i-control>
 
                     <i-control class="col4" ng-model="user.password" type="password"
-                        label="##word.security_user_password##" ng-keydown="loadUserBranches()"></i-control>
+                        label="##word.security_user_password##" ng-keydown="tryLogin($event)"></i-control>
                     <div class="col1"></div>
-                    <i-button class="col2" class="view" label="##word.security_load_user_companies##"
-                        ng-click="loadUserBranches()">
-                    </i-button>
-                </div>
 
-                <br>
-                <br>
-
-                <div class="row">
-
-                    <div class="col10">
-
-                        <table class="table loaded hover center bold">
-                            <tr ng-repeat="b in branch_list">
-                                <td class="blue"> <br> {{b.company.name_##session.lang##}} </td>
-                                <td class="green"> <br> {{b.branch.name_##session.lang##}} </td>
-                                <td>
-                                    <i-button label="##word.security_login##" ng-hide="busy" id="loginBtn" class="center" type="add"
-                                    ng-click="login(b)"></i-button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                    <td>
+                        <i-button label="##word.security_login##" ng-hide="busy" id="loginBtn" class="center" type="add"
+                            ng-click="login()"></i-button>
+                    </td>
 
                 </div>
 

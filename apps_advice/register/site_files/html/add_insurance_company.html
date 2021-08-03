@@ -1,0 +1,46 @@
+<div id="registerAddInsuranceCompany" class="modal" fixed>
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>
+                ##word.register_insurance_company##
+                <i class="fa fa-plus "></i>
+            </h2>
+
+        </div>
+
+        <form class="form">
+            <di class="col9">
+
+                <div class="row">
+                    <i-control help-id="" v="r" class="col4" type="text" label="##word.name##" ng-model="insurance_company.insurance_company_name"></i-control>
+                    <i-control help-id="" v="r" class="col4" label="##word.mobile##" ng-model="insurance_company.insurance_company_mobile"></i-control>
+    
+                </div>
+    
+                <div class="row">
+                    <i-control help-id="" v="r" class="col4" label="##word.email##" ng-model="insurance_company.insurance_company_user_name"></i-control>
+                    <i-control help-id="" v="r" class="col4" type="password" label="##word.password##" ng-model="insurance_company.insurance_company_password"></i-control>
+                    <i-control help-id="" v="r" class="col4" type="password" label="##word.password_return##" ng-model="insurance_company.insurance_company_password_return"></i-control>
+                </div>
+            </di>
+
+            <div class="col3">
+                    <i-image help-id="" class="col3" collection="medical_insurance_companies" ng-model="insurance_company.image_url"></i-image>
+                </div>
+
+        </form>
+            <div class="row">
+                <div class="modal-footer center">
+                    <h2 class="error"> {{error}} </h2>
+                    <i-button type="add" label="##word.add##" ng-click="addInsuranceCompany()"></i-button>
+
+                    <i-button type="close" label="##word.close##" onclick="site.hideModal( '#registerAddInsuranceCompany')"></i-button>
+                </div>
+            </div>
+
+
+    </div>
+
+</div>
