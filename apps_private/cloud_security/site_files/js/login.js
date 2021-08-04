@@ -16,9 +16,6 @@ app.controller('login', function ($scope, $http) {
       return;
     }
 
-    $scope.user.company = b.company;
-    $scope.user.branch = b.branch;
-
     $scope.busy = true;
 
     $http({
@@ -28,24 +25,6 @@ app.controller('login', function ($scope, $http) {
         $encript: '123',
         email: site.to123($scope.user.email),
         password: site.to123($scope.user.password),
-        company: site.to123({
-          id: $scope.user.company.id,
-          name_ar: $scope.user.company.name_ar,
-          name_en: $scope.user.company.name_en,
-          item: $scope.user.company.item,
-          store: $scope.user.company.store,
-          unit: $scope.user.company.unit,
-          currency: $scope.user.company.currency,
-          users_count: $scope.user.company.users_count,
-          customers_count: $scope.user.company.customers_count,
-          employees_count: $scope.user.company.employees_count,
-          host: $scope.user.company.host,
-        }),
-        branch: site.to123({
-          code: $scope.user.branch.code,
-          name_ar: $scope.user.branch.name_ar,
-          name_en: $scope.user.branch.name_en,
-        }),
       },
     }).then(
       function (response) {

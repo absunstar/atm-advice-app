@@ -1,0 +1,69 @@
+<div id="myCurrentOrders" class="modal" fixed>
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>
+                ##word.patients_add222222##
+                <i class="fa fa-plus "></i>
+            </h2>
+
+        </div>
+
+        <div class="modal-body">
+
+            <div ng-repeat="c in currentOrderList">
+                <fieldset>
+                    <legend> ##word.basic_information## </legend>
+                    <div class="col2">
+                        <i-image view style="height: 20px; width: 20px;" ng-model="c.image_url"></i-image>
+                    </div>
+                    <div class="col7">
+                        <div class="row">
+
+                            <h3 ng-show="c.status.statusId == 1" class="green">جاري العثور على صيدليه</h3>
+                            <h3 ng-show="c.status.statusId == 2 || c.status.statusId == 3" class="green">
+                                {{c.pharmacy ? c.pharmacy.pharmacyName:""}}</h3>
+
+                            <label> {{c.address.gov.name_##session.lang##}} - {{c.address.city.name_##session.lang##}} -
+                                {{c.address.district}} - {{c.address.streetName}}- {{c.address.buildingNumber}}-
+                                {{c.address.role}}- {{c.address.apartmentNumber}} - {{c.specialMark}}
+                            </label>
+
+
+                        </div>
+                        <div>
+                            <label ng-show="c.status.statusId == 1">"" </label>
+                            <label ng-show="c.status.statusId == 2">جاري تجهيز الطلب </label>
+                            <label ng-show="c.status.statusId == 3">طلبك في الطريق اليك</label>
+                        </div>
+                        <div>
+                            <label ng-show="c.status.statusId == 1">"" </label>
+                            <label ng-show="c.status.statusId == 2">وقت التوصيل{{c.deliveryTime}}</label>
+                            <label ng-show="c.status.statusId == 3">وقت التوصيل{{c.deliveryTime}}</label>
+                        </div>
+                        <div>
+                            <label ng-show="c.status.statusId == 1">"" </label>
+                            <label ng-show="c.status.statusId == 2">اجمالي المبلغ {{c.totalPrice}} </label>
+                            <label ng-show="c.status.statusId == 3">اجمالي المبلغ {{c.totalPrice}}</label>
+                        </div>
+                    </div>
+                    <div class="col3">
+                        <div>
+                            <label ng-show="c.status.statusId == 1">"" </label>
+                            <label ng-show="c.status.statusId == 2">جاري تجهيز الطلب </label>
+                            <label ng-show="c.status.statusId == 3">طلبك في الطريق اليك</label>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</div>

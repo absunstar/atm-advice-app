@@ -17,26 +17,33 @@
     <div id="main-layout" class="container loaded">
         <div class="row">
             <div class="row" ng-controller="patients">
-
-
+                <div  x-import="patients/myCurrentOrders.html"></div>
                 <div class="row">
                     <h1 class="bold text-center">##word.myOrders##</h1>
                 </div>
+                
+                <div class="tabs">
+                    <div class="tabs-header">
+                       
+                      
+                        <a class="tab-link" ng-click="displayGetCurrentOrders()">
+                            ##word.myCurrentOrders##
+                        </a>
+                        <a class="tab-link" ng-click="displayAddPatients()">
+                            ##word.myPreviousOrders##
+                        </a>
+                        <a class="tab-link" ng-click="displayAddDoctors()">
+                            ##word.myCanceledOrders##
+                        </a>
+                  
 
-                <div class="top-actions">
-                    <i-list class="col3" label="##word.user##" ng-model="user" display="fullName" items="list"
-                        ng-search="_search.$city_gov"></i-list>
 
+
+                    </div>
                 </div>
-                <div class="row">
-                    <i-button class="col4" type="view" label="##word.myCurrentOrders##" ng-click="myCurrentOrders(user)"></i-button>
-
-                    <i-button class="col4" type="edit" label="##word.myPreviousOrders##" ng-click="myPreviousOrders(user)"></i-button>
-
-                    <i-button class="col4" type="delete" label="##word.myCanceledOrders##" ng-click="myCanceledOrders(user)"></i-button>
-                </div>
 
 
+               
 
             </div>
         </div>

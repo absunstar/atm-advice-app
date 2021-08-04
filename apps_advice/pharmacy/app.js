@@ -432,6 +432,10 @@ module.exports = function init(site) {
       },
       (err, docs, count) => {
         if (!err) {
+          response.done = true
+          response.message = site.word('findSuccessfully')[req.headers.language]
+          response.errorCode = site.var('succeed')
+
           response.docs = docs
           response.totalDocs = count
           response.limit = 10
@@ -475,12 +479,15 @@ module.exports = function init(site) {
       },
       (err, docs, count) => {
         if (!err) {
-          response.docs = docs
-          response.totalDocs = count
-          response.limit = 10
-          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+          response.done = true
+          response.message = site.word('findSuccessfully')[req.headers.language]
+          response.errorCode = site.var('succeed')
+          response.data = {docs : docs , totalDocs : count , limit : 10 , totalPages : Math.ceil(count / 10) }
         } else {
-          response.error = err.message;
+          response.done = false
+          response.message = site.word('findFailed')[req.headers.language]
+          response.errorCode = site.var('failed')
+
         }
         res.json(response);
       },
@@ -559,12 +566,17 @@ module.exports = function init(site) {
       },
       (err, docs, count) => {
         if (!err && docs) {
-          response.docs = docs
-          response.totalDocs = count
-          response.limit = 10
-          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+          response.done = true
+          response.message = site.word('findSuccessfully')[req.headers.language]
+          response.errorCode = site.var('succeed')
+
+          response.data = {docs : docs , totalDocs : count , limit : 10 , totalPages : Math.ceil(count / 10) }
+        
         } else {
-          response.error = err.message;
+          response.done = false
+          response.message = site.word('findFailed')[req.headers.language]
+          response.errorCode = site.var('failed')
+
         }
         res.json(response);
       },
@@ -755,7 +767,8 @@ module.exports = function init(site) {
 
           response.data = {
             docs,
-            totalDocs: docs.length
+            totalDocs: docs.length,
+            totalPages : Math.ceil(docs.length / 10)
           }
           response.errorCode = site.var('succeed')
           response.done = true

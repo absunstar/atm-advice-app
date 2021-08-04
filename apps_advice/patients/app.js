@@ -2,8 +2,10 @@ module.exports = function init(site) {
   const $patients = site.connectCollection('patients');
   site.get({
     name: 'images',
-    path: __dirname + '/site_files/images/'
-    ,require : {permissions : []}
+    path: __dirname + '/site_files/images/',
+    require: {
+      permissions: []
+    }
   });
 
   site.get({
@@ -11,7 +13,9 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
-    require : {permissions : []}
+    require: {
+      permissions: []
+    }
   });
 
 
@@ -20,7 +24,9 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/forgetPassword.html',
     parser: 'html',
     compress: true,
-    require : {permissions : []}
+    require: {
+      permissions: []
+    }
   });
 
   site.get({
@@ -28,7 +34,9 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/resendCode.html',
     parser: 'html',
     compress: true,
-    require : {permissions : []}
+    require: {
+      permissions: []
+    }
   });
 
   site.get({
@@ -36,23 +44,39 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/checkCorrectPassword.html',
     parser: 'html',
     compress: true,
-    require : {permissions : []}
+    require: {
+      permissions: []
+    }
   });
   site.get({
     name: 'patients/myOrders',
     path: __dirname + '/site_files/html/myOrders.html',
     parser: 'html',
     compress: true,
-    require : {permissions : []}
+    require: {
+      permissions: []
+    }
   });
 
 
+  site.on('[register][patient][add]', (doc, callback) => {
+    doc.active = true,
+    
+    $patients.add(doc, (err, doc) => {
+      callback(err, doc)
+    })
+  })
 
 
-  
+
   // Add New patients 
 
-  site.post({name:'/api/patients/add' ,require : {permissions : []} }, (req, res) => {
+  site.post({
+    name: '/api/patients/add',
+    require: {
+      permissions: []
+    }
+  }, (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {
       done: false,
@@ -65,12 +89,12 @@ module.exports = function init(site) {
     let patients_doc = req.body;
     if (patients_doc.image_url) {
       patients_doc.image = new Array({
-        name : patients_doc.image_url
+        name: patients_doc.image_url
       })
     }
     if (patients_doc.card_url) {
       patients_doc.cardImage = new Array({
-        name : patients_doc.card_url
+        name: patients_doc.card_url
       })
     }
     patients_doc.$req = req;
@@ -81,21 +105,21 @@ module.exports = function init(site) {
     patients_doc.updatedAt = new Date()
     patients_doc.balance = 0
     $patients.findOne({
-      where: {
-        $or: [{
-          $and: [{
-            'phone': patients_doc.phone
-          }, {
-            isActive: true
-          }]
-        },
-        {
-          'email': patients_doc.email
-        },
+        where: {
+          $or: [{
+              $and: [{
+                'phone': patients_doc.phone
+              }, {
+                isActive: true
+              }]
+            },
+            {
+              'email': patients_doc.email
+            },
 
-        ]
+          ]
+        },
       },
-    },
 
 
       (err, doc) => {
@@ -114,7 +138,10 @@ module.exports = function init(site) {
             response.errorCode = site.var('succeed')
             response.message = site.word('findUser')[req.headers.language]
             response.done = true;
-            let { password, ...rest1 } = doc
+            let {
+              password,
+              ...rest1
+            } = doc
             response.data = rest1
             res.json(response);
             return
@@ -132,9 +159,7 @@ module.exports = function init(site) {
             response.done = false;
             res.json(response);
           }
-        }
-
-        else {
+        } else {
           let user = {
             name: patients_doc.fullName,
             mobile: patients_doc.phone,
@@ -163,7 +188,10 @@ module.exports = function init(site) {
                   $patients.updateOne(doc);
                 }
               })
-              let { password, ...rest } = doc
+              let {
+                password,
+                ...rest
+              } = doc
               response.data = rest;
               response.errorCode = site.var('succeed')
               response.message = site.word('userCreated')[req.headers.language]
@@ -256,7 +284,7 @@ module.exports = function init(site) {
             response.done = true
             response.message = site.word('resetPassword')[req.headers.language]
             response.errorCode = site.var('succeed')
-          } 
+          }
           res.json(response)
         })
       } else {
@@ -272,8 +300,8 @@ module.exports = function init(site) {
 
 
 
-   // charge balance
-   site.post('/api/patients/chargeBalance', (req, res) => {
+  // charge balance
+  site.post('/api/patients/chargeBalance', (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {
       done: false,
@@ -300,7 +328,8 @@ module.exports = function init(site) {
             response.done = true
             response.message = site.word('balanceRecharge')[req.headers.language]
             response.errorCode = site.var('succeed')
-          } if (result.count == 0) {
+          }
+          if (result.count == 0) {
             response.done = false
             response.message = site.word('wrongHappened')[req.headers.language]
             response.errorCode = site.var('failed')
@@ -437,24 +466,25 @@ module.exports = function init(site) {
   site.post('/api/patients/getProfile', (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {}
-    $patients.findOne({
-      where: {
-        _id: req.session.user.ref_info._id
-      }
-    }, (err, doc) => {
-      if (doc) {
-        response.data = doc
-        response.done = true,
-          response.errorCode = site.var('succeed')
-        response.message = site.word('findProfile')[req.headers.language]
-        res.json(response)
-      } else {
-        response.done = false,
-          response.errorCode = site.var('failed')
-        response.message = site.word('noProfileFound')[req.headers.language]
-        res.json(response)
-      }
-    })
+    if (req.session.user.ref_info)
+      $patients.findOne({
+        where: {
+          _id: req.session.user.ref_info._id
+        }
+      }, (err, doc) => {
+        if (doc) {
+          response.data = doc
+          response.done = true,
+            response.errorCode = site.var('succeed')
+          response.message = site.word('findProfile')[req.headers.language]
+          res.json(response)
+        } else {
+          response.done = false,
+            response.errorCode = site.var('failed')
+          response.message = site.word('noProfileFound')[req.headers.language]
+          res.json(response)
+        }
+      })
   })
 
 
@@ -481,7 +511,10 @@ module.exports = function init(site) {
             }
           }, (err, doc) => {
             if (doc) {
-              let { password, ...rest } = doc
+              let {
+                password,
+                ...rest
+              } = doc
               response.done = true,
                 response.data = rest
               response.errorCode = site.var('succeed')
@@ -518,20 +551,22 @@ module.exports = function init(site) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
     let response = {}
-    $patients.findMany(
-      {
+    $patients.findMany({
         select: req.body.select || {},
         sort: req.body.sort || {
           id: -1,
         },
         limit: limit,
-        skip : skip
+        skip: skip
       },
       (err, docs, count) => {
         if (!err) {
           let noPassList = []
           for (const iterator of docs) {
-            let { password, ...rest } = iterator
+            let {
+              password,
+              ...rest
+            } = iterator
             noPassList.push(rest)
           }
           response.docs = noPassList
@@ -555,32 +590,34 @@ module.exports = function init(site) {
     let response = {}
     req.headers.language = req.headers.language || 'en'
     let consultation_doc = req.body
-   
+
     $patients.findOne({
       where: {
         _id: req.session.user.ref_info._id
       },
     }, (err, doc) => {
-     
-     
+
+
       if (doc && doc.password == consultation_doc.password) {
         $patients.edit({
           where: {
             _id: req.session.user.ref_info._id
           },
-          set: { password: consultation_doc.newPassword },
+          set: {
+            password: consultation_doc.newPassword
+          },
           $req: req,
           $res: res
         }, (err, result) => {
-          
-            response.done = true
-            response.message = site.word('updatePassword')[req.headers.language]
-            response.errorCode = site.var('succeed')
-          
+
+          response.done = true
+          response.message = site.word('updatePassword')[req.headers.language]
+          response.errorCode = site.var('succeed')
+
           res.json(response)
         })
       }
-      if(!doc || doc.password != consultation_doc.password) {
+      if (!doc || doc.password != consultation_doc.password) {
         response.done = false
         response.message = site.word('passwordNotCorrect')[req.headers.language]
         response.errorCode = site.var('failed')
@@ -595,8 +632,7 @@ module.exports = function init(site) {
   site.get("/api/patients/:id", (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {}
-    $patients.findOne(
-      {
+    $patients.findOne({
         where: {
           _id: req.params.id,
         },
@@ -604,7 +640,10 @@ module.exports = function init(site) {
       },
       (err, doc) => {
         if (!err && doc) {
-          let { password, ...rest } = doc
+          let {
+            password,
+            ...rest
+          } = doc
           response.data = rest
           response.errorCode = site.var('succeed')
           response.message = site.word('findSuccessfully')[req.headers.language]
@@ -630,8 +669,7 @@ module.exports = function init(site) {
     let id = req.params.id;
 
     if (id) {
-      $patients.delete(
-        {
+      $patients.delete({
           _id: id,
           $req: req,
           $res: res,
@@ -690,19 +728,18 @@ module.exports = function init(site) {
     }
     let limit = 10;
     let skip;
-   
+
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
-    $patients.findMany(
-      {
+    $patients.findMany({
         select: req.body.select || {},
         where: where,
         sort: req.body.sort || {
           id: -1,
         },
         limit: limit,
-        skip : skip
+        skip: skip
       },
       (err, docs, count) => {
         if (docs.length > 0) {
@@ -727,8 +764,7 @@ module.exports = function init(site) {
     };
     let patients_doc = req.body;
     if (patients_doc.id) {
-      $patients.edit(
-        {
+      $patients.edit({
           where: {
             id: patients_doc.id,
           },
@@ -756,10 +792,9 @@ module.exports = function init(site) {
       done: false,
     };
 
-  
 
-    $patients.findOne(
-      {
+
+    $patients.findOne({
         where: {
           id: req.body.id,
         },
@@ -782,8 +817,7 @@ module.exports = function init(site) {
     let id = req.body.id;
 
     if (id) {
-      $patients.delete(
-        {
+      $patients.delete({
           id: id,
           $req: req,
           $res: res,

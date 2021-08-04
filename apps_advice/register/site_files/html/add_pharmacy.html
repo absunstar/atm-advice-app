@@ -1,0 +1,46 @@
+<div id="registerAddPharmacy" class="modal" fixed>
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>
+                ##word.register_pharmacy##
+                <i class="fa fa-plus "></i>
+            </h2>
+
+        </div>
+
+        <form class="form">
+            <div class="col9">
+
+                <div class="row">
+                    <i-control help-id="" v="r" class="col4" type="text" label="##word.name##" ng-model="pharmacy.pharmacy_name"></i-control>
+                    <i-control help-id="" v="r" class="col4" label="##word.mobile##" ng-model="pharmacy.pharmacy_mobile"></i-control>
+
+                </div>
+
+                <div class="row">
+                    <i-control help-id="" v="r" class="col4" label="##word.email##" ng-model="pharmacy.pharmacy_user_name"></i-control>
+                    <i-control help-id="" v="r" class="col4" type="password" label="##word.password##" ng-model="pharmacy.pharmacy_password"></i-control>
+                    <i-control help-id="" v="r" class="col4" type="password" label="##word.password_return##" ng-model="pharmacy.pharmacy_password_return"></i-control>
+                </div>
+            </div>
+            <div class="col3">
+                <i-image help-id="cities_logo" ng-model="pharmacy.image_url"></i-image>
+            </div>
+
+        </form>
+
+        <div class="row">
+            <div class="modal-footer center">
+                <h2 class="error"> {{error}} </h2>
+                <i-button type="add" label="##word.add##" ng-click="addPharmacy()"></i-button>
+
+                <i-button type="close" label="##word.close##" onclick="site.hideModal( '#registerAddPharmacy')"></i-button>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
