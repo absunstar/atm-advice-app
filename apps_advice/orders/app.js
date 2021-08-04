@@ -849,7 +849,7 @@ skip : skip
             address: doc.address,
             insuranceNumber: doc.insuranceNumber,
             user: doc.user,
-
+image : doc.image,
             isActive: true,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -899,7 +899,7 @@ skip : skip
             address: doc.address,
             insuranceNumber: doc.insuranceNumber,
             user: doc.user,
-
+            image : doc.image,
             isActive: true,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -948,7 +948,7 @@ skip : skip
             address: doc.address,
             insuranceNumber: doc.insuranceNumber,
             user: doc.user,
-
+            image : doc.image,
             isActive: true,
             createdAt: new Date(),
             updatedAt: new Date(),

@@ -675,40 +675,14 @@ module.exports = function init(site) {
 
     let response = {}
     let limit = 10
-    let skip
+    let skip = 0
     req.headers.language = req.headers.language || 'en'
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
 
     let distance = 20 / 6378.1
-    //  $orders.findMany({
-    //       select: req.body.select || {},
-    //       sort: req.body.sort || {
-    //         id: -1,
-    //       },
-    //       where: {
-    //         'status.statusId': site.var('activeId')
-    //       },
-    //       limit: limit,
-    //       skip: skip
-    //     },
-    //     (err, docs, count) => {
-    //       if (!err && docs && docs.length > 0) {
-    //         for (const iterator of object) {
-
-    //         }
-    //         response.docs = docs
-    //         response.totalDocs = count
-    //         response.limit = 10
-    //         response.totalPages = Math.ceil(response.totalDocs / response.limit)
-    //       } else {
-    //         response.error = err.message;
-    //       }
-    //       res.json(response);
-    //     },
-    //   );
-
+   
 
     $pharmacy.findOne({
       where: {
@@ -761,6 +735,12 @@ module.exports = function init(site) {
             ]
           }
         },
+        {
+          $skip : skip
+        },
+        {
+          $limit : limit
+        }
 
       ], (err, docs) => {
         if (docs && docs.length > 0) {

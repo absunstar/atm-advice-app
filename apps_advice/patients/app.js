@@ -1,5 +1,7 @@
 module.exports = function init(site) {
   const $patients = site.connectCollection('patients');
+  const $users_info = site.connectCollection('patients');
+  let ObjectID = require('mongodb').ObjectID
   site.get({
     name: 'images',
     path: __dirname + '/site_files/images/',
@@ -616,6 +618,8 @@ module.exports = function init(site) {
 
           res.json(response)
         })
+
+
       }
       if (!doc || doc.password != consultation_doc.password) {
         response.done = false
@@ -624,6 +628,46 @@ module.exports = function init(site) {
         res.json(response)
       }
     })
+
+
+//     $users_info.findOne({
+//       where: {
+//         '_id': req.session.user._id
+//       },
+//     }, (err, doc) => {
+// console.log(doc);
+
+//       if (doc && doc.password == consultation_doc.password) {
+//         $users_info.edit({
+//           where: {
+//             _id: req.session.user.ref_info._id
+//           },
+//           set: {
+//             password: consultation_doc.newPassword
+//           },
+//           $req: req,
+//           $res: res
+//         }, (err, result) => {
+
+//           response.done = true
+//           response.message = site.word('updatePassword')[req.headers.language]
+//           response.errorCode = site.var('succeed')
+
+//           res.json(response)
+//         })
+
+
+//       }
+//       if (!doc || doc.password != consultation_doc.password) {
+//         response.done = false
+//         response.message = site.word('passwordNotCorrect')[req.headers.language]
+//         response.errorCode = site.var('failed')
+//         res.json(response)
+//       }
+//     })
+
+
+
   })
 
 
