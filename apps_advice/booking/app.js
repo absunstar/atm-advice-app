@@ -249,6 +249,48 @@ module.exports = function init(site) {
     })
   });
 
+
+
+
+
+
+
+  // update Booking To Status Done
+  site.post('/api/booking/updatePatientToStatusDone', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    let booking_doc = req.body;
+
+
+    $booking.edit({
+      where: {
+        'status': site.var('accepted'),
+        _id: new ObjectID(booking_doc.bookingId),
+        'patient._id': booking_doc.patient._id
+      },
+      set: {
+        'status': site.var('done'),
+      },
+      $req: req,
+      $res: res
+    }, (err, result) => {
+
+
+      response.done = true
+      response.message = site.word('bookingDone')[req.headers.language],
+        response.errorCode = site.var('succeed')
+      res.json(response)
+    })
+  });
+
+
+
+
+
+
+
+
   
   // update Booking To Status Done By Patient
   site.post('/api/booking/updateToStatusDoneByPatient', (req, res) => {
