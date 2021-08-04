@@ -1,7 +1,7 @@
 module.exports = function init(site) {
   const $pharmacy = site.connectCollection('pharmacy');
   const $orders = site.connectCollection('orders');
-
+  const $users_info = site.connectCollection('users_info');
   site.get({
     name: 'images',
     path: __dirname + '/site_files/images/',
@@ -392,6 +392,16 @@ module.exports = function init(site) {
           },
           $req: req,
           $res: res
+        })
+        $users_info.edit({
+          where: {
+            _id: req.session.user._id
+          },
+          set: {
+            password: pharmacy_doc.newPassword
+          },
+          $req: req,
+          $res: res
         }, (err, result) => {
 
           response.done = true
@@ -400,6 +410,7 @@ module.exports = function init(site) {
 
           res.json(response)
         })
+
       }
       if (!doc || doc.password != pharmacy_doc.password) {
         response.done = false
@@ -784,7 +795,6 @@ module.exports = function init(site) {
         where: {
           'status.statusId': site.var('activeId')
         },
-        limit: req.body.limit || 10,
       },
       (err, docs, count) => {
         if (!err) {
@@ -799,34 +809,7 @@ module.exports = function init(site) {
     );
   })
 
-  // get Recent Orders Count
-  // need change to only count not find all
-  site.post("/api/pharmacy/getRecentOrdersCount", (req, res) => {
 
-    let response = {}
-
-    $orders.findMany({
-        select: req.body.select || {},
-        sort: req.body.sort || {
-          id: -1,
-        },
-        where: {
-          'status.statusId': site.var('activeId')
-        },
-        limit: req.body.limit || 10,
-      },
-      (err, docs, count) => {
-        if (!err) {
-          response.totalDocs = count
-          response.limit = 10
-          response.totalPages = Math.ceil(response.totalDocs / response.limit)
-        } else {
-          response.error = err.message;
-        }
-        res.json(response);
-      },
-    );
-  })
 
 
   // Update pharmacy 

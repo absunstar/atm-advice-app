@@ -1,6 +1,6 @@
 module.exports = function init(site) {
   const $patients = site.connectCollection('patients');
-  const $users_info = site.connectCollection('patients');
+  const $users_info = site.connectCollection('users_info');
   let ObjectID = require('mongodb').ObjectID
   site.get({
     name: 'images',
@@ -280,15 +280,25 @@ module.exports = function init(site) {
           },
           $req: req,
           $res: res
+        })
+        $users_info.edit({
+          where: {
+            mobile: (patients_doc.phone)
+          },
+          set: {
+            password: patients_doc.password
+          },
+          $req: req,
+          $res: res
         }, (err, result) => {
 
-          if (result) {
-            response.done = true
-            response.message = site.word('resetPassword')[req.headers.language]
-            response.errorCode = site.var('succeed')
-          }
+          response.done = true
+          response.message = site.word('resetPassword')[req.headers.language]
+          response.errorCode = site.var('succeed')
+
           res.json(response)
         })
+
       } else {
         response.done = false,
           response.errorCode = site.var('failed')
@@ -610,6 +620,16 @@ module.exports = function init(site) {
           },
           $req: req,
           $res: res
+        })
+        $users_info.edit({
+          where: {
+            _id: req.session.user._id
+          },
+          set: {
+            password: consultation_doc.newPassword
+          },
+          $req: req,
+          $res: res
         }, (err, result) => {
 
           response.done = true
@@ -618,7 +638,6 @@ module.exports = function init(site) {
 
           res.json(response)
         })
-
 
       }
       if (!doc || doc.password != consultation_doc.password) {
@@ -629,42 +648,6 @@ module.exports = function init(site) {
       }
     })
 
-
-//     $users_info.findOne({
-//       where: {
-//         '_id': req.session.user._id
-//       },
-//     }, (err, doc) => {
-// console.log(doc);
-
-//       if (doc && doc.password == consultation_doc.password) {
-//         $users_info.edit({
-//           where: {
-//             _id: req.session.user.ref_info._id
-//           },
-//           set: {
-//             password: consultation_doc.newPassword
-//           },
-//           $req: req,
-//           $res: res
-//         }, (err, result) => {
-
-//           response.done = true
-//           response.message = site.word('updatePassword')[req.headers.language]
-//           response.errorCode = site.var('succeed')
-
-//           res.json(response)
-//         })
-
-
-//       }
-//       if (!doc || doc.password != consultation_doc.password) {
-//         response.done = false
-//         response.message = site.word('passwordNotCorrect')[req.headers.language]
-//         response.errorCode = site.var('failed')
-//         res.json(response)
-//       }
-//     })
 
 
 
