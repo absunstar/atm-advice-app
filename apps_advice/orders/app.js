@@ -34,14 +34,18 @@ let ObjectID = require('mongodb').ObjectID
     // }
 
     let orders_doc = req.body;
-  
+    let str = orders_doc.user._id;
+    str = str.substr(1);
+    str = str.substr(0,str.length-1);
+    orders_doc.user={
+      _id : str
+    }
       if (orders_doc.address.lat == 0) {
         orders_doc.address.lat = 0.0
       }
       if (orders_doc.address.long == 0) {
         orders_doc.address.long = 0.0
       }
-      console.log("xxxxxxxxxxxx" ,"0.0");
     
     // orders_doc.$req = req;
     // orders_doc.$res = res;
