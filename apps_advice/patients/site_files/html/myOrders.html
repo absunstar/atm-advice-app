@@ -18,6 +18,7 @@
         <div class="row">
             <div class="row" ng-controller="patients">
                 <div  x-import="patients/myCurrentOrders.html"></div>
+                <div  x-import="patients/myCanceledOrders.html"></div>
                 <div class="row">
                     <h1 class="bold text-center">##word.myOrders##</h1>
                 </div>
@@ -32,7 +33,7 @@
                         <a class="tab-link" ng-click="displayAddPatients()">
                             ##word.myPreviousOrders##
                         </a>
-                        <a class="tab-link" ng-click="displayAddDoctors()">
+                        <a class="tab-link" ng-click="displayGetCanceledOrders()">
                             ##word.myCanceledOrders##
                         </a>
                   

@@ -699,6 +699,7 @@ if (orders_doc.address && orders_doc.address.lat && orders_doc.address.long) {
     req.headers.language = req.headers.language || 'en'
     let response = {}
     let orders_doc = req.body;
+    console.log(orders_doc);
     $orders.findMany({
       where: {
         'user._id': orders_doc.user._id,

@@ -288,9 +288,7 @@ $scope.success = "varification code success"
   };
 
 
-  $scope.myCurrentOrders = function (patients) {
-    console.log(` ##user##`);
-   
+  $scope.myCurrentOrders = function (order) {
     $scope.busy = true;
     $scope.list = [];
     $http({
@@ -302,11 +300,11 @@ $scope.success = "varification code success"
       }
     }).then(
       function (response) {
-        console.log("111111111" , response.data.data.docs);
+        
         $scope.busy = false;
         if (response.data.data && response.data.data.docs.length > 0) {
           $scope.currentOrderList =response.data.data.docs;
-          console.log("xxxxxxxxxxxxxxxxxx" , $scope.currentOrderList);
+         
           $scope.count = response.data.totalDocs;
          
           $scope.search = {};
@@ -320,12 +318,77 @@ $scope.success = "varification code success"
     )
   };
 
-  $scope.displayGetCurrentOrders = function () {
-   
-    $scope.myCurrentOrders();
-    
-    site.showModal('#myCurrentOrders');
 
+  $scope.myCanceledOrders = function (order) {
+    $scope.busy = true;
+    $scope.list = [];
+    
+    let str = '##user.ref_info._id##';
+    str = str.substr(1);
+    str = str.substr(0,str.length-1);
+    let xx = {};
+    xx.user = {_id : str};
+    console.log("xxxxxxxxxxxxxxxxx" , xx);
+    $http({
+      method: "POST",
+      url: "/api/orders/getCanceledOrdersByUser",
+      data:xx
+    }).then(
+      function (response) {
+        console.log(response.data);
+        $scope.busy = false;
+        if (response.data.data && response.data.data.docs.length > 0) {
+          $scope.canceledOrderList =response.data.data.docs;
+         
+          $scope.count = response.data.totalDocs;
+         
+          $scope.search = {};
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
+
+
+  $scope.cancelOrder = function (order) {
+   console.log(order);
+    $scope.busy = true;
+    $scope.list = [];
+    $http({
+      method: "POST",
+      url: "/api/orders/updateToStatusCanceled",
+      data:order
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.data && response.data.data.docs.length > 0) {
+          $scope.search = {};
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
+  
+
+  $scope.displayGetCurrentOrders = function () {
+    $scope.myCurrentOrders();
+    $scope.now = new Date();
+    site.showModal('#myCurrentOrders');
+  };
+
+  $scope.displayGetCanceledOrders = function () {
+    $scope.myCanceledOrders();
+    site.showModal('#myCanceledOrders');
   };
 
   $scope.displaySearchModal = function () {

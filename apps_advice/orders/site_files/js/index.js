@@ -319,12 +319,13 @@ app.controller("orders", function ($scope, $http, $timeout) {
     site.hideModal('#ordersSearchModal');
     $scope.search = {};
   };
+  
 
   $scope.getOrdersList();
   $scope.getGovesList();
   $scope.getCitiesList();
   $scope.getUsersList();
-
+  
   
   $scope.getInsuranceCompanyList();
 });
