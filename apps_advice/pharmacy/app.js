@@ -20,6 +20,18 @@ module.exports = function init(site) {
     }
   });
 
+  // site.get({
+  //   name: 'pharmacy/pharmacy_active',
+  //   path: __dirname + '/site_files/html/pharmacy_active.html',
+  //   parser: 'html',
+  //   compress: true,
+  //   require: {
+  //     permissions: []
+  //   }
+  // });
+
+
+
   site.on('[orders][pharmacy][show]', (obj, callback) => {
     let response = {}
     console.log("from pharmacy", obj);
