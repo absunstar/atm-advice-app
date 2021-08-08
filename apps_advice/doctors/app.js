@@ -218,7 +218,7 @@ module.exports = function init(site) {
           response.message = site.word('findSuccessfully')[req.headers.language]
           response.done = true;
         } else {
-          response.docs = []
+          response.data = {docs}
           response.errorCode = site.var('failed')
           response.message = site.word('findFailed')[req.headers.language]
           response.done = false;
@@ -305,7 +305,7 @@ module.exports = function init(site) {
 
       } else {
         response.done = false
-        response.docs = []
+        response.data = {docs}
         response.errorCode = site.var('failed')
         response.message = site.word('findFailed')[req.headers.language]
         res.json(response)
@@ -367,7 +367,7 @@ module.exports = function init(site) {
         response.message = site.word('findSuccessfully')[req.headers.language]
         res.json(response)
       } else {
-        response.docs = []
+        response.data = {docs}
         response.errorCode = site.var('failed')
         response.message = site.word('findFailed')[req.headers.language]
         res.json(response)
@@ -517,16 +517,19 @@ module.exports = function init(site) {
     }, (err, doc) => {
       if (doc) {
         let arr = []
-        doc.days.forEach(_d => {
-          let date = _d.date
-
-          let bodyDate = doctor_doc.date
-          if (String(date) == String(bodyDate)) {
-
-            arr = _d.times
-          }
-
-        });
+        if (doc.days.length > 0) {
+          doc.days.forEach(_d => {
+            let date = _d.date
+  
+            let bodyDate = doctor_doc.date
+            if (String(date) == String(bodyDate)) {
+  
+              arr = _d.times
+            }
+  
+          });
+        }
+        
 
 
         response.done = true,
@@ -612,7 +615,7 @@ module.exports = function init(site) {
         res.json(response)
       } else {
         response.done = false,
-          response.docs = []
+        response.data = []
         response.errorCode = site.var('failed')
         response.message = site.word('failedUpdated')[req.headers.language]
         res.json(response)
@@ -636,13 +639,26 @@ module.exports = function init(site) {
         let arr = []
         console.log(doc.days);
         if (doc.days) {
+          var a = new Date();
+          var weekdays = new Array(7);
+          weekdays[0] = "Sunday";
+          weekdays[1] = "Monday";
+          weekdays[2] = "Tuesday";
+          weekdays[3] = "Wednesday";
+          weekdays[4] = "Thursday";
+          weekdays[5] = "Friday";
+          weekdays[6] = "Saturday";
+          var r = weekdays[a.getDay()];
+          console.log(r);
 
           doc.days.push({
+            dayName : r,
             date: doctor_doc.date,
             times: []
           })
         } else {
           doc.days = [{
+            dayName : r,
             date: doctor_doc.date,
             times: []
           }]
@@ -1129,7 +1145,7 @@ module.exports = function init(site) {
         res.json(response)
       } else {
 
-        response.docs = docs || []
+        response.data = {docs}
         response.errorCode = site.var('failed')
         response.message = site.word('findFailed')[req.headers.language]
         response.done = false;
@@ -1258,7 +1274,7 @@ module.exports = function init(site) {
         res.json(response)
       } else {
 
-        response.docs = docs || []
+        response.data = {docs}
         response.errorCode = site.var('failed')
         response.message = site.word('findFailed')[req.headers.language]
         response.done = false;

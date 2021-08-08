@@ -1,5 +1,7 @@
 module.exports = function init(site) {
   const $patients = site.connectCollection('patients');
+  const $users_info = site.connectCollection('users_info');
+  let ObjectID = require('mongodb').ObjectID
   site.get({
     name: 'images',
     path: __dirname + '/site_files/images/',
@@ -278,15 +280,25 @@ module.exports = function init(site) {
           },
           $req: req,
           $res: res
+        })
+        $users_info.edit({
+          where: {
+            mobile: (patients_doc.phone)
+          },
+          set: {
+            password: patients_doc.password
+          },
+          $req: req,
+          $res: res
         }, (err, result) => {
 
-          if (result) {
-            response.done = true
-            response.message = site.word('resetPassword')[req.headers.language]
-            response.errorCode = site.var('succeed')
-          }
+          response.done = true
+          response.message = site.word('resetPassword')[req.headers.language]
+          response.errorCode = site.var('succeed')
+
           res.json(response)
         })
+
       } else {
         response.done = false,
           response.errorCode = site.var('failed')
@@ -608,6 +620,16 @@ module.exports = function init(site) {
           },
           $req: req,
           $res: res
+        })
+        $users_info.edit({
+          where: {
+            _id: req.session.user._id
+          },
+          set: {
+            password: consultation_doc.newPassword
+          },
+          $req: req,
+          $res: res
         }, (err, result) => {
 
           response.done = true
@@ -616,6 +638,7 @@ module.exports = function init(site) {
 
           res.json(response)
         })
+
       }
       if (!doc || doc.password != consultation_doc.password) {
         response.done = false
@@ -624,6 +647,10 @@ module.exports = function init(site) {
         res.json(response)
       }
     })
+
+
+
+
   })
 
 

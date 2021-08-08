@@ -34,8 +34,21 @@ let ObjectID = require('mongodb').ObjectID
     // }
 
     let orders_doc = req.body;
-  
-      
+    if (orders_doc.user._id.length > 24) {
+      let str = orders_doc.user._id;
+      str = str.substr(1);
+      str = str.substr(0,str.length-1);
+      orders_doc.user={
+        _id : str
+      }
+    }
+   
+      if (orders_doc.address.lat == 0) {
+        orders_doc.address.lat = 0.0
+      }
+      if (orders_doc.address.long == 0) {
+        orders_doc.address.long = 0.0
+      }
     
     // orders_doc.$req = req;
     // orders_doc.$res = res;
@@ -689,6 +702,7 @@ if (orders_doc.address && orders_doc.address.lat && orders_doc.address.long) {
     req.headers.language = req.headers.language || 'en'
     let response = {}
     let orders_doc = req.body;
+    console.log(orders_doc);
     $orders.findMany({
       where: {
         'user._id': orders_doc.user._id,
@@ -849,7 +863,7 @@ skip : skip
             address: doc.address,
             insuranceNumber: doc.insuranceNumber,
             user: doc.user,
-
+image : doc.image,
             isActive: true,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -899,7 +913,7 @@ skip : skip
             address: doc.address,
             insuranceNumber: doc.insuranceNumber,
             user: doc.user,
-
+            image : doc.image,
             isActive: true,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -948,7 +962,7 @@ skip : skip
             address: doc.address,
             insuranceNumber: doc.insuranceNumber,
             user: doc.user,
-
+            image : doc.image,
             isActive: true,
             createdAt: new Date(),
             updatedAt: new Date(),

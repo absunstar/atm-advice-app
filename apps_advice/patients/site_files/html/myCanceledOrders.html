@@ -1,17 +1,17 @@
-<div id="myCurrentOrders" class="modal" fixed>
+<div id="myCanceledOrders" class="modal" fixed>
 
     <div class="modal-content">
         <div class="modal-header">
             <span class="close">&times;</span>
             <h2>
-                ##word.myCurrentOrder##
+                ##word.myCanceledOrder##
                 <i class="fa fa-plus "></i>
             </h2>
         </div>
 
         <div class="modal-body">
 
-            <div ng-repeat="c in currentOrderList">
+            <div ng-repeat="c in canceledOrderList">
                 <fieldset>
                     <legend> ##word.basic_information## </legend>
                     <div class="col2">

@@ -49,36 +49,21 @@ module.exports = function init(site) {
     // contactUs_doc.company = site.get_company(req);
     // contactUs_doc.branch = site.get_branch(req);
 
-    $contactUs.find(
-      {
-        where: {
-          'name': contactUs_doc.name,
-        },
-      },
-      (err, doc) => {
-        if (!err && doc) {
-          response.error = site.word('nameExist')[req.headers.language]
-          res.json(response);
-        } else {
+    $contactUs.add(contactUs_doc, (err, doc) => {
+      if (!err) {
+        response.data = doc;
+        response.errorCode = site.var('succeed')
+        response.message = site.word('contactUsCreated')[req.headers.language]
+        response.done = true;
 
-          $contactUs.add(contactUs_doc, (err, doc) => {
-            if (!err) {
-              response.data = doc;
-              response.errorCode = site.var('succeed')
-              response.message = site.word('contactUsCreated')[req.headers.language]
-              response.done = true;
+      } else {
+        response.errorCode = site.var('failed')
+        response.message = site.word('errorHappened')[req.headers.language]
+        response.done = false;
+      }
 
-            } else {
-              response.errorCode = site.var('failed')
-              response.message = site.word('errorHappened')[req.headers.language]
-              response.done = false;
-            }
-
-            res.json(response);
-          });
-        }
-      },
-    );
+      res.json(response);
+    });
   });
 
   // Update Degree 

@@ -23,7 +23,7 @@ app.controller("orders", function ($scope, $http, $timeout) {
       $scope.error = v.messages[0].ar;
       return;
     }
-   console.log('##user.ref_info._id##' );
+   console.log('##user.ref_info._id##');
    $scope.orders.user = {
      _id : '##user.ref_info._id##' 
    };
@@ -319,12 +319,13 @@ app.controller("orders", function ($scope, $http, $timeout) {
     site.hideModal('#ordersSearchModal');
     $scope.search = {};
   };
+  
 
   $scope.getOrdersList();
   $scope.getGovesList();
   $scope.getCitiesList();
   $scope.getUsersList();
-
+  
   
   $scope.getInsuranceCompanyList();
 });
