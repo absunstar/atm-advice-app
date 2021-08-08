@@ -20,15 +20,15 @@ module.exports = function init(site) {
     }
   });
 
-  // site.get({
-  //   name: 'pharmacy/pharmacy_active',
-  //   path: __dirname + '/site_files/html/pharmacy_active.html',
-  //   parser: 'html',
-  //   compress: true,
-  //   require: {
-  //     permissions: []
-  //   }
-  // });
+  site.get({
+    name: 'pharmacy/active_pharmacy',
+    path: __dirname + '/site_files/html/pharmacy_active.html',
+    parser: 'html',
+    compress: true,
+    require: {
+      permissions: []
+    }
+  });
 
 
 
@@ -301,7 +301,13 @@ module.exports = function init(site) {
   site.post('/api/pharmacy/updatePharmacyAvailable', (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {}
-
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
     $pharmacy.findOne({
       where: {
         _id: req.session.user.ref_info._id
@@ -360,7 +366,13 @@ module.exports = function init(site) {
   site.post('/api/pharmacy/updatePharmacyAvailable', (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {}
-
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
     $pharmacy.edit({
       where: {
         _id: req.session.user.ref_info._id,
@@ -386,7 +398,13 @@ module.exports = function init(site) {
     let response = {}
     req.headers.language = req.headers.language || 'en'
     let pharmacy_doc = req.body
-
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
     $pharmacy.findOne({
       where: {
         _id: req.session.user.ref_info._id
@@ -478,7 +496,13 @@ module.exports = function init(site) {
   // need request session user
   site.post("/api/pharmacy/getActiveOrders", (req, res) => {
     req.headers.language = req.headers.language || 'en'
-    console.log(req.session.user.ref_info._id);
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
     let limit = 10
     let skip
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
@@ -524,7 +548,13 @@ module.exports = function init(site) {
   // need request session user
   site.post("/api/pharmacy/getCurrentOrdersCount", (req, res) => {
     req.headers.language = req.headers.language || 'en'
-    console.log(req.session.user.ref_info._id);
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
     let limit = 10
     let skip
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
@@ -570,6 +600,13 @@ module.exports = function init(site) {
     let skip
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10
+    }
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
     }
     let response = {}
     let pharmacy_doc = req.body
@@ -704,7 +741,7 @@ module.exports = function init(site) {
         response.errorCode = site.var('failed')
         response.message = site.word('loginFirst')[req.headers.language]
         res.json(response)
-      
+      return
     }
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10

@@ -21,6 +21,16 @@ module.exports = function init(site) {
     }
   });
 
+  site.get({
+    name: 'doctors/active_doctor',
+    path: __dirname + '/site_files/html/doctor_active.html',
+    parser: 'html',
+    compress: true,
+    require: {
+      permissions: []
+    }
+  });
+
   // Add New Doctors With Not Duplicate Name Validation
 
   site.post({
