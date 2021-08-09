@@ -1,18 +1,18 @@
 [
     {
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+        "name": "insuranceNumberNotExist",
+        "en": "Insurance Number Not Exist",
+        "ar": "الرقم التاميني غير موجود"
     },
     {
-        "name": "goves_new",
-        "en": "New Gov",
-        "ar": "محافظة جديدة"
+        "name": "balanceEnough",
+        "en": "balance Enough",
+        "ar": "يوجد رصيد كافي للاستشارة"
     },
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "balanceNotEnough",
+        "en": "balance Not Enough",
+        "ar": "الرصيد غير كافي "
     },
     {
         "name": "goves_edit",
