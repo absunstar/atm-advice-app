@@ -120,6 +120,36 @@ module.exports = function init(site) {
   })
 
 
+    // Update consultation 
+
+    site.post('/api/consultation/getCurrentPatientBalance', (req, res) => {
+      let response = {}
+      req.headers.language = req.headers.language || 'en'
+      let consultation_doc = req.body
+      $patients.findOne({
+        where: {
+          _id: consultation_doc.user._id
+        }
+      }, (err, doc) => {
+        if (doc) {
+          response.done = true,
+            response.data = {
+              docs : [{balance : doc.balance}]
+            }
+          response.errorCode = site.var('succeed')
+          response.message = site.word('findSuccessfully')[req.headers.language]
+          res.json(response)
+        } else {
+          response.done = false,
+            response.errorCode = site.var('failed')
+          response.message = site.word('failedUpdated')[req.headers.language]
+          res.json(response)
+        }
+
+      })
+    })
+
+
   // get All consultationes
 
   site.get("/api/consultation", (req, res) => {
@@ -360,7 +390,7 @@ module.exports = function init(site) {
     }
     $consultation.findOne({
       where: {
-        'status.statusId': site.var('accepted'),
+        'status.statusId': site.var('finishedId'),
         'user._id': String(req.session.user.ref_info._id),
         _id: consultation_doc._id
       },
@@ -368,7 +398,7 @@ module.exports = function init(site) {
       if (doc) {
         $consultation.edit({
           where: {
-            'status.statusId': site.var('accepted'),
+            'status.statusId': site.var('finishedId'),
             'user._id': String(req.session.user.ref_info._id),
             _id: consultation_doc._id
           },
@@ -559,6 +589,14 @@ module.exports = function init(site) {
                 }
               
                 response.message = site.word('consultationUpdated')[req.headers.language]
+                response.data = {
+                  docs : [
+                    {
+                      date : doc2.startConsultation.toLocaleDateString("en"),
+                      time : doc2.startConsultation.toLocaleTimeString("en")
+                    }
+                  ]
+                }
                 response.done = true,
                   response.errorCode = site.var('succeed')
                 res.json(response)
@@ -566,6 +604,7 @@ module.exports = function init(site) {
               }
               if (!doc2) {
                 let obj = {}
+                obj.data = {docs : []}
                 obj.errorCode = site.var('failed')
                 obj.message = site.word('noAcceptedconsultation')[req.headers.language]
                 obj.done = false
@@ -579,6 +618,7 @@ module.exports = function init(site) {
       }
       if (!doc) {
         let obj = {}
+        obj.data = {docs : []}
         obj.errorCode = site.var('failed')
         obj.message = site.word('noAcceptedconsultation')[req.headers.language]
         obj.done = false
