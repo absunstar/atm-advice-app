@@ -3,6 +3,10 @@ module.exports = function init(site) {
   const $consultationDoctors = site.connectCollection('consultationDoctors');
   const $patients = site.connectCollection('patients');
   const $insuranceCompany = site.connectCollection('insuranceCompany');
+  const $notificationData = site.connectCollection('notificationData');
+  const $rating = site.connectCollection('rating');
+
+
   let ObjectID = require('mongodb').ObjectID
   const Agora = require('agora-access-token')
 
@@ -212,7 +216,20 @@ module.exports = function init(site) {
       message: site.word('tokenAvailable')[req.headers.language]
 
     }
+   
+    $consultation.edit({
+      where: {
+       
+        _id: req.body.consultationId
+      },
+      set: {
+        token: obj.data.token,
+        channel: obj.data.channel,
+      },
+    })
     res.json(obj)
+   
+  
   })
 
 
@@ -345,7 +362,6 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
-    console.log(req.session.user.ref_info._id);
     $consultation.findOne({
       where: {
         'status.statusId': site.var('activeId'),
@@ -992,6 +1008,7 @@ module.exports = function init(site) {
     }
     $consultation.findOne({
       where: {
+        _id : req.body.consultationId,
         'status.statusId': site.var('finishedId'),
         'user._id': String(req.session.user.ref_info._id)
       },
@@ -1015,14 +1032,26 @@ module.exports = function init(site) {
 
         $consultation.edit({
           where: {
+            _id : req.body.consultationId,
             'status.statusId': site.var('finishedId'),
             "user._id": String(req.session.user.ref_info._id),
           },
           set: {
-            'rate.value': valDiscount,
+            'rate.value': consultation_doc.rate.value,
             'rate.comment': consultation_doc.rate.comment
           },
         })
+
+        let createdObj = {
+          user: doc.user,
+          date : new Date().toISOString().split('T')[0],
+          target: doc.doctor,
+          rating: consultation_doc.rate.value,
+          type: "consultation",
+          description: consultation_doc.rate.comment,
+        }
+        $rating.add(createdObj)
+
         response.message = site.word('rateUpdated')[req.headers.language]
         response.done = true,
           response.errorCode = site.var('succeed')
@@ -1039,6 +1068,65 @@ module.exports = function init(site) {
     })
   });
 
+
+
+    // send Notification To Doctor
+    site.post('/api/consultation/sendNotificationToDoctor', (req, res) => {
+      let response = {}
+      req.headers.language = req.headers.language || 'en'
+      let consultation_doc = req.body
+      if (!req.session.user) {
+        response.errorCode = site.var('failed')
+        response.message = site.word('loginFirst')[req.headers.language]
+        response.done = false;
+        res.json(response);
+        return;
+      }
+
+
+      $consultation.findOne({
+        where: {
+          _id : req.body.consultationId,
+          'status.statusId': site.var('finishedId'),
+          'user._id': String(req.session.user.ref_info._id)
+        },
+      }, (err, doc, count) => {
+        if (doc) {
+        console.log(doc);
+          let notificationObj = {
+            title:  doc.user.fullName + ': ' + site.word('thisPatientSendNotificationToSendHimDiagnosisFile')[req.headers.language],
+            doctor:doc.doctor,
+            type: "consultation",
+            user: doc.user,
+            createdAt: new Date().toLocaleString('en-US'),
+          }
+          $notificationData.add(notificationObj);
+          let obj = {}
+          obj.errorCode = site.var('succeed')
+          obj.message = site.word('notificationSent')[req.headers.language]
+          obj.done = true
+          res.json(obj)
+          return
+        }
+        if (!doc) {
+          let obj = {}
+          obj.errorCode = site.var('failed')
+          obj.message = site.word('noConsultation')[req.headers.language]
+          obj.done = false
+          res.json(obj)
+          return
+        }
+      })
+
+
+
+     
+
+
+
+
+    
+    });
 
 
 

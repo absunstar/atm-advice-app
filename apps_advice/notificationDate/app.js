@@ -254,6 +254,60 @@ module.exports = function init(site) {
 
 
 
+
+
+
+// get All Booking Done For Today
+site.post('', (req, res) => {
+  req.headers.language = req.headers.language || 'en'
+  let response = {}
+  let limit = 10
+  let skip
+  if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+    skip = (parseInt(req.query.page) - 1) * 10
+  }
+
+  let notification_doc = req.body;
+
+  $notificationData.findMany({
+    where: {
+      'type': "consultation",
+      'doctor._id': notification_doc.doctor._id,
+    },
+    limit: limit,
+    skip: skip,
+    $req: req,
+    $res: res
+  }, (err, docs, count) => {
+    if (docs && docs.length > 0) {
+      response.data = {
+        docs: docs,
+        totalDocs: count,
+        limit: 10,
+        totalPages: Math.ceil(count / 10)
+      }
+
+      response.done = true
+
+      response.message = site.word('findNotification')[req.headers.language],
+        response.errorCode = site.var('succeed')
+      res.json(response)
+    } else {
+
+      response.done = false
+      response.message = site.word('notFindNotification')[req.headers.language],
+        response.errorCode = site.var('failed')
+      res.json(response)
+    }
+  })
+});
+
+
+
+
+
+
+
   // get All Booking Done For Today
   site.post('/api/notificationData/getAllDoctorNotifications', (req, res) => {
     req.headers.language = req.headers.language || 'en'
@@ -581,6 +635,95 @@ module.exports = function init(site) {
     })
   });
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     // Hard Delete Notification pharmacy
+     site.post('/api/notificationData/deleteByConsultationDoctor/deleteOne', (req, res) => {
+      let response = {
+        done: false,
+      };
+      let notification_doc = req.body
+      req.headers.language = req.headers.language || 'en'
+  
+      $notificationData.delete({
+          "doctor._id": notification_doc.doctor._id,
+          "_id": notification_doc.notificationId,
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.errorCode = site.var('succeed')
+          response.message = site.word('notificationDeleted')[req.headers.language]
+          response.done = true;
+          
+          } else {
+            response.errorCode = site.var('failed')
+          response.message = site.word('failedDelete')[req.headers.language]
+          response.done = false;
+          }
+          res.json(response);
+        },
+      );
+  
+    });
+  
+    // Hard Delete All notifications pharmacy
+    site.post('/api/notificationData/deleteByConsultationDoctor/deleteAll', (req, res) => {
+      let response = {
+        done: false,
+      };
+      let notification_doc = req.body
+  
+  
+      $notificationData.deleteAll({
+          where: {
+            "doctor._id": notification_doc.doctor._id,
+          },
+          $req: req,
+          $res: res,
+        },
+        (err, result) => {
+          if (!err) {
+            response.errorCode = site.var('succeed')
+            response.message = site.word('notificationsDeleted')[req.headers.language]
+            response.done = true;
+          } else {
+            response.done = false,
+              response.errorCode = 406
+            response.message = 'failedDelete'
+          }
+          res.json(response);
+        },
+      );
+  
+    });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
