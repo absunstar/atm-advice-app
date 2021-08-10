@@ -15,9 +15,9 @@
         "ar": "الرصيد غير كافي "
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "normalUser",
+        "en": "normal User",
+        "ar": "عميل عادي "
     },
     {
         "name": "goves_details",

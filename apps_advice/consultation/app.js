@@ -730,82 +730,56 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
-    $consultation.findOne({
+    console.log(req.body);
+    $patients.findOne({
       where: {
-        'status.statusId': site.var('activeId'),
-        '_id': req.body.consultationId
-      },
-    }, (err, doc, count) => {
-      if (doc) {
-        $patients.findOne({
-          where: {
-            _id: (doc.user._id)
-          }
-        }, (err, userDoc) => {
-          if (req.body.patientType == 'hasInsurance') {
-            if (userDoc.hasInsurance && userDoc.hasInsurance == true) {
-              console.log(userDoc.insuranceCompany._id);
-
-              $insuranceCompany.findOne({
-                where: {
-                  _id: userDoc.insuranceCompany._id
-                }
-              }, (err, insuranceDoc) => {
-                let insuranceNumbersList = insuranceDoc.insuranceNumbers.map(li => li.number)
-                if (insuranceNumbersList.includes(userDoc.insuranceNumber) == true) {
-                  if (insuranceDoc.balance < doc.period) {
-                    response.errorCode = site.var('failed')
-                    response.message = site.word('insuranceCompanyRecharge')[req.headers.language]
-                    response.done = false
-                    res.json(response)
-                    return
-                  } else {
-                    response.errorCode = site.var('success')
-                    response.message = site.word('balanceEnough')[req.headers.language]
-                    response.done = true
-                    res.json(response)
-                    return
-                  }
-
-                }
-
-                if (insuranceNumbersList.includes(userDoc.insuranceNumber) == false) {
-                  response.errorCode = site.var('failed')
-                  response.message = site.word('insuranceNumberNotExist')[req.headers.language]
-                  response.done = false
-                  res.json(response)
-                  return
-                }
-              })
+        _id: req.body.user._id
+      }
+    }, (err, userDoc) => {
+      if (req.body.patientType == 'hasInsurance') {
+        if (userDoc.hasInsurance && userDoc.hasInsurance == true) {
+         
+          $insuranceCompany.findOne({
+            where: {
+              _id: userDoc.insuranceCompany._id
             }
-          }
-          if (req.body.patientType == 'normalPatient') {
-            if (userDoc.balance < doc.price) {
+          }, (err, insuranceDoc) => {
+            let insuranceNumbersList = insuranceDoc.insuranceNumbers.map(li => li.number)
+            if (insuranceNumbersList.includes(userDoc.insuranceNumber) == true) {
+              if (insuranceDoc.balance < 15) {
+                response.errorCode = site.var('failed')
+                response.message = site.word('insuranceCompanyRecharge')[req.headers.language]
+                response.done = false
+                res.json(response)
+                return
+              } else {
+                response.errorCode = site.var('success')
+                response.message = site.word('balanceEnough')[req.headers.language]
+                response.done = true
+                res.json(response)
+                return
+              }
+
+            }
+
+            if (insuranceNumbersList.includes(userDoc.insuranceNumber) == false) {
               response.errorCode = site.var('failed')
-              response.message = site.word('balanceNotEnough')[req.headers.language]
+              response.message = site.word('insuranceNumberNotExist')[req.headers.language]
               response.done = false
               res.json(response)
               return
             }
-            if (userDoc.balance < doc.price) {
-              response.errorCode = site.var('success')
-              response.message = site.word('balanceEnough')[req.headers.language]
-              response.done = true
-              res.json(response)
-              return
-            }
-          }
-
-        })
+          })
+        }
       }
-      if (!doc) {
-        let obj = {}
-        obj.errorCode = site.var('failed')
-        obj.message = site.word('noAcceptedconsultation')[req.headers.language]
-        obj.done = false
-        res.json(obj)
+      else{
+        response.errorCode = site.var('success')
+        response.message = site.word('normalUser')[req.headers.language]
+        response.done = true
+        res.json(response)
         return
       }
+
     })
   });
 
