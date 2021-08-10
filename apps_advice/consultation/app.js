@@ -4,7 +4,7 @@ module.exports = function init(site) {
   const $patients = site.connectCollection('patients');
   const $insuranceCompany = site.connectCollection('insuranceCompany');
   let ObjectID = require('mongodb').ObjectID
-  // const Agora = require('agora-access-token')
+  const Agora = require('agora-access-token')
 
   site.get({
     name: 'images',
@@ -183,76 +183,78 @@ module.exports = function init(site) {
     );
   })
 
-  // // RTC Token
+  // RTC Token
 
-  // site.post("/api/consultation/rtctoken", (req, res) => {
-  //   let response = {}
-  //   let consultation_doc = req.body
-  //   const appID = "210ed2de0c3e46fbb02596beb3699813";
-  //   const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
-  //   const expirationTimeInSeconds = 3600;
-  //   const uid = Math.floor(Math.random() * 100000);
-  //   req.headers.language = req.headers.language || 'en'
-  //   const role = consultation_doc.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
-  //   const channel = consultation_doc.channel || "test";
-  //   const currentTimestamp = Math.floor(Date.now() / 1000);
-  //   const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
+  site.post("/api/consultation/rtctoken", (req, res) => {
+    let response = {}
+    let consultation_doc = req.body
+   
+    const appID = "210ed2de0c3e46fbb02596beb3699813";
+    const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
+    const expirationTimeInSeconds = 3600;
+    const uid = Math.floor(Math.random() * 100000);
+    req.headers.language = req.headers.language || 'en'
+    const role = consultation_doc.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
+    const channel = consultation_doc.user._id+new Date().getTime()+consultation_doc.doctor._id;
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+    const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
 
-  //   const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channel, uid, role, expirationTimestamp);
+    const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channel, uid, role, expirationTimestamp);
 
-  //   let obj = {
-  //     done: true,
-  //     errorCode: site.var('succeed'),
-  //     data: {
-  //       token: token,
-  //       uid: uid
-  //     },
-  //     message: site.word('tokenAvailable')[req.headers.language]
+    let obj = {
+      done: true,
+      errorCode: site.var('succeed'),
+      data: {
+        token: token,
+        uid: uid,
+        channel : channel
+      },
+      message: site.word('tokenAvailable')[req.headers.language]
 
-  //   }
-  //   res.json(obj)
-  // })
+    }
+    res.json(obj)
+  })
 
 
-  //  // generate Access Token
+   // generate Access Token
 
-  //  site.post("/api/consultation/generateAccessToken", (req, res) => {
-  //   let consultation_doc = req.body
-  //   const appID = "210ed2de0c3e46fbb02596beb3699813";
-  //   const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
-  //   const channelName = consultation_doc.channelName || "testChannel";
+   site.post("/api/consultation/generateAccessToken", (req, res) => {
+    let consultation_doc = req.body
+    const appID = "210ed2de0c3e46fbb02596beb3699813";
+    const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
+    const channelName = consultation_doc.channelName || "testChannel";
 
-  //   // get uid 
-  //   let uid = Math.floor(Math.random() * 100000);
+    // get uid 
+    let uid = Math.floor(Math.random() * 100000);
 
-  //   // get role
-  //   let role = consultation_doc.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
+    // get role
+    let role = consultation_doc.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
 
-  //   // get the expire time
-  //   let expireTime = req.query.expireTime;
-  //   if (!expireTime || expireTime == '') {
-  //     expireTime = 3600;
-  //   } else {
-  //     expireTime = parseInt(expireTime, 10);
-  //   }
-  //   // calculate privilege expire time
-  //   const currentTime = Math.floor(Date.now() / 1000);
-  //   const privilegeExpireTime = currentTime + expireTime;
-  //   // build the token
-  //   const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpireTime);
-  //   // return the token
-  //   let obj = {
-  //     done: true,
-  //     errorCode: site.var('succeed'),
-  //     data: {
-  //       token: token,
-  //       uid: uid
-  //     },
-  //     message: site.word('tokenAvailable')[req.headers.language]
+    // get the expire time
+    let expireTime = req.query.expireTime;
+    if (!expireTime || expireTime == '') {
+      expireTime = 3600;
+    } else {
+      expireTime = parseInt(expireTime, 10);
+    }
+    // calculate privilege expire time
+    const currentTime = Math.floor(Date.now() / 1000);
+    const privilegeExpireTime = currentTime + expireTime;
+    // build the token
+    const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpireTime);
+    // return the token
+    let obj = {
+      done: true,
+      errorCode: site.var('succeed'),
+      data: {
+        token: token,
+        uid: uid
+      },
+      message: site.word('tokenAvailable')[req.headers.language]
 
-  //   }
-  //   res.json(obj)
-  // })
+    }
+    res.json(obj)
+  })
 
 
 
@@ -392,15 +394,16 @@ module.exports = function init(site) {
       where: {
         'status.statusId': site.var('finishedId'),
         'user._id': String(req.session.user.ref_info._id),
-        _id: consultation_doc._id
+        _id: consultation_doc.consultationId
       },
     }, (err, doc, count) => {
+      console.log(doc);
       if (doc) {
         $consultation.edit({
           where: {
             'status.statusId': site.var('finishedId'),
             'user._id': String(req.session.user.ref_info._id),
-            _id: consultation_doc._id
+            _id: consultation_doc.consultationId
           },
           set: {
             attachments: consultation_doc.attachments
@@ -423,6 +426,66 @@ module.exports = function init(site) {
     })
   });
 
+
+
+  site.post('/api/consultation/upload/image/consultation', (req, res) => {
+    let response = {}
+    req.headers.language = req.headers.language || 'en'
+
+    site.createDir(site.dir + '/../../uploads/' + 'consultation', () => {
+      site.createDir(site.dir + '/../../uploads/' + 'consultation' + '/images', () => {
+        let response = {
+          done: !0,
+        };
+        let file = req.files.fileToUpload;
+        if (file) {
+          let newName = 'image_' + new Date().getTime().toString().replace('.', '_') + '.png';
+          let newpath = site.dir + '/../../uploads/' + 'consultation' + '/images/' + newName;
+          site.mv(file.path, newpath, function (err) {
+            if (err) {
+              response.error = err;
+              response.done = !1;
+            }
+            response.image_url = '/api/image/' + 'consultation' + '/' + newName;
+            res.json(response);
+          });
+        } else {
+          response.error = 'no file';
+          response.done = !1;
+          res.json(response);
+        }
+      });
+    });
+  });
+
+  site.post('/api/consultation/upload/file/consultation', (req, res) => {
+    site.createDir(site.dir + '/../../uploads/' + 'consultation', () => {
+      site.createDir(site.dir + '/../../uploads/' + 'consultation' + '/files', () => {
+        let response = {
+          done: !0,
+        };
+        let file = req.files.fileToUpload;
+        if (!file) {
+          response.done = !1;
+          response.error = 'no file uploaded';
+          res.json(response);
+          return;
+        }
+        let newName = 'file_' + new Date().getTime() + '.' + site.path.extname(file.name);
+        let newpath = site.dir + '/../../uploads/' + 'consultation' + '/files/' + newName;
+        site.mv(file.path, newpath, function (err) {
+          if (err) {
+            response.error = err;
+            response.done = !1;
+          }
+          // response.file = {};
+          response.image_url = '/api/file/' + 'consultation' + '/' + newName;
+          // response.file.name = file.name;
+          res.json(response);
+        });
+      });
+    });
+  });
 
 
   // get accepted consultation
