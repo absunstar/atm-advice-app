@@ -540,7 +540,7 @@ module.exports = function init(site) {
     }
     $consultationDoctors.findMany({
       where: {
-        'departments._id': consultation_doc.departments._id,
+        'department._id': consultation_doc.departments._id,
         isAvailable: true
       },
     }, (err, docs, count) => {
