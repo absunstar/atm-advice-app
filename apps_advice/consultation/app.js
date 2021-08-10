@@ -557,8 +557,9 @@ module.exports = function init(site) {
           response.errorCode = site.var('succeed')
         res.json(response)
       }
-      if (!doc) {
+      if (docs.length == 0) {
         let obj = {}
+        obj.data = {docs:[]}
         obj.errorCode = site.var('failed')
         obj.message = site.word('noAcceptedconsultation')[req.headers.language]
         obj.done = false
