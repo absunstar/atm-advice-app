@@ -730,7 +730,6 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
-    console.log(req.body);
     $patients.findOne({
       where: {
         _id: req.body.user._id
@@ -745,7 +744,7 @@ module.exports = function init(site) {
             }
           }, (err, insuranceDoc) => {
             let insuranceNumbersList = insuranceDoc.insuranceNumbers.map(li => li.number)
-            if (insuranceNumbersList.includes(userDoc.insuranceNumber) == true) {
+            if (insuranceNumbersList.includes(req.body.insuranceNumber) == true) {
               if (insuranceDoc.balance < 15) {
                 response.errorCode = site.var('failed')
                 response.message = site.word('insuranceCompanyRecharge')[req.headers.language]
