@@ -517,7 +517,7 @@ module.exports = function init(site) {
     }
     $consultation.findOne({
       where: {
-        'status.statusId': site.var('activeId'),
+        'status.statusId': site.var('acceptedId'),
         'user._id': String(req.session.user.ref_info._id)
       },
     }, (err, doc, count) => {
