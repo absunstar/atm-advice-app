@@ -739,21 +739,15 @@ module.exports = function init(site) {
   site.post('/api/consultation/checkBeforeAccept', (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {}
-    if (!req.session.user) {
-      response.errorCode = site.var('failed')
-      response.message = site.word('loginFirst')[req.headers.language]
-      response.done = false;
-      res.json(response);
-      return;
-    }
+   
     $patients.findOne({
       where: {
         _id: req.body.user._id
       }
     }, (err, userDoc) => {
+     
       if (req.body.patientType == 'hasInsurance') {
         if (userDoc.hasInsurance && userDoc.hasInsurance == true) {
-         
           $insuranceCompany.findOne({
             where: {
               _id: userDoc.insuranceCompany._id
@@ -768,7 +762,7 @@ module.exports = function init(site) {
                 res.json(response)
                 return
               } else {
-                response.errorCode = site.var('success')
+                response.errorCode = site.var('succeed')
                 response.message = site.word('balanceEnough')[req.headers.language]
                 response.done = true
                 res.json(response)
@@ -777,7 +771,7 @@ module.exports = function init(site) {
 
             }
 
-            if (insuranceNumbersList.includes(userDoc.insuranceNumber) == false) {
+            if (insuranceNumbersList.includes(req.body.insuranceNumber) == false) {
               response.errorCode = site.var('failed')
               response.message = site.word('insuranceNumberNotExist')[req.headers.language]
               response.done = false
