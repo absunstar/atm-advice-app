@@ -430,39 +430,6 @@ module.exports = function init(site) {
 
   // get Doctor profile
 
-  site.post("/api/consultationDoctors/getProfile", (req, res) => {
-    let response = {}
-    req.headers.language = req.headers.language || 'en'
-    if (!req.session.user) {
-      response.errorCode = site.var('failed')
-      response.message = site.word('loginFirst')[req.headers.language]
-      response.done = false;
-      res.json(response);
-      return;
-    }
-    $consultationDoctors.findOne({
-      where: {
-        _id: req.session.user.ref_info._id
-      },
-
-    }, (err, doc) => {
-      if (doc) {
-        response.data = doc
-        response.done = true
-        response.message = site.word('findDoctor')[req.headers.language]
-        response.errorCode = site.var('succeed')
-      }
-      if (!doc) {
-        response.done = false
-        response.message = site.word('failedFindDoctor')[req.headers.language]
-        response.errorCode = site.var('failed')
-      }
-      res.json(response)
-
-    })
-
-
-  })
 
 
 

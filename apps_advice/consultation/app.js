@@ -49,6 +49,7 @@ module.exports = function init(site) {
       consultation_doc.consultationPeriod = null
     consultation_doc.startConsultation = null
     consultation_doc.time = 0,
+    isRate = false
       consultation_doc.status = {
         statusId: site.var('activeId'),
         name: site.var('active')
@@ -56,6 +57,7 @@ module.exports = function init(site) {
 
       consultation_doc.createdAt = new Date()
     consultation_doc.updatedAt = new Date()
+    consultation_doc.attachments = {}
     $consultation.add(consultation_doc, (err, doc) => {
       if (!err) {
         response.data = doc;
@@ -225,6 +227,7 @@ module.exports = function init(site) {
       set: {
         token: obj.data.token,
         channel: obj.data.channel,
+        startConsultationTime : new Date().toLocaleTimeString('en-US', { hour12: false , hour: '2-digit', minute: '2-digit' })
       },
     })
     res.json(obj)
@@ -316,7 +319,7 @@ module.exports = function init(site) {
     }
     $consultation.findMany({
       where: {
-        'status.statusId': site.var('finishedId'),
+        'status.statusId': 8,
         'user._id': String(req.session.user.ref_info._id)
       },
     }, (err, docs, count) => {
@@ -403,9 +406,13 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
+    consultation_doc.attachments = {}
+    if (consultation_doc.attachments.image.length > 0) {
+      
+    }
     $consultation.findOne({
       where: {
-        'status.statusId': site.var('finishedId'),
+        'status.statusId': 8,
         'user._id': String(req.session.user.ref_info._id),
         _id: consultation_doc.consultationId
       },
@@ -414,7 +421,7 @@ module.exports = function init(site) {
       if (doc) {
         $consultation.edit({
           where: {
-            'status.statusId': site.var('finishedId'),
+            'status.statusId': 8,
             'user._id': String(req.session.user.ref_info._id),
             _id: consultation_doc.consultationId
           },
@@ -930,7 +937,7 @@ module.exports = function init(site) {
             "user._id": String(req.session.user.ref_info._id),
           },
           set: {
-            'status.statusId': site.var('finishedId'),
+            'status.statusId': 8,
             'status.name': site.var('finished'),
             time: 0,
             consultationPeriod: xDiff
@@ -997,10 +1004,11 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
+   
     $consultation.findOne({
       where: {
         _id : req.body.consultationId,
-        'status.statusId': site.var('finishedId'),
+        'status.statusId': 8,
         'user._id': String(req.session.user.ref_info._id)
       },
     }, (err, doc, count) => {
@@ -1024,13 +1032,16 @@ module.exports = function init(site) {
         $consultation.edit({
           where: {
             _id : req.body.consultationId,
-            'status.statusId': site.var('finishedId'),
+            'status.statusId': 8,
             "user._id": String(req.session.user.ref_info._id),
           },
           set: {
             'rate.value': consultation_doc.rate.value,
-            'rate.comment': consultation_doc.rate.comment
+            'rate.comment': consultation_doc.rate.comment,
+            isRate:true
           },
+        }, err =>{
+          
         })
 
         let createdObj = {
@@ -1044,6 +1055,8 @@ module.exports = function init(site) {
         $rating.add(createdObj)
 
         response.message = site.word('rateUpdated')[req.headers.language]
+        response.data = {docs : [doc]}
+        
         response.done = true,
           response.errorCode = site.var('succeed')
         res.json(response)
@@ -1078,7 +1091,7 @@ module.exports = function init(site) {
       $consultation.findOne({
         where: {
           _id : req.body.consultationId,
-          'status.statusId': site.var('finishedId'),
+          'status.statusId': 8,
           'user._id': String(req.session.user.ref_info._id)
         },
       }, (err, doc, count) => {
