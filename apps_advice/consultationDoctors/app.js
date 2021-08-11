@@ -5,8 +5,10 @@ module.exports = function init(site) {
 
   site.get({
     name: 'images',
-    path: __dirname + '/site_files/images/'
-    ,require : {permissions : []}
+    path: __dirname + '/site_files/images/',
+    require: {
+      permissions: []
+    }
   });
 
   site.get({
@@ -14,12 +16,19 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
-    require : {permissions : []}
+    require: {
+      permissions: []
+    }
   });
 
   // Add New consultationDoctors With Not Duplicate Name Validation
 
-  site.post({name : '/api/consultationDoctors/add' , require : {permissions : []}}, (req, res) => {
+  site.post({
+    name: '/api/consultationDoctors/add',
+    require: {
+      permissions: []
+    }
+  }, (req, res) => {
     let response = {
       done: false,
     };
@@ -71,7 +80,7 @@ module.exports = function init(site) {
         response.errorCode = 200
         response.message = site.word('doctorsCreated')[req.headers.language]
         response.done = true;
-      
+
 
       } else {
         response.errorCode = site.var('failed')
@@ -143,8 +152,7 @@ module.exports = function init(site) {
     }
     let response = {}
     req.headers.language = req.headers.language || 'en'
-    $consultationDoctors.findMany(
-      {
+    $consultationDoctors.findMany({
         select: req.body.select || {},
         sort: req.body.sort || {
           id: -1,
@@ -175,8 +183,7 @@ module.exports = function init(site) {
   site.get("/api/consultationDoctors/:id", (req, res) => {
     let response = {}
     req.headers.language = req.headers.language || 'en'
-    $consultationDoctors.findOne(
-      {
+    $consultationDoctors.findOne({
         where: {
           _id: req.params.id,
         },
@@ -214,8 +221,7 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
-    $consultation.findMany(
-      {
+    $consultation.findMany({
         select: req.body.select || {},
         sort: req.body.sort || {
           id: -1,
@@ -232,13 +238,21 @@ module.exports = function init(site) {
         limit: req.body.limit || 10,
       },
       (err, docs, count) => {
-        if (!err && docs) {
-          response.docs = docs
-          response.totalDocs = count
-          response.limit = 10
-          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        if (!err && docs.length>0) {
+          response.data = {
+            docs: docs,
+            totalDocs: count,
+            limit: 10,
+            totalPages: Math.ceil(count / 10)
+          }
+          response.errorCode = 200
+          response.message = site.word('findSuccessfully')[req.headers.language]
+          response.done = true;
         } else {
-
+          response.data = {
+            docs: [],
+          
+          }
           response.errorCode = site.var('failed')
           response.message = site.word('findFailed')[req.headers.language]
           response.done = false;
@@ -262,19 +276,17 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
-    $consultationDoctors.findOne(
-      {
+    $consultationDoctors.findOne({
         where: {
           _id: req.session.user.ref_info._id,
         },
 
       },
       (err, doc) => {
-     
+
         if (!err && doc) {
 
-          $consultation.findMany(
-            {
+          $consultation.findMany({
               select: req.body.select || {},
               sort: req.body.sort || {
                 id: -1,
@@ -286,12 +298,22 @@ module.exports = function init(site) {
               limit: req.body.limit || 10,
             },
             (err, docs, count) => {
-              if (!err && docs) {
-                response.docs = docs
-                response.totalDocs = count
-                response.limit = 10
-                response.totalPages = Math.ceil(response.totalDocs / response.limit)
+              if (!err && docs.length > 0) {
+
+                response.data = {
+                  docs: docs,
+                  totalDocs: count,
+                  limit: 10,
+                  totalPages: Math.ceil(count / 10)
+                }
+                response.errorCode = 200
+                response.message = site.word('findSuccessfully')[req.headers.language]
+                response.done = true;
               } else {
+                response.data = {
+                  docs: [],
+                 
+                }
                 response.errorCode = site.var('failed')
                 response.message = site.word('findFailed')[req.headers.language]
                 response.done = false;
@@ -336,7 +358,9 @@ module.exports = function init(site) {
         _id: req.session.user.ref_info._id,
         isAvailable: true
       },
-      set: { isAvailable: false },
+      set: {
+        isAvailable: false
+      },
       $req: req,
       $res: res
     }, (err, result) => {
@@ -379,7 +403,9 @@ module.exports = function init(site) {
         _id: req.session.user.ref_info._id,
         isAvailable: false
       },
-      set: { isAvailable: true },
+      set: {
+        isAvailable: true
+      },
       $req: req,
       $res: res
     }, (err, result) => {
@@ -500,14 +526,16 @@ module.exports = function init(site) {
         _id: req.session.user.ref_info._id
       },
     }, (err, doc) => {
-     
-     
+
+
       if (doc && doc.password == consultation_doc.password) {
         $consultationDoctors.edit({
           where: {
             _id: req.session.user.ref_info._id
           },
-          set: { password: consultation_doc.newPassword },
+          set: {
+            password: consultation_doc.newPassword
+          },
           $req: req,
           $res: res
         }, (err, result) => {
@@ -524,7 +552,7 @@ module.exports = function init(site) {
           res.json(response)
         })
       }
-      if(!doc || doc.password != consultation_doc.password) {
+      if (!doc || doc.password != consultation_doc.password) {
         response.done = false
         response.message = site.word('passwordNotCorrect')[req.headers.language]
         response.errorCode = site.var('failed')
@@ -546,8 +574,7 @@ module.exports = function init(site) {
     let id = req.params.id;
 
     if (id) {
-      $consultationDoctors.delete(
-        {
+      $consultationDoctors.delete({
           _id: id,
           $req: req,
           $res: res,
@@ -599,15 +626,14 @@ module.exports = function init(site) {
       where['phone'] = String(where['phone']);
     }
     let limit = 10;
-    let skip 
+    let skip
     // if (!req.query.page ||( parseInt(req.query.page)&&parseInt(req.query.page)==1)) {
     //   limit=10
     // }
-    if (req.query.page ||( parseInt(req.query.page)&&parseInt(req.query.page)>1)) {
-      skip=(parseInt(req.query.page)-1) * 10
+    if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+      skip = (parseInt(req.query.page) - 1) * 10
     }
-    $consultationDoctors.findMany(
-      {
+    $consultationDoctors.findMany({
         select: req.body.select || {},
         where: where,
         sort: req.body.sort || {
@@ -639,8 +665,7 @@ module.exports = function init(site) {
     };
     let consultationDoctors_doc = req.body;
     if (consultationDoctors_doc.id) {
-      $consultationDoctors.edit(
-        {
+      $consultationDoctors.edit({
           where: {
             id: consultationDoctors_doc.id,
           },
@@ -668,10 +693,9 @@ module.exports = function init(site) {
       done: false,
     };
 
-  
 
-    $consultationDoctors.findOne(
-      {
+
+    $consultationDoctors.findOne({
         where: {
           id: req.body.id,
         },
@@ -694,8 +718,7 @@ module.exports = function init(site) {
     let id = req.body.id;
 
     if (id) {
-      $consultationDoctors.delete(
-        {
+      $consultationDoctors.delete({
           id: id,
           $req: req,
           $res: res,

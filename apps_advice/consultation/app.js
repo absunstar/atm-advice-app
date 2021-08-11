@@ -335,17 +335,14 @@ module.exports = function init(site) {
       }
       if (docs.length == 0) {
         response.data = {
-          docs: docs,
-          totalDocs: count,
-          limit: 10,
-          totalPages: Math.ceil(count / 10)
+          docs: []
+        
         }
 
         response.errorCode = site.var('failed')
         response.message = site.word('noPreviousconsultation')[req.headers.language]
         response.done = false
         res.json(response)
-        return
       }
     })
   });
