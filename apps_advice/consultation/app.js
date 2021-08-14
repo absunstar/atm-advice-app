@@ -195,18 +195,18 @@ module.exports = function init(site) {
     let response = {}
     let consultation_doc = req.body
    
-    const appID = "210ed2de0c3e46fbb02596beb3699813";
-    const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
+    const appID = "b1738be45ac847f695ff9859066ed0ea";
+    const appCertificate = "93ed0e76a31b41ebbbef7330a1fd614c";
     const expirationTimeInSeconds = 3600;
     const uid = Math.floor(Math.random() * 100000);
     req.headers.language = req.headers.language || 'en'
     const role = consultation_doc.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
-    const channel = consultation_doc.user._id+new Date().getTime()+consultation_doc.doctor._id;
+    const channel = consultation_doc.user._id+new Date().getTime()+'A'+'@'+consultation_doc.doctor._id;
     const currentTimestamp = Math.floor(Date.now() / 1000);
     const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
 
     const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channel, uid, role, expirationTimestamp);
-
+console.log(channel.length);
     let obj = {
       done: true,
       errorCode: site.var('succeed'),
