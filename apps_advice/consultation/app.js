@@ -9,6 +9,7 @@ module.exports = function init(site) {
 
   let ObjectID = require('mongodb').ObjectID
   const Agora = require('agora-access-token')
+  const {RtcTokenBuilder, RtcRole} = require('agora-access-token');
 
   site.get({
     name: 'images',
@@ -200,13 +201,12 @@ module.exports = function init(site) {
     const expirationTimeInSeconds = 3600;
     const uid = Math.floor(Math.random() * 100000);
     req.headers.language = req.headers.language || 'en'
-    const role = consultation_doc.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
-    const channel = consultation_doc.user._id+new Date().getTime()+'A'+'@'+consultation_doc.doctor._id;
+   const role='subscriber'
+    const channel = String(consultation_doc.user._id+new Date().getTime()+'A'+'@'+consultation_doc.doctor._id);
     const currentTimestamp = Math.floor(Date.now() / 1000);
     const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
 
     const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channel, uid, role, expirationTimestamp);
-console.log(channel.length);
     let obj = {
       done: true,
       errorCode: site.var('succeed'),
