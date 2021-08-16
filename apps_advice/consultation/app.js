@@ -9,7 +9,10 @@ module.exports = function init(site) {
 
   let ObjectID = require('mongodb').ObjectID
   const Agora = require('agora-access-token')
-  const {RtcTokenBuilder, RtcRole} = require('agora-access-token');
+  const {
+    RtcTokenBuilder,
+    RtcRole
+  } = require('agora-access-token');
 
   site.get({
     name: 'images',
@@ -50,8 +53,8 @@ module.exports = function init(site) {
       consultation_doc.consultationPeriod = null
     consultation_doc.startConsultation = null
     consultation_doc.time = 0,
-    isRate = false
-      consultation_doc.status = {
+      isRate = false
+    consultation_doc.status = {
         statusId: site.var('activeId'),
         name: site.var('active')
       },
@@ -127,34 +130,36 @@ module.exports = function init(site) {
   })
 
 
-    // Update consultation 
+  // Update consultation 
 
-    site.post('/api/consultation/getCurrentPatientBalance', (req, res) => {
-      let response = {}
-      req.headers.language = req.headers.language || 'en'
-      let consultation_doc = req.body
-      $patients.findOne({
-        where: {
-          _id: consultation_doc.user._id
-        }
-      }, (err, doc) => {
-        if (doc) {
-          response.done = true,
-            response.data = {
-              docs : [{balance : doc.balance}]
-            }
-          response.errorCode = site.var('succeed')
-          response.message = site.word('findSuccessfully')[req.headers.language]
-          res.json(response)
-        } else {
-          response.done = false,
-            response.errorCode = site.var('failed')
-          response.message = site.word('failedUpdated')[req.headers.language]
-          res.json(response)
-        }
+  site.post('/api/consultation/getCurrentPatientBalance', (req, res) => {
+    let response = {}
+    req.headers.language = req.headers.language || 'en'
+    let consultation_doc = req.body
+    $patients.findOne({
+      where: {
+        _id: consultation_doc.user._id
+      }
+    }, (err, doc) => {
+      if (doc) {
+        response.done = true,
+          response.data = {
+            docs: [{
+              balance: doc.balance
+            }]
+          }
+        response.errorCode = site.var('succeed')
+        response.message = site.word('findSuccessfully')[req.headers.language]
+        res.json(response)
+      } else {
+        response.done = false,
+          response.errorCode = site.var('failed')
+        response.message = site.word('failedUpdated')[req.headers.language]
+        res.json(response)
+      }
 
-      })
     })
+  })
 
 
   // get All consultationes
@@ -195,14 +200,14 @@ module.exports = function init(site) {
   site.post("/api/consultation/rtctoken", (req, res) => {
     let response = {}
     let consultation_doc = req.body
-   
+
     const appID = "b1738be45ac847f695ff9859066ed0ea";
     const appCertificate = "93ed0e76a31b41ebbbef7330a1fd614c";
     const expirationTimeInSeconds = 3600;
     const uid = Math.floor(Math.random() * 100000);
     req.headers.language = req.headers.language || 'en'
-   const role='subscriber'
-    const channel = String(consultation_doc.user._id+new Date().getTime()+'A'+'@'+consultation_doc.doctor._id);
+    const role = 'subscriber'
+    const channel = String(consultation_doc.user._id + new Date().getTime() + 'A' + '@' + consultation_doc.doctor._id);
     const currentTimestamp = Math.floor(Date.now() / 1000);
     const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
 
@@ -213,32 +218,172 @@ module.exports = function init(site) {
       data: {
         token: token,
         uid: uid,
-        channel : channel
+        channel: channel
       },
       message: site.word('tokenAvailable')[req.headers.language]
 
     }
-   
+
     $consultation.edit({
       where: {
-       
+
         _id: req.body.consultationId
       },
       set: {
         token: obj.data.token,
         channel: obj.data.channel,
-        startConsultationTime : new Date().toLocaleTimeString('en-US', { hour12: false , hour: '2-digit', minute: '2-digit' })
+        startConsultationTime: new Date().toLocaleTimeString('en-US', {
+          hour12: false,
+          hour: '2-digit',
+          minute: '2-digit'
+        })
       },
     })
     res.json(obj)
-   
-  
+
+
   })
 
 
-   // generate Access Token
 
-   site.post("/api/consultation/generateAccessToken", (req, res) => {
+
+
+
+
+
+  site.post("/api/consultation/getPreviousCurrentCount", (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    } else {
+      $consultation.aggregate([
+
+        {
+          "$project": {
+            "activeStatue": {
+              "$cond": [{
+                  "$eq": [
+                    "$status.statusId",
+                    1
+                  ]
+                },
+                1.0,
+                "$$REMOVE"
+              ]
+            },
+            "finishedStatue": {
+              "$cond": [
+              //   {
+              //     "$eq" : [
+              //         "$status.statusId", 
+              //         1.0
+              //     ]
+              // },
+                
+                {
+                  "$and": [
+                    {
+                      "$or" : [
+                          
+                          {
+                              "$eq" : [
+                                  "$status.statusId", 
+                                  7.0
+                              ]
+                          }, 
+                          {
+                              "$eq" : [
+                                  "$status.statusId", 
+                                  8.0
+                              ]
+                          }
+                      ]
+                  },
+
+                    
+                    {
+                      "$eq": [
+                        "$doctor._id",
+                        String(req.session.user.ref_info._id)
+                      ]
+                    }
+                  ]
+                },
+                1.0,
+                0.0
+              ]
+            }
+          }
+        },
+        {
+          "$group": {
+            "_id": null,
+            "activeStatue": {
+              "$sum": "$activeStatue"
+            },
+            "finishedStatue": {
+              "$sum": "$finishedStatue"
+            }
+          }
+        },
+        {
+          "$project": {
+            "_id": 0.0,
+            "totalConsultations" : {
+              "$sum" : [
+                  "$finishedStatue", 
+                  "$activeStatue"
+              ]
+          }, 
+          "activeStatue" : 1.0, 
+          "finishedStatue" : 1.0
+          }
+        }
+
+
+
+      ], (err, docs) => {
+
+        if (docs && docs.length > 0) {
+
+          response.data = {
+            docs,
+
+          }
+          response.errorCode = site.var('succeed')
+          response.done = true
+          response.message = site.word('findSuccessfully')[req.headers.language]
+          res.json(response)
+        } else {
+          response.data = {
+            docs
+          }
+          response.done = false
+          response.errorCode = site.var('failed')
+          response.message = site.word('findFailed')[req.headers.language]
+          res.json(response)
+        }
+      })
+    }
+
+
+  })
+
+
+
+
+
+
+
+
+  // generate Access Token
+
+  site.post("/api/consultation/generateAccessToken", (req, res) => {
     let consultation_doc = req.body
     const appID = "210ed2de0c3e46fbb02596beb3699813";
     const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
@@ -339,7 +484,7 @@ module.exports = function init(site) {
       if (docs.length == 0) {
         response.data = {
           docs: []
-        
+
         }
 
         response.errorCode = site.var('failed')
@@ -408,7 +553,7 @@ module.exports = function init(site) {
     }
     consultation_doc.attachments = {}
     if (consultation_doc.attachments.image.length > 0) {
-      
+
     }
     $consultation.findOne({
       where: {
@@ -579,7 +724,9 @@ module.exports = function init(site) {
       }
       if (docs.length == 0) {
         let obj = {}
-        obj.data = {docs:[]}
+        obj.data = {
+          docs: []
+        }
         obj.errorCode = site.var('failed')
         obj.message = site.word('noAcceptedconsultation')[req.headers.language]
         obj.done = false
@@ -629,66 +776,66 @@ module.exports = function init(site) {
             }, (err, doc2, count) => {
               if (doc2) {
 
-                if (doc2 && doc2.status && doc2.status.statusId ==  site.var('acceptedId')) {
+                if (doc2 && doc2.status && doc2.status.statusId == site.var('acceptedId')) {
                   console.log(doc2);
                   if (req.body.patientType == 'hasInsurance') {
-                   $insuranceCompany.findOne({
+                    $insuranceCompany.findOne({
                       where: {
                         _id: doc2.user.insuranceCompany._id
                       }
                     }, (err, insuranceDoc) => {
                       $insuranceCompany.edit({
                         where: {
-                          
+
                           "_id": doc2.user.insuranceCompany._id
                         },
                         set: {
-                          balance : insuranceDoc.balance - doc2.period
+                          balance: insuranceDoc.balance - doc2.period
                         },
                       })
 
                     })
-                    
+
                   }
 
                   if (req.body.patientType == 'normalPatient') {
                     $patients.findOne({
-                       where: {
-                         _id: doc2.user._id
-                       }
-                     }, (err, patientsDoc) => {
-                       $patients.edit({
-                         where: {
-                           "_id": patientsDoc._id
-                         },
-                         set: {
-                           balance : patientsDoc.balance - doc2.price
-                         },
-                       })
- 
-                     })
-                     
-                   }
+                      where: {
+                        _id: doc2.user._id
+                      }
+                    }, (err, patientsDoc) => {
+                      $patients.edit({
+                        where: {
+                          "_id": patientsDoc._id
+                        },
+                        set: {
+                          balance: patientsDoc.balance - doc2.price
+                        },
+                      })
+
+                    })
+
+                  }
 
                 }
-              
+
                 response.message = site.word('consultationUpdated')[req.headers.language]
                 response.data = {
-                  docs : [
-                    {
-                      date : doc2.startConsultation.toLocaleDateString("en"),
-                      time : doc2.startConsultation.toLocaleTimeString("en")
-                    }
-                  ]
+                  docs: [{
+                    date: doc2.startConsultation.toLocaleDateString("en"),
+                    time: doc2.startConsultation.toLocaleTimeString("en")
+                  }]
                 }
                 response.done = true,
                   response.errorCode = site.var('succeed')
                 res.json(response)
-                
+
               }
               if (!doc2) {
                 let obj = {}
-                obj.data = {docs : []}
+                obj.data = {
+                  docs: []
+                }
                 obj.errorCode = site.var('failed')
                 obj.message = site.word('noAcceptedconsultation')[req.headers.language]
                 obj.done = false
@@ -698,11 +845,13 @@ module.exports = function init(site) {
             })
           }
         })
-        
+
       }
       if (!doc) {
         let obj = {}
-        obj.data = {docs : []}
+        obj.data = {
+          docs: []
+        }
         obj.errorCode = site.var('failed')
         obj.message = site.word('noAcceptedconsultation')[req.headers.language]
         obj.done = false
@@ -718,9 +867,9 @@ module.exports = function init(site) {
       },
     }, (err, doc, count) => {
       if (doc) {
-      
+
         console.log(doc);
-        
+
       }
       if (!doc) {
         let obj = {}
@@ -743,13 +892,13 @@ module.exports = function init(site) {
   site.post('/api/consultation/checkBeforeAccept', (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {}
-   
+
     $patients.findOne({
       where: {
         _id: req.body.user._id
       }
     }, (err, userDoc) => {
-     
+
       if (req.body.patientType == 'hasInsurance') {
         if (userDoc.hasInsurance && userDoc.hasInsurance == true) {
           $insuranceCompany.findOne({
@@ -784,8 +933,7 @@ module.exports = function init(site) {
             }
           })
         }
-      }
-      else{
+      } else {
         response.errorCode = site.var('success')
         response.message = site.word('normalUser')[req.headers.language]
         response.done = true
@@ -1004,10 +1152,10 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
-   
+
     $consultation.findOne({
       where: {
-        _id : req.body.consultationId,
+        _id: req.body.consultationId,
         'status.statusId': 8,
         'user._id': String(req.session.user.ref_info._id)
       },
@@ -1031,22 +1179,22 @@ module.exports = function init(site) {
 
         $consultation.edit({
           where: {
-            _id : req.body.consultationId,
+            _id: req.body.consultationId,
             'status.statusId': 8,
             "user._id": String(req.session.user.ref_info._id),
           },
           set: {
             'rate.value': consultation_doc.rate.value,
             'rate.comment': consultation_doc.rate.comment,
-            isRate:true
+            isRate: true
           },
-        }, err =>{
-          
+        }, err => {
+
         })
 
         let createdObj = {
           user: doc.user,
-          date : new Date().toISOString().split('T')[0],
+          date: new Date().toISOString().split('T')[0],
           target: doc.doctor,
           rating: consultation_doc.rate.value,
           type: "consultation",
@@ -1055,8 +1203,10 @@ module.exports = function init(site) {
         $rating.add(createdObj)
 
         response.message = site.word('rateUpdated')[req.headers.language]
-        response.data = {docs : [doc]}
-        
+        response.data = {
+          docs: [doc]
+        }
+
         response.done = true,
           response.errorCode = site.var('succeed')
         res.json(response)
@@ -1074,63 +1224,63 @@ module.exports = function init(site) {
 
 
 
-    // send Notification To Doctor
-    site.post('/api/consultation/sendNotificationToDoctor', (req, res) => {
-      let response = {}
-      req.headers.language = req.headers.language || 'en'
-      let consultation_doc = req.body
-      if (!req.session.user) {
-        response.errorCode = site.var('failed')
-        response.message = site.word('loginFirst')[req.headers.language]
-        response.done = false;
-        res.json(response);
-        return;
-      }
+  // send Notification To Doctor
+  site.post('/api/consultation/sendNotificationToDoctor', (req, res) => {
+    let response = {}
+    req.headers.language = req.headers.language || 'en'
+    let consultation_doc = req.body
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
 
 
-      $consultation.findOne({
-        where: {
-          _id : req.body.consultationId,
-          'status.statusId': 8,
-          'user._id': String(req.session.user.ref_info._id)
-        },
-      }, (err, doc, count) => {
-        if (doc) {
+    $consultation.findOne({
+      where: {
+        _id: req.body.consultationId,
+        'status.statusId': 8,
+        'user._id': String(req.session.user.ref_info._id)
+      },
+    }, (err, doc, count) => {
+      if (doc) {
         console.log(doc);
-          let notificationObj = {
-            title:  doc.user.fullName + ': ' + site.word('thisPatientSendNotificationToSendHimDiagnosisFile')[req.headers.language],
-            doctor:doc.doctor,
-            type: "consultation",
-            user: doc.user,
-            createdAt: new Date().toLocaleString('en-US'),
-          }
-          $notificationData.add(notificationObj);
-          let obj = {}
-          obj.errorCode = site.var('succeed')
-          obj.message = site.word('notificationSent')[req.headers.language]
-          obj.done = true
-          res.json(obj)
-          return
+        let notificationObj = {
+          title: doc.user.fullName + ': ' + site.word('thisPatientSendNotificationToSendHimDiagnosisFile')[req.headers.language],
+          doctor: doc.doctor,
+          type: "consultation",
+          user: doc.user,
+          createdAt: new Date().toLocaleString('en-US'),
         }
-        if (!doc) {
-          let obj = {}
-          obj.errorCode = site.var('failed')
-          obj.message = site.word('noConsultation')[req.headers.language]
-          obj.done = false
-          res.json(obj)
-          return
-        }
-      })
+        $notificationData.add(notificationObj);
+        let obj = {}
+        obj.errorCode = site.var('succeed')
+        obj.message = site.word('notificationSent')[req.headers.language]
+        obj.done = true
+        res.json(obj)
+        return
+      }
+      if (!doc) {
+        let obj = {}
+        obj.errorCode = site.var('failed')
+        obj.message = site.word('noConsultation')[req.headers.language]
+        obj.done = false
+        res.json(obj)
+        return
+      }
+    })
 
 
 
-     
 
 
 
 
-    
-    });
+
+
+  });
 
 
 

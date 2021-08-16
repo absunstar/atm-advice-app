@@ -765,99 +765,143 @@ module.exports = function init(site) {
         }
       }, (err, doc) => {
         let cityId = doc.city._id
-        $orders.aggregate([
+        $orders.aggregate(
+          [
 
-          {
-            "$match": {
-              "status.statusId": 1.0,
-              "$or": [{
-                  "$and": [{
-                      "$or": [{
-                          "address.lat": {
-                            "$ne": 0.0
+            {
+              "$match": {
+                "status.statusId": 1.0,
+                "$or": [{
+                    "$and": [{
+                        "$or": [{
+                            "address.lat": {
+                              "$ne": 0.0
+                            }
+                          },
+                          {
+                            "address.lat": {
+                              "$ne": 0
+                            }
+                          },
+                        ]
+                      },
+
+
+                      {
+                        "location": {
+                          "$geoWithin": {
+                            "$centerSphere": [
+                              [
+                                doc.lat,
+                                doc.long
+                              ],
+                              distance
+                            ]
                           }
-                        },
-                        {
-                          "address.lat": {
-                            "$ne": 0
-                          }
-                        },
-                      ]
-                    },
-
-
-                    {
-                      "location": {
-                        "$geoWithin": {
-                          "$centerSphere": [
-                            [
-                              doc.lat,
-                              doc.long
-                            ],
-                            distance
-                          ]
                         }
                       }
+                    ]
+                  },
+                  {
+                    "$and": [{
+                        "$or": [{
+                            "address.lat": {
+                              "$eq": 0.0
+                            }
+                          },
+                          {
+                            "address.lat": {
+                              "$eq": 0
+                            }
+                          },
+                        ]
+                      },
+                      {
+                        "address.city._id": cityId
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "$sort": {
+                "id": -1.0
+              }
+            },
+            {
+              $skip: skip
+            },
+            {
+              $limit: limit
+            }
+
+          ], (err, docs) => {
+            if (docs && docs.length > 0) {
+
+              response.data = {
+                docs,
+                totalDocs: docs.length,
+                totalPages: Math.ceil(docs.length / 10)
+              }
+              response.errorCode = site.var('succeed')
+              response.done = true
+              response.message = site.word('findSuccessfully')[req.headers.language]
+              res.json(response)
+            } else {
+              $orders.aggregate(
+                [{
+                    "$geoNear": {
+                      "near": {
+                        "type": "Point",
+                        "coordinates": [
+                          doc.lat,
+                          doc.long
+                        ]
+                      },
+                      "distanceField": "distance",
+                      "spherical": true
                     }
-                  ]
-                },
-                {
-                  "$and": [{
-                      "$or": [{
-                          "address.lat": {
-                            "$eq": 0.0
-                          }
-                        },
-                        {
-                          "address.lat": {
-                            "$eq": 0
-                          }
-                        },
-                      ]
-                    },
-                    {
-                      "address.city._id": cityId
+                  },
+                  {
+                    "$sort": {
+                      "distance": 1.0
                     }
-                  ]
-                }
-              ]
-            }
-          },
-          {
-            "$sort": {
-              "id": -1.0
-            }
-          },
-          {
-            $skip: skip
-          },
-          {
-            $limit: limit
-          }
+                  },
+                  {
+                    "$match": {
+                      "status.statusId": 1.0
+                    }
+                  }
 
-        ], (err, docs) => {
-          if (docs && docs.length > 0) {
 
-            response.data = {
-              docs,
-              totalDocs: docs.length,
-              totalPages: Math.ceil(docs.length / 10)
-            }
-            response.errorCode = site.var('succeed')
-            response.done = true
-            response.message = site.word('findSuccessfully')[req.headers.language]
-            res.json(response)
-          } else {
-            response.data = {
-              docs
-            }
-            response.done = false
-            response.errorCode = site.var('failed')
-            response.message = site.word('findFailed')[req.headers.language]
-            res.json(response)
-          }
+                ], (err, docs) => {
+                  if (docs && docs.length > 0) {
 
-        })
+                    response.data = {
+                      docs,
+                      totalDocs: docs.length,
+                      totalPages: Math.ceil(docs.length / 10)
+                    }
+                    response.errorCode = site.var('succeed')
+                    response.done = true
+                    response.message = site.word('findSuccessfully')[req.headers.language]
+                    res.json(response)
+                  } else {
+
+                    response.data = {
+                      docs
+                    }
+                    response.done = false
+                    response.errorCode = site.var('failed')
+                    response.message = site.word('findFailed')[req.headers.language]
+                    res.json(response)
+                  }
+
+                })
+            }
+
+          })
 
 
 
