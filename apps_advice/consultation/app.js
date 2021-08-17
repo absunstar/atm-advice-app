@@ -245,8 +245,49 @@ module.exports = function init(site) {
   })
 
 
+  
 
+  const generateAccessToken = (req, resp) => {
+    const APP_ID = "b1738be45ac847f695ff9859066ed0ea";
+  const APP_CERTIFICATE = "93ed0e76a31b41ebbbef7330a1fd614c";
+    // set response header
+    // get channel name
+    const channelName = req.query.channel;
+    if (!channelName) {
+      return resp.status(500).json({ 'error': 'channel is required' });
+    }
+    // get uid 
+    let uid = req.query.uid;
+    if(!uid || uid == '') {
+      uid = 0;
+    }
+    // get role
+    let role = RtcRole.SUBSCRIBER;
+    if (req.query.role == 'publisher') {
+      role = RtcRole.PUBLISHER;
+    }
+    // get the expire time
+    let expireTime = req.query.expireTime;
+    if (!expireTime || expireTime == '') {
+      expireTime = 3600;
+    } else {
+      expireTime = parseInt(expireTime, 10);
+    }
+    // calculate privilege expire time
+    const currentTime = Math.floor(Date.now() / 1000);
+    const privilegeExpireTime = currentTime + expireTime;
+    console.log(uid);
+    console.log(role);
+    console.log(APP_ID);
+    console.log(APP_CERTIFICATE);
+    // build the token
+    const token = RtcTokenBuilder.buildTokenWithUid(APP_ID, APP_CERTIFICATE, channelName, uid, role, privilegeExpireTime);
+    // return the token
+    console.log(token);
+    return resp.json({ 'token': token });
+  }
 
+  site.get('/api/consultation/access_token', generateAccessToken);
 
 
 
@@ -551,14 +592,12 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
-    consultation_doc.attachments = {}
-    if (consultation_doc.attachments.image.length > 0) {
-
-    }
+   
+  
     $consultation.findOne({
       where: {
         'status.statusId': 8,
-        'user._id': String(req.session.user.ref_info._id),
+        'doctor._id': String(req.session.user.ref_info._id),
         _id: consultation_doc.consultationId
       },
     }, (err, doc, count) => {
@@ -567,7 +606,7 @@ module.exports = function init(site) {
         $consultation.edit({
           where: {
             'status.statusId': 8,
-            'user._id': String(req.session.user.ref_info._id),
+            'doctor._id': String(req.session.user.ref_info._id),
             _id: consultation_doc.consultationId
           },
           set: {
@@ -636,7 +675,7 @@ module.exports = function init(site) {
           res.json(response);
           return;
         }
-        let newName = 'file_' + new Date().getTime() + '.' + site.path.extname(file.name);
+        let newName = 'file_' + new Date().getTime()  + site.path.extname(file.name);
         let newpath = site.dir + '/../../uploads/' + 'consultation' + '/files/' + newName;
         site.mv(file.path, newpath, function (err) {
           if (err) {
@@ -1067,6 +1106,7 @@ module.exports = function init(site) {
     }
     $consultation.findOne({
       where: {
+        _id:req.body.consultationId,
         'status.statusId': site.var('acceptedId'),
         'user._id': String(req.session.user.ref_info._id)
       },
@@ -1081,6 +1121,7 @@ module.exports = function init(site) {
 
         $consultation.edit({
           where: {
+            _id:req.body.consultationId,
             'status.statusId': site.var('acceptedId'),
             "user._id": String(req.session.user.ref_info._id),
           },

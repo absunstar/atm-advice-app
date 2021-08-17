@@ -90,6 +90,11 @@
         "name" : "insuranceCompanyRecharge",
         "en" : "insurance company balabce need to recharge again",
         "ar" : "برجاء اعادة شحن رصيد شركة التامين"
+    },
+    {
+        "name" : "attachmentsSaved",
+        "en" : "attachments Saved",
+        "ar" : "تم حفظ المرفقات"
     }
 
 
