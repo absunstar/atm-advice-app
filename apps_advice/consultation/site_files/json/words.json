@@ -1,43 +1,43 @@
 [
     {
-        "name": "goves",
-        "en": "Goves",
-        "ar": "المحافظات"
+        "name": "insuranceNumberNotExist",
+        "en": "Insurance Number Not Exist",
+        "ar": "الرقم التاميني غير موجود"
     },
     {
-        "name": "goves_new",
-        "en": "New Gov",
-        "ar": "محافظة جديدة"
+        "name": "balanceEnough",
+        "en": "balance Enough",
+        "ar": "يوجد رصيد كافي للاستشارة"
     },
     {
-        "name": "goves_add",
-        "en": "Add Gov",
-        "ar": "إضافة محافظة "
+        "name": "balanceNotEnough",
+        "en": "balance Not Enough",
+        "ar": "الرصيد غير كافي "
     },
     {
-        "name": "goves_edit",
-        "en": "Edit Gov",
-        "ar": "تعديل محافظة "
+        "name": "normalUser",
+        "en": "normal User",
+        "ar": "عميل عادي "
     },
     {
-        "name": "goves_details",
-        "en": "Gov Details",
-        "ar": "تفاصيل المحافظة "
+        "name": "rateUpdated",
+        "en": "rate Updated",
+        "ar": "تم تعديل التقييم "
     },
     {
-        "name": "goves_delete",
-        "en": "Delete Gov",
-        "ar": "حذف محافظة "
+        "name": "thisPatientSendNotificationToSendHimDiagnosisFile",
+        "en": "this Patient Send Notification To Send Him Diagnosis File",
+        "ar": "هذا المريض ارسل لك اشعار لعدم ارسال ملف التشخيص لحالته الصحية "
     },
     {
-        "name": "goves_name",
-        "en": "Gov Name",
-        "ar": "إسم المحافظة "
+        "name": "noConsultation",
+        "en": "No Consultation",
+        "ar": "لا يوجد استشارة "
     },
     {
-        "name": "nameExist",
-        "en": "Name Exist",
-        "ar": "الاسم موجود من قبل "
+        "name": "notificationSent",
+        "en": "notification Sent",
+        "ar": "تم ارسال التنبيه"
     },
     {
         "name": "govCreated",
@@ -90,6 +90,11 @@
         "name" : "insuranceCompanyRecharge",
         "en" : "insurance company balabce need to recharge again",
         "ar" : "برجاء اعادة شحن رصيد شركة التامين"
+    },
+    {
+        "name" : "attachmentsSaved",
+        "en" : "attachments Saved",
+        "ar" : "تم حفظ المرفقات"
     }
 
 

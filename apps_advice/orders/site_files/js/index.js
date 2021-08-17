@@ -2,7 +2,8 @@ app.controller("orders", function ($scope, $http, $timeout) {
   $scope._search = {};
 
   $scope.orders = {};
-
+  $scope.prescription = {};
+  
   $scope.displayAddOrders = function () {
     $scope.error = '';
     $scope.orders = {
@@ -294,15 +295,16 @@ app.controller("orders", function ($scope, $http, $timeout) {
       }
     )
   };
-  $scope.addImgArr = function (name , img) {
-   
-    let obj = {
-      name : img , 
-      description : name
-    };
-    $scope.orders.image= [];
+  $scope.addImgArr = function () {
 
-    $scope.orders.image.push(obj);
+    $scope.orders.image= $scope.orders.image || [];
+
+    $scope.orders.image.push($scope.prescription);
+    $scope.prescription = {};
+  };
+
+  $scope.next = function () {
+
     site.showModal('#personalData');
   
   };

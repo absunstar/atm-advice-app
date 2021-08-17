@@ -191,47 +191,30 @@ app.controller("register", function ($scope, $http, $timeout) {
     $scope.pharmacy = {
       image_url: '/images/pharmacy.png',
     };
-    site.showModal('#registerAddPharmacy');
+    site.showModal('#pharmacyAddModal');
 
   };
 
   $scope.addPharmacy = function () {
     $scope.error = '';
-    if ($scope.busy) {
+    const v = site.validated('#pharmacyAddModal');
+    if (!v.ok) {
+      $scope.error = v.messages[0].ar;
       return;
     }
 
     $scope.busy = true;
-
-    const v = site.validated('#registerAddPharmacy');
-    if (!v.ok) {
-      $scope.error = v.messages[0].ar;
-      $scope.busy = false;
-      return;
-    };
-    if ($scope.pharmacy.pharmacy_password != $scope.pharmacy.pharmacy_password_return) {
-      $scope.error = "##word.password_err##";
-      $scope.busy = false;
-      return;
-    };
-
     $http({
       method: "POST",
-      url: "/api/register/add",
+      url: "/api/pharmacy/add",
       data: $scope.pharmacy
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done) {
-          site.hideModal('#registerAddPharmacy');
-          $scope.pharmacy = [];
-
-          $scope.getregisterList();
-          document.location.href = '/';
-
-        } else {
-          $scope.error = 'Please Login First';
-        }
+       
+          site.hideModal('#pharmacyAddModal');
+          $scope.getPharmacyList();
+      
       },
       function (err) {
         console.log(err);
@@ -455,45 +438,29 @@ app.controller("register", function ($scope, $http, $timeout) {
     $scope.doctor = {
       image_url: '/images/doctor.png',
     };
-    site.showModal('#registerAddDoctor');
-
+    site.showModal('#doctorsAddModal');
   };
 
   $scope.addDoctors = function () {
     $scope.error = '';
-    if ($scope.busy) {
-      return;
-    }
-    $scope.busy = true;
-
-    const v = site.validated('#registerAddDoctor');
+    const v = site.validated('#doctorsAddModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
-      $scope.busy = false;
       return;
-    };
-    if ($scope.doctor.doctor_password != $scope.doctor.doctor_password_return) {
-      $scope.error = "##word.password_err##";
-      $scope.busy = false;
-      return;
-    };
-
+    }
+    
+    $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/register/add",
-      data: $scope.doctor
+      url: "/api/doctors/add",
+      data: $scope.doctors
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done) {
-          site.hideModal('#registerAddDoctor');
-          $scope.doctor = [];
-          $scope.getregisterList();
-          document.location.href = '/';
-
-        } else {
-          $scope.error = 'Please Login First';
-        }
+       
+          site.hideModal('#doctorsAddModal');
+          $scope.getDoctorsList();
+        
       },
       function (err) {
         console.log(err);
@@ -553,6 +520,153 @@ app.controller("register", function ($scope, $http, $timeout) {
     )
   };
 
+  $scope.getGenderList = function () {
+    $scope.genderList = [{ name_ar: "ذكر", name_en: "male" }, { name_ar: "انثى", name_en: "female" }];
+
+  };
+  $scope.getInsuranceCompanyList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/insuranceCompany",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1, balance: 1, image: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.insuranceCompanyList = response.data.docs;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+  $scope.getGovesList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/gov",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.govesList = response.data.docs;
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+
+  $scope.getCitiesList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/city",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.citiesList = response.data.docs;
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+  $scope.getDepartmentsList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/departments",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.departmentList = response.data.docs;
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+
+
+  $scope.getDegreeList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/degree",
+      data: {
+        where: {
+          active: true
+        },
+        select: {
+          id: 1, name_ar: 1, name_en: 1
+        }
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.degreesList = response.data.docs;
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    )
+  };
+  $scope.getGenderList();
+  $scope.getInsuranceCompanyList();
+  $scope.getGovesList();
+  $scope.getCitiesList();
+  $scope.getDepartmentsList();
+  $scope.getDegreeList();
   $scope.getregisterList();
 
 });

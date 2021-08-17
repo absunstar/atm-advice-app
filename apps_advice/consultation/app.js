@@ -3,12 +3,23 @@ module.exports = function init(site) {
   const $consultationDoctors = site.connectCollection('consultationDoctors');
   const $patients = site.connectCollection('patients');
   const $insuranceCompany = site.connectCollection('insuranceCompany');
-  // const Agora = require('agora-access-token')
+  const $notificationData = site.connectCollection('notificationData');
+  const $rating = site.connectCollection('rating');
+
+
+  let ObjectID = require('mongodb').ObjectID
+  const Agora = require('agora-access-token')
+  const {
+    RtcTokenBuilder,
+    RtcRole
+  } = require('agora-access-token');
 
   site.get({
     name: 'images',
-    path: __dirname + '/site_files/images/'
-    , require: { permissions: [] }
+    path: __dirname + '/site_files/images/',
+    require: {
+      permissions: []
+    }
   });
 
   site.get({
@@ -16,7 +27,9 @@ module.exports = function init(site) {
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
-    require: { permissions: [] }
+    require: {
+      permissions: []
+    }
   });
   // Add New consultation With Not Duplicate Name Validation
 
@@ -40,13 +53,15 @@ module.exports = function init(site) {
       consultation_doc.consultationPeriod = null
     consultation_doc.startConsultation = null
     consultation_doc.time = 0,
-      consultation_doc.status = {
+      isRate = false
+    consultation_doc.status = {
         statusId: site.var('activeId'),
         name: site.var('active')
       },
 
       consultation_doc.createdAt = new Date()
     consultation_doc.updatedAt = new Date()
+    consultation_doc.attachments = {}
     $consultation.add(consultation_doc, (err, doc) => {
       if (!err) {
         response.data = doc;
@@ -115,6 +130,38 @@ module.exports = function init(site) {
   })
 
 
+  // Update consultation 
+
+  site.post('/api/consultation/getCurrentPatientBalance', (req, res) => {
+    let response = {}
+    req.headers.language = req.headers.language || 'en'
+    let consultation_doc = req.body
+    $patients.findOne({
+      where: {
+        _id: consultation_doc.user._id
+      }
+    }, (err, doc) => {
+      if (doc) {
+        response.done = true,
+          response.data = {
+            docs: [{
+              balance: doc.balance
+            }]
+          }
+        response.errorCode = site.var('succeed')
+        response.message = site.word('findSuccessfully')[req.headers.language]
+        res.json(response)
+      } else {
+        response.done = false,
+          response.errorCode = site.var('failed')
+        response.message = site.word('failedUpdated')[req.headers.language]
+        res.json(response)
+      }
+
+    })
+  })
+
+
   // get All consultationes
 
   site.get("/api/consultation", (req, res) => {
@@ -125,13 +172,13 @@ module.exports = function init(site) {
     }
     let response = {}
     $consultation.findMany({
-      select: req.body.select || {},
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        limit: limit,
+        skip: skip,
       },
-      limit: limit,
-      skip: skip,
-    },
       (err, docs, count) => {
         if (!err) {
 
@@ -148,76 +195,272 @@ module.exports = function init(site) {
     );
   })
 
-  // // RTC Token
+  // RTC Token
 
-  // site.post("/api/consultation/rtctoken", (req, res) => {
-  //   let response = {}
-  //   let consultation_doc = req.body
-  //   const appID = "210ed2de0c3e46fbb02596beb3699813";
-  //   const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
-  //   const expirationTimeInSeconds = 3600;
-  //   const uid = Math.floor(Math.random() * 100000);
-  //   req.headers.language = req.headers.language || 'en'
-  //   const role = consultation_doc.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
-  //   const channel = consultation_doc.channel || "test";
-  //   const currentTimestamp = Math.floor(Date.now() / 1000);
-  //   const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
+  site.post("/api/consultation/rtctoken", (req, res) => {
+    let response = {}
+    let consultation_doc = req.body
 
-  //   const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channel, uid, role, expirationTimestamp);
+    const appID = "b1738be45ac847f695ff9859066ed0ea";
+    const appCertificate = "93ed0e76a31b41ebbbef7330a1fd614c";
+    const expirationTimeInSeconds = 3600;
+    const uid = Math.floor(Math.random() * 100000);
+    req.headers.language = req.headers.language || 'en'
+    const role = 'subscriber'
+    const channel = String(consultation_doc.user._id + new Date().getTime() + 'A' + '@' + consultation_doc.doctor._id);
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+    const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
 
-  //   let obj = {
-  //     done: true,
-  //     errorCode: site.var('succeed'),
-  //     data: {
-  //       token: token,
-  //       uid: uid
-  //     },
-  //     message: site.word('tokenAvailable')[req.headers.language]
+    const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channel, uid, role, expirationTimestamp);
+    let obj = {
+      done: true,
+      errorCode: site.var('succeed'),
+      data: {
+        token: token,
+        uid: uid,
+        channel: channel
+      },
+      message: site.word('tokenAvailable')[req.headers.language]
 
-  //   }
-  //   res.json(obj)
-  // })
+    }
+
+    $consultation.edit({
+      where: {
+
+        _id: req.body.consultationId
+      },
+      set: {
+        token: obj.data.token,
+        channel: obj.data.channel,
+        startConsultationTime: new Date().toLocaleTimeString('en-US', {
+          hour12: false,
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      },
+    })
+    res.json(obj)
 
 
-  //  // generate Access Token
+  })
 
-  //  site.post("/api/consultation/generateAccessToken", (req, res) => {
-  //   let consultation_doc = req.body
-  //   const appID = "210ed2de0c3e46fbb02596beb3699813";
-  //   const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
-  //   const channelName = consultation_doc.channelName || "testChannel";
-    
-  //   // get uid 
-  //   let uid = Math.floor(Math.random() * 100000);
-    
-  //   // get role
-  //   let role = consultation_doc.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
+
   
-  //   // get the expire time
-  //   let expireTime = req.query.expireTime;
-  //   if (!expireTime || expireTime == '') {
-  //     expireTime = 3600;
-  //   } else {
-  //     expireTime = parseInt(expireTime, 10);
-  //   }
-  //   // calculate privilege expire time
-  //   const currentTime = Math.floor(Date.now() / 1000);
-  //   const privilegeExpireTime = currentTime + expireTime;
-  //   // build the token
-  //   const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpireTime);
-  //   // return the token
-  //   let obj = {
-  //     done: true,
-  //     errorCode: site.var('succeed'),
-  //     data: {
-  //       token: token,
-  //       uid: uid
-  //     },
-  //     message: site.word('tokenAvailable')[req.headers.language]
 
-  //   }
-  //   res.json(obj)
-  // })
+  const generateAccessToken = (req, resp) => {
+    const APP_ID = "b1738be45ac847f695ff9859066ed0ea";
+  const APP_CERTIFICATE = "93ed0e76a31b41ebbbef7330a1fd614c";
+    // set response header
+    // get channel name
+    const channelName = req.query.channel;
+    if (!channelName) {
+      return resp.status(500).json({ 'error': 'channel is required' });
+    }
+    // get uid 
+    let uid = req.query.uid;
+    if(!uid || uid == '') {
+      uid = 0;
+    }
+    // get role
+    let role = RtcRole.SUBSCRIBER;
+    if (req.query.role == 'publisher') {
+      role = RtcRole.PUBLISHER;
+    }
+    // get the expire time
+    let expireTime = req.query.expireTime;
+    if (!expireTime || expireTime == '') {
+      expireTime = 3600;
+    } else {
+      expireTime = parseInt(expireTime, 10);
+    }
+    // calculate privilege expire time
+    const currentTime = Math.floor(Date.now() / 1000);
+    const privilegeExpireTime = currentTime + expireTime;
+    console.log(uid);
+    console.log(role);
+    console.log(APP_ID);
+    console.log(APP_CERTIFICATE);
+    // build the token
+    const token = RtcTokenBuilder.buildTokenWithUid(APP_ID, APP_CERTIFICATE, channelName, uid, role, privilegeExpireTime);
+    // return the token
+    console.log(token);
+    return resp.json({ 'token': token });
+  }
+
+  site.get('/api/consultation/access_token', generateAccessToken);
+
+
+
+
+  site.post("/api/consultation/getPreviousCurrentCount", (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    } else {
+      $consultation.aggregate([
+
+        {
+          "$project": {
+            "activeStatue": {
+              "$cond": [{
+                  "$eq": [
+                    "$status.statusId",
+                    1
+                  ]
+                },
+                1.0,
+                "$$REMOVE"
+              ]
+            },
+            "finishedStatue": {
+              "$cond": [
+              //   {
+              //     "$eq" : [
+              //         "$status.statusId", 
+              //         1.0
+              //     ]
+              // },
+                
+                {
+                  "$and": [
+                    {
+                      "$or" : [
+                          
+                          {
+                              "$eq" : [
+                                  "$status.statusId", 
+                                  7.0
+                              ]
+                          }, 
+                          {
+                              "$eq" : [
+                                  "$status.statusId", 
+                                  8.0
+                              ]
+                          }
+                      ]
+                  },
+
+                    
+                    {
+                      "$eq": [
+                        "$doctor._id",
+                        String(req.session.user.ref_info._id)
+                      ]
+                    }
+                  ]
+                },
+                1.0,
+                0.0
+              ]
+            }
+          }
+        },
+        {
+          "$group": {
+            "_id": null,
+            "activeStatue": {
+              "$sum": "$activeStatue"
+            },
+            "finishedStatue": {
+              "$sum": "$finishedStatue"
+            }
+          }
+        },
+        {
+          "$project": {
+            "_id": 0.0,
+            "totalConsultations" : {
+              "$sum" : [
+                  "$finishedStatue", 
+                  "$activeStatue"
+              ]
+          }, 
+          "activeStatue" : 1.0, 
+          "finishedStatue" : 1.0
+          }
+        }
+
+
+
+      ], (err, docs) => {
+
+        if (docs && docs.length > 0) {
+
+          response.data = {
+            docs,
+
+          }
+          response.errorCode = site.var('succeed')
+          response.done = true
+          response.message = site.word('findSuccessfully')[req.headers.language]
+          res.json(response)
+        } else {
+          response.data = {
+            docs
+          }
+          response.done = false
+          response.errorCode = site.var('failed')
+          response.message = site.word('findFailed')[req.headers.language]
+          res.json(response)
+        }
+      })
+    }
+
+
+  })
+
+
+
+
+
+
+
+
+  // generate Access Token
+
+  site.post("/api/consultation/generateAccessToken", (req, res) => {
+    let consultation_doc = req.body
+    const appID = "210ed2de0c3e46fbb02596beb3699813";
+    const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
+    const channelName = consultation_doc.channelName || "testChannel";
+
+    // get uid 
+    let uid = Math.floor(Math.random() * 100000);
+
+    // get role
+    let role = consultation_doc.isPublisher ? Agora.RtcRole.PUBLISHER : Agora.RtcRole.SUBSCRIBER;
+
+    // get the expire time
+    let expireTime = req.query.expireTime;
+    if (!expireTime || expireTime == '') {
+      expireTime = 3600;
+    } else {
+      expireTime = parseInt(expireTime, 10);
+    }
+    // calculate privilege expire time
+    const currentTime = Math.floor(Date.now() / 1000);
+    const privilegeExpireTime = currentTime + expireTime;
+    // build the token
+    const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpireTime);
+    // return the token
+    let obj = {
+      done: true,
+      errorCode: site.var('succeed'),
+      data: {
+        token: token,
+        uid: uid
+      },
+      message: site.word('tokenAvailable')[req.headers.language]
+
+    }
+    res.json(obj)
+  })
 
 
 
@@ -230,18 +473,18 @@ module.exports = function init(site) {
   //   const appCertificate = "b0f362d6373e4d22955db3a608b6b2c1";
   //   const userName = consultation_doc.userName || "user1";
   //   const role = Agora.RtmRole.Rtm_User;
-    
+
   //   const expirationTimeInSeconds = 3600;
   //   const currentTimestamp = Math.floor(Date.now() / 1000);
   //   const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
-  
+
   //   const token = Agora.RtmTokenBuilder.buildToken(appID, appCertificate, userName, role, expirationTimestamp);
   //   let obj = {
   //     done: true,
   //     errorCode: site.var('succeed'),
   //     data: {
   //       token: token,
-     
+
   //     },
   //     message: site.word('tokenAvailable')[req.headers.language]
 
@@ -262,7 +505,7 @@ module.exports = function init(site) {
     }
     $consultation.findMany({
       where: {
-        'status.statusId': site.var('finishedId'),
+        'status.statusId': 8,
         'user._id': String(req.session.user.ref_info._id)
       },
     }, (err, docs, count) => {
@@ -280,12 +523,15 @@ module.exports = function init(site) {
         res.json(response)
       }
       if (docs.length == 0) {
-        let obj = {}
-        obj.errorCode = site.var('failed')
-        obj.message = site.word('noPreviousconsultation')[req.headers.language]
-        obj.done = false
-        res.json(obj)
-        return
+        response.data = {
+          docs: []
+
+        }
+
+        response.errorCode = site.var('failed')
+        response.message = site.word('noPreviousconsultation')[req.headers.language]
+        response.done = false
+        res.json(response)
       }
     })
   });
@@ -309,18 +555,25 @@ module.exports = function init(site) {
       },
     }, (err, doc, count) => {
       if (doc) {
-        response.data = doc
+        response.data = {
+          docs: [doc],
+          totalDocs: 1,
+          limit: 10,
+          totalPages: 1
+        }
         response.message = site.word('consultationFound')[req.headers.language]
         response.done = true,
           response.errorCode = site.var('succeed')
         res.json(response)
       }
       if (!doc) {
-        let obj = {}
-        obj.errorCode = site.var('failed')
-        obj.message = site.word('noActiveconsultation')[req.headers.language]
-        obj.done = false
-        res.json(obj)
+        response.data = {
+          docs: [],
+        }
+        response.errorCode = site.var('failed')
+        response.message = site.word('noActiveconsultation')[req.headers.language]
+        response.done = false
+        res.json(response)
         return
       }
     })
@@ -339,19 +592,22 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
+   
+  
     $consultation.findOne({
       where: {
-        'status.statusId': site.var('accepted'),
-        'user._id': String(req.session.user.ref_info._id),
-        _id: consultation_doc._id
+        'status.statusId': 8,
+        'doctor._id': String(req.session.user.ref_info._id),
+        _id: consultation_doc.consultationId
       },
     }, (err, doc, count) => {
+      console.log(doc);
       if (doc) {
         $consultation.edit({
           where: {
-            'status.statusId': site.var('accepted'),
-            'user._id': String(req.session.user.ref_info._id),
-            _id: consultation_doc._id
+            'status.statusId': 8,
+            'doctor._id': String(req.session.user.ref_info._id),
+            _id: consultation_doc.consultationId
           },
           set: {
             attachments: consultation_doc.attachments
@@ -376,6 +632,66 @@ module.exports = function init(site) {
 
 
 
+  site.post('/api/consultation/upload/image/consultation', (req, res) => {
+    let response = {}
+    req.headers.language = req.headers.language || 'en'
+
+    site.createDir(site.dir + '/../../uploads/' + 'consultation', () => {
+      site.createDir(site.dir + '/../../uploads/' + 'consultation' + '/images', () => {
+        let response = {
+          done: !0,
+        };
+        let file = req.files.fileToUpload;
+        if (file) {
+          let newName = 'image_' + new Date().getTime().toString().replace('.', '_') + '.png';
+          let newpath = site.dir + '/../../uploads/' + 'consultation' + '/images/' + newName;
+          site.mv(file.path, newpath, function (err) {
+            if (err) {
+              response.error = err;
+              response.done = !1;
+            }
+            response.image_url = '/api/image/' + 'consultation' + '/' + newName;
+            res.json(response);
+          });
+        } else {
+          response.error = 'no file';
+          response.done = !1;
+          res.json(response);
+        }
+      });
+    });
+  });
+
+  site.post('/api/consultation/upload/file/consultation', (req, res) => {
+    site.createDir(site.dir + '/../../uploads/' + 'consultation', () => {
+      site.createDir(site.dir + '/../../uploads/' + 'consultation' + '/files', () => {
+        let response = {
+          done: !0,
+        };
+        let file = req.files.fileToUpload;
+        if (!file) {
+          response.done = !1;
+          response.error = 'no file uploaded';
+          res.json(response);
+          return;
+        }
+        let newName = 'file_' + new Date().getTime()  + site.path.extname(file.name);
+        let newpath = site.dir + '/../../uploads/' + 'consultation' + '/files/' + newName;
+        site.mv(file.path, newpath, function (err) {
+          if (err) {
+            response.error = err;
+            response.done = !1;
+          }
+          // response.file = {};
+          response.image_url = '/api/file/' + 'consultation' + '/' + newName;
+          // response.file.name = file.name;
+          res.json(response);
+        });
+      });
+    });
+  });
+
+
   // get accepted consultation
   site.post('/api/consultation/getAcceptedConsultation', (req, res) => {
     req.headers.language = req.headers.language || 'en'
@@ -389,7 +705,7 @@ module.exports = function init(site) {
     }
     $consultation.findOne({
       where: {
-        'status.statusId': site.var('activeId'),
+        'status.statusId': site.var('acceptedId'),
         'user._id': String(req.session.user.ref_info._id)
       },
     }, (err, doc, count) => {
@@ -428,7 +744,7 @@ module.exports = function init(site) {
     }
     $consultationDoctors.findMany({
       where: {
-        'departments._id': consultation_doc.departments._id,
+        'department._id': consultation_doc.departments._id,
         isAvailable: true
       },
     }, (err, docs, count) => {
@@ -445,8 +761,11 @@ module.exports = function init(site) {
           response.errorCode = site.var('succeed')
         res.json(response)
       }
-      if (!doc) {
+      if (docs.length == 0) {
         let obj = {}
+        obj.data = {
+          docs: []
+        }
         obj.errorCode = site.var('failed')
         obj.message = site.word('noAcceptedconsultation')[req.headers.language]
         obj.done = false
@@ -471,66 +790,125 @@ module.exports = function init(site) {
     $consultation.findOne({
       where: {
         'status.statusId': site.var('activeId'),
-        'doctor._id': String(req.session.user.ref_info._id)
+        '_id': req.body.consultationId
       },
     }, (err, doc, count) => {
-      console.log("111111111", doc);
       if (doc) {
-
-
-
-
-        $patients.findOne({
-          where: {
-            _id: (doc.user._id)
-          }
-        }, (err, userDoc) => {
-          console.log("userDoc", userDoc);
-          if (userDoc.hasInsurance == true) {
-
-            $insuranceCompany.findOne({
-              where: {
-                _id: (userDoc.insuranceCompany._id)
-              }
-            }, (err, insuranceDoc) => {
-
-              if (insuranceDoc.balance < doc.period) {
-                response.errorCode = site.var('failed')
-                response.message = site.word('insuranceCompanyRecharge')[req.headers.language]
-                response.done = false
-                res.json(response)
-                return
-              }
-            })
-          }
-          else {
-            $patients.edit({
-              where: {
-                "_id": userDoc._id,
-              },
-              set: {
-                'balance': userDoc.balance - doc.price,
-              },
-            })
-            console.log("have no insurance company");
-          }
-        })
         $consultation.edit({
           where: {
             'status.statusId': site.var('activeId'),
-            "doctor._id": String(req.session.user.ref_info._id),
+            "_id": req.body.consultationId,
           },
           set: {
+            doctor: req.body.doctor,
             'status.statusId': site.var('acceptedId'),
             'status.name': site.var('accepted'),
             time: doc.period,
             startConsultation: new Date()
           },
+        }, err => {
+          if (!err) {
+            $consultation.findOne({
+              where: {
+                '_id': req.body.consultationId
+              },
+            }, (err, doc2, count) => {
+              if (doc2) {
+
+                if (doc2 && doc2.status && doc2.status.statusId == site.var('acceptedId')) {
+                  console.log(doc2);
+                  if (req.body.patientType == 'hasInsurance') {
+                    $insuranceCompany.findOne({
+                      where: {
+                        _id: doc2.user.insuranceCompany._id
+                      }
+                    }, (err, insuranceDoc) => {
+                      $insuranceCompany.edit({
+                        where: {
+
+                          "_id": doc2.user.insuranceCompany._id
+                        },
+                        set: {
+                          balance: insuranceDoc.balance - doc2.period
+                        },
+                      })
+
+                    })
+
+                  }
+
+                  if (req.body.patientType == 'normalPatient') {
+                    $patients.findOne({
+                      where: {
+                        _id: doc2.user._id
+                      }
+                    }, (err, patientsDoc) => {
+                      $patients.edit({
+                        where: {
+                          "_id": patientsDoc._id
+                        },
+                        set: {
+                          balance: patientsDoc.balance - doc2.price
+                        },
+                      })
+
+                    })
+
+                  }
+
+                }
+
+                response.message = site.word('consultationUpdated')[req.headers.language]
+                response.data = {
+                  docs: [{
+                    date: doc2.startConsultation.toLocaleDateString("en"),
+                    time: doc2.startConsultation.toLocaleTimeString("en")
+                  }]
+                }
+                response.done = true,
+                  response.errorCode = site.var('succeed')
+                res.json(response)
+
+              }
+              if (!doc2) {
+                let obj = {}
+                obj.data = {
+                  docs: []
+                }
+                obj.errorCode = site.var('failed')
+                obj.message = site.word('noAcceptedconsultation')[req.headers.language]
+                obj.done = false
+                res.json(obj)
+                return
+              }
+            })
+          }
         })
-        response.message = site.word('consultationUpdated')[req.headers.language]
-        response.done = true,
-          response.errorCode = site.var('succeed')
-        res.json(response)
+
+      }
+      if (!doc) {
+        let obj = {}
+        obj.data = {
+          docs: []
+        }
+        obj.errorCode = site.var('failed')
+        obj.message = site.word('noAcceptedconsultation')[req.headers.language]
+        obj.done = false
+        res.json(obj)
+        return
+      }
+    })
+
+
+    $consultation.findOne({
+      where: {
+        '_id': req.body.consultationId
+      },
+    }, (err, doc, count) => {
+      if (doc) {
+
+        console.log(doc);
+
       }
       if (!doc) {
         let obj = {}
@@ -540,6 +918,68 @@ module.exports = function init(site) {
         res.json(obj)
         return
       }
+    })
+
+
+
+  });
+
+
+
+
+
+  site.post('/api/consultation/checkBeforeAccept', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    $patients.findOne({
+      where: {
+        _id: req.body.user._id
+      }
+    }, (err, userDoc) => {
+
+      if (req.body.patientType == 'hasInsurance') {
+        if (userDoc.hasInsurance && userDoc.hasInsurance == true) {
+          $insuranceCompany.findOne({
+            where: {
+              _id: userDoc.insuranceCompany._id
+            }
+          }, (err, insuranceDoc) => {
+            let insuranceNumbersList = insuranceDoc.insuranceNumbers.map(li => li.number)
+            if (insuranceNumbersList.includes(req.body.insuranceNumber) == true) {
+              if (insuranceDoc.balance < 15) {
+                response.errorCode = site.var('failed')
+                response.message = site.word('insuranceCompanyRecharge')[req.headers.language]
+                response.done = false
+                res.json(response)
+                return
+              } else {
+                response.errorCode = site.var('succeed')
+                response.message = site.word('balanceEnough')[req.headers.language]
+                response.done = true
+                res.json(response)
+                return
+              }
+
+            }
+
+            if (insuranceNumbersList.includes(req.body.insuranceNumber) == false) {
+              response.errorCode = site.var('failed')
+              response.message = site.word('insuranceNumberNotExist')[req.headers.language]
+              response.done = false
+              res.json(response)
+              return
+            }
+          })
+        }
+      } else {
+        response.errorCode = site.var('success')
+        response.message = site.word('normalUser')[req.headers.language]
+        response.done = true
+        res.json(response)
+        return
+      }
+
     })
   });
 
@@ -586,8 +1026,7 @@ module.exports = function init(site) {
                 response.done = false
                 res.json(response)
                 return
-              }
-              else {
+              } else {
                 $insuranceCompany.edit({
                   where: {
                     "_id": insuranceDoc._id,
@@ -598,10 +1037,7 @@ module.exports = function init(site) {
                 })
               }
             })
-          }
-
-
-          else {
+          } else {
             $patients.edit({
               where: {
                 "_id": doc1._id
@@ -614,7 +1050,7 @@ module.exports = function init(site) {
           }
 
           if (doc1 && doc1.balance > 0 && doc1.balance > doc.price) {
-            let increasedTime = 2
+            let increasedTime = 5
 
             let pricePerMinute = (Number(doc.price) / Number(doc.period)).toFixed(2)
             $consultation.edit({
@@ -634,8 +1070,7 @@ module.exports = function init(site) {
             response.done = true,
               response.errorCode = site.var('succeed')
             res.json(response)
-          }
-          else {
+          } else {
             response.message = site.word('balanceNotEnough')[req.headers.language]
             response.done = false,
               response.errorCode = site.var('failed')
@@ -671,6 +1106,7 @@ module.exports = function init(site) {
     }
     $consultation.findOne({
       where: {
+        _id:req.body.consultationId,
         'status.statusId': site.var('acceptedId'),
         'user._id': String(req.session.user.ref_info._id)
       },
@@ -685,11 +1121,12 @@ module.exports = function init(site) {
 
         $consultation.edit({
           where: {
+            _id:req.body.consultationId,
             'status.statusId': site.var('acceptedId'),
             "user._id": String(req.session.user.ref_info._id),
           },
           set: {
-            'status.statusId': site.var('finishedId'),
+            'status.statusId': 8,
             'status.name': site.var('finished'),
             time: 0,
             consultationPeriod: xDiff
@@ -718,8 +1155,7 @@ module.exports = function init(site) {
               },
             })
 
-          }
-          else {
+          } else {
             $patients.edit({
               where: {
                 "_id": userDoc._id,
@@ -757,9 +1193,11 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
+
     $consultation.findOne({
       where: {
-        'status.statusId': site.var('finishedId'),
+        _id: req.body.consultationId,
+        'status.statusId': 8,
         'user._id': String(req.session.user.ref_info._id)
       },
     }, (err, doc, count) => {
@@ -782,15 +1220,34 @@ module.exports = function init(site) {
 
         $consultation.edit({
           where: {
-            'status.statusId': site.var('finishedId'),
+            _id: req.body.consultationId,
+            'status.statusId': 8,
             "user._id": String(req.session.user.ref_info._id),
           },
           set: {
-            'rate.value': valDiscount,
-            'rate.comment': consultation_doc.rate.comment
+            'rate.value': consultation_doc.rate.value,
+            'rate.comment': consultation_doc.rate.comment,
+            isRate: true
           },
+        }, err => {
+
         })
+
+        let createdObj = {
+          user: doc.user,
+          date: new Date().toISOString().split('T')[0],
+          target: doc.doctor,
+          rating: consultation_doc.rate.value,
+          type: "consultation",
+          description: consultation_doc.rate.comment,
+        }
+        $rating.add(createdObj)
+
         response.message = site.word('rateUpdated')[req.headers.language]
+        response.data = {
+          docs: [doc]
+        }
+
         response.done = true,
           response.errorCode = site.var('succeed')
         res.json(response)
@@ -808,6 +1265,65 @@ module.exports = function init(site) {
 
 
 
+  // send Notification To Doctor
+  site.post('/api/consultation/sendNotificationToDoctor', (req, res) => {
+    let response = {}
+    req.headers.language = req.headers.language || 'en'
+    let consultation_doc = req.body
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
+
+
+    $consultation.findOne({
+      where: {
+        _id: req.body.consultationId,
+        'status.statusId': 8,
+        'user._id': String(req.session.user.ref_info._id)
+      },
+    }, (err, doc, count) => {
+      if (doc) {
+        console.log(doc);
+        let notificationObj = {
+          title: doc.user.fullName + ': ' + site.word('thisPatientSendNotificationToSendHimDiagnosisFile')[req.headers.language],
+          doctor: doc.doctor,
+          type: "consultation",
+          user: doc.user,
+          createdAt: new Date().toLocaleString('en-US'),
+        }
+        $notificationData.add(notificationObj);
+        let obj = {}
+        obj.errorCode = site.var('succeed')
+        obj.message = site.word('notificationSent')[req.headers.language]
+        obj.done = true
+        res.json(obj)
+        return
+      }
+      if (!doc) {
+        let obj = {}
+        obj.errorCode = site.var('failed')
+        obj.message = site.word('noConsultation')[req.headers.language]
+        obj.done = false
+        res.json(obj)
+        return
+      }
+    })
+
+
+
+
+
+
+
+
+
+  });
+
+
 
   // get consultation By Id
 
@@ -815,11 +1331,11 @@ module.exports = function init(site) {
     let response = {}
     req.headers.language = req.headers.language || 'en'
     $consultation.findOne({
-      where: {
-        _id: req.params.id,
-      },
+        where: {
+          _id: req.params.id,
+        },
 
-    },
+      },
       (err, doc) => {
         if (!err && doc) {
           response.data = doc
@@ -848,10 +1364,10 @@ module.exports = function init(site) {
 
     if (id) {
       $consultation.delete({
-        _id: id,
-        $req: req,
-        $res: res,
-      },
+          _id: id,
+          $req: req,
+          $res: res,
+        },
         (err, result) => {
           if (!err) {
             response.done = true,
@@ -889,14 +1405,14 @@ module.exports = function init(site) {
     }
 
     $consultation.findMany({
-      select: req.body.select || {},
-      where: where,
-      sort: req.body.sort || {
-        id: -1,
+        select: req.body.select || {},
+        where: where,
+        sort: req.body.sort || {
+          id: -1,
+        },
+        limit: limit,
+        skip: skip,
       },
-      limit: limit,
-      skip: skip,
-    },
       (err, docs, count) => {
         if (docs.length > 0) {
           response.done = true

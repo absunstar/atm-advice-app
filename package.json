@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "agora-access-token": "^2.0.4",
     "fcm-notification": "^2.0.0",
     "isite": "^1.14.61",
     "moment": "^2.29.1",

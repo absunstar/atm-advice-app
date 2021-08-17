@@ -1,42 +1,68 @@
-<div class="form" >
-    <div id="basicInformation" class="">
+<!DOCTYPE html>
+<html lang="en"  data-ng-app="myApp">
+
+<head x-import="head.html">
+
+</head>
+
+<body class="##session.lang##">
+
+    <nav x-import="sitebar/index.html" class="sitebar" data-ng-controller="sitebar">
+
+    </nav>
+
+    <nav class="sitebottom" x-import="sitebottom/index.html" ng-controller="sitebottom">
+
+    </nav>
+    <div id="main-layout" class="container loaded">
         <div class="row">
-            <h1 class="bold text-center">##word.activateDoctors##</h1>
-        </div>
-
-        <div class="top-actions">
-        
-           
-            <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
-            <h3 class="bold text-center red"> {{error}}</h3>
-
-        </div>
-
-        <table  class="table hover bold loaded" id="t1">
-            <tr>
-                <th class="not-print">##word.image##</th>
-                <th>##word.name##</th>
-                <th>##word.phone##</th>
-                <th>##word.email##</th>
-
-             
-                <th class="not-print">##word.actions##</th>
-            </tr>
-            <tr ng-repeat="c in doc_not_active_list">
-                <td class="center not-print">
-                    <i-image view class="logo" ng-model="c.image_url"></i-image>
-                </td>
-                <td class="center title">{{c.name}}</td>
-                <td class="center title">{{c.phone}}</td>
-                <td class="center title">{{c.email}}</td>
-                <td class="center not-print">
-                    <i-button  type="view" label="##word.activateDoctors##"
-                        ng-click="activateStatus(c)"></i-button>
-
+            <div class="row" ng-controller="doctors">
+              
+                <div class="row">
+                    <h1 class="bold text-center">##word.activateDoctors##</h1>
+                </div>
+                
+                <div class="top-actions">
+                
                    
-                </td>
-            </tr>
-        </table>
+                    <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
+                
+                </div>
+                
+                <table  class="table hover bold loaded" id="t1">
+                    <tr>
+                        <th class="not-print">##word.image##</th>
+                        <th>##word.name##</th>
+                        <th>##word.phone##</th>
+                        <th>##word.email##</th>
+                
+                     
+                        <th class="not-print">##word.actions##</th>
+                    </tr>
+                    <tr ng-repeat="c in doc_not_active_list">
+                        <td class="center not-print">
+                            <i-image view class="logo" ng-model="c.image_url"></i-image>
+                        </td>
+                        <td class="center title">{{c.name}}</td>
+                        <td class="center title">{{c.phone}}</td>
+                        <td class="center title">{{c.email}}</td>
+                        <td class="center not-print">
+                            <i-button  type="view" label="##word.activateDoctors##"
+                                ng-click="activateStatus(c)"></i-button>
+                
+                           
+                        </td>
+                    </tr>
+                </table>
 
+
+                
+            </div>
+        </div>
     </div>
-</div>
+
+    <div x-import="scripts.html"></div>
+    <script x-import="doctors/index.js"></script>
+</body>
+
+</html>

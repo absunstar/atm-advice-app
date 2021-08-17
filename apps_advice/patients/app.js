@@ -478,7 +478,14 @@ module.exports = function init(site) {
   site.post('/api/patients/getProfile', (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {}
-   
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
+
       $patients.findOne({
         where: {
           _id: req.session.user.ref_info._id
@@ -602,7 +609,13 @@ module.exports = function init(site) {
     let response = {}
     req.headers.language = req.headers.language || 'en'
     let consultation_doc = req.body
-
+ if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
     $patients.findOne({
       where: {
         _id: req.session.user.ref_info._id

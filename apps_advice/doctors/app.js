@@ -1,7 +1,7 @@
 module.exports = function init(site) {
   const $doctors = site.connectCollection('doctors');
   const $rating = site.connectCollection('rating');
-  
+
   let ObjectID = require('mongodb').ObjectID
   site.get({
     name: 'images',
@@ -14,6 +14,16 @@ module.exports = function init(site) {
   site.get({
     name: 'doctors',
     path: __dirname + '/site_files/html/index.html',
+    parser: 'html',
+    compress: true,
+    require: {
+      permissions: []
+    }
+  });
+
+  site.get({
+    name: 'doctors/active_doctor',
+    path: __dirname + '/site_files/html/doctor_active.html',
     parser: 'html',
     compress: true,
     require: {
@@ -218,7 +228,9 @@ module.exports = function init(site) {
           response.message = site.word('findSuccessfully')[req.headers.language]
           response.done = true;
         } else {
-          response.data = {docs}
+          response.data = {
+            docs
+          }
           response.errorCode = site.var('failed')
           response.message = site.word('findFailed')[req.headers.language]
           response.done = false;
@@ -305,7 +317,9 @@ module.exports = function init(site) {
 
       } else {
         response.done = false
-        response.data = {docs}
+        response.data = {
+          docs
+        }
         response.errorCode = site.var('failed')
         response.message = site.word('findFailed')[req.headers.language]
         res.json(response)
@@ -367,7 +381,9 @@ module.exports = function init(site) {
         response.message = site.word('findSuccessfully')[req.headers.language]
         res.json(response)
       } else {
-        response.data = {docs}
+        response.data = {
+          docs
+        }
         response.errorCode = site.var('failed')
         response.message = site.word('findFailed')[req.headers.language]
         res.json(response)
@@ -520,16 +536,16 @@ module.exports = function init(site) {
         if (doc.days.length > 0) {
           doc.days.forEach(_d => {
             let date = _d.date
-  
+
             let bodyDate = doctor_doc.date
             if (String(date) == String(bodyDate)) {
-  
+
               arr = _d.times
             }
-  
+
           });
         }
-        
+
 
 
         response.done = true,
@@ -615,7 +631,7 @@ module.exports = function init(site) {
         res.json(response)
       } else {
         response.done = false,
-        response.data = []
+          response.data = []
         response.errorCode = site.var('failed')
         response.message = site.word('failedUpdated')[req.headers.language]
         res.json(response)
@@ -637,9 +653,8 @@ module.exports = function init(site) {
     }, (err, doc) => {
       if (doc) {
         let arr = []
-        console.log(doc.days);
         if (doc.days) {
-          var a = new Date();
+          var a = new Date(req.body.date);
           var weekdays = new Array(7);
           weekdays[0] = "Sunday";
           weekdays[1] = "Monday";
@@ -649,19 +664,32 @@ module.exports = function init(site) {
           weekdays[5] = "Friday";
           weekdays[6] = "Saturday";
           var r = weekdays[a.getDay()];
-          console.log(r);
 
           doc.days.push({
-            dayName : r,
+            dayName: r,
             date: doctor_doc.date,
             times: []
           })
+       
+
+
         } else {
+          var a = new Date(req.body.date);
+          var weekdays = new Array(7);
+          weekdays[0] = "Sunday";
+          weekdays[1] = "Monday";
+          weekdays[2] = "Tuesday";
+          weekdays[3] = "Wednesday";
+          weekdays[4] = "Thursday";
+          weekdays[5] = "Friday";
+          weekdays[6] = "Saturday";
+          var r = weekdays[a.getDay()];
           doc.days = [{
-            dayName : r,
+            dayName: r,
             date: doctor_doc.date,
             times: []
           }]
+         
         }
         $doctors.update(doc, (err, result) => {
           response.done = true,
@@ -1007,8 +1035,8 @@ module.exports = function init(site) {
     let where = {
       ...req.body
     };
-
-
+   
+   
     if (where['gender'] == undefined) {
       delete where['gender'];
     }
@@ -1095,6 +1123,15 @@ module.exports = function init(site) {
     }
     where.isActive = true
 
+    
+    if (where['dayName'] ) {
+      where['days.dayName'] = where['dayName'];
+      delete where['dayName']
+    }
+
+
+
+    
     let doctor_doc = req.body
     let lat = doctor_doc.lat
     let long = doctor_doc.long
@@ -1118,6 +1155,7 @@ module.exports = function init(site) {
           "spherical": true
         }
       },
+     
       {
         "$match": where
       },
@@ -1145,7 +1183,9 @@ module.exports = function init(site) {
         res.json(response)
       } else {
 
-        response.data = {docs}
+        response.data = {
+          docs
+        }
         response.errorCode = site.var('failed')
         response.message = site.word('findFailed')[req.headers.language]
         response.done = false;
@@ -1274,7 +1314,9 @@ module.exports = function init(site) {
         res.json(response)
       } else {
 
-        response.data = {docs}
+        response.data = {
+          docs
+        }
         response.errorCode = site.var('failed')
         response.message = site.word('findFailed')[req.headers.language]
         response.done = false;
