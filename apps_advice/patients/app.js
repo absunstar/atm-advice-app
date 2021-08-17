@@ -478,7 +478,7 @@ module.exports = function init(site) {
   site.post('/api/patients/getProfile', (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {}
-    if (req.session.user.ref_info)
+   
       $patients.findOne({
         where: {
           _id: req.session.user.ref_info._id

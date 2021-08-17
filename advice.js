@@ -12,7 +12,7 @@ const site = require('isite')({
     keys: ['e698f2679be5ba5c9c0b0031cb5b057c' , '9705a3a85c1b21118532fefcee840f99'],
   },
   requires:{
-    permissions : ['']
+    permissions : []
   }
 });
 
