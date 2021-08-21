@@ -295,7 +295,9 @@ module.exports = function init(site) {
               },
               where: {
                 'department._id': String(doc.department._id),
-                'status.statusId': site.var('activeId'),
+                'status.statusId': {
+                  $in: [site.var('acceptedId'), site.var('activeId')]
+                },
               },
               limit: req.body.limit || 10,
             },

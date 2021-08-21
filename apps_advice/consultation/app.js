@@ -201,24 +201,42 @@ module.exports = function init(site) {
     let response = {}
     let consultation_doc = req.body
 
-    const appID = "b1738be45ac847f695ff9859066ed0ea";
-    const appCertificate = "93ed0e76a31b41ebbbef7330a1fd614c";
-    const expirationTimeInSeconds = 3600;
-    const uid = Math.floor(Math.random() * 100000);
-    req.headers.language = req.headers.language || 'en'
-    const role = 'subscriber'
-    const channel = String(consultation_doc.user._id + new Date().getTime() + 'A' + '@' + consultation_doc.doctor._id);
-    const currentTimestamp = Math.floor(Date.now() / 1000);
-    const expirationTimestamp = currentTimestamp + expirationTimeInSeconds;
-
-    const token = Agora.RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channel, uid, role, expirationTimestamp);
+    const appID = req.body.APP_ID
+    const appCertificate = req.body.APP_CERTIFICATE
+    const channelName = String(new Date().getTime());
+    if (!channelName) {
+      return resp.status(500).json({ 'error': 'channel is required' });
+    }
+    // get uid 
+    let uid = req.query.uid;
+    if(!uid || uid == '') {
+      uid = 0;
+    }
+    // get role
+    let role = RtcRole.SUBSCRIBER;
+    if (req.query.role == 'publisher') {
+      role = RtcRole.PUBLISHER;
+    }
+    // get the expire time
+    let expireTime = req.query.expireTime;
+    if (!expireTime || expireTime == '') {
+      expireTime = 3600;
+    } else {
+      expireTime = parseInt(expireTime, 10);
+    }
+    // calculate privilege expire time
+    const currentTime = Math.floor(Date.now() / 1000);
+    const privilegeExpireTime = currentTime + expireTime;
+   
+    // build the token
+    const token = RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpireTime);
     let obj = {
       done: true,
       errorCode: site.var('succeed'),
       data: {
         token: token,
         uid: uid,
-        channel: channel
+        channel: channelName
       },
       message: site.word('tokenAvailable')[req.headers.language]
 
@@ -252,6 +270,7 @@ module.exports = function init(site) {
   const APP_CERTIFICATE = "93ed0e76a31b41ebbbef7330a1fd614c";
     // set response header
     // get channel name
+    console.log("111111111111111" , req);
     const channelName = req.query.channel;
     if (!channelName) {
       return resp.status(500).json({ 'error': 'channel is required' });
@@ -283,11 +302,65 @@ module.exports = function init(site) {
     // build the token
     const token = RtcTokenBuilder.buildTokenWithUid(APP_ID, APP_CERTIFICATE, channelName, uid, role, privilegeExpireTime);
     // return the token
-    console.log(token);
-    return resp.json({ 'token': token });
+   
+    let obj = {
+      done: true,
+      errorCode: site.var('succeed'),
+      data: {
+        token: token,
+        uid: uid,
+        channel: channelName
+      },
+      message: site.word('tokenAvailable')[req.headers.language]
+
+    }
+    resp.json(obj)
   }
 
-  site.get('/api/consultation/access_token', generateAccessToken);
+  site.post('/api/consultation/access_token', (req, resp)=>{
+    const APP_ID = req.body.APP_ID
+    const APP_CERTIFICATE = req.body.APP_CERTIFICATE
+    const channelName = req.query.channel;
+    if (!channelName) {
+      return resp.status(500).json({ 'error': 'channel is required' });
+    }
+    // get uid 
+    let uid = req.query.uid;
+    if(!uid || uid == '') {
+      uid = 0;
+    }
+    // get role
+    let role = RtcRole.SUBSCRIBER;
+    if (req.query.role == 'publisher') {
+      role = RtcRole.PUBLISHER;
+    }
+    // get the expire time
+    let expireTime = req.query.expireTime;
+    if (!expireTime || expireTime == '') {
+      expireTime = 3600;
+    } else {
+      expireTime = parseInt(expireTime, 10);
+    }
+    // calculate privilege expire time
+    const currentTime = Math.floor(Date.now() / 1000);
+    const privilegeExpireTime = currentTime + expireTime;
+   
+    // build the token
+    const token = RtcTokenBuilder.buildTokenWithUid(APP_ID, APP_CERTIFICATE, channelName, uid, role, privilegeExpireTime);
+    // return the token
+    let obj = {
+      done: true,
+      errorCode: site.var('succeed'),
+      data: {
+        token: token,
+        uid: uid,
+        channel: channelName
+      },
+      message: site.word('tokenAvailable')[req.headers.language]
+
+    }
+    resp.json(obj)
+  });
 
 
 
