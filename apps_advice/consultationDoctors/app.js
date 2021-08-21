@@ -1,6 +1,8 @@
 module.exports = function init(site) {
   const $consultationDoctors = site.connectCollection('consultationDoctors');
   const $consultation = site.connectCollection('consultation');
+  const $users_info = site.connectCollection('users_info');
+
   let ObjectID = require('mongodb').ObjectID
 
   site.get({
@@ -505,19 +507,25 @@ module.exports = function init(site) {
           },
           $req: req,
           $res: res
+        })
+        $users_info.edit({
+          where: {
+            _id: doc.user_info._id
+          },
+          set: {
+            password: consultation_doc.newPassword
+          },
+          $req: req,
+          $res: res
         }, (err, result) => {
-          if (result.count > 0) {
-            response.done = true
-            response.message = site.word('updatePassword')[req.headers.language]
-            response.errorCode = site.var('succeed')
-          }
-          if (result.count == 0) {
-            response.done = false
-            response.message = site.word('notUpdatePassword')[req.headers.language]
-            response.errorCode = site.var('failed')
-          }
+  
+          response.done = true
+          response.message = site.word('resetPassword')[req.headers.language]
+          response.errorCode = site.var('succeed')
+  
           res.json(response)
         })
+
       }
       if (!doc || doc.password != consultation_doc.password) {
         response.done = false
@@ -527,10 +535,6 @@ module.exports = function init(site) {
       }
     })
   })
-
-
-
-
 
   // Hard Delete consultationDoctors
   site.post('/api/consultationDoctors/delete/:id', (req, res) => {

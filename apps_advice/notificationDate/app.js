@@ -255,10 +255,14 @@ module.exports = function init(site) {
 
 
 
+ 
+
+
+
 
 
 // get All Booking Done For Today
-site.post('', (req, res) => {
+site.post('/api/notificationData/getAllNotificationsConsultationDoctors', (req, res) => {
   req.headers.language = req.headers.language || 'en'
   let response = {}
   let limit = 10
