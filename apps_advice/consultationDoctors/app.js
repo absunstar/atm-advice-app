@@ -231,11 +231,6 @@ module.exports = function init(site) {
         where: {
           'doctor._id': String(req.session.user.ref_info._id),
           'status.statusId': site.var('finishedId'),
-          startConsultation: {
-            $lt: new Date(),
-            $gte: new Date(new Date().setDate(new Date().getDate() - 1))
-          },
-
         },
         limit: req.body.limit || 10,
       },
