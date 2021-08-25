@@ -1046,7 +1046,7 @@ module.exports = function init(site) {
           })
         }
       } else {
-        response.errorCode = site.var('success')
+        response.errorCode = site.var('succeed')
         response.message = site.word('normalUser')[req.headers.language]
         response.done = true
         res.json(response)

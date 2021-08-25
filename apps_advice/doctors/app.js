@@ -1086,7 +1086,7 @@ module.exports = function init(site) {
     if (where.toPrice && where.toPrice == -1) {
       delete where.toPrice
     }
-    if (where['name'] == undefined) {
+    if (where['name'] == undefined ) {
       delete where['name'];
     }
     if (where['name'] != undefined && where['name'] != "") {
