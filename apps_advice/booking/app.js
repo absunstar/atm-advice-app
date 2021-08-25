@@ -515,6 +515,51 @@ module.exports = function init(site) {
   });
 
 
+
+  // get All Booking Accepted For Today
+  site.post('/api/booking/getAllCurrentBookingToday', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    let booking_doc = req.body;
+    let start = new Date();
+    start.setHours(0, 0, 0, 0);
+
+    let end = new Date();
+    end.setHours(23, 59, 59, 999);
+
+    $booking.findMany({
+      where: {
+        'status': site.var('accepted'),
+        'doctor._id': booking_doc.doctor._id,
+        date: {
+          $gte: start,
+          $lt: end
+        }
+      },
+      set: {
+        'status': site.var('accepted'),
+      },
+      $req: req,
+      $res: res
+    }, (err, docs, count) => {
+      if (docs && docs.length > 0) {
+        response.done = true
+        response.totalDocs = count
+
+        response.message = site.word('findBooking')[req.headers.language],
+          response.errorCode = site.var('succeed')
+      }
+
+      response.done = true
+      response.message = site.word('bookingDone')[req.headers.language],
+        response.errorCode = site.var('succeed')
+      res.json(response)
+    })
+  });
+
+
+
   // get All Booking For Today
   site.post('/api/booking/getAllBookingToday', (req, res) => {
     req.headers.language = req.headers.language || 'en'

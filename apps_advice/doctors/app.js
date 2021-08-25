@@ -767,10 +767,10 @@ module.exports = function init(site) {
       if (doc) {
         let arr = []
         doc.days.forEach(_d => {
-          let date = new Date(_d.date)
-          date.setHours(0, 0, 0, 0)
-          let bodyDate = new Date(doctor_doc.date)
-          bodyDate.setHours(0, 0, 0, 0)
+          let date = _d.date
+          
+          let bodyDate = doctor_doc.date
+          
           if (String(date) == String(bodyDate)) {
             // console.log(_d);
             doc.days.splice(doc.days.indexOf(_d), 1)
