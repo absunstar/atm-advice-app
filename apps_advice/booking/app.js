@@ -335,9 +335,7 @@ module.exports = function init(site) {
 
     $booking.edit({
       where: {
-        'status': {
-          $in: [site.var('active')]
-        },
+        'status': site.var('accepted'),
         _id: new ObjectID(booking_doc.bookingId),
         'doctor._id': booking_doc.doctor._id
       },
