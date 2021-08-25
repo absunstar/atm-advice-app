@@ -1362,6 +1362,7 @@ module.exports = function init(site) {
       if (doc) {
         console.log(doc);
         let notificationObj = {
+          consultationId : req.body.consultationId,
           title: doc.user.fullName + ': ' + site.word('thisPatientSendNotificationToSendHimDiagnosisFile')[req.headers.language],
           doctor: doc.doctor,
           type: "consultation",
