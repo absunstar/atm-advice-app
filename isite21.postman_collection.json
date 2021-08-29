@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "ef10d14b-9fb9-4a19-8cbc-3cff75585455",
-		"name": "isite Copy",
+		"_postman_id": "02097e1e-6e00-46fe-b9f9-e091969a4d8c",
+		"name": "isite Copy 2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -2089,6 +2089,46 @@
 				},
 				{
 					"name": "addDepartments",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name_ar\" : \"department 4\",\r\n    \"name_en\" : \"department 4\",\r\n   \r\n    \"image\": [\r\n        {\r\n            \"name\": \"/api/image/departments/image_1627208886204.png\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://134.209.219.21:9090/api/departments/add",
+							"protocol": "http",
+							"host": [
+								"134",
+								"209",
+								"219",
+								"21"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"departments",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAvailableConsultationDoctors",
 					"request": {
 						"method": "POST",
 						"header": [

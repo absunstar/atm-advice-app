@@ -705,6 +705,39 @@ module.exports = function init(site) {
 
 
 
+// add card image to consultation
+  
+site.post({name:'/api/consultation/upload/cardImage/consultation' ,require : {permissions : []}}, (req, res) => {
+  let response = {}
+  req.headers.language = req.headers.language || 'en'
+
+  site.createDir(site.dir + '/../../uploads/' + 'consultation', () => {
+    site.createDir(site.dir + '/../../uploads/' + 'consultation' + '/images', () => {
+      let response = {
+        done: !0,
+      };
+      let file = req.files.fileToUpload;
+      if (file) {
+        let newName = 'image_' + new Date().getTime().toString().replace('.', '_') + '.png';
+        let newpath = site.dir + '/../../uploads/' + 'consultation' + '/images/' + newName;
+        site.mv(file.path, newpath, function (err) {
+          if (err) {
+            response.error = err;
+            response.done = !1;
+          }
+          response.image_url = '/api/image/' + 'consultation' + '/' + newName;
+          res.json(response);
+        });
+      } else {
+        response.error = 'no file';
+        response.done = !1;
+        res.json(response);
+      }
+    });
+  });
+});
+
+
   site.post('/api/consultation/upload/image/consultation', (req, res) => {
     let response = {}
     req.headers.language = req.headers.language || 'en'

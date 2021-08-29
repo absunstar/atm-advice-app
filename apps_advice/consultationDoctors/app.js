@@ -260,6 +260,56 @@ module.exports = function init(site) {
   })
 
 
+
+  // get available consultation doctor 
+
+  site.post("/api/consultationDoctors/getAvailableConsultationDoctors", (req, res) => {
+    let response = {}
+    req.headers.language = req.headers.language || 'en'
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
+    $consultationDoctors.findMany({
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+        where: {
+          "department._id":req.body.department._id,
+          'isAvailable': true,
+        },
+        limit: req.body.limit || 10,
+      },
+      (err, docs, count) => {
+        if (!err && docs.length>0) {
+          response.data = {
+            docs: docs,
+            totalDocs: count,
+            limit: 10,
+            totalPages: Math.ceil(count / 10)
+          }
+          response.errorCode = 200
+          response.message = site.word('findSuccessfully')[req.headers.language]
+          response.done = true;
+        } else {
+          response.data = {
+            docs: [],
+          
+          }
+          response.errorCode = site.var('failed')
+          response.message = site.word('findFailed')[req.headers.language]
+          response.done = false;
+        }
+        res.json(response);
+      },
+    );
+  })
+
+
   // get Active consultations 
 
   site.post("/api/consultationDoctors/getActiveConsultations", (req, res) => {
