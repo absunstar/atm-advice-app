@@ -2109,7 +2109,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://134.209.219.21:9090/api/departments/add",
+							"raw": "http://134.209.219.21:9090/api/consultationDoctors/getAvailableConsultationDoctors",
 							"protocol": "http",
 							"host": [
 								"134",
@@ -2120,8 +2120,8 @@
 							"port": "9090",
 							"path": [
 								"api",
-								"departments",
-								"add"
+								"consultationDoctors",
+								"getAvailableConsultationDoctors"
 							]
 						}
 					},
@@ -2141,7 +2141,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name_ar\" : \"department 4\",\r\n    \"name_en\" : \"department 4\",\r\n   \r\n    \"image\": [\r\n        {\r\n            \"name\": \"/api/image/departments/image_1627208886204.png\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n   \"department\":{\r\n       \"_id\":\"611114272b57dd9b2edfba82\"\r\n   }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2149,7 +2149,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://134.209.219.21:9090/api/departments/add",
+							"raw": "http://134.209.219.21:9090/api/consultationDoctors/getAvailableConsultationDoctors",
 							"protocol": "http",
 							"host": [
 								"134",
@@ -2160,8 +2160,8 @@
 							"port": "9090",
 							"path": [
 								"api",
-								"departments",
-								"add"
+								"consultationDoctors",
+								"getAvailableConsultationDoctors"
 							]
 						}
 					},
@@ -6665,7 +6665,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test12@gmail.com\",\r\n    \"password\": \"123123\",\r\n    \"type\": \"patient\"\r\n}",
+							"raw": "{\r\n    \"email\": \"diaa12@gmail.com\",\r\n    \"password\": \"123123\",\r\n    \"type\": \"patient\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
