@@ -134,6 +134,132 @@ module.exports = function init(site) {
 
   });
 
+
+// doctor login
+
+site.post({name : '/api/doctor/login' , require : {permissions : []}}, function (req, res) {
+  let response = {
+    accessToken: req.session.accessToken,
+  };
+
+  // if (req.body.$encript) {
+  //   if (req.body.$encript === '64') {
+  //     req.body.email = site.fromBase64(req.body.email);
+  //     req.body.password = site.fromBase64(req.body.password);
+  //     req.body.company = site.fromJson(site.fromBase64(req.body.company));
+  //     req.body.branch = site.fromJson(site.fromBase64(req.body.branch));
+  //   } else if (req.body.$encript === '123') {
+  //     req.body.email = site.from123(req.body.email);
+  //     req.body.password = site.from123(req.body.password);
+  //     req.body.company = site.fromJson(site.from123(req.body.company));
+  //     req.body.branch = site.fromJson(site.from123(req.body.branch));
+  //   }
+  // }
+
+  // if (site.security.isUserLogin(req, res)) {
+  //   response.error = "Login Error , You Are Loged "
+  //   response.done = true
+  //   res.json(response)
+  //   return
+  // }
+
+  site.security.login(
+    {
+      email: req.body.email,
+      password: req.body.password,
+      company: req.body.company,
+      branch: req.body.branch,
+      $req: req,
+      $res: res,
+    },
+    function (err, user) {
+      if (!err) {
+
+        site.call('[session][update]', {
+          
+          company: req.body.company,
+          branch: req.body.branch,
+        });
+        if (user) {
+          $doctors.findOne({
+            where: {
+              _id: user.ref_info._id
+            }
+          }, (err, doc) => {
+            if (doc && doc.isActive==false) {
+              delete response.accessToken
+              response.done = false,
+                response.errorCode = site.var('failed')
+              response.message = site.word('activateDoctorFirst')[req.headers.language]
+              res.json(response)
+              return
+      
+            } else {
+              response.accessToken= req.session.accessToken,
+              response.user = {
+                id: user.id,
+                _id: user._id,
+                email: user.email,
+                permissions: user.permissions,
+                company: req.body.company,
+                branch: req.body.branch,
+                ref : user.ref_info,
+                targetUserId : user.ref_info._id
+              };
+              response.done = true;
+              res.json(response)
+              return
+            }
+      
+          })
+        }
+       else{
+        delete response.accessToken
+        response.done = false,
+          response.errorCode = site.var('failed')
+        response.message = site.word('emailOrPasswordInCorrect')[req.headers.language]
+        res.json(response)
+        return
+        
+       }
+
+      } else {
+        delete response.accessToken
+        response.done = false,
+          response.errorCode = site.var('failed')
+        response.error = err.message;
+        res.json(response);
+
+      }
+
+    },
+  );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // change status active
   site.post('/api/doctors/changeStatusActive', (req, res) => {
     req.headers.language = req.headers.language || 'en'

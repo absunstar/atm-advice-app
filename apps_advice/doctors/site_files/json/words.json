@@ -95,6 +95,26 @@
         "name": "dateRemoved",
         "en": "date Removed",
         "ar": "تم حذف اليوم "
+    },
+    {
+        "name": "activateDoctorFirst",
+        "en": "activate Doctor First",
+        "ar": "برجاء تفعيل بيانات الدكتور"
+        
+    },
+    {
+        "name": "emailOrPasswordInCorrect",
+        "en": "Email or Password InCorrect",
+        "ar": "البريد الاليكتروني او كلمة المرور غير صحيحة"
+        
+    },
+
+
+    {
+        "name": "insuranceCompanyNotExist",
+        "en": "insurance Company Not Exist",
+        "ar": "لا يوجد شركة تامين"
+        
     }
 
 ]

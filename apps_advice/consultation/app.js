@@ -1044,41 +1044,54 @@ site.post({name:'/api/consultation/upload/cardImage/consultation' ,require : {pe
       }
     }, (err, userDoc) => {
 
-      if (req.body.patientType == 'hasInsurance') {
-        if (userDoc.hasInsurance && userDoc.hasInsurance == true) {
+      if (req.body.patientType == 'hasInsurance' ) {
+        
           $insuranceCompany.findOne({
             where: {
-              _id: userDoc.insuranceCompany._id
+              _id: req.body.insuranceCompany._id
             }
           }, (err, insuranceDoc) => {
-            let insuranceNumbersList = insuranceDoc.insuranceNumbers.map(li => li.number)
-            if (insuranceNumbersList.includes(req.body.insuranceNumber) == true) {
-              if (insuranceDoc.balance < 15) {
+            if (insuranceDoc) {
+              let insuranceNumbersList = insuranceDoc.insuranceNumbers.map(li => li.number)
+              if (insuranceNumbersList.includes(req.body.insuranceNumber) == true) {
+                if (insuranceDoc.balance < 15) {
+                  response.errorCode = site.var('failed')
+                  response.message = site.word('insuranceCompanyRecharge')[req.headers.language]
+                  response.done = false
+                  res.json(response)
+                  return
+                } else {
+                  response.errorCode = site.var('succeed')
+                  response.message = site.word('balanceEnough')[req.headers.language]
+                  response.done = true
+                  res.json(response)
+                  return
+                }
+  
+              }
+  
+              if (insuranceNumbersList.includes(req.body.insuranceNumber) == false) {
                 response.errorCode = site.var('failed')
-                response.message = site.word('insuranceCompanyRecharge')[req.headers.language]
+                response.message = site.word('insuranceNumberNotExist')[req.headers.language]
                 response.done = false
                 res.json(response)
                 return
-              } else {
-                response.errorCode = site.var('succeed')
-                response.message = site.word('balanceEnough')[req.headers.language]
-                response.done = true
-                res.json(response)
-                return
               }
-
-            }
-
-            if (insuranceNumbersList.includes(req.body.insuranceNumber) == false) {
+            } else {
               response.errorCode = site.var('failed')
-              response.message = site.word('insuranceNumberNotExist')[req.headers.language]
+              response.message = site.word('insuranceCompanyNotExist')[req.headers.language]
               response.done = false
               res.json(response)
               return
             }
+          
           })
-        }
-      } else {
+        
+      } 
+      
+   
+      
+      else {
         response.errorCode = site.var('succeed')
         response.message = site.word('normalUser')[req.headers.language]
         response.done = true

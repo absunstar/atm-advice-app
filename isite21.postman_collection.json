@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "02097e1e-6e00-46fe-b9f9-e091969a4d8c",
+		"_postman_id": "4e2b658e-4954-42c3-9c39-94ffc1da2583",
 		"name": "isite Copy 2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -862,7 +862,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{  \r\n   \r\n\"user\":{\r\n    \"_id\" : \"6106fb1f464237089eb5397d\"\r\n},\r\n\"patientType\" : \"hasInsurance\",\r\n\"insuranceNumber\" : \"123456789\"\r\n}",
+							"raw": "{\r\n    \"user\": {\r\n        \"_id\": \"6107ba8fd0e670425241e0be\"\r\n    },\r\n    \"patientType\": \"hasInsurance\",\r\n    \"insuranceNumber\": \"123456789\",\r\n    \"insuranceCompany\": {\r\n        \"_id\": \"61092e3e8b635abfd51dcc0a\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4289,7 +4289,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"a.a@a.com\",\r\n    \"password\" : \"123\",\r\n    \"type\" : \"doctor\"\r\n}",
+							"raw": "{\r\n    \"email\" : \"d.a@a.com\",\r\n    \"password\" : \"123\",\r\n    \"type\" : \"doctor\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4297,7 +4297,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{baseurl}}:9090/api/user/login",
+							"raw": "http://{{baseurl}}:9090/api/doctor/login",
 							"protocol": "http",
 							"host": [
 								"{{baseurl}}"
@@ -4305,7 +4305,7 @@
 							"port": "9090",
 							"path": [
 								"api",
-								"user",
+								"doctor",
 								"login"
 							]
 						}
