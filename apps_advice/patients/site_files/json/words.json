@@ -123,6 +123,11 @@
         "name": "userDeleted",
         "en": "user Deleted",
         "ar": "تم حذف العميل"
+    },
+    {
+        "name": "userNotFound",
+        "en": "user Not Found",
+        "ar": "هذا العميل غير موجود"
     }
     
 ]

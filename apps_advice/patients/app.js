@@ -351,7 +351,7 @@ module.exports = function init(site) {
       } else {
         response.done = false,
           response.errorCode = site.var('failed')
-        response.message = site.word('phoneNotFound')[req.headers.language]
+        response.message = site.word('userNotFound')[req.headers.language]
         res.json(response)
       }
 
