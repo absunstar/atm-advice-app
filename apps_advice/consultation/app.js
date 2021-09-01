@@ -240,6 +240,7 @@ module.exports = function init(site) {
     const currentTime = Math.floor(Date.now() / 1000);
     const privilegeExpireTime = currentTime + expireTime;
     // build the token
+     
     const token = RtcTokenBuilder.buildTokenWithUid(APP_ID, APP_CERTIFICATE, channelName, uid, role, privilegeExpireTime);
     let obj = {
       done: true,
@@ -591,8 +592,21 @@ module.exports = function init(site) {
         _id: consultation_doc.consultationId
       },
     }, (err, doc, count) => {
-      console.log(doc);
+      let arrpdf = []
+      let arrImage = []
       if (doc) {
+
+      
+        for (const iterator of doc.attachments.pdf) {
+          arrpdf =  consultation_doc.attachments.pdf.push({
+            name : iterator.name,
+          })
+        }
+        for (const iterator of doc.attachments.image) {
+          arrImage =  consultation_doc.attachments.image.push({
+            name : iterator.name,
+          })
+        }
         $consultation.edit({
           where: {
             'status.statusId': 8,
@@ -1151,6 +1165,40 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
+    const APP_ID = "93ed0e76a31b41ebbbef7330a1fd614c";
+    const APP_CERTIFICATE = "b1738be45ac847f695ff9859066ed0ea";
+    
+    const channelName = String(new Date().getTime());
+    if (!channelName) {
+      return resp.status(500).json({
+        'error': 'channel is required'
+      });
+    }
+    // get uid 
+    let uid = req.query.uid;
+    if (!uid || uid == '') {
+      uid = 0;
+    }
+    // get role
+    let role = RtcRole.SUBSCRIBER;
+    if (req.query.role == 'publisher') {
+      role = RtcRole.PUBLISHER;
+    }
+  
+    
+    const privilegeExpireTime = 0;
+    // build the token
+     
+    const token = RtcTokenBuilder.buildTokenWithUid(APP_ID, APP_CERTIFICATE, channelName, uid, role, privilegeExpireTime);
+  
+     response.data= {
+        token: token,
+        APP_ID: APP_ID,
+        APP_CERTIFICATE: APP_CERTIFICATE,
+        channelName : channelName
+      }
+
+
     $consultation.findOne({
       where: {
         _id: req.body.consultationId,
@@ -1211,7 +1259,6 @@ module.exports = function init(site) {
                 'balance': userDoc.balance - doc.price,
               },
             })
-            console.log("have no insurance company");
           }
         })
       }
