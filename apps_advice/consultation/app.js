@@ -44,24 +44,33 @@ module.exports = function init(site) {
     //   res.json(response);
     //   return;
     // }
-
-    let consultation_doc = req.body;
-    consultation_doc.$req = req;
-    consultation_doc.$res = res;
+    
+    
+  let consultation_doc = req.body;
+  consultation_doc.$req = req;
+  consultation_doc.$res = res;
     consultation_doc.isActive = true,
       consultation_doc.isContinue = false,
       consultation_doc.consultationPeriod = null
     consultation_doc.startConsultation = null
     consultation_doc.time = 0,
-      isRate = false
+    consultation_doc.isRate = false
+    consultation_doc.rate = {
+      comment : "", 
+      value : 0
+  }
     consultation_doc.status = {
         statusId: site.var('activeId'),
         name: site.var('active')
       },
-
+      
       consultation_doc.createdAt = new Date()
     consultation_doc.updatedAt = new Date()
     consultation_doc.attachments = {}
+    if (consultation_doc.department) {
+      consultation_doc.price = consultation_doc.department.price
+      consultation_doc.period = consultation_doc.department.mintue
+    }
     $consultation.add(consultation_doc, (err, doc) => {
       if (!err) {
         response.data = doc;
@@ -201,15 +210,18 @@ module.exports = function init(site) {
     let response = {}
     let consultation_doc = req.body
 
-    const appID = req.body.APP_ID
-    const appCertificate = req.body.APP_CERTIFICATE
+    const APP_ID = "93ed0e76a31b41ebbbef7330a1fd614c";
+    const APP_CERTIFICATE = "b1738be45ac847f695ff9859066ed0ea";
+    
     const channelName = String(new Date().getTime());
     if (!channelName) {
-      return resp.status(500).json({ 'error': 'channel is required' });
+      return resp.status(500).json({
+        'error': 'channel is required'
+      });
     }
     // get uid 
     let uid = req.query.uid;
-    if(!uid || uid == '') {
+    if (!uid || uid == '') {
       uid = 0;
     }
     // get role
@@ -227,9 +239,8 @@ module.exports = function init(site) {
     // calculate privilege expire time
     const currentTime = Math.floor(Date.now() / 1000);
     const privilegeExpireTime = currentTime + expireTime;
-   
     // build the token
-    const token = RtcTokenBuilder.buildTokenWithUid(appID, appCertificate, channelName, uid, role, privilegeExpireTime);
+    const token = RtcTokenBuilder.buildTokenWithUid(APP_ID, APP_CERTIFICATE, channelName, uid, role, privilegeExpireTime);
     let obj = {
       done: true,
       errorCode: site.var('succeed'),
@@ -263,104 +274,9 @@ module.exports = function init(site) {
   })
 
 
-  
 
-  const generateAccessToken = (req, resp) => {
-    const APP_ID = "b1738be45ac847f695ff9859066ed0ea";
-  const APP_CERTIFICATE = "93ed0e76a31b41ebbbef7330a1fd614c";
-    // set response header
-    // get channel name
-    console.log("111111111111111" , req);
-    const channelName = req.query.channel;
-    if (!channelName) {
-      return resp.status(500).json({ 'error': 'channel is required' });
-    }
-    // get uid 
-    let uid = req.query.uid;
-    if(!uid || uid == '') {
-      uid = 0;
-    }
-    // get role
-    let role = RtcRole.SUBSCRIBER;
-    if (req.query.role == 'publisher') {
-      role = RtcRole.PUBLISHER;
-    }
-    // get the expire time
-    let expireTime = req.query.expireTime;
-    if (!expireTime || expireTime == '') {
-      expireTime = 3600;
-    } else {
-      expireTime = parseInt(expireTime, 10);
-    }
-    // calculate privilege expire time
-    const currentTime = Math.floor(Date.now() / 1000);
-    const privilegeExpireTime = currentTime + expireTime;
-    console.log(uid);
-    console.log(role);
-    console.log(APP_ID);
-    console.log(APP_CERTIFICATE);
-    // build the token
-    const token = RtcTokenBuilder.buildTokenWithUid(APP_ID, APP_CERTIFICATE, channelName, uid, role, privilegeExpireTime);
-    // return the token
-   
-    let obj = {
-      done: true,
-      errorCode: site.var('succeed'),
-      data: {
-        token: token,
-        uid: uid,
-        channel: channelName
-      },
-      message: site.word('tokenAvailable')[req.headers.language]
 
-    }
-    resp.json(obj)
-  }
-
-  site.post('/api/consultation/access_token', (req, resp)=>{
-    const APP_ID = req.body.APP_ID
-    const APP_CERTIFICATE = req.body.APP_CERTIFICATE
-    const channelName = req.query.channel;
-    if (!channelName) {
-      return resp.status(500).json({ 'error': 'channel is required' });
-    }
-    // get uid 
-    let uid = req.query.uid;
-    if(!uid || uid == '') {
-      uid = 0;
-    }
-    // get role
-    let role = RtcRole.SUBSCRIBER;
-    if (req.query.role == 'publisher') {
-      role = RtcRole.PUBLISHER;
-    }
-    // get the expire time
-    let expireTime = req.query.expireTime;
-    if (!expireTime || expireTime == '') {
-      expireTime = 3600;
-    } else {
-      expireTime = parseInt(expireTime, 10);
-    }
-    // calculate privilege expire time
-    const currentTime = Math.floor(Date.now() / 1000);
-    const privilegeExpireTime = currentTime + expireTime;
-   
-    // build the token
-    const token = RtcTokenBuilder.buildTokenWithUid(APP_ID, APP_CERTIFICATE, channelName, uid, role, privilegeExpireTime);
-    // return the token
-    let obj = {
-      done: true,
-      errorCode: site.var('succeed'),
-      data: {
-        token: token,
-        uid: uid,
-        channel: channelName
-      },
-      message: site.word('tokenAvailable')[req.headers.language]
-
-    }
-    resp.json(obj)
-  });
+ 
 
 
 
@@ -392,34 +308,33 @@ module.exports = function init(site) {
             },
             "finishedStatue": {
               "$cond": [
-              //   {
-              //     "$eq" : [
-              //         "$status.statusId", 
-              //         1.0
-              //     ]
-              // },
-                
-                {
-                  "$and": [
-                    {
-                      "$or" : [
-                          
-                          {
-                              "$eq" : [
-                                  "$status.statusId", 
-                                  7.0
-                              ]
-                          }, 
-                          {
-                              "$eq" : [
-                                  "$status.statusId", 
-                                  8.0
-                              ]
-                          }
-                      ]
-                  },
+                //   {
+                //     "$eq" : [
+                //         "$status.statusId", 
+                //         1.0
+                //     ]
+                // },
 
-                    
+                {
+                  "$and": [{
+                      "$or": [
+
+                        {
+                          "$eq": [
+                            "$status.statusId",
+                            7.0
+                          ]
+                        },
+                        {
+                          "$eq": [
+                            "$status.statusId",
+                            8.0
+                          ]
+                        }
+                      ]
+                    },
+
+
                     {
                       "$eq": [
                         "$doctor._id",
@@ -448,14 +363,14 @@ module.exports = function init(site) {
         {
           "$project": {
             "_id": 0.0,
-            "totalConsultations" : {
-              "$sum" : [
-                  "$finishedStatue", 
-                  "$activeStatue"
+            "totalConsultations": {
+              "$sum": [
+                "$finishedStatue",
+                "$activeStatue"
               ]
-          }, 
-          "activeStatue" : 1.0, 
-          "finishedStatue" : 1.0
+            },
+            "activeStatue": 1.0,
+            "finishedStatue": 1.0
           }
         }
 
@@ -623,7 +538,9 @@ module.exports = function init(site) {
     }
     $consultation.findOne({
       where: {
-        'status.statusId': site.var('activeId'),
+        'status.statusId': {
+          $in: [site.var('acceptedId'), site.var('activeId')]
+        },
         'user._id': String(req.session.user.ref_info._id)
       },
     }, (err, doc, count) => {
@@ -665,8 +582,8 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
-   
-  
+
+
     $consultation.findOne({
       where: {
         'status.statusId': 8,
@@ -705,37 +622,42 @@ module.exports = function init(site) {
 
 
 
-// add card image to consultation
-  
-site.post({name:'/api/consultation/upload/cardImage/consultation' ,require : {permissions : []}}, (req, res) => {
-  let response = {}
-  req.headers.language = req.headers.language || 'en'
+  // add card image to consultation
 
-  site.createDir(site.dir + '/../../uploads/' + 'consultation', () => {
-    site.createDir(site.dir + '/../../uploads/' + 'consultation' + '/images', () => {
-      let response = {
-        done: !0,
-      };
-      let file = req.files.fileToUpload;
-      if (file) {
-        let newName = 'image_' + new Date().getTime().toString().replace('.', '_') + '.png';
-        let newpath = site.dir + '/../../uploads/' + 'consultation' + '/images/' + newName;
-        site.mv(file.path, newpath, function (err) {
-          if (err) {
-            response.error = err;
-            response.done = !1;
-          }
-          response.image_url = '/api/image/' + 'consultation' + '/' + newName;
+  site.post({
+    name: '/api/consultation/upload/cardImage/consultation',
+    require: {
+      permissions: []
+    }
+  }, (req, res) => {
+    let response = {}
+    req.headers.language = req.headers.language || 'en'
+
+    site.createDir(site.dir + '/../../uploads/' + 'consultation', () => {
+      site.createDir(site.dir + '/../../uploads/' + 'consultation' + '/images', () => {
+        let response = {
+          done: !0,
+        };
+        let file = req.files.fileToUpload;
+        if (file) {
+          let newName = 'image_' + new Date().getTime().toString().replace('.', '_') + '.png';
+          let newpath = site.dir + '/../../uploads/' + 'consultation' + '/images/' + newName;
+          site.mv(file.path, newpath, function (err) {
+            if (err) {
+              response.error = err;
+              response.done = !1;
+            }
+            response.image_url = '/api/image/' + 'consultation' + '/' + newName;
+            res.json(response);
+          });
+        } else {
+          response.error = 'no file';
+          response.done = !1;
           res.json(response);
-        });
-      } else {
-        response.error = 'no file';
-        response.done = !1;
-        res.json(response);
-      }
+        }
+      });
     });
   });
-});
 
 
   site.post('/api/consultation/upload/image/consultation', (req, res) => {
@@ -781,7 +703,7 @@ site.post({name:'/api/consultation/upload/cardImage/consultation' ,require : {pe
           res.json(response);
           return;
         }
-        let newName = 'file_' + new Date().getTime()  + site.path.extname(file.name);
+        let newName = 'file_' + new Date().getTime() + site.path.extname(file.name);
         let newpath = site.dir + '/../../uploads/' + 'consultation' + '/files/' + newName;
         site.mv(file.path, newpath, function (err) {
           if (err) {
@@ -949,14 +871,24 @@ site.post({name:'/api/consultation/upload/cardImage/consultation' ,require : {pe
                         _id: doc2.user._id
                       }
                     }, (err, patientsDoc) => {
-                      $patients.edit({
-                        where: {
-                          "_id": patientsDoc._id
-                        },
-                        set: {
-                          balance: patientsDoc.balance - doc2.price
-                        },
-                      })
+                      if (patientsDoc.balance - doc2.price <0) {
+                        response.errorCode = site.var('failed')
+                        response.message = site.word('balanceNotEnough')[req.headers.language]
+                        response.done = false
+                        res.json(response)
+                        return
+                      }
+                      else {
+                        $patients.edit({
+                          where: {
+                            "_id": patientsDoc._id
+                          },
+                          set: {
+                            balance: patientsDoc.balance - doc2.price
+                          },
+                        })
+                      }
+                      
 
                     })
 
@@ -1044,54 +976,50 @@ site.post({name:'/api/consultation/upload/cardImage/consultation' ,require : {pe
       }
     }, (err, userDoc) => {
 
-      if (req.body.patientType == 'hasInsurance' ) {
-        
-          $insuranceCompany.findOne({
-            where: {
-              _id: req.body.insuranceCompany._id
-            }
-          }, (err, insuranceDoc) => {
-            if (insuranceDoc) {
-              let insuranceNumbersList = insuranceDoc.insuranceNumbers.map(li => li.number)
-              if (insuranceNumbersList.includes(req.body.insuranceNumber) == true) {
-                if (insuranceDoc.balance < 15) {
-                  response.errorCode = site.var('failed')
-                  response.message = site.word('insuranceCompanyRecharge')[req.headers.language]
-                  response.done = false
-                  res.json(response)
-                  return
-                } else {
-                  response.errorCode = site.var('succeed')
-                  response.message = site.word('balanceEnough')[req.headers.language]
-                  response.done = true
-                  res.json(response)
-                  return
-                }
-  
-              }
-  
-              if (insuranceNumbersList.includes(req.body.insuranceNumber) == false) {
+      if (req.body.patientType == 'hasInsurance') {
+
+        $insuranceCompany.findOne({
+          where: {
+            _id: req.body.insuranceCompany._id
+          }
+        }, (err, insuranceDoc) => {
+          if (insuranceDoc) {
+            let insuranceNumbersList = insuranceDoc.insuranceNumbers.map(li => li.number)
+            if (insuranceNumbersList.includes(req.body.insuranceNumber) == true) {
+              if (insuranceDoc.balance < 15) {
                 response.errorCode = site.var('failed')
-                response.message = site.word('insuranceNumberNotExist')[req.headers.language]
+                response.message = site.word('insuranceCompanyRecharge')[req.headers.language]
                 response.done = false
                 res.json(response)
                 return
+              } else {
+                response.errorCode = site.var('succeed')
+                response.message = site.word('balanceEnough')[req.headers.language]
+                response.done = true
+                res.json(response)
+                return
               }
-            } else {
+
+            }
+
+            if (insuranceNumbersList.includes(req.body.insuranceNumber) == false) {
               response.errorCode = site.var('failed')
-              response.message = site.word('insuranceCompanyNotExist')[req.headers.language]
+              response.message = site.word('insuranceNumberNotExist')[req.headers.language]
               response.done = false
               res.json(response)
               return
             }
-          
-          })
-        
-      } 
-      
-   
-      
-      else {
+          } else {
+            response.errorCode = site.var('failed')
+            response.message = site.word('insuranceCompanyNotExist')[req.headers.language]
+            response.done = false
+            res.json(response)
+            return
+          }
+
+        })
+
+      } else {
         response.errorCode = site.var('succeed')
         response.message = site.word('normalUser')[req.headers.language]
         response.done = true
@@ -1162,7 +1090,7 @@ site.post({name:'/api/consultation/upload/cardImage/consultation' ,require : {pe
                 "_id": doc1._id
               },
               set: {
-                balance: doc1.balance - Number(pricePerMinute)
+                balance: doc1.balance - Number(doc.price)
               },
             })
 
@@ -1225,7 +1153,7 @@ site.post({name:'/api/consultation/upload/cardImage/consultation' ,require : {pe
     }
     $consultation.findOne({
       where: {
-        _id:req.body.consultationId,
+        _id: req.body.consultationId,
         'status.statusId': site.var('acceptedId'),
         'user._id': String(req.session.user.ref_info._id)
       },
@@ -1240,7 +1168,7 @@ site.post({name:'/api/consultation/upload/cardImage/consultation' ,require : {pe
 
         $consultation.edit({
           where: {
-            _id:req.body.consultationId,
+            _id: req.body.consultationId,
             'status.statusId': site.var('acceptedId'),
             "user._id": String(req.session.user.ref_info._id),
           },
@@ -1408,7 +1336,7 @@ site.post({name:'/api/consultation/upload/cardImage/consultation' ,require : {pe
       if (doc) {
         console.log(doc);
         let notificationObj = {
-          consultationId : req.body.consultationId,
+          consultationId: req.body.consultationId,
           title: doc.user.fullName + ': ' + site.word('thisPatientSendNotificationToSendHimDiagnosisFile')[req.headers.language],
           doctor: doc.doctor,
           type: "consultation",
@@ -1550,4 +1478,39 @@ site.post({name:'/api/consultation/upload/cardImage/consultation' ,require : {pe
       },
     );
   });
+  setInterval(() => {
+    $consultation.findMany({
+      where: {
+        'status.statusId': site.var('activeId'),
+      },
+    }, (err, docs, count) => {
+      if (docs.length > 0) {
+        for (const iterator of docs) {
+          console.log(docs);
+          var startTime = new Date();
+          var endTime = new Date(iterator['createdAt']);
+          var difference = startTime.getTime() - endTime.getTime(); // This will give difference in milliseconds
+          var resultInMinutes = Math.round(difference / 60000);
+          let time = 3
+          if (resultInMinutes > time == true) {
+            $consultation.edit({
+              where: {
+                'status.statusId': site.var('activeId'),
+              },
+              set: {
+                'status.statusId': site.var('canceledId'),
+                'status.name':'canceled'
+              },
+            })
+          }
+
+        }
+
+      }
+      if (docs.length == 0) {
+        return
+      }
+    })
+  }, 2*60*1000);
+
 };

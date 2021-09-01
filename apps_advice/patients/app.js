@@ -312,6 +312,19 @@ module.exports = function init(site) {
 
 
 
+
+
+
+// testing send notification
+
+
+
+
+
+
+
+
+
   // charge balance
   site.post('/api/patients/chargeBalance', (req, res) => {
     req.headers.language = req.headers.language || 'en'

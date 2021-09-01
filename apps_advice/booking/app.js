@@ -85,6 +85,15 @@ module.exports = function init(site) {
         response.errorCode = site.var('succeed')
         response.message = site.word('bookingCreated')[req.headers.language]
         response.done = true;
+        // site.onWS('/chat', (client) => {
+        //   client.onMessage = function (message) {
+        //     console.log(message);
+        //     if (message.type === 'connected') {
+        //       client.send({ type: 'ready' });
+        //     }
+        //   };
+        //   console.log('New Client ...' + client.ip);
+        // });
         let notificationObj = {
           title: site.word('bookingAdded')[req.headers.language],
           type: 'booking',
