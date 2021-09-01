@@ -596,17 +596,22 @@ module.exports = function init(site) {
       let arrImage = []
       if (doc) {
 
-      
+      if (doc.attachments.pdf && doc.attachments.pdf.length > 0) {
         for (const iterator of doc.attachments.pdf) {
           arrpdf =  consultation_doc.attachments.pdf.push({
             name : iterator.name,
           })
         }
+      }
+      if (doc.attachments.image && doc.attachments.image.length > 0) {
         for (const iterator of doc.attachments.image) {
           arrImage =  consultation_doc.attachments.image.push({
             name : iterator.name,
           })
         }
+      }
+       
+        
         $consultation.edit({
           where: {
             'status.statusId': 8,
