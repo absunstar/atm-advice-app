@@ -12,11 +12,19 @@ let ObjectID = require('mongodb').ObjectID
 
   site.get({
     name: 'orders',
-    path: __dirname + '/site_files/html/index.html',
+    path: __dirname + '/site_files/html/orders.html',
     parser: 'html',
     compress: true,
     require : {permissions : []}
   });
+
+  // site.get({
+  //   name: 'orders',
+  //   path: __dirname + '/site_files/html/index.html',
+  //   parser: 'html',
+  //   compress: true,
+  //   require : {permissions : []}
+  // });
   // Add New Gov With Not Duplicate Name Validation
 
   site.post('/api/orders/add', (req, res) => {

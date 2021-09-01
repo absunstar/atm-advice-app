@@ -19,6 +19,24 @@ module.exports = function init(site) {
       permissions: []
     }
   });
+  site.get({
+    name: 'forgetpassword',
+    path: __dirname + '/site_files/html/forgetpassword2.html',
+    parser: 'html',
+    compress: true,
+    require: {
+      permissions: []
+    }
+  });
+  site.get({
+    name: 'profile',
+    path: __dirname + '/site_files/html/profile.html',
+    parser: 'html',
+    compress: true,
+    require: {
+      permissions: []
+    }
+  });
 
 
   site.get({

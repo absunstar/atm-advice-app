@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
+      integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="plugins/fontawesome-free-5.15.1-web/fontawesome-free-5.15.1-web/css/all.css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo&display=swap"
+      rel="stylesheet"
+    />
+    <title>booking</title>
+  </head>
+  <body>
+    <section style="margin-top: 150px;">
+      <div class="book-confirmation container">
+        <div class="row">
+          <div class="col" style="margin-left: 15px;background-color: #F4F5F8;
+          
+          border-radius: 8px; height: 500px;">
+            <div class="img-side">
+              <img src="images/doctor.svg" />
+              <br />
+              <h2>د. محمود علي</h2>
+              <p>استشاري و مدرس الباطنه و الكبد و السكر</p>
+            </div>
+            <div class="info-side">
+              <div class="dr-details">
+                <span
+                  ><img src="images/Iconmaterial-location-on.svg" />دكتور باطنة
+                  متخصص في سكر ، جهاز هضمي ومناظير</span
+                >
+              </div>
+              <div class="dr-details">
+                <span
+                  ><img src="images/Iconmaterial-location-on.svg" />مدينة دمياط
+                  الجديدة : المنطقة المركزية</span
+                >
+              </div>
+              <div class="dr-details">
+                <span
+                  ><img src="images/Iconmaterial-location-on.svg" />الكشف : ١٢٠
+                  جنيه</span
+                >
+              </div>
+              <div class="dr-details">
+                <span
+                  ><img src="images/Iconmaterial-location-on.svg" />مدة الكشف : 30
+                  دقيقة</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-8">
+            <div class="steps">
+              <div class="book-date">
+                <a href="#"></a><br>
+                <p>معلومات الميعاد</p>
+              </div>
+              <div class="patient-details">
+                <a href="#"></a><br>
+                <p>تفاصيل شخصية</p>
+              </div>
+              <div class="confirm-reserve">
+                <a href="#"></a><br>
+                <p> تأكيد الحجز</p>
+              </div>
+
+            </div>
+            
+            <div class="steps-form">
+
+              <!-- book date form -->
+
+              <div class="date-edit">
+                <a href="#" style="float: left;"> تعديل التاريخ</a>
+                <h4>التاريخ</h4>
+                <span>الثلاثاء 31 مايو 2021</span>
+              </div>
+              <br>
+              <br>
+              <div class="time-edit">
+                <a href="#" style="float: left;">  تعديل الوقت</a>
+                <h4>الوقت</h4>
+                <span> 08:00 مساءا  </span>
+              </div>
+
+              <a href="#">التالي</a>
+
+              <br>
+              <br>
+              
+
+              <!-- patient details form -->
+
+              <hr><hr><hr>
+              <br>
+              <br>
+
+              <div class="enter-data">
+                <a style="float: left;"> حجز آمن</a>
+                <h4>التاريخ</h4>
+              <br>
+
+                <div class="col-sm-12">
+                  <label>الاسم</label><br>
+                  <input type="text" placeholder="ادخل اسمك كامل">
+              </div>
+              <div class="col-sm-12">
+                  <label>
+                      رقم الهاتف
+                  </label><br>
+                  <input type="tel" placeholder="xxxxxxxxxxx" style="width: 100%;">
+              </div>
+              <div class="col-sm-12">
+                <label>هل لديك اشتراك في تأمين صحي ؟</label><br>
+                  <div class="radio">
+    
+                    <input type="radio" name="insurance" checked="checked">
+                    <input type="radio" name="insurance">
+                    
+                    <div class="row tab">
+                        <div class="col-sm-6">
+                          
+                        <label>مكان العمل</label><br>
+                        <input type="text" placeholder="ماهي شركتك؟">
+                            
+                          </div>
+                          <div class="col-sm-6">
+                            <label>شركه التأمين</label>
+                            <br>
+                            <select>
+                              
+                              <option selected disabled>اختر شركه التأمين</option>
+                              <option value="1"> 1</option>
+                              <option value="1" >1</option>
+                              <option value="1" >1</option>
+                              <option value="1" >1</option>
+                              <option value="1" >1</option>
+                
+                            </select>
+    
+                          </div>
+                          
+                            <div class="col-sm-6">
+                                <label>الرقم التأميني</label><br>
+                                <input type="number">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>صوره كارت التأمين</label><br>
+                                <label for="insurance-img">ارفع صورة كارت التأمين الخاصة بك</label>
+                                <input type="file" accept="image/*" id="insurance-img" style="display: none;">
+                            </div>
+                        
+                        </div>
+                       
+                        </div>
+                        </div>
+              <br>
+              <br>
+
+                        <hr><hr><hr>
+                        <br>
+                        <br>
+
+
+                        <!-- confirm reserve form -->
+                        <div class="accept-reserve">
+                          <div class="personal-info" style="border-bottom: 1px solid;padding-bottom: 20px;">
+                            <a href="#" style="float: left;"> تعديل التاريخ</a>
+                            <h4>التاريخ</h4>
+                            <span>الثلاثاء 31 مايو 2021</span>
+              <br>
+              <br>
+
+
+
+                            <div class="info-table">
+                            <div  style="background-color: white; padding: 20px; width: 80%; margin: auto; border-radius: 8px;">  <h4>هاجر الحديدي توفيق</h4>
+                              <h4>01245784457</h4>
+                              <h4>يوجد لديه تأمين صحي</h4></div>
+  
+                              
+                            </div>
+                          </div>
+              <br>
+              <br>
+                         
+                          <h4>ميعاد الحجز</h4>
+                          <span>الثلاثاء 31 مايو 2021 08:00 مساءا</span><br><br>
+                          <input type="radio" name="privacy"><label>أؤكد أن عمري يزيد عن 18 عامًا وأوافق على سياسة الخصوصية والشروط والأحكام</label><br>
+                          <input type="radio" name="privacy"><label>أرغب في تلقي النشرة الإخبارية والرسائل الإلكترونية</label><br>
+                          <a href="#">تأكيد الحجز</a>
+
+                        </div>
+
+
+              </div>
+
+
+            </div>
+          
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+      integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

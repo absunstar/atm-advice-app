@@ -6,12 +6,12 @@ module.exports = function init(site) {
   //   path: __dirname + '/site_files/images/',
   // });
 
-  // site.get({
-  //   name: 'notifications',
-  //   path: __dirname + '/site_files/html/index.html',
-  //   parser: 'html',
-  //   compress: true,
-  // });
+  site.get({
+    name: 'notifications',
+    path: __dirname + '/site_files/html/notification.html',
+    parser: 'html',
+    compress: true,
+  });
 
   // site.on('[company][created]', (doc) => {
   //   $notifications.add(

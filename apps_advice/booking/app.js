@@ -11,15 +11,44 @@ module.exports = function init(site) {
     }
   });
 
+  // site.get({
+  //   name: 'booking',
+  //   path: __dirname + '/site_files/html/index.html',
+  //   parser: 'html',
+  //   compress: true,
+  //   require: {
+  //     permissions: []
+  //   }
+  // });
   site.get({
     name: 'booking',
-    path: __dirname + '/site_files/html/index.html',
+    path: __dirname + '/site_files/html/booking.html',
     parser: 'html',
     compress: true,
     require: {
       permissions: []
     }
   });
+  site.get({
+    name: 'booking-details',
+    path: __dirname + '/site_files/html/booking-details.html',
+    parser: 'html',
+    compress: true,
+    require: {
+      permissions: []
+    }
+  });
+  site.get({
+    name: 'confirm-booking',
+    path: __dirname + '/site_files/html/confirm.html',
+    parser: 'html',
+    compress: true,
+    require: {
+      permissions: []
+    }
+  });
+
+
 
   let ObjectID = require('mongodb').ObjectID
 

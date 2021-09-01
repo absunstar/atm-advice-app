@@ -40,6 +40,25 @@ module.exports = function init(site) {
   });
 
   site.get({
+    name: 'login',
+    path: __dirname + '/site_files/html/sign-in.html',
+    parser: 'html js',
+    compress: false,
+  });
+  site.get({
+    name: 'registration',
+    path: __dirname + '/site_files/html/sign-up.html',
+    parser: 'html js',
+    compress: false,
+  });
+  site.get({
+    name: 'forget-password',
+    path: __dirname + '/site_files/html/forgetpassword.html',
+    parser: 'html js',
+    compress: false,
+  });
+
+  site.get({
     name: 'security/users',
     path: __dirname + '/site_files/html/users.html',
     parser: 'html js',

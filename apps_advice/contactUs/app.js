@@ -7,9 +7,16 @@ module.exports = function init(site) {
     ,require : {permissions : []}
   });
 
+  // site.get({
+  //   name: 'contactUs',
+  //   path: __dirname + '/site_files/html/index.html',
+  //   parser: 'html',
+  //   compress: true,
+  //   require : {permissions : []}
+  // });
   site.get({
-    name: 'contactUs',
-    path: __dirname + '/site_files/html/index.html',
+    name: 'contact-us',
+    path: __dirname + '/site_files/html/contactus.html',
     parser: 'html',
     compress: true,
     require : {permissions : []}

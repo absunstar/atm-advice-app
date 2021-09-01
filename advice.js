@@ -25,15 +25,32 @@ site.get({
   }
 });
 
+// site.get({
+//   name: '/',
+//   path: site.dir + '/html/index.html',
+//   parser: 'html css js',
+//   require:{
+//     permissions : []
+//   }
+// });
+
 site.get({
   name: '/',
-  path: site.dir + '/html/index.html',
+  path: site.dir + '/html/home.html',
   parser: 'html css js',
   require:{
     permissions : []
   }
 });
 
+site.get({
+  name: 'about-us',
+  path: site.dir + '/html/about-us.html',
+  parser: 'html css js',
+  require:{
+    permissions : []
+  }
+});
 site.get({
   name : '/',
   path : __dirname + '/site_files'
