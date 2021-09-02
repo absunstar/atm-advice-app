@@ -83,7 +83,6 @@ module.exports = function init(site) {
     $doctors.createIndex({
       location: "2dsphere"
     })
-    console.log(doctors_doc);
     $doctors.add(doctors_doc, (err, doc) => {
       if (!err) {
         let user = {
@@ -442,13 +441,58 @@ site.post({name : '/api/doctor/login' , require : {permissions : []}}, function 
         res.json(response)
 
       } else {
-        response.done = false
-        response.data = {
-          docs
-        }
-        response.errorCode = site.var('failed')
-        response.message = site.word('findFailed')[req.headers.language]
-        res.json(response)
+        $doctors.aggregate(
+          [{
+              "$geoNear": {
+                "near": {
+                  "type": "Point",
+                  "coordinates": [
+                    doctor_doc.lat,
+                    doctor_doc.long
+                  ]
+                },
+                "distanceField": "distance",
+                "spherical": true
+              }
+            },
+            {
+              "$sort": {
+                "distance": 1.0
+              }
+            },
+            {
+              "$match": {
+                "isActive": true,
+                "isAvailable": true
+              }
+            }
+
+
+          ], (err, docs) => {
+            if (docs && docs.length > 0) {
+
+              response.data = {
+                docs,
+                totalDocs: docs.length,
+                totalPages: Math.ceil(docs.length / 10)
+              }
+              response.errorCode = site.var('succeed')
+              response.done = true
+              response.message = site.word('findSuccessfully')[req.headers.language]
+              res.json(response)
+            } else {
+
+              response.data = {
+                docs
+              }
+              response.done = false
+              response.errorCode = site.var('failed')
+              response.message = site.word('findFailed')[req.headers.language]
+              res.json(response)
+            }
+
+          })
+        
       }
 
     })

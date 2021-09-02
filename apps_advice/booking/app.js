@@ -436,9 +436,9 @@ module.exports = function init(site) {
       where: {
         'status': site.var('done'),
         'doctor._id': booking_doc.doctor._id,
+      
         date: {
-          $gte: start,
-          $lt: end
+          $eq: end.toISOString().split("T")[0]
         }
       },
       set: {
@@ -450,6 +450,7 @@ module.exports = function init(site) {
       if (docs && docs.length > 0) {
         response.done = true
         response.totalDocs = count
+        response.data = count
 
         response.message = site.word('findBooking')[req.headers.language],
           response.errorCode = site.var('succeed')
@@ -457,6 +458,102 @@ module.exports = function init(site) {
 
       response.done = true
       response.message = site.word('bookingDone')[req.headers.language],
+        response.errorCode = site.var('succeed')
+      res.json(response)
+    })
+  });
+
+
+
+  site.post('/api/booking/getAllDoneBookingTodayAllData', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    let booking_doc = req.body;
+    let start = new Date();
+    start.setHours(0, 0, 0, 0);
+
+    let end = new Date();
+    end.setHours(23, 59, 59, 999);
+
+    $booking.findMany({
+      where: {
+        'status': site.var('done'),
+        'doctor._id': booking_doc.doctor._id,
+      
+        date: {
+          $eq: end.toISOString().split("T")[0]
+        }
+      },
+      set: {
+        'status': site.var('done'),
+      },
+      $req: req,
+      $res: res
+    }, (err, docs, count) => {
+      if (docs && docs.length > 0) {
+        response.done = true
+        
+      response.data = {
+          docs: docs,
+          totalDocs: count,
+          limit: 10,
+          totalPages: Math.ceil(count / 10)
+        }
+        response.message = site.word('findBooking')[req.headers.language],
+          response.errorCode = site.var('succeed')
+      }
+      response.date={docs:[]}
+      response.done = true
+      response.message = site.word('noFindBooking')[req.headers.language],
+        response.errorCode = site.var('succeed')
+      res.json(response)
+    })
+  });
+
+
+
+  site.post('/api/booking/getAllAcceptedBookingTodayAllData', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    let booking_doc = req.body;
+    let start = new Date();
+    start.setHours(0, 0, 0, 0);
+
+    let end = new Date();
+    end.setHours(23, 59, 59, 999);
+
+    $booking.findMany({
+      where: {
+        'status': site.var('accepted'),
+        'doctor._id': booking_doc.doctor._id,
+      
+        date: {
+          $eq: end.toISOString().split("T")[0]
+        }
+      },
+      set: {
+        'status': site.var('accepted'),
+      },
+      $req: req,
+      $res: res
+    }, (err, docs, count) => {
+      if (docs && docs.length > 0) {
+        response.done = true
+        
+      response.data = {
+          docs: docs,
+          totalDocs: count,
+          limit: 10,
+          totalPages: Math.ceil(count / 10)
+        }
+        response.message = site.word('findBooking')[req.headers.language],
+          response.errorCode = site.var('succeed')
+      }
+response.date={docs:[]}
+      response.done = true
+      response.message = site.word('noFindBooking')[req.headers.language],
         response.errorCode = site.var('succeed')
       res.json(response)
     })
@@ -510,47 +607,7 @@ module.exports = function init(site) {
 
 
 
-  // get All Booking Done For Today
-  site.post('/api/booking/getAllDoneBookingToday', (req, res) => {
-    req.headers.language = req.headers.language || 'en'
-    let response = {}
 
-    let booking_doc = req.body;
-    let start = new Date();
-    start.setHours(0, 0, 0, 0);
-
-    let end = new Date();
-    end.setHours(23, 59, 59, 999);
-
-    $booking.findMany({
-      where: {
-        'status': site.var('done'),
-        'doctor._id': booking_doc.doctor._id,
-        date: {
-          $gte: start,
-          $lt: end
-        }
-      },
-      set: {
-        'status': site.var('done'),
-      },
-      $req: req,
-      $res: res
-    }, (err, docs, count) => {
-      if (docs && docs.length > 0) {
-        response.done = true
-        response.totalDocs = count
-
-        response.message = site.word('findBooking')[req.headers.language],
-          response.errorCode = site.var('succeed')
-      }
-
-      response.done = true
-      response.message = site.word('bookingDone')[req.headers.language],
-        response.errorCode = site.var('succeed')
-      res.json(response)
-    })
-  });
 
 
 
@@ -565,19 +622,16 @@ module.exports = function init(site) {
 
     let end = new Date();
     end.setHours(23, 59, 59, 999);
-
+console.log(end.toISOString().split("T")[0]);
     $booking.findMany({
       where: {
         'status': site.var('accepted'),
         'doctor._id': booking_doc.doctor._id,
         date: {
-          $gte: start,
-          $lt: end
+          $eq: end.toISOString().split("T")[0]
         }
       },
-      set: {
-        'status': site.var('accepted'),
-      },
+      
       $req: req,
       $res: res
     }, (err, docs, count) => {
@@ -590,8 +644,9 @@ module.exports = function init(site) {
       }
 
       response.done = true
-      response.message = site.word('bookingDone')[req.headers.language],
+      response.message = site.word('noFindBooking')[req.headers.language],
         response.errorCode = site.var('succeed')
+        response.totalDocs = count
       res.json(response)
     })
   });
