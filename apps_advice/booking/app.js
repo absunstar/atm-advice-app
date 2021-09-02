@@ -563,6 +563,98 @@ response.date={docs:[]}
 
 
 
+
+  site.post('/api/booking/getAllAcceptedBookingAllData', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    let booking_doc = req.body;
+    let start = new Date();
+    start.setHours(0, 0, 0, 0);
+
+    let end = new Date();
+    end.setHours(23, 59, 59, 999);
+
+    $booking.findMany({
+      where: {
+        'status': site.var('accepted'),
+        'doctor._id': booking_doc.doctor._id,
+      
+      },
+      set: {
+        'status': site.var('accepted'),
+      },
+      $req: req,
+      $res: res
+    }, (err, docs, count) => {
+      if (docs && docs.length > 0) {
+        response.done = true
+        
+      response.data = {
+          docs: docs,
+          totalDocs: count,
+          limit: 10,
+          totalPages: Math.ceil(count / 10)
+        }
+        response.message = site.word('findBooking')[req.headers.language],
+          response.errorCode = site.var('succeed')
+      }
+response.date={docs:[]}
+      response.done = true
+      response.message = site.word('noFindBooking')[req.headers.language],
+        response.errorCode = site.var('succeed')
+      res.json(response)
+    })
+  });
+
+
+
+
+  site.post('/api/booking/getAllDoneBookingAllData', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    let booking_doc = req.body;
+    let start = new Date();
+    start.setHours(0, 0, 0, 0);
+
+    let end = new Date();
+    end.setHours(23, 59, 59, 999);
+
+    $booking.findMany({
+      where: {
+        'status': site.var('done'),
+        'doctor._id': booking_doc.doctor._id,
+      
+      },
+      set: {
+        'status': site.var('done'),
+      },
+      $req: req,
+      $res: res
+    }, (err, docs, count) => {
+      if (docs && docs.length > 0) {
+        response.done = true
+        
+      response.data = {
+          docs: docs,
+          totalDocs: count,
+          limit: 10,
+          totalPages: Math.ceil(count / 10)
+        }
+        response.message = site.word('findBooking')[req.headers.language],
+          response.errorCode = site.var('succeed')
+      }
+      response.date={docs:[]}
+      response.done = true
+      response.message = site.word('noFindBooking')[req.headers.language],
+        response.errorCode = site.var('succeed')
+      res.json(response)
+    })
+  });
+
+
+
   // // get All Booking Done 
   // site.post('/api/booking/getAllDoneBooking', (req, res) => {
   //   req.headers.language = req.headers.language || 'en'
@@ -758,14 +850,15 @@ console.log(end.toISOString().split("T")[0]);
           "status": "done"
         }
       },
-      {
-        "$project": {
-
-          "count": {
-            "$sum": 1.0
-          },
-
-        }
+      
+        { 
+          "$group" : {
+              "_id" : null, 
+              "count" : {
+                  "$sum" : 1.0
+              }
+          }
+      
       }
     ], (err, docs) => {
       if (docs) {
@@ -842,7 +935,7 @@ console.log(end.toISOString().split("T")[0]);
 
 
 
-  // get All Booking For date
+  // get All 
   site.post('/api/booking/getAllCountBookingDoctor', (req, res) => {
     req.headers.language = req.headers.language || 'en'
     let response = {}
@@ -862,21 +955,22 @@ console.log(end.toISOString().split("T")[0]);
       },
       {
         "$group": {
-          "_id": {
-            "date": "$date"
-          },
+          "_id" : {
+            "date" : "$date"
+        }, 
           "count": {
             "$sum": 1.0
           }
         }
       },
-      {
-        "$project": {
-          "date": "$_id.date",
-          "count": "$count",
-          "_id": 0.0
+      { 
+        "$project" : {
+            "date" : "$_id.date",
+            count : "$count",
+            _id:0
         }
-      }
+    }
+     
     ], (err, docs) => {
       if (docs) {
         response.done = true
@@ -955,6 +1049,64 @@ console.log(end.toISOString().split("T")[0]);
     })
 
   });
+
+
+
+
+
+
+
+
+  // site.post('/api/booking/getAllDoneBooking', (req, res) => {
+  //   req.headers.language = req.headers.language || 'en'
+  //   let response = {}
+
+  //   let booking_doc = req.body;
+  //   let start = new Date();
+  //   start.setHours(0, 0, 0, 0);
+
+  //   let end = new Date();
+  //   end.setHours(23, 59, 59, 999);
+
+  //   $booking.findMany({
+  //     where: {
+  //       'status': site.var('done'),
+  //       'doctor._id': booking_doc.doctor._id,
+      
+  //     },
+  //     set: {
+  //       'status': site.var('done'),
+  //     },
+  //     $req: req,
+  //     $res: res
+  //   }, (err, docs, count) => {
+  //     if (docs && docs.length > 0) {
+  //       response.done = true
+        
+  //     response.data = {
+  //         docs: docs,
+  //         totalDocs: count,
+  //         limit: 10,
+  //         totalPages: Math.ceil(count / 10)
+  //       }
+  //       response.message = site.word('findBooking')[req.headers.language],
+  //         response.errorCode = site.var('succeed')
+  //     }
+  //     response.date={docs:[]}
+  //     response.done = true
+  //     response.message = site.word('noFindBooking')[req.headers.language],
+  //       response.errorCode = site.var('succeed')
+  //     res.json(response)
+  //   })
+  // });
+
+
+
+
+
+
+
+
 
 
 
