@@ -657,10 +657,10 @@ site.post({name : '/api/doctor/login' , require : {permissions : []}}, function 
     }, (err, doc) => {
       if (doc) {
         doc.days.forEach(_d => {
-          let date = new Date(_d.date)
-          date.setHours(0, 0, 0, 0)
-          let bodyDate = new Date(doctor_doc.oldDate)
-          bodyDate.setHours(0, 0, 0, 0)
+          let date = _d.date
+         
+          let bodyDate = doctor_doc.oldDate
+     
           if (String(date) == String(bodyDate)) {
             doc.days.push({
               date: (doctor_doc.newDate),
