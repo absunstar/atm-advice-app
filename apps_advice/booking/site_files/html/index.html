@@ -1,87 +1,396 @@
 <!DOCTYPE html>
-<html lang="en"  data-ng-app="myApp">
-
-<head x-import="head.html">
-
-</head>
-
-<body class="##session.lang##">
-
-    <nav x-import="sitebar/index.html" class="sitebar" data-ng-controller="sitebar">
-
-    </nav>
-
-    <nav class="sitebottom" x-import="sitebottom/index.html" ng-controller="sitebottom">
-
-    </nav>
+<html lang="en" dir="rtl" data-ng-app="myApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
+      integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="plugins/fontawesome-free-5.15.1-web/fontawesome-free-5.15.1-web/css/all.css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo&display=swap"
+      rel="stylesheet"
+    />
+    <title>booking</title>
+  </head>
+  <body>
     <div id="main-layout" class="container loaded">
-        <div class="row">
-            <div class="row" ng-controller="goves">
-                <div  x-import="goves/add_modal.html"></div>
-                <div  x-import="goves/update_modal.html"></div>
-                <div  x-import="goves/delete_modal.html"></div>
-                <div  x-import="goves/view_modal.html"></div>
-                <div  x-import="goves/search_all_modal.html"></div>
+      <div ng-controller="booking">
+        <section class="search-bar">
+          <div class="search-links container">
+            <div class="row">
+              <i-list
+                help-id=""
+                v="r"
+                class="col3"
+                label="##word.specialty##"
+                ng-model="booking.specialty"
+                display="name_##session.lang##"
+                items="specialtyList"
+                ng-search="_search.$booking_gov"
+              ></i-list>
 
-                <div class="row">
-                    <h1 class="bold text-center">##word.goves##</h1>
+              <i-list
+                help-id=""
+                v="r"
+                class="col3"
+                label="##word.goves_name##"
+                ng-model="booking.gov"
+                display="name_##session.lang##"
+                items="govesList"
+                ng-change="getCityList(booking.gov)"
+                ng-search="_search.$booking_gov"
+              ></i-list>
+
+              <i-list
+                help-id=""
+                v="r"
+                class="col3"
+                label="##word.district##"
+                ng-model="booking.city"
+                display="name_##session.lang##"
+                items="cityList"
+                ng-search="_search.$booking_gov"
+              ></i-list>
+
+              <i-control
+                class="col3"
+                label="##word.doctor_name##"
+                ng-model="booking.doctor_name"
+              ></i-control>
+
+              <div class="col-sm-1">
+                <div class="text">
+                  <br />
+                  <input type="submit" value="" />
                 </div>
+              </div>
+              <!-- 
+              <div class="col" style="margin-right: 10px">
+                <div class="dropdown">
+                  <p>التخصص</p>
 
-                <div class="top-actions">
-                    <i-button  type="add" label="##word.goves_new##" ng-click="displayAddGov()"></i-button>
-
-                    <i-button  type="search" label="##word.search_all##"
-                        ng-click="displaySearchModal()"></i-button>
-
-                    <a class="btn left bg-green" target="blank" href="/area"> ##word.area_add##</a>
-                    <a class="btn left bg-green" target="blank" href="/city"> ##word.city_add##</a>
-                    <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
-                    <h3 class="bold text-center red"> {{error}}</h3>
-
+                  <select name="specialize" id="specialize">
+                    <option selected disabled>اخترالتخصص</option>
+                    <option
+                      v-for="(specialty, index) in specialtyList[0]"
+                      :value="index"
+                    >
+                      {{specialty}}
+                    </option>
+                    <option value="جلدية">جلدية</option>
+                    <option value="اسنان">اسنان</option>
+                    <option value="قلب واوعية دموية">قلب واوعية دموية</option>
+                    <option value="اطفال وحديثي الولادة">
+                      اطفال وحديثي الولادة
+                    </option>
+                    <option value="">عظام</option>
+                  </select>
                 </div>
+              </div>
+              <div class="col">
+                <div class="dropdown">
+                  <p>المحافظة</p>
+                  <select name="specialize" id="specialize">
+                    <option selected disabled>اخترالتخصص</option>
+                    <option value="جلدية">جلدية</option>
+                    <option value="اسنان">اسنان</option>
+                    <option value="قلب واوعية دموية">قلب واوعية دموية</option>
+                    <option value="اطفال وحديثي الولادة">
+                      اطفال وحديثي الولادة
+                    </option>
+                    <option value="">عظام</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <div class="dropdown">
+                  <p>المنطقة</p>
+                  <select name="specialize" id="specialize">
+                    <option selected disabled>اخترالتخصص</option>
+                    <option value="جلدية">جلدية</option>
+                    <option value="اسنان">اسنان</option>
+                    <option value="قلب واوعية دموية">قلب واوعية دموية</option>
+                    <option value="اطفال وحديثي الولادة">
+                      اطفال وحديثي الولادة
+                    </option>
+                    <option value="">عظام</option>
+                  </select>
+                </div>
+              </div>
 
-                <table  class="table hover bold loaded" id="t1">
-                    <tr>
-                        <th class="not-print">##word.logo##</th>
-                        <th>##word.code##</th>
-                        <th>##word.goves_name##</th>
-
-                        <th>##word.status##</th>
-                        <th class="not-print">##word.actions##</th>
-                    </tr>
-                    <tr ng-repeat="c in list">
-                        <td class="center not-print">
-                            <i-image view class="logo" ng-model="c.image_url"></i-image>
-                        </td>
-                        <td class="center userPrint blue">{{c.code}}</td>
-                        <td class="center title">{{c.name_##session.lang##}}</td>
-                        <td class="center">
-                            <p ng-show="c.active ==true" class="green"> ##word.active## </p>
-                            <p ng-show="c.active ==false" class="red"> ##word.not_active## </p>
-                        </td>
-
-                        <td class="center not-print">
-                            <i-button  type="view" label="##word.details##"
-                                ng-click="displayDetailsGov(c)"></i-button>
-
-                            <i-button  type="edit" label="##word.edit##"
-                                ng-click="displayUpdateGov(c)"></i-button>
-
-                            <i-button  type="delete" label="##word.delete##"
-                                ng-click="displayDeleteGov(c)"></i-button>
-                        </td>
-                    </tr>
-                </table>
-
-                <i-button type="print" label="##word.print##" onclick="site.print('#t1')"></i-button>
-
-                
+              <div class="col">
+                <div class="text">
+                  <p>اسم الطبيب</p>
+                  <input
+                    type="text"
+                    placeholder="ادخل اسم الطبيب او المستشفى"
+                  />
+                </div>
+              </div>
+                -->
             </div>
-        </div>
+          </div>
+        </section>
+
+        <section class="dr-search">
+          <div class="dr-result container">
+            <div class="row">
+              <div class="col dr-filter" style="margin-left: 15px">
+                <input type="search" id="filter-search" style="display: none" />
+                <label
+                  for="filter-search"
+                  style="
+                    height: 40px;
+                    width: 100%;
+                    background-color: white;
+                    margin-top: 20px;
+                  "
+                  >بحث ب</label
+                >
+
+                <div class="accordion" id="accordionExample">
+                  <div class="card">
+                    <div class="card-header" id="headingOne">
+                      <h2 class="mb-0">
+                        <button
+                          class="btn btn-link btn-block text-left"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseOne"
+                          aria-expanded="true"
+                          aria-controls="collapseOne"
+                        >
+                          الدرجة العلمية
+                        </button>
+                      </h2>
+                    </div>
+
+                    <div
+                      id="collapseOne"
+                      class="collapse"
+                      aria-labelledby="headingOne"
+                      data-parent="#accordionExample"
+                    >
+                      <div class="card-body">
+                        <input type="radio" name="degree" />&nbsp;
+                        <label>أستاذ</label><br />
+                        <input type="radio" name="degree" />&nbsp;<label
+                          >مدرس</label
+                        ><br />
+                        <input type="radio" name="degree" />&nbsp;<label
+                          >أخصائي</label
+                        ><br />
+                        <input type="radio" name="degree" />&nbsp;<label
+                          >استشاري</label
+                        ><br />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-header" id="headingTwo">
+                      <h2 class="mb-0">
+                        <button
+                          class="btn btn-link btn-block text-left collapsed"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseTwo"
+                          aria-expanded="false"
+                          aria-controls="collapseTwo"
+                        >
+                          النوع
+                        </button>
+                      </h2>
+                    </div>
+                    <div
+                      id="collapseTwo"
+                      class="collapse"
+                      aria-labelledby="headingTwo"
+                      data-parent="#accordionExample"
+                    >
+                      <div class="card-body">
+                        <input type="radio" name="gender" />&nbsp;
+                        <label>طبيب</label><br />
+                        <input type="radio" name="gender" />&nbsp;<label
+                          >طبيبة</label
+                        ><br />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingThree">
+                      <h2 class="mb-0">
+                        <button
+                          class="btn btn-link btn-block text-left collapsed"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseThree"
+                          aria-expanded="false"
+                          aria-controls="collapseThree"
+                        >
+                          السعر
+                        </button>
+                      </h2>
+                    </div>
+                    <div
+                      id="collapseThree"
+                      class="collapse"
+                      aria-labelledby="headingThree"
+                      data-parent="#accordionExample"
+                    >
+                      <div class="card-body"></div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingFour">
+                      <h2 class="mb-0">
+                        <button
+                          class="btn btn-link btn-block text-left"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseFour"
+                          aria-expanded="true"
+                          aria-controls="collapseFour"
+                        >
+                          المواعيد
+                        </button>
+                      </h2>
+                    </div>
+
+                    <div
+                      id="collapseFour"
+                      class="collapse"
+                      aria-labelledby="headingFour"
+                      data-parent="#accordionExample"
+                    >
+                      <div class="card-body">
+                        <input type="radio" name="day" />&nbsp;
+                        <label>اليوم</label><br />
+                        <input type="radio" name="day" />&nbsp;<label>غدا</label
+                        ><br />
+                        <input type="radio" name="day" />&nbsp;<label>أي </label
+                        ><br />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingFive">
+                      <h2 class="mb-0">
+                        <button
+                          class="btn btn-link btn-block text-left"
+                          type="button"
+                          data-toggle="collapse"
+                          data-target="#collapseFive"
+                          aria-expanded="true"
+                          aria-controls="collapseFive"
+                        >
+                          التقييم
+                        </button>
+                      </h2>
+                    </div>
+
+                    <div
+                      id="collapseFive"
+                      class="collapse"
+                      aria-labelledby="headingFive"
+                      data-parent="#accordionExample"
+                    >
+                      <div class="card-body">
+                        <input type="radio" name="degree" />&nbsp;
+                        <label>نجمه و اعلي</label><br />
+                        <input type="radio" name="degree" />&nbsp;<label
+                          >نجمتين و اعلي</label
+                        ><br />
+                        <input type="radio" name="degree" />&nbsp;<label
+                          >3 نجوم و اعلي</label
+                        ><br />
+                        <input type="radio" name="degree" />&nbsp;<label
+                          >4 نجوم و اعلي</label
+                        ><br />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-9 dr-booking">
+                <div class="booking-head">
+                  <h2>اختار واحجز طبيبك من بين أفضل أطباء الباطنة</h2>
+                  <span> ترتيب حسب : الأكثر تطابقا : </span>
+                </div>
+                <div class="doctor-details">
+                  <div class="dr-img">
+                    <img src="images/doctor.svg" />
+                    <br />
+                    <a href="#">احجز الآن</a>
+                  </div>
+
+                  <div class="dr-info">
+                    <h2>د. محمود علي</h2>
+                    <p>استشاري و مدرس الباطنه و الكبد و السكر</p>
+                    <img
+                      src="images/star.png"
+                      width="20%"
+                      style="margin: 0px 15px"
+                    /><br />
+                    <div class="dr-details">
+                      <span
+                        ><img src="images/Icon material-location-on.svg" />دكتور
+                        باطنة متخصص في سكر ، جهاز هضمي ومناظير</span
+                      >
+                    </div>
+                    <div class="dr-details">
+                      <span
+                        ><img src="images/Icon material-location-on.svg" />مدينة
+                        دمياط الجديدة : المنطقة المركزية</span
+                      >
+                    </div>
+                    <div class="dr-details">
+                      <span
+                        ><img src="images/Icon material-location-on.svg" />الكشف
+                        : ١٢٠ جنيه</span
+                      >
+                    </div>
+                    <div class="dr-details">
+                      <span
+                        ><img src="images/Icon material-location-on.svg" />مدة
+                        الكشف : 30 دقيقة</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
 
     <div x-import="scripts.html"></div>
-    <script x-import="goves/index.js"></script>
-</body>
-
+    <script x-import="booking/index.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+      integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

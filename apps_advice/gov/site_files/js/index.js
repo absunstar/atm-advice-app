@@ -147,7 +147,6 @@ app.controller("gov", function ($scope, $http, $timeout) {
   };
 
   $scope.getGovList = function (where) {
-    console.log(where);
     $scope.busy = true;
     $scope.list = [];
     $http({
@@ -157,7 +156,6 @@ app.controller("gov", function ($scope, $http, $timeout) {
     }).then(
       function (response) {
         $scope.busy = false;
-        console.log(response.data);
         if (response.data.docs.length > 0) {
           $scope.list = response.data.docs;
           $scope.count = response.data.totalDocs;

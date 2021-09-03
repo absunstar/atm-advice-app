@@ -198,10 +198,6 @@ app.controller("city", function ($scope, $http, $timeout) {
     )
   };
 
-  
-
-
-
   $scope.displaySearchModal = function () {
     $scope.error = '';
     site.showModal('#citySearchModal');

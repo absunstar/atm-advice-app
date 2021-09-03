@@ -10,6 +10,16 @@
         "ar": "تم الغاء الحجز"
     },
     {
+        "name": "specialty",
+        "en": "Specialty",
+        "ar": "التخصص"
+    },
+    {
+        "name": "doctor_name",
+        "en": "Doctor Name",
+        "ar": "إسم الطبيب"
+    },
+    {
         "name": "bookingAdded",
         "en": "booking Added",
         "ar": "تم اضافة حجز"

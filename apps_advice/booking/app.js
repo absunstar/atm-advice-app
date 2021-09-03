@@ -22,7 +22,7 @@ module.exports = function init(site) {
   // });
   site.get({
     name: 'booking',
-    path: __dirname + '/site_files/html/booking.html',
+    path: __dirname + '/site_files/html/index.html',
     parser: 'html',
     compress: true,
     require: {

@@ -1,214 +1,84 @@
 app.controller("booking", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.gov = {};
+  $scope.booking = {};
 
-  $scope.displayAddGov = function () {
-    $scope.error = '';
-    $scope.gov = {
-      image_url: '/images/gov.png',
-      active: true
-    };
-
-    site.showModal('#govAddModal');
-
-  };
-
-  $scope.addGov = function () {
-    $scope.error = '';
-    const v = site.validated('#govAddModal');
-    if (!v.ok) {
-      $scope.error = v.messages[0].ar;
-      return;
-    }
-    
-    $scope.busy = true;
-    $http({
-      method: "POST",
-      url: "/api/booking/add",
-      data: $scope.gov
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          site.hideModal('#govAddModal');
-          $scope.getGovList();
-        } else {
-          $scope.error = response.data.error;
-          if (response.data.error.like('*Must Enter Code*')) {
-            $scope.error = "##word.must_enter_code##"
-          }
-        }
-      },
-      function (err) {
-        console.log(err);
-      }
-    )
-  };
-
-  $scope.displayUpdateGov = function (gov) {
-    $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govUpdateModal');
-  };
-
-  $scope.updateGov = function () {
-    $scope.error = '';
-    const v = site.validated('#govUpdateModal');
-    if (!v.ok) {
-      $scope.error = v.messages[0].ar;
-      return;
-    }
-    $scope.busy = true;
-    $http({
-      method: "POST",
-      url: "/api/booking/update",
-      data: $scope.gov
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          site.hideModal('#govUpdateModal');
-          $scope.getGovList();
-        } else {
-          $scope.error = 'Please Login First';
-        }
-      },
-      function (err) {
-        console.log(err);
-      }
-    )
-  };
-
-  $scope.displayDetailsGov = function (gov) {
-    $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govViewModal');
-  };
-
-  $scope.viewGov = function (gov) {
-    $scope.busy = true;
-    $scope.error = '';
-    $http({
-      method: "POST",
-      url: "/api/booking/view",
-      data: {
-        id: gov.id
-      }
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          $scope.gov = response.data.doc;
-        } else {
-          $scope.error = response.data.error;
-        }
-      },
-      function (err) {
-        console.log(err);
-      }
-    )
-  };
-
-  $scope.displayDeleteGov = function (gov) {
-    $scope.error = '';
-    $scope.viewGov(gov);
-    $scope.gov = {};
-    site.showModal('#govDeleteModal');
-  };
-
-  $scope.deleteGov = function () {
-    $scope.busy = true;
-    $scope.error = '';
-
-    $http({
-      method: "POST",
-      url: "/api/booking/delete",
-      data: {
-        id: $scope.gov.id
-      }
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.done) {
-          site.hideModal('#govDeleteModal');
-          $scope.getGovList();
-        } else {
-          $scope.error = response.data.error;
-        }
-      },
-      function (err) {
-        console.log(err);
-      }
-    )
-  };
-
-  $scope.getGovList = function (where) {
+  $scope.getspecialtyList = function (where) {
     $scope.busy = true;
     $scope.list = [];
     $http({
       method: "POST",
-      url: "/api/booking/all",
-      data: {
-        where: where
-      }
+      url: "/api/departments/search",
+      data: where,
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done && response.data.list.length > 0) {
-          $scope.list = response.data.list;
-          $scope.count = response.data.count;
-          site.hideModal('#govSearchModal');
+        if (response.data.docs.length > 0) {
+          $scope.specialtyList = response.data.docs;
+          $scope.count = response.data.totalDocs;
+          site.hideModal("#govSearchModal");
           $scope.search = {};
-
         }
       },
       function (err) {
         $scope.busy = false;
         $scope.error = err;
       }
-
-    )
+    );
   };
 
-  $scope.getNumberingAuto = function () {
-    $scope.error = '';
+  $scope.getGovesList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/gov",
+      data: {
+        where: {
+          active: true,
+        },
+        select: {
+          id: 1,
+          name_ar: 1,
+          name_en: 1,
+        },
+      },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.govesList = response.data.docs;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.getCityList = function (gov) {
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/numbering/get_automatic",
+      url: "/api/city/search",
       data: {
-        screen: "gov"
-      }
+        "gov.id": gov.id,
+      },
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.done) {
-          $scope.disabledCode = response.data.isAuto;
+        if (response.data.docs.length > 0) {
+          $scope.cityList = response.data.docs;
         }
+        console.log($scope.cityList);
       },
       function (err) {
         $scope.busy = false;
         $scope.error = err;
       }
-    )
+    );
   };
 
-  $scope.displaySearchModal = function () {
-    $scope.error = '';
-    site.showModal('#govSearchModal');
-
-  };
-
-  $scope.searchAll = function () {
-
-    $scope.getGovList($scope.search);
-    site.hideModal('#govSearchModal');
-    $scope.search = {};
-  };
-
-  $scope.getGovList();
-  $scope.getNumberingAuto();
+  $scope.getspecialtyList();
+  $scope.getGovesList();
 });
