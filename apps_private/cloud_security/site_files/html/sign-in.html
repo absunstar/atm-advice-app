@@ -1,57 +1,95 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css" integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
-    <link rel="stylesheet" href="plugins/fontawesome-free-5.15.1-web/fontawesome-free-5.15.1-web/css/all.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
-    <title>Sign in</title>
-</head>
-<body>
+<html lang="en" dir="rtl" ng-app="myApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/x-css/bootstrap4.css" />
+    <link rel="stylesheet" href="/css/fontawesome.css" />
+    <link href="/x-css/fonts.css" rel="stylesheet" />
+    <title>Advice | Sign in</title>
+  </head>
+  <body ng-controller="login">
     <section class="sign-in">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h1>تسجيل الدخول</h1>
-                </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <h1>تسجيل الدخول</h1>
+          </div>
+        </div>
+        <form>
+          <div class="row">
+            <div class="col-sm-12">
+              <label> رقم الهاتف </label><br />
+              <input type="tel" ng-model="user.mobile" />
             </div>
-            <form>
-            <div class="row">
-                <div class="col-sm-12">
-                    <label>
-                        رقم الهاتف
-                    </label><br>
-                    <input type="tel" placeholder="xxxxxxxxxxx">
-                </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <label>كلمة المرور</label><br />
+              <input type="password" ng-model="user.password" />
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <label>كلمة المرور</label><br>
-                    <input type="password" placeholder="************">
-                </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 forget-password">
+              <a href="#">هل نسيت كلمة المرور؟</a>
             </div>
-            <div class="row">
-                <div class="col-sm-12 forget-password">
-                    <a href="#">هل نسيت كلمة المرور؟</a>
-                </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <a class="btn" ng-click="login()">دخول</a>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <button type="submit">دخول</button>
-                </div>
-            </div>
+          </div>
         </form>
         <div class="row">
-            <div class="col-sm-12 create-account">
-                <span>  ليس لديك حساب؟ &nbsp;&nbsp;<a href="#">انشاء حساب جديد</a></span>
-            </div>
+          <div class="col-sm-12 create-account">
+            <span> ليس لديك حساب؟ &nbsp;&nbsp;<a href="#">انشاء حساب جديد</a></span>
+          </div>
         </div>
-        </div>
-        
+      </div>
     </section>
-</body>
+
+    <script src="/x-js/all.js?v=##site.options.version##"></script>
+    <script>
+      app.controller('login', function ($scope, $http, $timeout) {
+        $scope.user = {};
+        $scope.tryLogin = function (ev) {
+          if (ev.which == 13) {
+            $scope.login();
+          }
+        };
+
+        $scope.login = function (b) {
+          $scope.error = '';
+
+          $scope.busy = true;
+
+          $http({
+            method: 'POST',
+            url: '/api/user/login',
+            data: {
+              $encript: '123',
+              email: site.to123($scope.user.mobile),
+              password: site.to123($scope.user.password),
+            },
+          }).then(
+            function (response) {
+              if (response.data.error) {
+                $scope.error = response.data.error;
+                $scope.busy = false;
+              }
+              if (response.data.done) {
+                window.location.href = '/';
+              }
+            },
+            function (err) {
+              $scope.busy = false;
+              $scope.error = err;
+            },
+          );
+        };
+      });
+    </script>
+  </body>
 </html>

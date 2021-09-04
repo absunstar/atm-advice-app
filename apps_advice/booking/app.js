@@ -24,10 +24,7 @@ module.exports = function init(site) {
     name: 'booking',
     path: __dirname + '/site_files/html/index.html',
     parser: 'html',
-    compress: true,
-    require: {
-      permissions: []
-    }
+    compress: true
   });
   site.get({
     name: 'booking-details',

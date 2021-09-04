@@ -40,13 +40,13 @@ module.exports = function init(site) {
   });
 
   site.get({
-    name: 'login',
+    name: 'signin',
     path: __dirname + '/site_files/html/sign-in.html',
     parser: 'html js',
     compress: false,
   });
   site.get({
-    name: 'registration',
+    name: 'signup',
     path: __dirname + '/site_files/html/sign-up.html',
     parser: 'html js',
     compress: false,

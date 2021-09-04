@@ -1,7 +1,7 @@
 const site = require('isite')({
   port: [80,9090],
   lang: 'ar',
-  version: '1.0.7',
+  version: '1.0.0',
   name: 'advice',
   theme: 'theme_paper',
   mongodb: {
@@ -25,14 +25,6 @@ site.get({
   }
 });
 
-// site.get({
-//   name: '/',
-//   path: site.dir + '/html/index.html',
-//   parser: 'html css js',
-//   require:{
-//     permissions : []
-//   }
-// });
 
 site.get({
   name: '/',
