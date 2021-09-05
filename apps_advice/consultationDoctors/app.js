@@ -118,6 +118,17 @@ module.exports = function init(site) {
           }
         }, (err, doc) => {
           if (doc) {
+            $users_info.edit({
+              where: {
+               '_id': doc.user_info._id
+              },
+              set: {
+                password: doc.password,
+                email: doc.email
+              },
+              $req: req,
+              $res: res
+            })
             response.done = true,
               response.data = doc
             response.errorCode = 200
