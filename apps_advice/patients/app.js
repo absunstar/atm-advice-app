@@ -1,6 +1,7 @@
 module.exports = function init(site) {
   const $patients = site.connectCollection('patients');
   const $users_info = site.connectCollection('users_info');
+  const $address = site.connectCollection('address');
   let ObjectID = require('mongodb').ObjectID
   site.get({
     name: 'images',
@@ -791,6 +792,45 @@ module.exports = function init(site) {
       );
     }
   });
+
+
+
+
+
+    // get Addresses By Patient
+    site.post('/api/patients/getAddressesByPatient', (req, res) => {
+      req.headers.language = req.headers.language || 'en'
+      let response = {}
+      if (!req.session.user) {
+        response.errorCode = site.var('failed')
+        response.message = site.word('loginFirst')[req.headers.language]
+        response.done = false;
+        res.json(response);
+        return;
+      }
+      $address.findMany({
+        where: {
+          'user._id': String(req.session.user.ref_info._id)
+        },
+      }, (err, docs, count) => {
+        if (docs.length > 0) {
+          response.docs = docs
+          response.totalDocs = count
+          response.limit = 10
+          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+          
+          res.json(response)
+        }
+        if (docs.length == 0) {
+          response.docs = []
+          response.totalDocs = 0
+          response.limit = 10
+          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+          
+          res.json(response)
+        }
+      })
+    });
 
   // Search patients By Name 
   site.post('/api/patients/search', (req, res) => {
