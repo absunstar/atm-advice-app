@@ -3,6 +3,10 @@ app.controller('booking', function ($scope, $http, $timeout) {
 
   $scope.booking = {};
 
+  
+
+
+
   $scope.getspecialtyList = function (where) {
     $scope.busy = true;
     $scope.specialtyList = [];
@@ -108,88 +112,5 @@ app.controller('booking', function ($scope, $http, $timeout) {
 
 
 
-                                  const one = document.querySelector("#step1");
-                                  const two = document.querySelector("#step2");
-                                  const three = document.querySelector("#step3");
-                                  const four = document.querySelector("#step4");
-                                  const five = document.querySelector("#step5");
-                                  const six = document.querySelector("#step6");
-                                
-                                one.addEventListener('click',() => {
-                                
-                                document.querySelector('.first-step').style.display="block";
-                                document.querySelector('.second-step').style.display="none";
-                                document.querySelector('.third-step').style.display="none";
-                                document.querySelector('.final-step').style.display="none";
-                                
-                                one.classList.add('active');
-                                two.classList.remove('active');
-                                three.classList.remove('active');
-                                
-                                
-                                });
-                                four.addEventListener('click',() => {
-                                
-                                document.querySelector('.first-step').style.display="none";
-                                document.querySelector('.second-step').style.display="block";
-                                document.querySelector('.third-step').style.display="none";
-                                document.querySelector('.final-step').style.display="none";
-                                
-                                one.classList.add('active');
-                                two.classList.add('active');
-                                three.classList.remove('active');
-                                
-                                
-                                });
-                                two.addEventListener('click',() => {
-                                
-                                document.querySelector('.first-step').style.display="none";
-                                document.querySelector('.second-step').style.display="block";
-                                document.querySelector('.third-step').style.display="none";
-                                document.querySelector('.final-step').style.display="none";
-                                
-                                one.classList.add('active');
-                                two.classList.add('active');
-                                three.classList.remove('active');
-                                
-                                
-                                });
-                                five.addEventListener('click',() => {
-                                
-                                document.querySelector('.first-step').style.display="none";
-                                document.querySelector('.second-step').style.display="none";
-                                document.querySelector('.third-step').style.display="block";
-                                document.querySelector('.final-step').style.display="none";
-                                
-                                one.classList.add('active');
-                                two.classList.add('active');
-                                three.classList.add('active');
-                                
-                                
-                                });
-                                three.addEventListener('click',() => {
-                                
-                                document.querySelector('.first-step').style.display="none";
-                                document.querySelector('.second-step').style.display="none";
-                                document.querySelector('.third-step').style.display="block";
-                                document.querySelector('.final-step').style.display="none";
-                                
-                                one.classList.add('active');
-                                two.classList.add('active');
-                                three.classList.add('active');
-                                
-                                
-                                });
-                                six.addEventListener('click',() => {
-                                
-                                document.querySelector('.first-step').style.display="none";
-                                document.querySelector('.second-step').style.display="none";
-                                document.querySelector('.third-step').style.display="none";
-                                document.querySelector('.final-step').style.display="block";
-                                one.classList.add('active');
-                                two.classList.add('active');
-                                three.classList.add('active');
-                                
-                                
-                                });
+                                  
                                 

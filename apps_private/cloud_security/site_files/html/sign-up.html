@@ -54,8 +54,8 @@
             <div class="col-sm-12">
               <label>هل لديك اشتراك في تأمين صحي ؟</label><br />
               <div class="radio">
-                <input type="radio" name="insurance" />لا
-                <input type="radio" name="insurance" checked="checked" ng-model="patient.hasInsurance" />نعم
+                <input type="radio" name="insurance" ng-model="patient.hasInsurance"  /> لا
+                <input type="radio" name="insurance" checked="checked" />نعم 
 
                 <div class="row tab">
                   <div class="col-sm-6">
@@ -81,7 +81,7 @@
                   </div>
                   <div class="col-sm-6">
                     <label>صوره كارت التأمين</label><br />
-                    <label for="insurance-img">ارفع صورة كارت التأمين الخاصة بك</label>
+                    <label for="insurance-img" class="label-for-file">ارفع صورة كارت التأمين الخاصة بك</label>
                     <input type="file" accept="image/*" id="insurance-img" style="display: none" />
                   </div>
                 </div>
@@ -90,7 +90,7 @@
           </div>
 
           <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 login-btn">
               <a class="btn" ng-click="register()"> تسجيل جديد </a>
             </div>
           </div>
