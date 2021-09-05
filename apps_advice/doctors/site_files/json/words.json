@@ -115,6 +115,12 @@
         "en": "insurance Company Not Exist",
         "ar": "لا يوجد شركة تامين"
         
+    },
+    {
+        "name": "appointmentAlreadyExist",
+        "en": "Appointment Alraedy Exist",
+        "ar": "هذا الموعد متواجد من قبل"
+        
     }
 
 ]

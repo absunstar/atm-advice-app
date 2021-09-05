@@ -169,7 +169,6 @@ module.exports = function init(site) {
                 _id: doc._id
               }
 
-              console.log("111111111111111111111111111111111111111");
               site.security.addUser(user, (err, userDoc) => {
                 if (!err) {
                   delete user._id
@@ -293,6 +292,7 @@ module.exports = function init(site) {
       res.json(response)
     })
   });
+
 
 
 
@@ -838,67 +838,61 @@ module.exports = function init(site) {
 
           ], (err, docs) => {
             if (docs && docs.length > 0) {
-
+              let result = docs.filter(function(food) {
+                return !food.holdingArr.includes(String(req.session.user.ref_info._id));
+            });
               response.data = {
-                docs,
-                totalDocs: docs.length,
-                totalPages: Math.ceil(docs.length / 10)
+                result,
+                totalDocs: result.length,
+                totalPages: Math.ceil(result.length / 10)
               }
               response.errorCode = site.var('succeed')
               response.done = true
               response.message = site.word('findSuccessfully')[req.headers.language]
               res.json(response)
             } else {
-              $orders.aggregate(
-                [{
-                    "$geoNear": {
-                      "near": {
-                        "type": "Point",
-                        "coordinates": [
-                          doc.lat,
-                          doc.long
-                        ]
-                      },
-                      "distanceField": "distance",
-                      "spherical": true
-                    }
+             
+
+
+
+
+
+
+              $orders.findMany(
+                {
+                  select: req.body.select || {},
+                  sort: req.body.sort || {
+                    id: -1,
                   },
-                  {
-                    "$sort": {
-                      "distance": 1.0
-                    }
+                  where: {
+                    "status.statusId": site.var('activeId'),
                   },
-                  {
-                    "$match": {
-                      "status.statusId": 1.0
-                    }
-                  }
-
-
-                ], (err, docs) => {
-                  if (docs && docs.length > 0) {
-
-                    response.data = {
-                      docs,
-                      totalDocs: docs.length,
-                      totalPages: Math.ceil(docs.length / 10)
-                    }
-                    response.errorCode = site.var('succeed')
-                    response.done = true
-                    response.message = site.word('findSuccessfully')[req.headers.language]
-                    res.json(response)
+                },
+                (err, docs, count) => {
+                  if (!err) {
+                    let result = docs.filter(function(food) {
+                      return !food.holdingArr.includes(String(req.session.user.ref_info._id));
+                  });
+                    response.docs = result;
+                    response.totalDocs = result.length;
+                    response.limit = 10;
+                    response.totalPages = Math.ceil(result.length /10);
                   } else {
-
-                    response.data = {
-                      docs
-                    }
-                    response.done = false
-                    response.errorCode = site.var('failed')
-                    response.message = site.word('findFailed')[req.headers.language]
-                    res.json(response)
+                    response.error = err.message;
                   }
+                  res.json(response);
+                },
+              );
 
-                })
+
+
+
+
+
+
+
+
+
             }
 
           })
@@ -914,24 +908,36 @@ module.exports = function init(site) {
   })
 
 
+
+
+
+
+ 
+
+
+
+
   // get Recent Orders Count
 
   site.post("/api/pharmacy/getRecentOrdersCount", (req, res) => {
 
     let response = {}
-
     $orders.findMany({
         select: req.body.select || {},
         sort: req.body.sort || {
           id: -1,
         },
         where: {
-          'status.statusId': site.var('activeId')
+          'status.statusId': site.var('activeId'),
         },
       },
       (err, docs, count) => {
         if (!err) {
-          response.totalDocs = count
+         
+          let result = docs.filter(function(food) {
+            return !food.holdingArr.includes(String(req.session.user.ref_info._id));
+        });
+          response.totalDocs = result.length
           response.limit = 10
           response.totalPages = Math.ceil(response.totalDocs / response.limit)
         } else {
@@ -961,6 +967,10 @@ module.exports = function init(site) {
         $res: res
       }, err => {
 
+
+
+
+
         if (!err) {
           $pharmacy.findOne({
             where: {
@@ -972,6 +982,19 @@ module.exports = function init(site) {
                 password,
                 ...rest
               } = doc
+
+              $users_info.edit({
+                where: {
+                  '_id': doc.user_info._id
+                },
+                set: {
+                  password: doc.password,
+                  email: doc.email
+                },
+                $req: req,
+                $res: res
+              })
+
               response.done = true,
                 response.data = rest
               response.errorCode = site.var('succeed')

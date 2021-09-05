@@ -129,8 +129,6 @@ module.exports = function init(site) {
         $or: [{
           $and: [{
             'phone': patients_doc.phone
-          }, {
-            isActive: true
           }]
         },
         {
@@ -146,7 +144,7 @@ module.exports = function init(site) {
 
         if (!err && doc) {
 
-          if (doc.phone === patients_doc.phone && doc.isActive == true) {
+          if (doc.phone === patients_doc.phone) {
             response.errorCode = site.var('failed')
             response.message = site.word('phoneExist')[req.headers.language]
             response.done = false;
@@ -565,6 +563,18 @@ module.exports = function init(site) {
                 password,
                 ...rest
               } = doc
+              $users_info.edit({
+                where: {
+                 '_id': doc.user_info._id
+                },
+                set: {
+                  password: doc.password,
+                  email: doc.email,
+                  name: doc.fullName
+                },
+                $req: req,
+                $res: res
+              })
               response.done = true,
                 response.data = rest
               response.errorCode = site.var('succeed')
@@ -572,34 +582,7 @@ module.exports = function init(site) {
               res.json(response)
 
 
-              if (patient_doc.fullName) {
-                $users_info.edit({
-                  where: {
-                    _id: doc.user_info._id
-                  },
-                  set: {
-                    name: patient_doc.fullName
-                  },
-                  $req: req,
-                  $res: res
-                }, (err, result) => {
-
-                })
-              }
-              if (patient_doc.email) {
-                $users_info.edit({
-                  where: {
-                    _id: doc.user_info._id
-                  },
-                  set: {
-                    email: patient_doc.email
-                  },
-                  $req: req,
-                  $res: res
-                }, (err, result) => {
-
-                })
-              }
+             
 
 
 

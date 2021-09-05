@@ -1,7 +1,7 @@
 module.exports = function init(site) {
   const $doctors = site.connectCollection('doctors');
   const $rating = site.connectCollection('rating');
-
+  const $users_info = site.connectCollection('users_info');
   let ObjectID = require('mongodb').ObjectID;
   site.get({
     name: 'images',
@@ -390,50 +390,26 @@ module.exports = function init(site) {
           response.message = site.word('findSuccessfully')[req.headers.language];
           res.json(response);
         } else {
-          $doctors.aggregate(
-            [
-              {
-                $geoNear: {
-                  near: {
-                    type: 'Point',
-                    coordinates: [doctor_doc.lat, doctor_doc.long],
-                  },
-                  distanceField: 'distance',
-                  spherical: true,
-                },
+          $doctors.findMany(
+            {
+              select: req.body.select || {},
+              sort: req.body.sort || {
+                id: -1,
               },
-              {
-                $sort: {
-                  distance: 1.0,
-                },
+              where: {
+                isActive: false,
               },
-              {
-                $match: {
-                  isActive: true,
-                  isAvailable: true,
-                },
-              },
-            ],
-            (err, docs) => {
-              if (docs && docs.length > 0) {
-                response.data = {
-                  docs,
-                  totalDocs: docs.length,
-                  totalPages: Math.ceil(docs.length / 10),
-                };
-                response.errorCode = site.var('succeed');
-                response.done = true;
-                response.message = site.word('findSuccessfully')[req.headers.language];
-                res.json(response);
+            },
+            (err, docs, count) => {
+              if (!err) {
+                response.docs = docs;
+                response.totalDocs = count;
+                response.limit = 10;
+                response.totalPages = Math.ceil(response.totalDocs / response.limit);
               } else {
-                response.data = {
-                  docs,
-                };
-                response.done = false;
-                response.errorCode = site.var('failed');
-                response.message = site.word('findFailed')[req.headers.language];
-                res.json(response);
+                response.error = err.message;
               }
+              res.json(response);
             },
           );
         }
@@ -555,11 +531,21 @@ module.exports = function init(site) {
             let bodyDate = doctor_doc.date;
 
             if (String(date) == String(bodyDate)) {
-              _d.times.push(OBJ);
+              let xx = _d.times.some(li=>li.startSession == doctor_doc.startSession)
+              if (xx == true) {
+                response.done = false
+                response.errorCode = site.var('failed');
+                response.message = site.word('appointmentAlreadyExist')[req.headers.language];
+                res.json(response);
+              }
+              else{
+
+                _d.times.push(OBJ);
+              }
             }
           });
           $doctors.update(doc, (err, result) => {
-            (response.done = true), (response.data = doc);
+            response.done = true, response.data = doc;
             response.errorCode = site.var('succeed');
             response.message = site.word('updatedSuccessfully')[req.headers.language];
             res.json(response);
@@ -975,7 +961,19 @@ module.exports = function init(site) {
               },
               (err, doc) => {
                 if (doc) {
-                  (response.done = true), (response.data = doc);
+                  console.log(doc.user_info._id);
+                  $users_info.edit({
+                    where: {
+                     '_id': doc.user_info._id
+                    },
+                    set: {
+                      password: doc.password,
+                      email: doc.email
+                    },
+                    $req: req,
+                    $res: res
+                  })
+                  response.done = true, response.data = doc;
                   response.errorCode = site.var('succeed');
                   response.message = site.word('updatedSuccessfully')[req.headers.language];
                   res.json(response);
