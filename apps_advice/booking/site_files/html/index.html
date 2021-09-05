@@ -165,12 +165,186 @@
                   <h2>اختار واحجز طبيبك من بين أفضل أطباء الباطنة</h2>
                   <span> ترتيب حسب : الأكثر تطابقا : </span>
                 </div>
-                <div class="doctor-details" ng-repeat="doctor in DoctorsList">
+                <div class="doctor-details" ng-repeat="doctor in DoctorsList" style="margin: 20px 0px;">
                   <div class="dr-img">
                     <img src="/images/doctor.svg" />
                     <br />
-                    <a href="#">احجز الآن</a>
+                    <a href="#book-now" data-toggle="modal">احجز الآن</a>
+                    <div class="modal fade" id="book-now" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                           
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                              
+                            <div class="steps">
+                              <div id="step1" class="active">
+                                <!-- <a href="#"><i class="far fa-calendar-alt"></i></a><br> -->
+                                <p>معلومات الميعاد</p>
+                              </div>
+                              <div id="step2">
+                                <!-- <a href="#"><i class="fas fa-user"></i></a><br> -->
+                                <p>تفاصيل شخصية</p>
+                              </div>
+                              <div id="step3">
+                                <!-- <a href="#"><i class="fas fa-check"></i></a><br> -->
+                                <p> تأكيد الحجز</p>
+                              </div>
+                  
+                            </div>
+                            
+                            <div class="steps-form">
+                  
+                             
+                              <div class="first-step">
+                              <div class="date-edit">
+                                <h4> التاريخ</h4>
+                                <input type="date">
+                               
+                              </div>
+                              <br>
+                              <br>
+                              <div class="time-edit">
+                                <h4>الوقت</h4>
+                                <input type="time">
+                              </div>
+                  
+                              <a id="step4" href="#">التالي</a>
+                  
+                              <br>
+                              <br>
+                            </div>
+                  
+                              
+                  
+                              <div class="enter-data">
+                                <div class="second-step">
+                                <h4>ادخل بياناتك</h4>
+                              <br>
+                  
+                                <div class="col-sm-12">
+                                  <label>الاسم</label><br>
+                                  <input type="text" placeholder="ادخل اسمك كامل">
+                              </div>
+                              <div class="col-sm-12">
+                                  <label>
+                                      رقم الهاتف
+                                  </label><br>
+                                  <input type="tel" placeholder="xxxxxxxxxxx" style="width: 100%;">
+                              </div>
+                              <div class="col-sm-12">
+                                <label>هل لديك اشتراك في تأمين صحي ؟</label><br>
+                                  <div class="radio">
+                    
+                                    <input type="radio" name="insurance" checked="checked">لا
+                                    <input type="radio" name="insurance">نعم
+                                    
+                                    <div class="row tab">
+                                        <div class="col-sm-6">
+                                          
+                                        <label>مكان العمل</label><br>
+                                        <input type="text" placeholder="ماهي شركتك؟">
+                                            
+                                          </div>
+                                          <div class="col-sm-6">
+                                            <label>شركه التأمين</label>
+                                            <br>
+                                            <select>
+                                              
+                                              <option selected disabled>اختر شركه التأمين</option>
+                                              <option value="1"> 1</option>
+                                              <option value="1" >1</option>
+                                              <option value="1" >1</option>
+                                              <option value="1" >1</option>
+                                              <option value="1" >1</option>
+                                
+                                            </select>
+                    
+                                          </div>
+                                          
+                                            <div class="col-sm-6">
+                                                <label>الرقم التأميني</label><br>
+                                                <input type="number">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label>صوره كارت التأمين</label><br>
+                                                <label for="insurance-img" class="label-for-file">ارفع صورة كارت التأمين الخاصة بك</label>
+                                                <input type="file" accept="image/*" id="insurance-img" style="display: none;">
+                                            </div>
+                                        
+                                        </div>
+                                        <a href="#"id="step5">التالي</a>
+                                      </div>
+                                        </div>
+                                        </div>
+                              
+                  
+                                       
+                                        <div class="accept-reserve">
+                                          <div class="third-step">
+                                          <div class="personal-info" style="border-bottom: 1px solid #E4E5E6;padding-bottom: 20px;">      
+                                            <h4>معلومات شخصية</h4>
+                                            
+                              <br>
+                              <br>
+                  
+                  
+                  
+                                            <div class="info-table">
+                                            <div  style="background-color: white; padding: 20px; width: 80%; margin: auto; border-radius: 8px;">  <h4>هاجر الحديدي توفيق</h4>
+                                              <h4>01245784457</h4>
+                                              <h4>يوجد لديه تأمين صحي</h4></div>
+                  
+                                              
+                                            </div>
+                                          </div>
+                              <br>
+                              <br>
+                                         
+                                          <h4>ميعاد الحجز</h4>
+                                          <span>الثلاثاء 31 مايو 2021 08:00 مساءا</span><br><br>
+                                          <input type="radio" name="privacy"><label  style="display: contents;">أؤكد أن عمري يزيد عن 18 عامًا وأوافق على سياسة الخصوصية والشروط والأحكام</label><br>
+                                          <input type="radio" name="privacy"><label>أرغب في تلقي النشرة الإخبارية والرسائل الإلكترونية</label><br>
+                                          <a href="#" id="step6">تأكيد الحجز</a>
                   </div>
+                                        </div>
+                  
+                  
+                              </div>
+                  
+                              <div class="final-step">
+                                <img src="/images/checklist.svg" alt=""><br>
+                                <h4>تم تأكيد طلبك بنجاح شكرا لك على ثقتك في ADVICE</h4>
+                                <div class="info-table">
+                                  <div  style="background-color: white; padding: 20px; width: 80%; margin: auto; border-radius: 8px;">  <h4>يجب دائمًا تأكيد يوم ووقت استشارتك مع الطبيب لا تذهب إلى استشارتك دون الحصول على تأكيد مسبق</h4>
+                                    <h4>يجب دائمًا تأكيد يوم ووقت استشارتك مع الطبيب لا تذهب إلى استشارتك دون الحصول على تأكيد مسبق</h4>
+                                    <h4>إذا كان لديك أي استفسار ، يرجى الاتصال بنا على +44 2039652999</h4></div>
+                  
+                                    
+                                  </div>
+                                  <a href="#">حجوزاتي</a>
+                                  <a href="#">مواصلة التصفح</a>
+                  
+                              </div>
+                            </div>
+                                   
+                                   
+                  
+                             
+                                  
+                                 </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                                 <script>
+                                  
+                                </script>
+                          
 
                   <div class="dr-info">
                     <h2> {{doctor.name}}</h2>
@@ -198,9 +372,11 @@
     </div>
 
     <div x-import="scripts.html"></div>
+    
     <script x-import="booking/index.js"></script>
     <script src="/js/jquery-3.5.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    
   </body>
 </html>

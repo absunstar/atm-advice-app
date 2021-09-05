@@ -1,0 +1,17 @@
+{
+    "male" : "male",
+    "female" : "female",
+    "active" : "active",
+    "activeId" : 1,
+    "inProgressId" : 2,
+    "shippedId" : 4,
+    "onWayId" : 3,
+    "canceledId" : 5,
+    "notActiveId" : 6,
+    "accepted" : "accepted",
+    "inProgress" : "inProgress",
+    "shipped" : "shipped",
+    "onWay" : "onWay",
+    "canceled" : "canceled",
+    "notActive" : "notActive"
+  }

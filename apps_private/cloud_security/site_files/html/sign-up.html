@@ -10,7 +10,7 @@
     <link href="/x-css/fonts.css" rel="stylesheet" />
     <title>Advice | Sign UP</title>
   </head>
-  <body ng-controller="signup">
+  <body ng-controller="signup" >
     <section class="sign-up">
       <div class="container">
         <div class="row">
@@ -36,8 +36,8 @@
             </div>
             <div class="col-sm-6">
               <label>الجنس</label><br />
-              <input type="radio" ng-model="patient.gender" name="gender" value="male" />
-              <input type="radio" ng-model="patient.gender" name="gender" value="female" />
+              <input type="radio" ng-model="patient.gender" name="gender" value="male" />ذكر
+              <input type="radio" ng-model="patient.gender" name="gender" value="female" />انثي
             </div>
           </div>
           <div class="row">
@@ -54,8 +54,8 @@
             <div class="col-sm-12">
               <label>هل لديك اشتراك في تأمين صحي ؟</label><br />
               <div class="radio">
-                <input type="radio" name="insurance" checked="checked" ng-model="patient.hasInsurance" />
-                <input type="radio" name="insurance" />
+                <input type="radio" name="insurance" />لا
+                <input type="radio" name="insurance" checked="checked" ng-model="patient.hasInsurance" />نعم
 
                 <div class="row tab">
                   <div class="col-sm-6">

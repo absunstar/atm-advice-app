@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en"  data-ng-app="myApp">
+
+<head x-import="head.html">
+
+</head>
+
+<body class="##session.lang##">
+
+    <div id="main-layout" class="container loaded">
+        <div class="row table-size">
+            <div class="row" ng-controller="gov">
+                <div  x-import="gov/add_modal.html"></div>
+                <div x-import="gov/update_modal.html"></div>
+                <div  x-import="gov/delete_modal.html"></div>
+                <div  x-import="gov/view_modal.html"></div>
+                <div x-import="gov/search_all_modal.html"></div>
+
+                <div class="row">
+                    <h1 class="bold text-center">##word.goves##</h1>
+                </div>
+
+                <div class="top-actions">
+                    <i-button  type="add" label="##word.goves_new##" ng-click="displayAddGov()"></i-button>
+
+                    <i-button  type="search" label="##word.search_all##"
+                        ng-click="displaySearchModal()"></i-button>
+
+                    <a class="btn left bg-green" target="blank" href="/city"> ##word.city_add##</a>
+                    <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
+                    <!-- <h3 class="bold text-center red"> {{error}}</h3> -->
+
+                </div>
+
+                <table  class="table hover bold loaded" id="t1" >
+                    <tr>
+                        <th class="not-print">##word.logo##</th>
+                        
+                        <th>##word.goves_name##</th>
+
+                        <th>##word.status##</th>
+                        <th class="not-print">##word.actions##</th>
+                    </tr>
+                    <tr ng-repeat="c in list">
+                        <td class="center not-print">
+                            <i-image view class="logo" ng-model="c.image_url"></i-image>
+                        </td>
+                        
+                        <td class="center title" style="padding-top: 20px !important;">{{c.name_##session.lang##}}</td>
+                        <td class="center" style="padding-top: 20px !important;">
+                            <p ng-show="c.active ==true" class="green"> ##word.active## </p>
+                            <p ng-show="c.active ==false" class="red" > ##word.not_active## </p>
+                        </td>
+
+                        <td class="center not-print">
+                            <i-button  type="view" label="##word.details##"
+                                ng-click="displayDetailsGov(c)"></i-button>
+
+                            <i-button  type="edit" label="##word.edit##"
+                                ng-click="displayUpdateGov(c)"></i-button>
+
+                            <i-button  type="delete" label="##word.delete##"
+                                ng-click="displayDeleteGov(c)"></i-button>
+                        </td>
+                    </tr>
+                </table>
+
+                <i-button  type="print" label="##word.print##" onclick="site.print('#t1')"></i-button>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <div x-import="scripts.html"></div>
+    <script x-import="gov/index.js"></script>
+</body>
+
+</html>

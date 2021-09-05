@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"  data-ng-app="myApp">
+
+<head x-import="head.html">
+
+</head>
+
+<body class="##session.lang##">
+
+    <nav x-import="sitebar/nav.html" class="sitebar" data-ng-controller="sitebar">
+
+    </nav>
+    <div id="main-layout" class="container loaded">
+        <div class="row table-size">
+            <div class="row" ng-controller="patients">
+                <div  x-import="patients/add_modal.html"></div>
+                <div  x-import="patients/update_modal.html"></div>
+                <div  x-import="patients/delete_modal.html"></div>
+                <div  x-import="patients/view_modal.html"></div>
+                <div  x-import="patients/search_all_modal.html"></div>
+             
+                <div class="row">
+                    <h1 class="bold text-center">##word.patients##</h1>
+                </div>
+        
+                <div class="top-actions">
+                    <i-button  type="add" label="##word.patients_new##" ng-click="displayAddPatients()"></i-button>
+                    <i-button class="col" type="add" label="##word.test##" ng-click="test()"></i-button>
+                    <i-button  type="search" label="##word.search_all##"
+                        ng-click="displaySearchModal()"></i-button>
+        
+                   
+                    <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
+                    <h3 class="bold text-center red"> {{error}}</h3>
+        
+                </div>
+        
+                <table  class="table hover bold loaded" id="t1">
+                    <tr>
+                        <th class="not-print">##word.image##</th>
+                        <th>##word.name##</th>
+                        <th>##word.phone##</th>
+                        <th>##word.email##</th>
+        
+                       
+                        <th class="not-print">##word.actions##</th>
+                    </tr>
+                    <tr ng-repeat="c in list">
+                        <td class="center not-print">
+                            <i-image view class="logo" ng-model="c.image_url"></i-image>
+                        </td>
+                        <td class="center userPrint blue">{{c.fullName}}</td>
+                        <td class="center title">{{c.phone}}</td>
+                        <td class="center title">{{c.email}}</td>
+                       
+        
+                        <td class="center not-print">
+                            <i-button  type="view" label="##word.details##"
+                                ng-click="displayDetailsPatients(c)"></i-button>
+        
+                            <i-button  type="edit" label="##word.edit##"
+                                ng-click="displayUpdatePatients(c)"></i-button>
+        
+                            <i-button  type="delete" label="##word.delete##"
+                                ng-click="displayDeletePatients(c)"></i-button>
+                        </td>
+                    </tr>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+    <nav class="sitebottom" x-import="sitebottom/footer.html" ng-controller="sitebottom">
+
+    </nav>
+
+    <div x-import="scripts.html"></div>
+    <script x-import="patients/index.js"></script>
+</body>
+
+</html>

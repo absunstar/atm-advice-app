@@ -1576,3 +1576,152 @@ margin: 12px 10px;
     padding: 3px 30px;
     background-color: #0071B7;
 }
+.dr-booking .modal-body .steps{
+    display: flex;
+    justify-content: space-between;
+    background-color: #F4F5F8;
+    padding: 20px 50px;
+    border-radius: 8px;
+    text-align: center;
+    
+}
+
+.dr-booking .modal-body .steps-form{
+    background-color: #F4F5F8;
+    padding: 20px 50px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+
+/* .steps div::before{
+    content: "";
+    background-color: #fff;
+    width:90px;
+    height: 2px;
+    position: relative;
+    top: 15px;
+    right: 115px;
+    display: flex;
+    
+    
+
+
+} */
+/* .steps div:last-child::before{
+    display: none;
+} */
+.dr-booking .modal-body .steps i{
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #E4E5E6;
+}
+.dr-booking .modal-body .steps p{
+    color: #E4E5E6;
+    font-weight: 700;
+}
+
+.dr-booking .modal-body .steps-form{
+    padding-top: 50px;
+}
+.dr-booking .modal-body .steps div:hover i , .dr-booking .modal-body .steps div:hover p{
+    color: #0071B7;
+}
+.dr-booking .modal-body .steps .active i ,.dr-booking .modal-body .steps .active p{
+    color: #0071B7;
+}
+
+.dr-booking  .modal-body .steps-form .date-edit ,.dr-booking .modal-body .steps-form .time-edit{
+    display: flex;
+    justify-content: space-between;
+}
+
+.dr-booking .modal-body .steps-form .date-edit input , .dr-booking .modal-body .steps-form .time-edit input{
+    padding: 20px;
+    color: #707789;
+    height: 40px;
+    border: 1px solid #707789;
+    border-radius: 20px;
+}
+.dr-booking .modal-body .steps-form .time-edit input{
+    padding: 0px 53px;
+    border: 1px solid #707789;
+}
+.dr-booking .modal-body .steps-form a{
+    justify-content: center;
+    display: flex;
+    width: 20%;
+    padding: 5px 0px;
+    text-align: center;
+    margin: 60px auto 0px auto;
+    background-color: #0071B7;
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+.dr-booking  .modal-body .steps-form a:hover{
+    text-decoration: none;
+    color: white;
+}
+.dr-booking .modal-body .steps-form h4{
+    color: #0071B7;
+    font-size: 20px;
+    font-weight: 700;
+}
+.dr-booking .modal-body .enter-data input[type="text"],.dr-booking .modal-body .enter-data input[type="tel"],.dr-booking .modal-body .enter-data input[type="number"],.dr-booking  .modal-body .enter-data select{
+    height: 40px;
+    width: 100%;
+    padding: 0px 10px;
+    margin: 5px 0px 10px 0px;
+    border: 1px solid #E4E5E6;
+
+}
+.dr-booking  .modal-body .enter-data .label-for-file{
+    width: 100%;
+    background-color: white;
+    font-size: 14px;
+    border: 1px solid #E4E5E6;
+    color: #707789;
+    padding: 9px 5px;
+    margin: 5px 0px 10px 0px;
+}
+.dr-booking .modal-body .enter-data input[type="radio"]{
+    margin: 10px 5px;
+}
+.dr-booking  .modal-body .info-table h4{
+    color: #3B4358;
+    font-size: 15px;
+}
+.dr-booking  .modal-body .second-step ,.dr-booking  .modal-body .third-step{
+    display: none;
+}
+.dr-booking .modal-body .final-step{
+    text-align: center;
+    display: none;
+}
+.dr-booking  .modal-body .final-step img{
+    width: 60px;
+    margin: 20px 0px;
+}
+.dr-booking .modal-body .final-step .info-table{
+    text-align: start;
+    margin: 20px 0px 30px 0px;
+}
+.dr-booking .modal-body .final-step .info-table h4{
+    font-size: 12px;
+    margin-top: 20px;
+}
+.dr-booking .modal-body .final-step a{
+    display: inline;
+    padding: 6px 30px;
+    border-radius: 5px;
+
+}
+.dr-booking .modal-body .final-step a:last-child{
+    background-color: transparent;
+    border: 2px solid #C8DDEC;
+    color: #0071B7;
+    padding: 4px 16px ;
+    margin: 0px 5px;
+}
