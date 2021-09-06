@@ -1259,6 +1259,12 @@ module.exports = function init(site) {
       where['days.dayName'] = where['dayName'];
       delete where['dayName'];
     }
+    if (where['lat']) {
+      delete where['lat'];
+    }
+    if (where['long']) {
+      delete where['long'];
+    }
     let doctor_doc = req.body;
     let lat = doctor_doc.lat||0;
     let long = doctor_doc.long||0;
@@ -1269,121 +1275,123 @@ module.exports = function init(site) {
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10;
     }
-    $doctors.aggregate(
-      [
-        {
-          $geoNear: {
-            near: {
-              type: 'Point',
-              coordinates: [lat, long],
-            },
-            distanceField: 'distance',
-            spherical: true,
-          },
-        },
+//     $doctors.aggregate(
+//       [
+//         {
+//           $geoNear: {
+//             near: {
+//               type: 'Point',
+//               coordinates: [lat, long],
+//             },
+//             distanceField: 'distance',
+//             spherical: true,
+//           },
+//         },
 
-        {
-          $match: where,
-        },
-        {
-          $sort: {
-            rating: -1.0,
-          },
-        },
-        {
-          $skip: skip || 0,
-        },
-        {
-          $limit: limit,
-        },
-      ],
-      (err, docs) => {
-        if (docs && docs.length > 0) {
-          response.done = true;
+//         {
+//           $match: where,
+//         },
+//         {
+//           $sort: {
+//             rating: -1.0,
+//           },
+//         },
+//         {
+//           $skip: skip || 0,
+//         },
+//         {
+//           $limit: limit,
+//         },
+//       ],
+//       (err, docs) => {
+//         if (docs && docs.length > 0) {
+//           response.done = true;
+//           response.data = {
+//             docs: docs,
+//             totalDocs: docs.length,
+//             limit: 10,
+//             totalPages: Math.ceil(docs.length / 10),
+//           };
+//           res.json(response);
+//         } if(docs &&docs.length == 0) {
+        
+          
+
+
+// console.log(2222222222222);
+
+
+
+//           $doctors.findMany({
+//             select: req.body.select || {},
+//             where: where,
+//             sort: req.body.sort || {
+//               id: -1,
+//             },
+//             limit: limit,
+//             skip: skip
+//           },
+//             (err, docs1, count) => {
+//               if (docs1.length > 0) {
+//                 response.done = true
+//                 response.docs = docs1
+//                 response.totalDocs = count
+//                 response.limit = 10
+//                 response.totalPages = Math.ceil(response.totalDocs / response.limit)
+//               } else {
+//                 response.docs = docs1
+//                 response.errorCode = site.var('failed')
+//                 response.message = site.word('findFailed')[req.headers.language]
+//                 response.done = false;
+//               }
+//               res.json(response);
+//             },
+//           );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//         }
+//       },
+//     );
+
+    $doctors.findMany({
+      select: req.body.select || {},
+      where: where,
+      sort: req.body.sort || {
+        id: -1,
+      },
+      limit: req.body.limit || 10,
+    },
+      (err, docs, count) => {
+        if (docs.length > 0) {
+                   response.done = true;
           response.data = {
             docs: docs,
             totalDocs: docs.length,
             limit: 10,
             totalPages: Math.ceil(docs.length / 10),
           };
-          res.json(response);
-        } if(docs &&docs.length == 0) {
-        
-          
-
-
-console.log(2222222222222);
-
-
-
-          $doctors.findMany({
-            select: req.body.select || {},
-            where: where,
-            sort: req.body.sort || {
-              id: -1,
-            },
-            limit: limit,
-            skip: skip
-          },
-            (err, docs1, count) => {
-              if (docs1.length > 0) {
-                response.done = true
-                response.docs = docs1
-                response.totalDocs = count
-                response.limit = 10
-                response.totalPages = Math.ceil(response.totalDocs / response.limit)
-              } else {
-                response.docs = docs1
-                response.errorCode = site.var('failed')
-                response.message = site.word('findFailed')[req.headers.language]
-                response.done = false;
-              }
-              res.json(response);
-            },
-          );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        } else {
+          response.docs = []
+          response.errorCode = site.var('failed')
+          response.message = site.word('findFailed')[req.headers.language]
+          response.done = false;
         }
+        res.json(response);
       },
     );
-
-    // $doctors.findMany({
-    //   select: req.body.select || {},
-    //   where: where,
-    //   sort: req.body.sort || {
-    //     id: -1,
-    //   },
-    //   limit: req.body.limit || 10,
-    // },
-    //   (err, docs, count) => {
-    //     if (docs.length > 0) {
-    //       response.done = true
-    //       response.docs = docs
-    //       response.totalDocs = count
-    //       response.limit = 10
-    //       response.totalPages = Math.ceil(response.totalDocs / response.limit)
-    //     } else {
-    //       response.docs = docs
-    //       response.errorCode = site.var('failed')
-    //       response.message = site.word('findFailed')[req.headers.language]
-    //       response.done = false;
-    //     }
-    //     res.json(response);
-    //   },
-    // );
   });
 
   // Search doctors By Available Days
