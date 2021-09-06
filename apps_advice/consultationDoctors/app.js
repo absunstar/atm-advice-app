@@ -53,7 +53,7 @@ module.exports = function init(site) {
     let user = {
       name: doctors_doc.fullName,
       mobile: doctors_doc.phone,
-      email: doctors_doc.email,
+      email: doctors_doc.email.toLowerCase(),
       password: doctors_doc.password,
       image_url: doctors_doc.image,
       type: 'consultationDoctor'
@@ -63,6 +63,7 @@ module.exports = function init(site) {
       mobile: user.mobile,
       image_url: user.image_url
     }
+    doctors_doc.email = doctors_doc.email.toLowerCase()
     $consultationDoctors.add(doctors_doc, (err, doc) => {
       if (!err) {
         user.ref_info = {

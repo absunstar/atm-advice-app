@@ -145,7 +145,7 @@ module.exports = function init(site) {
 
         if (!err && doc) {
 
-          if (doc.phone === patients_doc.phone) {
+          if (patients_doc.phone && doc.phone === patients_doc.phone) {
             response.errorCode = site.var('failed')
             response.message = site.word('phoneExist')[req.headers.language]
             response.done = false;
@@ -153,7 +153,7 @@ module.exports = function init(site) {
             return
           }
 
-          if (doc.phone === patients_doc.phone && doc.isActive == false) {
+          if (patients_doc.phone && doc.phone === patients_doc.phone && doc.isActive == false) {
             response.errorCode = site.var('succeed')
             response.message = site.word('findUser')[req.headers.language]
             response.done = true;
@@ -172,7 +172,7 @@ module.exports = function init(site) {
             res.json(response);
             return
           }
-          if (doc.email === patients_doc.email) {
+          if (patients_doc.email && doc.email === patients_doc.email) {
             response.errorCode = site.var('failed')
             response.message = site.word('emailExist')[req.headers.language]
             response.done = false;
@@ -672,7 +672,7 @@ module.exports = function init(site) {
   site.post("/api/patients/changePassword", (req, res) => {
     let response = {}
     req.headers.language = req.headers.language || 'en'
-    let consultation_doc = req.body
+    let patient_doc = req.body
     if (!req.session.user) {
       response.errorCode = site.var('failed')
       response.message = site.word('loginFirst')[req.headers.language]
@@ -687,13 +687,13 @@ module.exports = function init(site) {
     }, (err, doc) => {
 
 
-      if (doc && doc.password == consultation_doc.password) {
+      if (doc && doc.password == patient_doc.password) {
         $patients.edit({
           where: {
             _id: req.session.user.ref_info._id
           },
           set: {
-            password: consultation_doc.newPassword
+            password: patient_doc.newPassword
           },
           $req: req,
           $res: res
@@ -703,7 +703,7 @@ module.exports = function init(site) {
             _id: req.session.user._id
           },
           set: {
-            password: consultation_doc.newPassword
+            password: patient_doc.newPassword
           },
           $req: req,
           $res: res
@@ -717,7 +717,7 @@ module.exports = function init(site) {
         })
 
       }
-      if (!doc || doc.password != consultation_doc.password) {
+      if (!doc || doc.password != patient_doc.password) {
         response.done = false
         response.message = site.word('passwordNotCorrect')[req.headers.language]
         response.errorCode = site.var('failed')

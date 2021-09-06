@@ -82,12 +82,13 @@ module.exports = function init(site) {
       $doctors.createIndex({
         location: '2dsphere',
       });
+      doctors_doc.email = doctors_doc.email.toLowerCase()
       $doctors.add(doctors_doc, (err, doc) => {
         if (!err) {
           let user = {
             name: doctors_doc.name,
             mobile: doctors_doc.phone,
-            email: doctors_doc.email,
+            email: doctors_doc.email.toLowerCase(),
             password: doctors_doc.password,
             image_url: doctors_doc.image,
             type: 'doctor',
@@ -156,7 +157,7 @@ module.exports = function init(site) {
 
     site.security.login(
       {
-        email: req.body.email,
+        email: req.body.email.toLowerCase(),
         password: req.body.password,
         company: req.body.company,
         branch: req.body.branch,
@@ -188,7 +189,7 @@ module.exports = function init(site) {
                     (response.user = {
                       id: user.id,
                       _id: user._id,
-                      email: user.email,
+                      email: user.email.toLowerCase(),
                       permissions: user.permissions,
                       company: req.body.company,
                       branch: req.body.branch,
@@ -312,12 +313,28 @@ module.exports = function init(site) {
           response.message = site.word('findSuccessfully')[req.headers.language];
           response.done = true;
         } else {
-          response.data = {
-            docs,
-          };
-          response.errorCode = site.var('failed');
-          response.message = site.word('findFailed')[req.headers.language];
-          response.done = false;
+          $doctors.findMany(
+            {
+              select: req.body.select || {},
+              sort: req.body.sort || {
+                id: -1,
+              },
+              where: {
+                isActive: false,
+              },
+            },
+            (err, docs, count) => {
+              if (!err) {
+                response.docs = docs;
+                response.totalDocs = count;
+                response.limit = 10;
+                response.totalPages = Math.ceil(response.totalDocs / response.limit);
+              } else {
+                response.error = err.message;
+              }
+              res.json(response);
+            },
+          );
         }
 
         res.json(response);
@@ -466,12 +483,28 @@ module.exports = function init(site) {
           response.message = site.word('findSuccessfully')[req.headers.language];
           res.json(response);
         } else {
-          response.data = {
-            docs,
-          };
-          response.errorCode = site.var('failed');
-          response.message = site.word('findFailed')[req.headers.language];
-          res.json(response);
+          $doctors.findMany(
+            {
+              select: req.body.select || {},
+              sort: req.body.sort || {
+                id: -1,
+              },
+              where: {
+                isActive: false,
+              },
+            },
+            (err, docs, count) => {
+              if (!err) {
+                response.docs = docs;
+                response.totalDocs = count;
+                response.limit = 10;
+                response.totalPages = Math.ceil(response.totalDocs / response.limit);
+              } else {
+                response.error = err.message;
+              }
+              res.json(response);
+            },
+          );
         }
       },
     );

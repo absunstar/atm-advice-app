@@ -97,7 +97,7 @@ module.exports = function init(site) {
               'userName': pharmacy_doc.userName
             },
             {
-              'email': pharmacy_doc.email
+              'email': pharmacy_doc.email.toLowerCase()
             },
             {
               'phone': pharmacy_doc.phone
@@ -109,14 +109,14 @@ module.exports = function init(site) {
         if (!err && findDoc) {
           response.done = false
           response.errorCode = site.var('failed')
-          if (findDoc.userName === pharmacy_doc.userName) {
+          if (pharmacy_doc.userName && findDoc.userName === pharmacy_doc.userName) {
             response.message = site.word('userNameIsExist')[req.headers.language]
 
           }
-          if (findDoc.email === pharmacy_doc.email) {
+          if (pharmacy_doc.email && findDoc.email === pharmacy_doc.email) {
             response.message = site.word('emailIsExist')[req.headers.language] //[req.headers.language];
           }
-          if (findDoc.phone === pharmacy_doc.phone) {
+          if (pharmacy_doc.phone && findDoc.phone === pharmacy_doc.phone) {
             response.message = site.word('phoneIsExist')[req.headers.language] //[req.headers.language];\
           }
           res.json(response);
@@ -126,7 +126,7 @@ module.exports = function init(site) {
           let user = {
             name: pharmacy_doc.pharmacyName,
             mobile: pharmacy_doc.phone,
-            email: pharmacy_doc.email,
+            email: pharmacy_doc.email.toLowerCase(),
             password: pharmacy_doc.password,
             username: pharmacy_doc.userName,
             image_url: pharmacy_doc.image,
@@ -156,9 +156,9 @@ module.exports = function init(site) {
             })
           }
 
-
+          pharmacy_doc.email = pharmacy_doc.email.toLowerCase()
           $pharmacy.add(pharmacy_doc, (err, doc) => {
-            console.log(err);
+            
             if (!err) {
               let {
                 password,
