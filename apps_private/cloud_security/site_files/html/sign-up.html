@@ -11,6 +11,7 @@
     <title>Advice | Sign UP</title>
   </head>
   <body ng-controller="signup" >
+    
     <section class="sign-up">
       <div class="container">
         <div class="row">
@@ -102,7 +103,13 @@
         </div>
       </div>
     </section>
-
+    
+    <div x-import="scripts.html"></div>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/x-js/all.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/x-js/all.js?v=##site.options.version##"></script>
     <script>
       app.controller('signup', function ($scope, $http, $timeout) {

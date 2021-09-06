@@ -11,6 +11,7 @@
     <title>Advice | Sign in</title>
   </head>
   <body ng-controller="login">
+    
     <section class="sign-in">
       <div class="container">
         <div class="row">
@@ -50,6 +51,12 @@
       </div>
     </section>
 
+    <div x-import="scripts.html"></div>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/x-js/all.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/x-js/all.js?v=##site.options.version##"></script>
     <script>
       app.controller('login', function ($scope, $http, $timeout) {

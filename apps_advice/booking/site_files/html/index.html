@@ -11,6 +11,7 @@
     <title>Advice | Booking</title>
   </head>
   <body ng-controller="booking">
+    <nav class="sitebar" x-import="sitebar/nav.html"></nav>
     <div id="main-layout" class="container loaded">
       <div>
         <section class="search-bar">
@@ -542,7 +543,7 @@
         </section>
       </div>
     </div>
-
+    <nav class="sitebottom" x-import="sitebottom/footer.html" style="margin-top: 100px;"></nav>
     <div x-import="scripts.html"></div>
     <script>
       
@@ -618,5 +619,7 @@
     <script src="/js/jquery-3.5.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/x-js/all.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
