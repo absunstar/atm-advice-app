@@ -182,7 +182,7 @@ module.exports = function init(site) {
           let user = {
             name: patients_doc.fullName,
             mobile: patients_doc.phone,
-            email: patients_doc.email,
+            email: patients_doc.email.toLowerCase(),
             password: patients_doc.password,
             image_url: patients_doc.image,
             type: 'patient'
@@ -192,6 +192,7 @@ module.exports = function init(site) {
             mobile: user.mobile,
             image_url: user.image_url
           }
+          patients_doc.email = patients_doc.email.toLowerCase()
           $patients.add(patients_doc, (err, doc) => {
             if (!err) {
               user.ref_info = {

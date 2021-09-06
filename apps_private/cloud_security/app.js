@@ -333,7 +333,7 @@ module.exports = function init(site) {
 
     site.security.login(
       {
-        email: req.body.email,
+        email: req.body.email.toLowerCase(),
         password: req.body.password,
         company: req.body.company,
         branch: req.body.branch,
@@ -350,7 +350,7 @@ module.exports = function init(site) {
           response.user = {
             id: user.id,
             _id: user._id,
-            email: user.email,
+            email: user.email.toLowerCase(),
             permissions: user.permissions,
             company: req.body.company,
             branch: req.body.branch,
