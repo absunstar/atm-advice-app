@@ -246,8 +246,12 @@ module.exports = function init(site) {
       done: true,
       errorCode: site.var('succeed'),
       data: {
+        APP_ID :APP_ID,
+        APP_CERTIFICATE : APP_CERTIFICATE,
         token: token,
         uid: uid,
+        role : role,
+        privilegeExpireTime : privilegeExpireTime,
         channel: channelName
       },
       message: site.word('tokenAvailable')[req.headers.language]

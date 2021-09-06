@@ -121,6 +121,12 @@
         "en": "Appointment Alraedy Exist",
         "ar": "هذا الموعد متواجد من قبل"
         
+    },
+    {
+        "name": "dateAlreadyExist",
+        "en": "Date Alraedy Exist",
+        "ar": "هذا التاريخ متواجد من قبل"
+        
     }
 
 ]

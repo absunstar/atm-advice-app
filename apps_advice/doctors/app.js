@@ -648,7 +648,7 @@ module.exports = function init(site) {
       (err, doc) => {
         if (doc) {
           let arr = [];
-          if (doc.days.length > 0) {
+          if (doc.days && doc.days.length > 0) {
             doc.days.forEach((_d) => {
               let date = _d.date;
 
@@ -657,6 +657,9 @@ module.exports = function init(site) {
                 arr = _d.times;
               }
             });
+          }
+          else{
+
           }
 
           (response.done = true), (response.data = arr);
@@ -687,6 +690,7 @@ module.exports = function init(site) {
       },
       (err, doc) => {
         if (doc && doc.password == doctors_doc.password) {
+
           $doctors.edit(
             {
               where: {
@@ -697,15 +701,25 @@ module.exports = function init(site) {
               },
               $req: req,
               $res: res,
+            }
+          )
+          $users_info.edit({
+            where: {
+              _id: doc.user_info._id
             },
-            (err, result) => {
-              response.done = true;
-              response.message = site.word('updatePassword')[req.headers.language];
-              response.errorCode = site.var('succeed');
-
-              res.json(response);
+            set: {
+              password: doctors_doc.newPassword
             },
-          );
+            $req: req,
+            $res: res
+          }, (err, result) => {
+  
+            response.done = true
+            response.message = site.word('updatePassword')[req.headers.language]
+            response.errorCode = site.var('succeed')
+  
+            res.json(response)
+          })
         }
         if (!doc || doc.password != doctors_doc.password) {
           response.done = false;
@@ -773,12 +787,21 @@ module.exports = function init(site) {
             weekdays[5] = 'Friday';
             weekdays[6] = 'Saturday';
             var r = weekdays[a.getDay()];
-
-            doc.days.push({
-              dayName: r,
-              date: doctor_doc.date,
-              times: [],
-            });
+            let xx = _doc.days.some(li=>li.date == req.body.date)
+            if (xx == true) {
+              response.done = false
+              response.errorCode = site.var('failed');
+              response.message = site.word('dateAlreadyExist')[req.headers.language];
+              res.json(response);
+            }
+            else{
+              doc.days.push({
+                dayName: r,
+                date: doctor_doc.date,
+                times: [],
+              });
+            }
+            
           } else {
             var a = new Date(req.body.date);
             var weekdays = new Array(7);
@@ -790,6 +813,7 @@ module.exports = function init(site) {
             weekdays[5] = 'Friday';
             weekdays[6] = 'Saturday';
             var r = weekdays[a.getDay()];
+            
             doc.days = [
               {
                 dayName: r,
@@ -994,7 +1018,6 @@ module.exports = function init(site) {
               },
               (err, doc) => {
                 if (doc) {
-                  console.log(doc.user_info._id);
                   $users_info.edit({
                     where: {
                      '_id': doc.user_info._id
@@ -1193,6 +1216,18 @@ module.exports = function init(site) {
       delete where['name'];
     }
 
+
+    if (where['gender'] == undefined) {
+      delete where['gender'];
+    }
+    if (where['gender'] != undefined && where['gender'] != '') {
+      where['gender'] = where['gender'];
+    }
+    if (where['gender'] != undefined && where['gender'] == '') {
+      delete where['gender'];
+    }
+
+
     if (where['degree'] && where['degree']._id != '') {
       where['degree._id'] = where['degree']._id;
       delete where['degree'];
@@ -1224,10 +1259,9 @@ module.exports = function init(site) {
       where['days.dayName'] = where['dayName'];
       delete where['dayName'];
     }
-
     let doctor_doc = req.body;
-    let lat = doctor_doc.lat;
-    let long = doctor_doc.long;
+    let lat = doctor_doc.lat||0;
+    let long = doctor_doc.long||0;
 
     let limit = 10;
     let skip;
@@ -1273,14 +1307,55 @@ module.exports = function init(site) {
             totalPages: Math.ceil(docs.length / 10),
           };
           res.json(response);
-        } else {
-          response.data = {
-            docs,
-          };
-          response.errorCode = site.var('failed');
-          response.message = site.word('findFailed')[req.headers.language];
-          response.done = false;
-          res.json(response);
+        } if(docs &&docs.length == 0) {
+        
+          
+
+
+console.log(2222222222222);
+
+
+
+          $doctors.findMany({
+            select: req.body.select || {},
+            where: where,
+            sort: req.body.sort || {
+              id: -1,
+            },
+            limit: limit,
+            skip: skip
+          },
+            (err, docs1, count) => {
+              if (docs1.length > 0) {
+                response.done = true
+                response.docs = docs1
+                response.totalDocs = count
+                response.limit = 10
+                response.totalPages = Math.ceil(response.totalDocs / response.limit)
+              } else {
+                response.docs = docs1
+                response.errorCode = site.var('failed')
+                response.message = site.word('findFailed')[req.headers.language]
+                response.done = false;
+              }
+              res.json(response);
+            },
+          );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
       },
     );
