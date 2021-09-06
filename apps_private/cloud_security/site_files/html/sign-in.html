@@ -22,8 +22,8 @@
         <form>
           <div class="row">
             <div class="col-sm-12">
-              <label> رقم الهاتف </label><br />
-              <input type="tel" ng-model="user.mobile" />
+              <label>  البريد الإلكتروني </label><br />
+              <input type="email" ng-model="user.email" />
             </div>
           </div>
           <div class="row">
@@ -51,7 +51,7 @@
       </div>
     </section>
 
-    <div x-import="scripts.html"></div>
+    
     <script src="/js/jquery-3.5.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -77,7 +77,7 @@
             url: '/api/user/login',
             data: {
               $encript: '123',
-              email: site.to123($scope.user.mobile),
+              email: site.to123($scope.user.email),
               password: site.to123($scope.user.password),
             },
           }).then(

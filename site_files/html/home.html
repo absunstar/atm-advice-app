@@ -16,7 +16,8 @@
       <div class="container ser-btn">
         <h1>رعاية صحية لحياة أفضل ليك</h1>
         <h4>رعاية صحية لحياة أفضل ليك رعاية صحية لحياة أفضل ليك رعاية صحية لحياة أفضل ليك</h4>
-        <div class="tabs">
+        
+      <!-- <div class="tabs">
           <input type="radio" id="book" name="tabs" checked="checked" />
           <label for="book">احجز دكتور</label>
           <div class="row tab">
@@ -24,7 +25,7 @@
               <div class="dropdown">
                 <p>التخصص</p>
 
-                <select name="specialize" id="specialize">
+                <select name="specialize" id="specialize" ng-model="booking.specialty">
                   <option selected disabled>اخترالتخصص</option>
                   <option value="جلدية">جلدية</option>
                   <option value="اسنان">اسنان</option>
@@ -37,7 +38,7 @@
             <div class="col">
               <div class="dropdown">
                 <p>المحافظة</p>
-                <select name="specialize" id="specialize">
+                <select name="specialize" id="specialize" ng-model="booking.gov">
                   <option selected disabled>اخترالتخصص</option>
                   <option value="جلدية">جلدية</option>
                   <option value="اسنان">اسنان</option>
@@ -50,7 +51,7 @@
             <div class="col">
               <div class="dropdown">
                 <p>المنطقة</p>
-                <select name="specialize" id="specialize">
+                <select name="specialize" id="specialize" ng-model="booking.city">
                   <option selected disabled>اخترالتخصص</option>
                   <option value="جلدية">جلدية</option>
                   <option value="اسنان">اسنان</option>
@@ -64,13 +65,13 @@
             <div class="col">
               <div class="text">
                 <p>اسم الطبيب</p>
-                <input type="text" placeholder="ادخل اسم الطبيب او المستشفى" />
+                <input type="text" placeholder="ادخل اسم الطبيب او المستشفى" ng-model="doctor.name"/>
               </div>
             </div>
             <div class="col-sm-1">
               <div class="text">
                 <br />
-                <input type="submit" value="" />
+                <input type="submit" value="" ng-click="doctorSearch()" />
               </div>
             </div>
           </div>
@@ -104,17 +105,26 @@
             <div class="col-sm-11">
               <p>صورة الروشتة أو المنتج</p>
 
-              <input type="file" accept="image/*" id="file-upload" />
+              <input type="file" accept="image/*" id="file-upload" ng-model="order.upload" style="display: none;"/>
               <label for="file-upload" class="input-file"><img src="/images/Iconfeather-camera.svg" />ارفع صورة الروشتة أو المنتج الذي تريده<i class="fas fa-paperclip" style="float: left"></i></label>
             </div>
             <div class="col">
               <div class="text">
                 <br />
-                <input type="submit" value="" />
+                <input type="submit" value="" ng-click="sendOrder()"/>
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
+        
+        
+        <div class="action-btn">
+        
+        <a href="/orders" x-permission="login">اطلب دوائك</a>
+        <a href="/signin" x-permission="!login">اطلب دوائك</a>
+        <a href="/booking" x-permission="login"> احجز دكتور</a>
+        <a href="/signin" x-permission="!login"> احجز دكتور</a>
+      </div>
       </div>
     </section>
     <section class="services">
@@ -162,7 +172,7 @@
         <div class="row" style="margin-top: 250px">
           <div class="col-sm-6" style="padding-left: 10px; padding-right: 0px">
             <div class="ask">
-              <img src="/images/NoPath.png" style="float: left" class="/images1" />
+              <img src="/images/NoPath.png" style="float: left" class="images-ask1" />
               <h1>ابحث عن طبيب بالقرب منك</h1>
               <h4>ابحث عن أطباء ذوي خبرة في جميع التخصصات</h4>
               <a href="#">اطلب استشارة</a>
@@ -170,7 +180,7 @@
           </div>
           <div class="col-sm-6" style="padding-left: 0px; padding-right: 10px">
             <div class="ask">
-              <img src="/images/NoPath2.png" style="float: left" class="/images2" />
+              <img src="/images/NoPath2.png" style="float: left" class="images-ask2" />
               <h1>استشر طبيبك الآن عن بعد</h1>
               <h4>ابحث عن أطباء ذوي خبرة في جميع التخصصات</h4>
               <a href="#">اطلب استشارة</a>
@@ -226,7 +236,7 @@
               <img src="/images/NoPath6.png" />
               <h1>اطلب دوائك لحد البيت الآن</h1>
               <span>اطلب ادويتك و كل اللي تحتاجه من الصيدلية. اطلب ادويتك و كل اللي تحتاجه من الصيدلية</span><br />
-              <a href="#">اطلب الآن</a>
+              <a href="/orders">اطلب الآن</a>
             </div>
           </div>
         </div>

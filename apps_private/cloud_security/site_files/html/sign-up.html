@@ -5,63 +5,99 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/style.css" rel="stylesheet" />
+    <link href="/x-css/images.css" rel="stylesheet" />
     <link rel="stylesheet" href="/x-css/bootstrap4.css" />
     <link rel="stylesheet" href="/css/fontawesome.css" />
     <link href="/x-css/fonts.css" rel="stylesheet" />
     <title>Advice | Sign UP</title>
   </head>
-  <body ng-controller="signup" >
-    
+  <body ng-controller="signup">
     <section class="sign-up">
       <div class="container">
         <div class="row">
-          <div class="col-sm-12">
+          <div class="col-sm-12 error-head">
             <h1>انشاء حساب جديد</h1>
+            <p class="red">{{error}}</p>
           </div>
         </div>
         <form>
           <div class="row">
             <div class="col-sm-6">
               <label>الاسم</label><br />
-              <input type="text" ng-model="patient.fullName" placeholder="ادخل اسمك كامل" />
+              <input
+                type="text"
+                ng-model="patient.fullName"
+                
+              />
             </div>
             <div class="col-sm-6">
               <label> رقم الهاتف </label><br />
-              <input type="tel" ng-model="patient.phone"  placeholder="xxxxxxxxxxx" />
+              <input
+                type="tel"
+                ng-model="patient.mobile"
+                
+              />
             </div>
           </div>
           <div class="row">
             <div class="col-sm-6">
               <label> البريد الإلكتروني</label><br />
-              <input type="email" ng-model="patient.email" placeholder="اكتب بريدك الالكتروني (اختياري)" />
+              <input
+                type="email"
+                v="r"
+                ng-model="patient.email"
+                
+              />
             </div>
             <div class="col-sm-6">
               <label>الجنس</label><br />
-              <input type="radio" ng-model="patient.gender" name="gender" value="male" />ذكر
-              <input type="radio" ng-model="patient.gender" name="gender" value="female" />انثي
+              <input
+                type="radio"
+                ng-model="patient.gender"
+                name="gender"
+                value="male"
+              />ذكر
+              <input
+                type="radio"
+                ng-model="patient.gender"
+                name="gender"
+                value="female"
+              />انثي
             </div>
           </div>
           <div class="row">
             <div class="col-sm-6">
               <label>الرقم القومي</label><br />
-              <input type="number" ng-model="patient.idNumber" placeholder="XXXXXXXXXXXXXX" />
+              <input
+                type="text"
+                ng-model="patient.idNumber"
+               
+              />
             </div>
             <div class="col-sm-6">
               <label>كلمة المرور</label><br />
-              <input type="password" ng-model="patient.password" placeholder="***************" />
+              <input
+                type="password"
+                ng-model="patient.password"
+                
+              />
             </div>
           </div>
           <div class="row">
             <div class="col-sm-12">
               <label>هل لديك اشتراك في تأمين صحي ؟</label><br />
               <div class="radio">
-                <input type="radio" name="insurance" ng-model="patient.hasInsurance"  /> لا
-                <input type="radio" name="insurance" checked="checked" />نعم 
+                <input
+                  type="radio"
+                  name="insurance"
+                  ng-model="patient.hasInsurance"
+                />
+                لا <input type="radio" name="insurance" checked="checked" />نعم
 
                 <div class="row tab">
                   <div class="col-sm-6">
                     <label>مكان العمل</label><br />
-                    <input type="text" placeholder="ماهي شركتك؟" />
+                    <input type="text"  />
                   </div>
                   <div class="col-sm-6">
                     <label>شركه التأمين</label>
@@ -78,12 +114,20 @@
 
                   <div class="col-sm-6">
                     <label>الرقم التأميني</label><br />
-                    <input type="number" ng-model="patient.insuranceNumber" />
+                    <input type="text" ng-model="patient.insuranceNumber" />
                   </div>
-                  <div class="col-sm-6">
+                  <div class="col-sm-6 insurance-card">
                     <label>صوره كارت التأمين</label><br />
-                    <label for="insurance-img" class="label-for-file">ارفع صورة كارت التأمين الخاصة بك</label>
-                    <input type="file" accept="image/*" id="insurance-img" style="display: none" />
+                    <i-image ng-model="patient.insuranceImg"></i-image>
+                    <!-- <label for="insurance-img" class="label-for-file"
+                      >ارفع صورة كارت التأمين الخاصة بك</label
+                    >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="insurance-img"
+                      style="display: none"
+                    /> -->
                   </div>
                 </div>
               </div>
@@ -98,13 +142,15 @@
         </form>
         <div class="row">
           <div class="col-sm-12 create-account">
-            <span> لديك حساب بالفعل؟ &nbsp;&nbsp;<a href="/signin">دخول</a></span>
+            <span>
+              لديك حساب بالفعل؟ &nbsp;&nbsp;<a href="/signin">دخول</a></span
+            >
           </div>
         </div>
+        
       </div>
     </section>
-    
-    <div x-import="scripts.html"></div>
+
     <script src="/js/jquery-3.5.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
@@ -112,30 +158,37 @@
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/x-js/all.js?v=##site.options.version##"></script>
     <script>
-      app.controller('signup', function ($scope, $http, $timeout) {
+      app.controller("signup", function ($scope, $http, $timeout) {
         $scope.patient = {};
 
         $scope.register = function () {
-          $scope.error = '';
+          $scope.error = "";
+
+          const v = site.validated("body");
+          if (!v.ok) {
+            $scope.error = v.messages[0].ar;
+            return;
+          }
+
           $scope.busy = true;
           $http({
-            method: 'POST',
-            url: '/api/patients/add',
+            method: "POST",
+            url: "/api/patients/add",
             data: $scope.patient,
           }).then(
             function (response) {
-              if (response.data.error) {
-                $scope.error = response.data.error;
+              if (response.data.message) {
+                $scope.error = response.data.message;
                 $scope.busy = false;
               }
               if (response.data.done) {
-                window.location.href = '/';
+                window.location.href = "/";
               }
             },
             function (err) {
               $scope.busy = false;
               $scope.error = err;
-            },
+            }
           );
         };
       });

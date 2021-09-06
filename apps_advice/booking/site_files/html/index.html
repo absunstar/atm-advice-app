@@ -64,6 +64,7 @@
                   <input
                     type="text"
                     placeholder="ادخل اسم الطبيب او المستشفى"
+                    ng.model="doctor.name"
                   />
                 </div>
               </div>
@@ -117,7 +118,7 @@
           <div class="first-step">
             <div class="date-edit">
               <h4>التاريخ</h4>
-              <input type="date" />
+              <input type="date" ng-model="booking.date" />
             </div>
             <br />
             <br />
@@ -141,14 +142,14 @@
                 <label>الاسم</label><br />
                 <input
                   type="text"
-                  placeholder="ادخل اسمك كامل"
+                  ng-model="patient.name"
                 />
               </div>
               <div class="col-sm-12">
                 <label> رقم الهاتف </label><br />
                 <input
                   type="tel"
-                  placeholder="xxxxxxxxxxx"
+                  ng-model="patient.phone"
                   style="width: 100%"
                 />
               </div>
@@ -161,21 +162,21 @@
                     name="insurance"
                     checked="checked"
                   />لا
-                  <input type="radio" name="insurance" />نعم
+                  <input type="radio" name="insurance" ng-model="patient.hasInsurance" />نعم
 
                   <div class="row tab">
                     <div class="col-sm-6">
                       <label>مكان العمل</label><br />
                       <input
                         type="text"
-                        placeholder="ماهي شركتك؟"
+                        ng-model="patient.company"
                       />
                     </div>
                     <div class="col-sm-6">
                       <label>شركه التأمين</label>
                       <br />
-                      <select>
-                        <option selected disabled>
+                      <select ng-model="insurance.name">
+                        <option selected disabled >
                           اختر شركه التأمين
                         </option>
                         <option value="1">1</option>
@@ -188,11 +189,12 @@
 
                     <div class="col-sm-6">
                       <label>الرقم التأميني</label><br />
-                      <input type="number" />
+                      <input type="text" ng-model="insuranceNumber" />
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 insurance-card">
                       <label>صوره كارت التأمين</label><br />
-                      <label
+                      <i-image ng-model="patient.insuranceImg"></i-image>
+                      <!-- <label
                         for="insurance-img"
                         class="label-for-file"
                         >ارفع صورة كارت التأمين الخاصة
@@ -203,7 +205,7 @@
                         accept="image/*"
                         id="insurance-img"
                         style="display: none"
-                      />
+                      /> -->
                     </div>
                   </div>
                   <a href="#" id="step5">التالي</a>
@@ -543,8 +545,9 @@
         </section>
       </div>
     </div>
-    <nav class="sitebottom" x-import="sitebottom/footer.html" style="margin-top: 100px;"></nav>
-    <div x-import="scripts.html"></div>
+    <nav class="sitebottom" x-import="sitebottom/footer2.html" style="margin-top: 250px;" ></nav>
+    <nav class="sitebottom" x-import="sitebottom/footer.html"></nav>
+    
     <script>
       
       const one = document.querySelector("#step1");
@@ -615,11 +618,11 @@
         three.classList.add("active");
       });
     </script>
-    <script x-import="booking/index.js"></script>
     <script src="/js/jquery-3.5.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/x-js/all.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
+    <script x-import="booking/index.js"></script>
   </body>
 </html>
