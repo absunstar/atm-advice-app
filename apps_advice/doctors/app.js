@@ -787,7 +787,7 @@ module.exports = function init(site) {
             weekdays[5] = 'Friday';
             weekdays[6] = 'Saturday';
             var r = weekdays[a.getDay()];
-            let xx = _doc.days.some(li=>li.date == req.body.date)
+            let xx = doc.days.some(li=>li.date == req.body.date)
             if (xx == true) {
               response.done = false
               response.errorCode = site.var('failed');

@@ -162,6 +162,7 @@ module.exports = function init(site) {
       (err, docs, count) => {
         if (!err) {
           response.docs = docs
+          response.done=true
           response.totalDocs = count
           response.limit = 10
           response.totalPages = Math.ceil(response.totalDocs / response.limit)

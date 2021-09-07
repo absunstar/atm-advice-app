@@ -73,6 +73,7 @@ module.exports = function init(site) {
       orders_doc.createdAt = new Date()
     orders_doc.updatedAt = new Date()
     orders_doc.isPublished = true
+    orders_doc.holdingArr = []
     orders_doc.status = {
       statusId: site.var('activeId'), // status id from vars
       name: site.var('active')

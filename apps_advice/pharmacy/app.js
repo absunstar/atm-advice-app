@@ -496,6 +496,7 @@ module.exports = function init(site) {
   // need request session user
   site.post("/api/pharmacy/getActiveOrders", (req, res) => {
     req.headers.language = req.headers.language || 'en'
+    let response = {}
     if (!req.session.user) {
       response.errorCode = site.var('failed')
       response.message = site.word('loginFirst')[req.headers.language]
@@ -508,7 +509,7 @@ module.exports = function init(site) {
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
-    let response = {}
+    
     let pharmacy_doc = req.body
     $orders.findMany({
         select: req.body.select || {},
@@ -553,6 +554,7 @@ module.exports = function init(site) {
   // need request session user
   site.post("/api/pharmacy/getCurrentOrdersCount", (req, res) => {
     req.headers.language = req.headers.language || 'en'
+    let response = {}
     if (!req.session.user) {
       response.errorCode = site.var('failed')
       response.message = site.word('loginFirst')[req.headers.language]
@@ -565,7 +567,7 @@ module.exports = function init(site) {
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
-    let response = {}
+    
     let pharmacy_doc = req.body
     $orders.findMany({
         select: req.body.select || {},
@@ -600,6 +602,7 @@ module.exports = function init(site) {
   // get Previous Orders
   // need request session user
   site.post("/api/pharmacy/getPreviousOrders", (req, res) => {
+    let response = {}
     req.headers.language = req.headers.language || 'en'
     let limit = 10
     let skip
@@ -613,7 +616,7 @@ module.exports = function init(site) {
       res.json(response);
       return;
     }
-    let response = {}
+    
     let pharmacy_doc = req.body
     $orders.findMany({
         select: req.body.select || {},
@@ -920,8 +923,16 @@ module.exports = function init(site) {
   // get Recent Orders Count
 
   site.post("/api/pharmacy/getRecentOrdersCount", (req, res) => {
-
     let response = {}
+    if (!req.session.user) {
+
+      response.done = false
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      res.json(response)
+      return
+    }
+    
     $orders.findMany({
         select: req.body.select || {},
         sort: req.body.sort || {
@@ -935,9 +946,9 @@ module.exports = function init(site) {
         if (!err) {
          
           let result = docs.filter(function(food) {
-            return !food.holdingArr.includes(String(req.session.user.ref_info._id));
+            return !food.holdingArr.length > 0 ?food.holdingArr.includes(String(req.session.user.ref_info._id)):null;
         });
-          response.totalDocs = result.length
+          response.totalDocs = result.length > 0 ?result.length :0
           response.limit = 10
           response.totalPages = Math.ceil(response.totalDocs / response.limit)
         } else {
