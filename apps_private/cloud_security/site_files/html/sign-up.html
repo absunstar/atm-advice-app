@@ -24,30 +24,17 @@
           <div class="row">
             <div class="col-sm-6">
               <label>الاسم</label><br />
-              <input
-                type="text"
-                ng-model="patient.fullName"
-                
-              />
+              <input type="text" ng-model="patient.fullName" />
             </div>
             <div class="col-sm-6">
               <label> رقم الهاتف </label><br />
-              <input
-                type="tel"
-                ng-model="patient.mobile"
-                
-              />
+              <input type="tel" ng-model="patient.phone" />
             </div>
           </div>
           <div class="row">
             <div class="col-sm-6">
               <label> البريد الإلكتروني</label><br />
-              <input
-                type="email"
-                v="r"
-                ng-model="patient.email"
-                
-              />
+              <input type="email" v="r" ng-model="patient.email" />
             </div>
             <div class="col-sm-6">
               <label>الجنس</label><br />
@@ -68,19 +55,11 @@
           <div class="row">
             <div class="col-sm-6">
               <label>الرقم القومي</label><br />
-              <input
-                type="text"
-                ng-model="patient.idNumber"
-               
-              />
+              <input type="text" ng-model="patient.idNumber" />
             </div>
             <div class="col-sm-6">
               <label>كلمة المرور</label><br />
-              <input
-                type="password"
-                ng-model="patient.password"
-                
-              />
+              <input type="password" ng-model="patient.password" />
             </div>
           </div>
           <div class="row">
@@ -91,24 +70,21 @@
                   type="radio"
                   name="insurance"
                   ng-model="patient.hasInsurance"
-                />
-                لا <input type="radio" name="insurance" checked="checked" />نعم
+                />لا
+                <input type="radio" name="insurance" checked="checked" />نعم
 
                 <div class="row tab">
                   <div class="col-sm-6">
                     <label>مكان العمل</label><br />
-                    <input type="text"  />
+                    <input type="text" ng-model="patient.contractingCompany" />
                   </div>
                   <div class="col-sm-6">
                     <label>شركه التأمين</label>
                     <br />
-                    <select>
-                      <option selected disabled>اختر شركه التأمين</option>
-                      <option value="1">1</option>
-                      <option value="1">1</option>
-                      <option value="1">1</option>
-                      <option value="1">1</option>
-                      <option value="1">1</option>
+                    <select ng-model="patient.insuranceCompany" ng-options="s.name_##session.lang## for s in insuranceCompanyList">
+                      <option selected disabled>
+                        اختر شركه التأمين
+                      </option>
                     </select>
                   </div>
 
@@ -116,9 +92,12 @@
                     <label>الرقم التأميني</label><br />
                     <input type="text" ng-model="patient.insuranceNumber" />
                   </div>
-                  <div class="col-sm-6 insurance-card">
+                  <div
+                    class="col-sm-6 insurance-card"
+                    ng-repeat="i in patient.cardImage"
+                  >
                     <label>صوره كارت التأمين</label><br />
-                    <i-image ng-model="patient.insuranceImg"></i-image>
+                    <i-image ng-model="i.name"></i-image>
                     <!-- <label for="insurance-img" class="label-for-file"
                       >ارفع صورة كارت التأمين الخاصة بك</label
                     >
@@ -147,7 +126,6 @@
             >
           </div>
         </div>
-        
       </div>
     </section>
 
@@ -156,10 +134,16 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/x-js/all.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/x-js/all.js?v=##site.options.version##"></script>
+
     <script>
       app.controller("signup", function ($scope, $http, $timeout) {
-        $scope.patient = {};
+        $scope.patient = {
+          cardImage: [
+            {
+              name: "/images/id-card.svg ",
+            },
+          ],
+        };
 
         $scope.register = function () {
           $scope.error = "";
@@ -177,6 +161,7 @@
             data: $scope.patient,
           }).then(
             function (response) {
+              console.log($scope.patient);
               if (response.data.message) {
                 $scope.error = response.data.message;
                 $scope.busy = false;
@@ -191,6 +176,41 @@
             }
           );
         };
+        $scope.getInsuranceCompanyList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/insuranceCompany",
+      data: {
+        where: {
+          active: true,
+        },
+        select: {
+          id: 1,
+          name_ar: 1,
+          name_en: 1,
+          balance: 1,
+          image: 1,
+        },
+      },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.insuranceCompanyList = response.data.docs;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+
+
+
+  $scope.getInsuranceCompanyList();
       });
     </script>
   </body>

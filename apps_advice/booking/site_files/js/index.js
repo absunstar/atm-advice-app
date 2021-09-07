@@ -1,24 +1,86 @@
-app.controller('booking', function ($scope, $http, $timeout) {
+app.controller("booking", function ($scope, $http, $timeout) {
   $scope._search = {};
 
   $scope.booking = {};
 
-  
-
-
+  $scope.confirmBooking = function () {
+    $scope.error = "";
+    /* const v = site.validated("#ordersAddModal");
+    if (!v.ok) {
+      $scope.error = v.messages[0].ar;
+      return;
+    }*/
+    $scope.booking.user = {
+      _id: "##user.ref_info._id##",
+    };
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/booking/add",
+      data: $scope.booking,
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          alert("done");
+        } else {
+          $scope.error = response.data.error;
+          if (response.data.error.like("*Must Enter Code*")) {
+            $scope.error = "##word.must_enter_code##";
+          }
+        }
+      },
+      function (err) {
+        console.log(err);
+      }
+    );
+  };
+  $scope.getInsuranceCompanyList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/insuranceCompany",
+      data: {
+        where: {
+          active: true,
+        },
+        select: {
+          id: 1,
+          name_ar: 1,
+          name_en: 1,
+          balance: 1,
+          image: 1,
+        },
+      },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.insuranceCompanyList = response.data.docs;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
 
   $scope.getspecialtyList = function (where) {
     $scope.busy = true;
     $scope.specialtyList = [];
     $http({
-      method: 'POST',
-      url: '/api/departments/search',
+      method: "POST",
+      url: "/api/departments/search",
       data: where,
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.docs.length > 0) {
-          $scope.specialtyList = [...$scope.specialtyList, ...response.data.docs];
+          $scope.specialtyList = [
+            ...$scope.specialtyList,
+            ...response.data.docs,
+          ];
           $scope.count = response.data.totalDocs;
           $scope.search = {};
         }
@@ -26,7 +88,7 @@ app.controller('booking', function ($scope, $http, $timeout) {
       function (err) {
         $scope.busy = false;
         $scope.error = err;
-      },
+      }
     );
   };
 
@@ -34,8 +96,8 @@ app.controller('booking', function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.govesList = [];
     $http({
-      method: 'GET',
-      url: '/api/gov',
+      method: "GET",
+      url: "/api/gov",
       data: {
         where: {
           active: true,
@@ -56,20 +118,20 @@ app.controller('booking', function ($scope, $http, $timeout) {
       function (err) {
         $scope.busy = false;
         $scope.error = err;
-      },
+      }
     );
   };
 
   $scope.getCityList = function (gov) {
     let where = {};
     if (gov) {
-      where['gov'] = gov;
+      where["gov"] = gov;
     }
     $scope.busy = true;
     $scope.cityList = [];
     $http({
-      method: 'POST',
-      url: '/api/city/search',
+      method: "POST",
+      url: "/api/city/search",
       data: where,
     }).then(
       function (response) {
@@ -82,7 +144,7 @@ app.controller('booking', function ($scope, $http, $timeout) {
       function (err) {
         $scope.busy = false;
         $scope.error = err;
-      },
+      }
     );
   };
 
@@ -90,8 +152,8 @@ app.controller('booking', function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: 'GET',
-      url: 'api/doctors',
+      method: "GET",
+      url: "api/doctors",
       data: where,
     }).then(
       function (response) {
@@ -102,15 +164,74 @@ app.controller('booking', function ($scope, $http, $timeout) {
       function (err) {
         $scope.busy = false;
         $scope.error = err;
-      },
+      }
     );
   };
 
+  // $scope.bookTime = function (t) {
+  //   $scope.booking.time = t.startSession;
+  //   t.status = "unAvailable";
+  //   document.querySelector("#step4").click();
+  // };
+
+  // $scope.getAppointmentsByDate = function () {
+  //   let d = new Date($scope.booking.date2);
+  //   d.setDate(d.getDate() + 1);
+  //   $scope.booking.date = d.toISOString().split("T")[0];
+  //   $scope.busy = true;
+  //   $scope.list = [];
+  //   $http({
+  //     method: "POST",
+  //     url: "api/doctors/getAppointmentsByDate",
+  //     data: {
+  //       doctor: { _id: $scope.booking.doctor._id },
+  //       date: $scope.booking.date,
+  //     },
+  //   }).then(
+  //     function (response) {
+  //       $scope.busy = false;
+  //       if (response.data.done) {
+  //         $scope.booking.times = response.data.data;
+  //       }
+  //       console.log(response);
+  //     },
+  //     function (err) {
+  //       $scope.busy = false;
+  //       $scope.error = err;
+  //     }
+  //   );
+  // };
+
+
+
+  // $scope.getCurrentPatient = function () {
+  //   let where = {};
+  //   if (gov) {
+  //     where["gov"] = gov;
+  //   }
+  //   $scope.busy = true;
+  //   $scope.cityList = [];
+  //   $http({
+  //     method: "POST",
+  //     url: "api/patients/getProfile",
+  //   }).then(
+  //     function (response) {
+  //       $scope.busy = false;
+  //       if (response.data.done) {
+  //        $scope.booking.fullName = response.data.fullName;
+
+  //       }
+  //       console.log($scope.cityList);
+  //     },
+  //     function (err) {
+  //       $scope.busy = false;
+  //       $scope.error = err;
+  //     }
+  //   );
+  // };
+
   $scope.getspecialtyList();
   $scope.getGovesList();
+  // $scope.getCurrentPatient();
+
 });
-
-
-
-                                  
-                                

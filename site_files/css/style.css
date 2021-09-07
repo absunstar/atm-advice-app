@@ -875,11 +875,14 @@ i-image input , i-image progress{
   width: 100% !important;
   height: 125px !important;
 }
+.upload-now .repeat-row{
+  width: 90%;
+}
 #stage{
   margin-top: 90px !important;
 }
 .upload-now .add-more i{
-font-size: 90px;
+font-size: 40px;
 text-align: center;
 
 color: #ccc;
@@ -940,24 +943,31 @@ color: #ccc;
 .img-with-description {
   display: flex;
   justify-content: space-between;
-  width: 80%;
   background-color: white;
   margin: 20px auto;
   border-radius: 10px;
+  padding: 20px;
 }
 .img-with-description textarea {
   outline: none;
   border: none;
-  margin-top: 20px;
+  
   font-size: 12px;
   color: #3b4358;
+  background-color: #e6e6e6 !important;
+  border-radius: 25px;
+  padding: 20px;
 }
 .img-with-description img {
   width: 90px;
 }
-.img-with-description a img {
-  width: 20px;
-  margin: 20px 10px;
+
+
+.upload-now .img-info{
+  /* background-color: white;
+  height: 120px;
+  padding: 10px; */
+  margin-top: 20px;
 }
 .pay-now{
   display: flex;
@@ -1788,7 +1798,7 @@ color: #ccc;
   padding: 0px 53px;
   border: 1px solid #707789;
 }
-.pop-up .modal-body .steps-form a {
+.pop-up .modal-body .steps-form .steps-action {
   justify-content: center;
   display: flex;
   width: 20%;
@@ -1860,6 +1870,9 @@ color: #ccc;
   display: inline;
   padding: 6px 30px;
   border-radius: 5px;
+  background-color: #0071b7;
+  color: white;
+  text-decoration: none;
 }
 .pop-up .modal-body .final-step a:last-child {
   background-color: transparent;
@@ -1879,4 +1892,37 @@ color: #ccc;
     background-color: #0071b7;
     border-radius: 5px;
     padding: 5px 0px;
+}
+.pop-up .modal-body .steps-form .time-edit{
+  justify-content: space-around;
+  background-color: white;
+padding: 0px 20px;
+}
+.pop-up .modal-body .steps-form .time-edit .free-time a{
+  background-color: #D1E5F2;
+  padding: 0px 15px;
+  border-radius: 5px;
+ display: flex;
+ margin: 15px 0px;
+ color: #0071B7;
+ 
+
+}
+.pop-up .modal-body .steps-form .time-edit .free-time .taken{
+  background-color: #F4F5F8;
+  
+ color: #BECFEE;
+ 
+
+}
+.pop-up .modal-body .steps-form .time-edit .time-action a{
+  background-color: #0071b7;
+  padding: 4px 15px;
+  border-radius: 3px;
+  margin: 15px 0px;
+ display: flex;
+ font-size: 12px;
+ color: white;
+
+
 }

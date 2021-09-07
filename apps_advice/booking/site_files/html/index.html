@@ -78,131 +78,139 @@
             </div>
           </div>
         </section>
-<section class="pop-up">
-  <div
-  class="modal fade"
-  id="book-now"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="steps">
-          <div id="step1" class="active">
-            <a href="#"><i class="far fa-calendar-alt"></i></a><br>
-            <p>معلومات الميعاد</p>
-          </div>
-          <div id="step2">
-            <a href="#"><i class="fas fa-user"></i></a><br>
-            <p>تفاصيل شخصية</p>
-          </div>
-          <div id="step3">
-            <a href="#"><i class="fas fa-check"></i></a><br>
-            <p>تأكيد الحجز</p>
-          </div>
-        </div>
-
-        <div class="steps-form">
-          <div class="first-step">
-            <div class="date-edit">
-              <h4>التاريخ</h4>
-              <input type="date" ng-model="booking.date" />
-            </div>
-            <br />
-            <br />
-            <div class="time-edit">
-              <div class="free-time">
-                <a href="#">7:00 pm</a><br>
-                <a href="#">7:30 pm</a><br>
-                <a href="#">8:00 pm</a><br>
-              </div>
-              <div class="time-action">
-                <a href="#">احجز الان</a><br>
-                <a href="#">احجز الان</a><br>
-                <a href="#">احجز الان</a><br>
-              </div>
-            </div>
-
-            <a id="step4" href="#">التالي</a>
-
-            <br />
-            <br />
-          </div>
-
-          <div class="enter-data">
-            <div class="second-step">
-              <h4>ادخل بياناتك</h4>
-              <br />
-
-              <div class="col-sm-12">
-                <label>الاسم</label><br />
-                <input
-                  type="text"
-                  ng-model="patient.name"
-                />
-              </div>
-              <div class="col-sm-12">
-                <label> رقم الهاتف </label><br />
-                <input
-                  type="tel"
-                  ng-model="patient.phone"
-                  style="width: 100%"
-                />
-              </div>
-              <div class="col-sm-12">
-                <label>هل لديك اشتراك في تأمين صحي ؟</label
-                ><br />
-                <div class="radio">
-                  <input
-                    type="radio"
-                    name="insurance"
-                    checked="checked"
-                  />لا
-                  <input type="radio" name="insurance" ng-model="patient.hasInsurance" />نعم
-
-                  <div class="row tab">
-                    <div class="col-sm-6">
-                      <label>مكان العمل</label><br />
-                      <input
-                        type="text"
-                        ng-model="patient.company"
-                      />
+        <section class="pop-up">
+          <div
+            class="modal fade"
+            id="book-now"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="steps">
+                    <div id="step1" class="active">
+                      <a href="#"><i class="far fa-calendar-alt"></i></a><br />
+                      <p>معلومات الميعاد</p>
                     </div>
-                    <div class="col-sm-6">
-                      <label>شركه التأمين</label>
+                    <div id="step2">
+                      <a href="#"><i class="fas fa-user"></i></a><br />
+                      <p>تفاصيل شخصية</p>
+                    </div>
+                    <div id="step3">
+                      <a href="#"><i class="fas fa-check"></i></a><br />
+                      <p>تأكيد الحجز</p>
+                    </div>
+                  </div>
+
+                  <div class="steps-form">
+                    <div class="first-step">
+                      <div class="date-edit">
+                        <h4>التاريخ</h4>
+                        <input
+                          type="date"
+                          ng-model="booking.date2"
+                          ng-change="getAppointmentsByDate()"
+                        />
+                      </div>
                       <br />
-                      <select ng-model="insurance.name">
-                        <option selected disabled >
-                          اختر شركه التأمين
-                        </option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                      </select>
+                      <br />
+                      <div class="time-edit">
+                        <div class="free-time" ng-repeat="t in booking.times">
+                          <a href="#"> {{t.startSession}}</a>
+                          <div class="time-action">
+                            <a
+                              href="#"
+                              ng-hide="t.status == 'unAvailable' "
+                              ng-click="bookTime(t)"
+                              >احجز الان</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <a id="step4" class="steps-action" href="#">التالي</a>
+
+                      <br />
+                      <br />
                     </div>
 
-                    <div class="col-sm-6">
-                      <label>الرقم التأميني</label><br />
-                      <input type="text" ng-model="insuranceNumber" />
-                    </div>
-                    <div class="col-sm-6 insurance-card">
-                      <label>صوره كارت التأمين</label><br />
-                      <i-image ng-model="patient.insuranceImg"></i-image>
-                      <!-- <label
+                    <div class="enter-data">
+                      <div class="second-step">
+                        <h4>ادخل بياناتك</h4>
+                        <br />
+
+                        <div class="col-sm-12">
+                          <label>الاسم</label><br />
+                          <input
+                            type="text"
+                            ng-model="booking.patient.fullName"
+                          />
+                        </div>
+                        <div class="col-sm-12">
+                          <label> رقم الهاتف </label><br />
+                          <input
+                            type="tel"
+                            ng-model="booking.patient.phone"
+                            style="width: 100%"
+                          />
+                        </div>
+                        <div class="col-sm-12">
+                          <label>هل لديك اشتراك في تأمين صحي ؟</label><br />
+                          <div class="radio">
+                            <input
+                              type="radio"
+                              name="insurance"
+                              checked="checked"
+                            />لا
+                            <input
+                              type="radio"
+                              name="insurance"
+                              ng-model="booking.patient.hasInsurance"
+                            />نعم
+
+                            <div class="row tab">
+                              <div class="col-sm-6">
+                                <label>مكان العمل</label><br />
+                                <input
+                                  type="text"
+                                  ng-model="booking.patient.contractingCompany"
+                                />
+                              </div>
+                              <div class="col-sm-6">
+                                <label>شركه التأمين</label>
+                                <br />
+                                <select
+                                  ng-model="booking.patient.insuranceCompany"
+                                  ng-options="s.name_##session.lang## for s in insuranceCompanyList"
+                                >
+                                  <option selected disabled>
+                                    اختر شركه التأمين
+                                  </option>
+                                </select>
+                              </div>
+
+                              <div class="col-sm-6">
+                                <label>الرقم التأميني</label><br />
+                                <input type="text" ng-model="insuranceNumber" />
+                              </div>
+                              <div class="col-sm-6 insurance-card">
+                                <label>صوره كارت التأمين</label><br />
+                                <i-image
+                                  ng-model="patient.insuranceImg"
+                                ></i-image>
+                                <!-- <label
                         for="insurance-img"
                         class="label-for-file"
                         >ارفع صورة كارت التأمين الخاصة
@@ -214,106 +222,107 @@
                         id="insurance-img"
                         style="display: none"
                       /> -->
+                              </div>
+                            </div>
+                            <a href="#" id="step5" class="steps-action"
+                              >التالي</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="accept-reserve">
+                        <div class="third-step">
+                          <div
+                            class="personal-info"
+                            style="
+                              border-bottom: 1px solid #e4e5e6;
+                              padding-bottom: 20px;
+                            "
+                          >
+                            <h4>معلومات شخصية</h4>
+
+                            <br />
+                            <br />
+
+                            <div class="info-table">
+                              <div
+                                style="
+                                  background-color: white;
+                                  padding: 20px;
+                                  width: 80%;
+                                  margin: auto;
+                                  border-radius: 8px;
+                                "
+                              >
+                                <h4>هاجر الحديدي توفيق</h4>
+                                <h4>01245784457</h4>
+                                <h4>يوجد لديه تأمين صحي</h4>
+                              </div>
+                            </div>
+                          </div>
+                          <br />
+                          <br />
+
+                          <h4>ميعاد الحجز</h4>
+                          <span>الثلاثاء 31 مايو 2021 08:00 مساءا</span
+                          ><br /><br />
+                          <input type="radio" name="privacy" /><label
+                            style="display: contents"
+                            >أؤكد أن عمري يزيد عن 18 عامًا وأوافق على سياسة
+                            الخصوصية والشروط والأحكام</label
+                          ><br />
+                          <input type="radio" name="privacy" /><label
+                            >أرغب في تلقي النشرة الإخبارية والرسائل
+                            الإلكترونية</label
+                          ><br />
+                          <a
+                            href="#"
+                            id="step6"
+                            class="steps-action"
+                            ng-click="confirmBooking()"
+                            >تأكيد الحجز</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="final-step">
+                      <img src="/images/checklist.svg" alt="" /><br />
+                      <h4>تم تأكيد طلبك بنجاح شكرا لك على ثقتك في ADVICE</h4>
+                      <div class="info-table">
+                        <div
+                          style="
+                            background-color: white;
+                            padding: 20px;
+                            width: 80%;
+                            margin: auto;
+                            border-radius: 8px;
+                          "
+                        >
+                          <h4>
+                            يجب دائمًا تأكيد يوم ووقت استشارتك مع الطبيب لا تذهب
+                            إلى استشارتك دون الحصول على تأكيد مسبق
+                          </h4>
+                          <h4>
+                            يجب دائمًا تأكيد يوم ووقت استشارتك مع الطبيب لا تذهب
+                            إلى استشارتك دون الحصول على تأكيد مسبق
+                          </h4>
+                          <h4>
+                            إذا كان لديك أي استفسار ، يرجى الاتصال بنا على +44
+                            2039652999
+                          </h4>
+                        </div>
+                      </div>
+                      <a href="#">حجوزاتي</a>
+                      <a href="#">مواصلة التصفح</a>
                     </div>
                   </div>
-                  <a href="#" id="step5">التالي</a>
                 </div>
               </div>
             </div>
-
-            <div class="accept-reserve">
-              <div class="third-step">
-                <div
-                  class="personal-info"
-                  style="
-                    border-bottom: 1px solid #e4e5e6;
-                    padding-bottom: 20px;
-                  "
-                >
-                  <h4>معلومات شخصية</h4>
-
-                  <br />
-                  <br />
-
-                  <div class="info-table">
-                    <div
-                      style="
-                        background-color: white;
-                        padding: 20px;
-                        width: 80%;
-                        margin: auto;
-                        border-radius: 8px;
-                      "
-                    >
-                      <h4>هاجر الحديدي توفيق</h4>
-                      <h4>01245784457</h4>
-                      <h4>يوجد لديه تأمين صحي</h4>
-                    </div>
-                  </div>
-                </div>
-                <br />
-                <br />
-
-                <h4>ميعاد الحجز</h4>
-                <span
-                  >الثلاثاء 31 مايو 2021 08:00 مساءا</span
-                ><br /><br />
-                <input type="radio" name="privacy" /><label
-                  style="display: contents"
-                  >أؤكد أن عمري يزيد عن 18 عامًا وأوافق على
-                  سياسة الخصوصية والشروط والأحكام</label
-                ><br />
-                <input type="radio" name="privacy" /><label
-                  >أرغب في تلقي النشرة الإخبارية والرسائل
-                  الإلكترونية</label
-                ><br />
-                <a href="#" id="step6">تأكيد الحجز</a>
-              </div>
-            </div>
           </div>
-
-          <div class="final-step">
-            <img src="/images/checklist.svg" alt="" /><br />
-            <h4>
-              تم تأكيد طلبك بنجاح شكرا لك على ثقتك في ADVICE
-            </h4>
-            <div class="info-table">
-              <div
-                style="
-                  background-color: white;
-                  padding: 20px;
-                  width: 80%;
-                  margin: auto;
-                  border-radius: 8px;
-                "
-              >
-                <h4>
-                  يجب دائمًا تأكيد يوم ووقت استشارتك مع
-                  الطبيب لا تذهب إلى استشارتك دون الحصول على
-                  تأكيد مسبق
-                </h4>
-                <h4>
-                  يجب دائمًا تأكيد يوم ووقت استشارتك مع
-                  الطبيب لا تذهب إلى استشارتك دون الحصول على
-                  تأكيد مسبق
-                </h4>
-                <h4>
-                  إذا كان لديك أي استفسار ، يرجى الاتصال بنا
-                  على +44 2039652999
-                </h4>
-              </div>
-            </div>
-            <a href="#">حجوزاتي</a>
-            <a href="#">مواصلة التصفح</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-
-       
+        </section>
 
         <section class="dr-search">
           <div class="dr-result container">
@@ -508,8 +517,12 @@
                   <div class="dr-img">
                     <img src="/images/doctor.svg" />
                     <br />
-                    <a href="#book-now" data-toggle="modal">احجز الآن</a>
-                    
+                    <a
+                      href="#book-now"
+                      data-toggle="modal"
+                      ng-click="booking.doctor = doctor"
+                      >احجز الآن</a
+                    >
                   </div>
                   <script></script>
 
@@ -553,11 +566,14 @@
         </section>
       </div>
     </div>
-    <nav class="sitebottom" x-import="sitebottom/footer2.html" style="margin-top: 250px;" ></nav>
+    <nav
+      class="sitebottom"
+      x-import="sitebottom/footer2.html"
+      style="margin-top: 250px"
+    ></nav>
     <nav class="sitebottom" x-import="sitebottom/footer.html"></nav>
-    
+
     <script>
-      
       const one = document.querySelector("#step1");
       const two = document.querySelector("#step2");
       const three = document.querySelector("#step3");
@@ -586,7 +602,6 @@
         three.classList.remove("active");
       });
       two.addEventListener("click", () => {
-       
         document.querySelector(".first-step").style.display = "none";
         document.querySelector(".second-step").style.display = "block";
         document.querySelector(".third-step").style.display = "none";

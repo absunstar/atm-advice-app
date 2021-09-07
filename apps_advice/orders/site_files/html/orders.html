@@ -67,34 +67,36 @@
 
 
              <h2 class="text-center flow1">تحميل الروشتة او المنتج</h2>
-             <div class="row upload-now">
-               <div class="col-sm-3" ng-repeat="im in order.image"style="margin-bottom: 20px;">
+             <div class="upload-now row">
+               <div class="row repeat-row" ng-repeat="im in order.image">
                 <!-- <img src="images/Group14203(2).svg" alt="" />
                   <p>قم بتحميل صورة الروشتة او المنتج</p> -->
                   
-                  
+                  <div class="col-sm-3">
                   <i-image id="add-img" ng-model="im.name" ></i-image>
-                  
+                </div>
                   <!-- <input type="file" id="file_Pharmacy" style="display: none;" ng-model="order.image_url" accept="image/*">
                     <label for="file_Pharmacy" id="add-img">معرض الصور</label> -->
                     
-                    
+                  
                     <!-- stage 2 -->
                     
-                    
+                    <div class="img-info col-sm-9">
+                      <div class="img-with-description flow2">
+                        <img src="images/Group14203(2).svg" />
+                        <textarea ng-model="im.description" style="background-color: #F4F5F8;" placeholder="...اكتب تفاصيل اذا تريد"></textarea>
+                       
+
+                      </div>
+                    </div>
+
                   </div>
-                  <div class="col-sm-3 add-more" style="margin-bottom: 20px;">
-                  <a ng-click="order.image.push({name : '/images/document.svg'})"> <i class="fas fa-plus-circle"></i> </a>
+                  <div class="add-more" style="margin: 0px 15px;">
+                  <a ng-click="order.image.push({name : '/images/file.svg'})"> <i class="fas fa-plus-circle"></i> </a>
                 </div>
         </div>
           <div>
-            <div class="img-info">
-              <div class="img-with-description flow2">
-                <img src="images/Group14203(2).svg" />
-                <textarea ng-model="im.description">...اكتب تفاصيل اذا تريد</textarea>
-                <a><img src="images/Group1426.svg" /></a>
-              </div>
-            </div>
+        
            
           </div>
 
@@ -123,31 +125,21 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <label> العنوان</label><br />
-                      <input type="text" ng-model="patient.location"  />
+                      <input type="text" ng-model="order.address.addressLocation"  />
                     </div>
                     <br /><br />
                     <div class="col-sm-6">
                       <label>المحافظة</label>
                       <br />
-                      <select ng-model="patient.gov">
+                      <select ng-change="getCitiesList()" ng-model="order.address.gov" ng-options="s.name_##session.lang## for s in govesList">
                         <option selected disabled>اختر اسم المحافظة</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
                       </select>
                     </div>
                     <div class="col-sm-6">
                       <label> المدينة</label>
                       <br />
-                      <select ng-model="patient.city">
+                      <select ng-model="order.address.city" ng-options="s.name_##session.lang## for s in citiesList">
                         <option selected disabled>اختر اسم المدينة</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
-                        <option value="1">1</option>
                       </select>
                     </div>
                   </div>
@@ -156,33 +148,33 @@
                       <label>المنطقة أو الحي</label><br />
                       <input
                         type="text"
-                        ng-model="patient.area"
+                        ng-model="order.address.district"
                       />
                     </div>
                     <div class="col-sm-6">
                       <label>الشارع</label><br />
-                      <input type="text" ng-model="patient.street"/>
+                      <input type="text" ng-model="order.address.streetName"/>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-2">
                       <label>رقم المبني</label><br />
-                      <input type="text" ng-model="patient.building" />
+                      <input type="text" ng-model="order.address.buildingNumber" />
                     </div>
                     <div class="col-sm-2">
                       <label>الدور</label><br />
-                      <input type="text" ng-model="patient.floor" />
+                      <input type="text" ng-model="order.address.role" />
                     </div>
                     <div class="col-sm-2">
                       <label>الشقة </label><br />
-                      <input type="text" ng-model="patient.apartment" />
+                      <input type="text" ng-model="order.address.apartmentNumber" />
                     </div>
                     <div class="col-sm-6">
                       <label>أقرب مكان مميز</label><br />
                       <input
                         type="text"
                         
-                        ng-model="patient.nearPlace"
+                        ng-model="order.address.specialMark"
                       />
                     </div>
                   </div>
@@ -195,37 +187,32 @@
                           name="insurance"
                           checked="checked"
                         />لا
-                        <input type="radio" name="insurance" ng-model="patient.hasInsurance" />نعم
+                        <input type="radio" name="insurance" ng-model="order.hasInsurance" />نعم
 
                         <div class="row tab">
                           <div class="col-sm-6">
                             <label>مكان العمل</label><br />
-                            <input type="text" placeholder="ماهي شركتك؟" ng-model="patient.company" />
+                            <input type="text" placeholder="ماهي شركتك؟" ng-model="order.contractingCompany" />
                           </div>
                           <div class="col-sm-6">
                             <label>شركه التأمين</label>
                             <br />
-                            <select ng-model="patient.insuranceCompany">
+                            <select ng-model="order.insuranceCompany" ng-options="s.name_##session.lang## for s in insuranceCompanyList">
                               <option selected disabled>
                                 اختر شركه التأمين
                               </option>
-                              <option value="1">1</option>
-                              <option value="1">1</option>
-                              <option value="1">1</option>
-                              <option value="1">1</option>
-                              <option value="1">1</option>
                             </select>
                           </div>
 
                           <div class="col-sm-6">
                             <label>الرقم التأميني</label><br />
-                            <input type="text" ng-model="patient.insuranceNumber"/>
+                            <input type="text" ng-model="order.insuranceNumber"/>
                           </div>
-                          <div class="col-sm-6 insurance-card">
+                          <div class="col-sm-6 insurance-card" ng-repeat="i in order.cardImage">
 
                             
                             <label>صوره كارت التأمين</label><br />
-                            <i-image ng-model="patient.insuranceImg"></i-image>
+                            <i-image ng-model="i.name"></i-image>
                             <!-- <label for="insurance-img" class="label-for-file"
                               >ارفع صورة كارت التأمين الخاصة بك</label
                             > -->

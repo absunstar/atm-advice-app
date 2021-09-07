@@ -2,12 +2,17 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope._search = {};
 
   $scope.order = {
+    address: {},
     image: [
       {
-        name: "/images/document.svg " ,
+        name: "/images/file.svg ",
       },
     ],
-    
+    cardImage: [
+      {
+        name: "/images/id-card.svg ",
+      },
+    ],
   };
   $scope.prescription = {};
 
@@ -233,25 +238,19 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
 
   $scope.getCitiesList = function (where) {
+    if (!$scope.order.address.gov) {
+      return false;
+    }
     $scope.busy = true;
     $http({
-      method: "GET",
-      url: "/api/city",
-      data: {
-        where: {
-          active: true,
-        },
-        select: {
-          id: 1,
-          name_ar: 1,
-          name_en: 1,
-        },
-      },
+      method: "POST",
+      url: "/api/city/getCityByGov/" + $scope.order.address.gov._id,
+      data: {},
     }).then(
       function (response) {
         $scope.busy = false;
-        if (response.data.docs.length > 0) {
-          $scope.citiesList = response.data.docs;
+        if (response.data.done) {
+          $scope.citiesList = response.data.data;
         }
       },
       function (err) {
