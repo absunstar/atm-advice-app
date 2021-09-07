@@ -4,9 +4,10 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope.order = {
     image: [
       {
-        name: "/images/no.jpg",
+        name: "/images/document.svg " ,
       },
     ],
+    
   };
   $scope.prescription = {};
 

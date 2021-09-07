@@ -861,14 +861,15 @@ font-weight: 700;
 }
 
 /* order page */
-
+.upload-now i-image .bg-white{
+  background-color: transparent !important;
+}
 i-image input , i-image progress{
   display: none;
   opacity: 0;
 }
 .upload-now i-image img {
-  width: 250px !important;
-  height: 350px !important;
+  width: 100% !important;
 }
 .order-now .insurance-card i-image img{
   width: 100% !important;
@@ -876,6 +877,17 @@ i-image input , i-image progress{
 }
 #stage{
   margin-top: 90px !important;
+}
+.upload-now .add-more i{
+font-size: 90px;
+text-align: center;
+
+color: #ccc;
+}
+.upload-now .add-more{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .info-order {
   float: right;
@@ -947,7 +959,7 @@ i-image input , i-image progress{
   width: 20px;
   margin: 20px 10px;
 }
-.pay-now {
+.pay-now{
   display: flex;
   margin: auto;
   justify-content: center;

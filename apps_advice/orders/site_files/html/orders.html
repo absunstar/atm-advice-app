@@ -66,37 +66,41 @@
              </div>
 
 
-            <div class="upload-now text-center" ng-repeat="im in order.image">
-              <h2 class="text-center">تحميل الروشتة او المنتج</h2>
-              <!-- <img src="images/Group14203(2).svg" alt="" />
-              <p>قم بتحميل صورة الروشتة او المنتج</p> -->
-
-              <div class="row">
-
-              </div>
-              <i-image id="add-img" ng-model="im.name"></i-image>
-
-              <!-- <input type="file" id="file_Pharmacy" style="display: none;" ng-model="order.image_url" accept="image/*">
-                        <label for="file_Pharmacy" id="add-img">معرض الصور</label> -->
-           
-
-            <!-- stage 2 -->
-
-            <div class="flow1" style="display: none">
-              <div class="img-info">
-                <div class="img-with-description">
-                  <img src="images/Group14203(2).svg" />
-                  <textarea ng-model="im.description">...اكتب تفاصيل اذا تريد</textarea>
-                  <a><img src="images/Group1426.svg" /></a>
+             <h2 class="text-center flow1">تحميل الروشتة او المنتج</h2>
+             <div class="row upload-now">
+               <div class="col-sm-3" ng-repeat="im in order.image"style="margin-bottom: 20px;">
+                <!-- <img src="images/Group14203(2).svg" alt="" />
+                  <p>قم بتحميل صورة الروشتة او المنتج</p> -->
+                  
+                  
+                  <i-image id="add-img" ng-model="im.name" ></i-image>
+                  
+                  <!-- <input type="file" id="file_Pharmacy" style="display: none;" ng-model="order.image_url" accept="image/*">
+                    <label for="file_Pharmacy" id="add-img">معرض الصور</label> -->
+                    
+                    
+                    <!-- stage 2 -->
+                    
+                    
+                  </div>
+                  <div class="col-sm-3 add-more" style="margin-bottom: 20px;">
+                  <a ng-click="order.image.push({name : '/images/document.svg'})"> <i class="fas fa-plus-circle"></i> </a>
                 </div>
+        </div>
+          <div>
+            <div class="img-info">
+              <div class="img-with-description flow2">
+                <img src="images/Group14203(2).svg" />
+                <textarea ng-model="im.description">...اكتب تفاصيل اذا تريد</textarea>
+                <a><img src="images/Group1426.svg" /></a>
               </div>
-             
             </div>
-
+           
           </div>
 
-          <a href="#" class="pay-now" id="stage1">اطلب</a>
-          <a ng-click="order.image.push({name : '/images/no.jpg'})"> add more </a>
+          <a href="#"class="flow3 pay-now" id="stage1">اطلب</a>
+          
+        
             <!-- stage 3 -->
             <div class="container sign-up" style="margin-top: 20px">
               <div class="signnup" style="display: none">
@@ -303,6 +307,8 @@
 
       level1.addEventListener("click", () => {
         document.querySelector(".flow1").style.display = "block";
+        document.querySelector(".flow2").style.display = "flex";
+        document.querySelector(".flow3").style.display = "flex";
         document.querySelector(".signnup").style.display = "none";
         document.querySelector(".success").style.display = "none";
 
@@ -311,8 +317,10 @@
         level6.classList.remove("active");
       });
       level4.addEventListener("click", () => {
-        document.querySelector(".upload-now").style.display = "block";
+        document.querySelector(".upload-now").style.display = "flex";
         document.querySelector(".flow1").style.display = "block";
+        document.querySelector(".flow2").style.display = "flex";
+        document.querySelector(".flow3").style.display = "flex";
         document.querySelector(".signnup").style.display = "none";
         document.querySelector(".success").style.display = "none";
 
@@ -323,6 +331,8 @@
       level2.addEventListener("click", () => {
         document.querySelector(".upload-now").style.display = "none";
         document.querySelector(".flow1").style.display = "none";
+        document.querySelector(".flow2").style.display = "none";
+        document.querySelector(".flow3").style.display = "none";
         document.querySelector(".signnup").style.display = "block";
         document.querySelector(".success").style.display = "none";
 
@@ -333,6 +343,8 @@
       level5.addEventListener("click", () => {
         document.querySelector(".upload-now").style.display = "none";
         document.querySelector(".flow1").style.display = "none";
+        document.querySelector(".flow2").style.display = "none";
+        document.querySelector(".flow3").style.display = "none";
         document.querySelector(".signnup").style.display = "block";
         document.querySelector(".success").style.display = "none";
 
@@ -343,6 +355,8 @@
       level3.addEventListener("click", () => {
         document.querySelector(".upload-now").style.display = "none";
         document.querySelector(".flow1").style.display = "none";
+        document.querySelector(".flow2").style.display = "none";
+        document.querySelector(".flow3").style.display = "none";
         document.querySelector(".signnup").style.display = "none";
         document.querySelector(".success").style.display = "block";
 
@@ -354,6 +368,8 @@
       level6.addEventListener("click", () => {
         document.querySelector(".upload-now").style.display = "none";
         document.querySelector(".flow1").style.display = "none";
+        document.querySelector(".flow2").style.display = "none";
+        document.querySelector(".flow3").style.display = "none";
         document.querySelector(".signnup").style.display = "none";
         document.querySelector(".success").style.display = "block";
 
