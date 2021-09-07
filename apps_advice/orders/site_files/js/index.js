@@ -36,7 +36,7 @@ app.controller("main", function ($scope, $http, $timeout) {
       return;
     }*/
     $scope.order.user = {
-      _id: "##user.ref_info._id##",
+      _id: '##user.ref_info._id##',
     };
     $scope.busy = true;
     $http({

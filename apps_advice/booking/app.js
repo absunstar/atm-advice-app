@@ -829,6 +829,50 @@ console.log(end.toISOString().split("T")[0]);
 
 
 
+
+
+
+
+ // get All Booking For date
+ site.post('/api/booking/getPatientsBooking', (req, res) => {
+  req.headers.language = req.headers.language || 'en'
+  let response = {}
+
+  $booking.findMany({
+    select: req.body.select || {},
+    sort: req.body.sort || {
+      id: -1,
+    },
+    where: {
+      'patient._id': req.body.patient._id,
+    }
+  },
+  (err, docs, count) => {
+    if (!err) {
+      response.docs = docs
+      response.totalDocs = count
+      response.limit = 10
+      response.totalPages = Math.ceil(response.totalDocs / response.limit)
+    } else {
+      response.error = err.message;
+    }
+    res.json(response);
+  },
+);
+  
+
+});
+
+
+
+
+
+
+
+
+
+
+
   // get All Booking For date
   site.post('/api/booking/getAllCountBookingDoneDoctor', (req, res) => {
     req.headers.language = req.headers.language || 'en'
