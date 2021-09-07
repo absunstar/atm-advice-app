@@ -841,12 +841,15 @@ module.exports = function init(site) {
 
           ], (err, docs) => {
             if (docs && docs.length > 0) {
-              let result = docs.filter(function(food) {
-                return !food.holdingArr.includes(String(req.session.user.ref_info._id));
-            });
+            //   let result = docs.filter(function(food) {
+            //     if (food.holdingArr && food.holdingArr.length>0) {
+            //       return !food.holdingArr.includes(String(req.session.user.ref_info._id));
+            //     }
+                
+            // });
               response.data = {
-                result,
-                totalDocs: result.length,
+                docs,
+                totalDocs: docs.length,
                 totalPages: Math.ceil(result.length / 10)
               }
               response.errorCode = site.var('succeed')
@@ -873,11 +876,14 @@ module.exports = function init(site) {
                 },
                 (err, docs, count) => {
                   if (!err) {
-                    let result = docs.filter(function(food) {
-                      return !food.holdingArr.includes(String(req.session.user.ref_info._id));
-                  });
-                    response.docs = result;
-                    response.totalDocs = result.length;
+                  //   let result = docs.filter(function(food) {
+                  //     if (food.holdingArr && food.holdingArr.length>0) {
+                  //       return !food.holdingArr.includes(String(req.session.user.ref_info._id));
+                  //     }
+                      
+                  // });
+                    response.docs = docs;
+                    response.totalDocs = count;
                     response.limit = 10;
                     response.totalPages = Math.ceil(result.length /10);
                   } else {
@@ -945,10 +951,13 @@ module.exports = function init(site) {
       (err, docs, count) => {
         if (!err) {
          
-          let result = docs.filter(function(food) {
-            return !food.holdingArr.length > 0 ?food.holdingArr.includes(String(req.session.user.ref_info._id)):null;
-        });
-          response.totalDocs = result.length > 0 ?result.length :0
+        //   let result = docs.filter(function(food) {
+        //     if (food.holdingArr && food.holdingArr.length>0) {
+        //       return !food.holdingArr.includes(String(req.session.user.ref_info._id));
+        //     }
+            
+        // });
+          response.totalDocs = count
           response.limit = 10
           response.totalPages = Math.ceil(response.totalDocs / response.limit)
         } else {

@@ -425,7 +425,7 @@ module.exports = function init(site) {
     let booking_doc = req.body;
     let start = new Date();
     start.setHours(0, 0, 0, 0);
-
+// console.log("1111111111111111111111" , new Date().toISOString().split("T")[0]);
     let end = new Date();
     end.setHours(23, 59, 59, 999);
 
