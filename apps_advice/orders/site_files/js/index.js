@@ -2,10 +2,11 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope._search = {};
 
   $scope.order = {
+    patient:{},
     address: {},
     image: [
       {
-        name: "/images/file.svg ",
+        name: "/images/Group14203(2).svg ",
       },
     ],
     cardImage: [
@@ -289,11 +290,33 @@ app.controller("main", function ($scope, $http, $timeout) {
       }
     );
   };
+  $scope.getCurrentPatient = function () {
+    let where = {};
+  
+    $scope.busy = true;
+    $scope.cityList = [];
+    $http({
+      method: "POST",
+      url: "api/patients/getProfile",
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+         $scope.order.patient = response.data.data;
 
+        }
+        console.log($scope.cityList);
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
   $scope.getOrdersList();
   $scope.getGovesList();
   $scope.getCitiesList();
   $scope.getUsersList();
-
+$scope.getCurrentPatient();
   $scope.getInsuranceCompanyList();
 });

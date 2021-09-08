@@ -9,6 +9,7 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope.previousOrderList = {};
   $scope.currentBookingList = {};
   $scope.doneBookingList = {};
+  $scope.addresses = {};
 
   
   $scope.displayAddPatients = function () {
@@ -175,18 +176,24 @@ app.controller("main", function ($scope, $http, $timeout) {
 
    
 
-   /* $scope.myCurrentBooking = function (order) {
+   $scope.myCurrentBooking = function (order) {
     $scope.busy = true;
     $scope.list = [];
     let str = '##user.ref_info._id##';
     str = str.substr(1);
     str = str.substr(0, str.length - 1);
-    let user=str;
+    let patient={};
+    patient._id = str;
+    console.log(patient._id);
     $http({
       method: "POST",
       url: "/api/booking/getPatientsCurrentBooking",
       data: {
-        where: { 'user._id': user , status:"accepted" }
+        patient:{
+          _id : patient._id
+        },
+        status : "accepted"
+        
 
       }
     }).then(
@@ -207,7 +214,46 @@ app.controller("main", function ($scope, $http, $timeout) {
       }
 
     )
-  }; */
+  };
+
+  $scope.myDoneBooking = function (order) {
+    $scope.busy = true;
+    $scope.list = [];
+    let str = '##user.ref_info._id##';
+    str = str.substr(1);
+    str = str.substr(0, str.length - 1);
+    let patient={};
+    patient._id = str;
+    $http({
+      method: "POST",
+      url: "/api/booking/getPatientsDoneBooking",
+      data: {
+        patient:{
+          _id : patient._id
+        },
+        status : "done"
+        
+
+      }
+    }).then(
+      function (response) {
+        console.log(response.data.data);
+        $scope.busy = false;
+        if (response.data.data && response.data.docs.length > 0) {
+          $scope.currentBookingList =response.data.docs;
+         
+          $scope.count = response.data.totalDocs;
+         
+          $scope.search = {};
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
 
  
 
@@ -239,8 +285,83 @@ app.controller("main", function ($scope, $http, $timeout) {
      )
    };
 
+   $scope.addLocation = function () {
+    $scope.busy = true;
+    let str = '##user.ref_info._id##';
+    str = str.substr(1);
+    str = str.substr(0, str.length - 1);
+    let user = {
+      _id: str
+    };
+    let xx = $scope.addresses;
+    $scope.addresses = {
+      location: xx.location,
+      addressLocation: xx.addressLocation,
+      district: xx.district,
+      streetName: xx.streetName,
+      buildingNumber: xx.buildingNumber,
+      role: xx.role,
+      apartmentNumber: xx.apartmentNumber,
+      specialMark: xx.specialMark,
+      gov: xx.gov,
+      city: xx.city,
+      user: {
+        _id: str
+      }
+    };
 
+
+    
+    $http({
+      method: "POST",
+      url: "/api/address/add",
+      data: $scope.addresses
+    }).then(
+      function (response) {
+        $scope.busy = false;
+
+
+        if (response.data.data && response.data.data.docs.length > 0) {
+
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
    
+  $scope.rechargeBalance = function (balance) {
+    let where = {};
+    let str = '##user.ref_info._id##';
+    str = str.substr(1);
+    str = str.substr(0, str.length - 1);
+    _id = str;
+    
+    $scope.busy = true;
+    $scope.cityList = [];
+    $http({
+      method: "POST",
+      url: "/api/patients/chargeBalance",
+      data : {
+        _id : str,
+        balance : Number(balance)
+      }
+    }).then(
+      function (response) {
+location.reload();
+        $scope.busy = false;
+        
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
 
 
   $scope.getCurrentPatient = function () {
@@ -578,11 +699,11 @@ $scope.success = "varification code success"
   $scope.getCurrentPatient();
   $scope.myCanceledOrders();
  
-  
+  $scope.myDoneBooking();
   $scope.myPreviousOrders();
-  /*$scope.myCurrentBooking();*/
+  $scope.myCurrentBooking();
   $scope.myLocation();
-
+  $scope.addLocation();
   
 
 });

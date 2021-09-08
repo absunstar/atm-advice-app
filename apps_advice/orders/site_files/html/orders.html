@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/style.css" rel="stylesheet" />
-    <link href="/x-css/images.css" rel="stylesheet" />
+    <!-- <link href="/x-css/images.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/fontawesome.css" />
     <link href="/x-css/fonts.css" rel="stylesheet" />
@@ -66,34 +66,33 @@
              </div>
 
 
-             <h2 class="text-center flow1">تحميل الروشتة او المنتج</h2>
-             <div class="upload-now row">
+             <h2 class="text-center flow1" style="margin: 60px 0px;">تحميل الروشتة او المنتج</h2>
+             <div class="upload-now">
                <div class="row repeat-row" ng-repeat="im in order.image">
                 <!-- <img src="images/Group14203(2).svg" alt="" />
                   <p>قم بتحميل صورة الروشتة او المنتج</p> -->
                   
-                  <div class="col-sm-3">
-                  <i-image id="add-img" ng-model="im.name" ></i-image>
-                </div>
+                  
                   <!-- <input type="file" id="file_Pharmacy" style="display: none;" ng-model="order.image_url" accept="image/*">
                     <label for="file_Pharmacy" id="add-img">معرض الصور</label> -->
                     
                   
                     <!-- stage 2 -->
                     
-                    <div class="img-info col-sm-9">
+                    <div class="img-info col-sm-12">
                       <div class="img-with-description flow2">
-                        <img src="images/Group14203(2).svg" />
-                        <textarea ng-model="im.description" style="background-color: #F4F5F8;" placeholder="...اكتب تفاصيل اذا تريد"></textarea>
+                        <i-image id="add-img" ng-model="im.name" ></i-image>
+                        <textarea ng-model="im.description"  placeholder="...اكتب تفاصيل اذا تريد"></textarea>
                        
+                        <a ng-click="order.image.push({name : '/images/Group14203(2).svg'})" style="margin: auto 5px; color: #b1cee0;font-size: 20px;"> <i class="fas fa-plus-circle"></i> </a>
 
                       </div>
                     </div>
 
                   </div>
-                  <div class="add-more" style="margin: 0px 15px;">
+                  <!-- <div class="add-more" style="margin: 0px 15px;">
                   <a ng-click="order.image.push({name : '/images/file.svg'})"> <i class="fas fa-plus-circle"></i> </a>
-                </div>
+                </div> -->
         </div>
           <div>
         
@@ -115,11 +114,11 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <label>الاسم</label><br />
-                      <input type="text" ng-model="order.fullname"/>
+                      <input type="text" ng-model="order.patient.fullName"/>
                     </div>
                     <div class="col-sm-12">
                       <label> رقم الهاتف </label><br />
-                      <input type="tel" ng-model="order.phone"  />
+                      <input type="tel" ng-model="order.patient.phone"  />
                     </div>
                   </div>
                   <div class="row">
@@ -187,12 +186,12 @@
                           name="insurance"
                           checked="checked"
                         />لا
-                        <input type="radio" name="insurance" ng-model="order.hasInsurance" />نعم
+                        <input type="radio" name="insurance" ng-model="order.patient.hasInsurance" />نعم
 
                         <div class="row tab">
                           <div class="col-sm-6">
                             <label>مكان العمل</label><br />
-                            <input type="text" placeholder="ماهي شركتك؟" ng-model="order.contractingCompany" />
+                            <input type="text" placeholder="ماهي شركتك؟" ng-model="order.patient.contractingCompany" />
                           </div>
                           <div class="col-sm-6">
                             <label>شركه التأمين</label>
@@ -206,7 +205,7 @@
 
                           <div class="col-sm-6">
                             <label>الرقم التأميني</label><br />
-                            <input type="text" ng-model="order.insuranceNumber"/>
+                            <input type="text" ng-model="order.patient.insuranceNumber"/>
                           </div>
                           <div class="col-sm-6 insurance-card" ng-repeat="i in order.cardImage">
 
@@ -304,7 +303,7 @@
         level6.classList.remove("active");
       });
       level4.addEventListener("click", () => {
-        document.querySelector(".upload-now").style.display = "flex";
+        document.querySelector(".upload-now").style.display = "block";
         document.querySelector(".flow1").style.display = "block";
         document.querySelector(".flow2").style.display = "flex";
         document.querySelector(".flow3").style.display = "flex";
@@ -318,7 +317,7 @@
       level2.addEventListener("click", () => {
         document.querySelector(".upload-now").style.display = "none";
         document.querySelector(".flow1").style.display = "none";
-        document.querySelector(".flow2").style.display = "none";
+        document.querySelector(".flow2").style.display = "flex";
         document.querySelector(".flow3").style.display = "none";
         document.querySelector(".signnup").style.display = "block";
         document.querySelector(".success").style.display = "none";

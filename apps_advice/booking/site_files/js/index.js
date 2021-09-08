@@ -2,6 +2,7 @@ app.controller("booking", function ($scope, $http, $timeout) {
   $scope._search = {};
 
   $scope.booking = {
+    patient:{},
     cardImage:[
       {
         name: "/images/id-card.svg ",
@@ -226,7 +227,7 @@ app.controller("booking", function ($scope, $http, $timeout) {
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-         $scope.booking.fullName = response.data.data.fullName;
+         $scope.booking.patient = response.data.data;
 
         }
         console.log($scope.cityList);

@@ -868,16 +868,12 @@ i-image input , i-image progress{
   display: none;
   opacity: 0;
 }
-.upload-now i-image img {
-  width: 100% !important;
-}
+
 .order-now .insurance-card i-image img{
-  width: 100% !important;
+
   height: 125px !important;
 }
-.upload-now .repeat-row{
-  width: 90%;
-}
+
 #stage{
   margin-top: 90px !important;
 }
@@ -929,9 +925,7 @@ color: #ccc;
   color: #3b4358;
   font-weight: 500;
 }
-.order-now .upload-now img {
-  width: 100px;
-}
+
 .order-now .upload-now label {
   padding: 10px 40px;
   background-color: #0971b1;
@@ -944,17 +938,17 @@ color: #ccc;
   display: flex;
   justify-content: space-between;
   background-color: white;
-  margin: 20px auto;
+ margin-bottom: 20px;
   border-radius: 10px;
   padding: 20px;
 }
 .img-with-description textarea {
   outline: none;
-  border: none;
   
+  margin: auto;
   font-size: 12px;
   color: #3b4358;
-  background-color: #e6e6e6 !important;
+  background-color: white!important;
   border-radius: 25px;
   padding: 20px;
 }
@@ -1020,8 +1014,7 @@ color: #ccc;
   margin-bottom: 100px;
 }
 .pop-up .insurance-card i-image img{
-  width: 100% !important;
-  height: 75px !important;
+  height: 90px !important;
 }
 
 .dr-search .row {
