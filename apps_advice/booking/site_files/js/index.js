@@ -181,6 +181,7 @@ app.controller("booking", function ($scope, $http, $timeout) {
 
   $scope.bookTime = function (t) {
     $scope.booking.time = t.startSession;
+    console.log("55555555555" , t);
     t.status = "unAvailable";
     document.querySelector("#step4").click();
   };

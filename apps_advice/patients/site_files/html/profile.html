@@ -11,7 +11,7 @@
     <title>profile</title>
   </head>
 
-  <body ng-controller="main">
+  <body ng-controller="main" class="##session.lang##">
     <nav class="sitebar" x-import="sitebar/nav.html"></nav>
     <section class="account-profile">
       <div class="container">
@@ -20,7 +20,7 @@
             <div>
               <div class="main-profile-user">
                 <img src="images/Group13687@2x.png" width="40px" /><span
-                  >{{patients.profile.fullName}}اهلا</span
+                  > اهلا {{patients.profile.fullName}}</span
                 >
               </div>
               <div
@@ -139,12 +139,13 @@
                               <label>البريد الإلكتروني</label><br />
                               <input type="email" ng-model="patients.profile.email"/><br />
                               <label>كلمة المرور</label><br />
-                              <input type="password" ng-model="patients.profile.password"/><br />
+                              <input type="password" ng-model="patients.password"/><br />
                               <label> كلمة المرور الجديدة</label><br />
-                              <input type="password" ng-model="patients.profile.password"/><br />
+                              <input type="password" ng-model="patients.newPassword"/><br />
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" ng-click="saveData()">
+                              <button type="button" class="btn btn-primary" data-dismiss="modal"
+                              aria-label="Close" ng-click="changePassword(patients)">
                                 حفظ
                               </button>
                             </div>
@@ -191,24 +192,28 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <label>الاسم</label><br />
-                              <input type="text" ng-model="patients.profile.fullName" /><br />
+                              
                               <div class="row">
                                 <div class="col-sm-6">
-                                  <label>الجنس</label><br />
-                                  <input type="radio" name="gender" ng-model="patients.profile.gender" />ذكر
-                                  <input type="radio" name="gender" ng-model="patients.profile.gender" />أنثي
+                                  <label>رقم الهاتف</label><br />
+                                  <input type="text" ng-model="patients.profile.phone" />
+                                  
                                 </div>
                                 <div class="col-sm-6">
-                                  <label> تاريخ الميلاد</label><br />
-                                  <input type="date" ng-model="patient.date" /><br />
+                                  <label>الاسم</label><br />
+                                  <input type="text" ng-model="patients.profile.fullName" /><br />
                                 </div>
                               </div>
 
                               <div class="row">
                                 <div class="col-sm-6">
-                                  <label>رقم الهاتف</label><br />
-                                  <input type="text" ng-model="patients.profile.phone" />
+                                  <label>الجنس</label><br />
+                                  <input type="radio" name="gender" id="male" value="male" ng-model="patients.profile.gender" />
+                                  <label for="#male">ذكر</label>
+                                  <input type="radio" name="gender" id="female" value="female" ng-model="patients.profile.gender" />
+                                  <label for="#female">أنثي</label>
+                                  
+                                  
                                 </div>
                                 <div class="col-sm-6">
                                   <label>الرقم القومي</label><br />
@@ -217,7 +222,8 @@
                               </div>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" ng-click="saveData()">
+                              <button type="button" class="btn btn-primary" data-dismiss="modal"
+                              aria-label="Close" ng-click="updatePatientsUser()">
                                 حفظ
                               </button>
                             </div>
@@ -555,9 +561,10 @@
                               ><br />
                             </div>
                             <a
-                              href="#cancel-previous-order"
+                              href="#"
                               class="btn"
-                              data-toggle="modal"
+                              
+                              ng-click="reOrder(p)"
                               > طلب مرة أخري</a
                             >
                             <div
@@ -677,7 +684,7 @@
                     role="tabpanel"
                     aria-labelledby="pills-cancelled-orders-tab"
                   >
-                    <div class="my-cancelled-orders" ng-repeat="d in cancelledOrderList">
+                    <div class="my-cancelled-orders" ng-repeat="d in canceledOrderList">
                       <div class="order-card">
                         <div class="order-card-body">
                           <div class="pharmacy-img">
@@ -691,14 +698,15 @@
 
                           <div class="orders-action">
                             <div>
-                              <span> {{p.createdAt | date : 'dd- MM -yyyy , hh:mm a'}}</span
+                              <span> {{d.createdAt | date : 'dd- MM -yyyy , hh:mm a'}}</span
                               ><br />
                             </div>
                             <a
-                              href="#canceled-order"
+                              href="#"
                               class="btn"
-                              data-toggle="modal"
-                              >الغاء الطلب</a
+                              
+                              ng-click="reOrder(d)"
+                              > طلب مرة أخري</a
                             >
                             <div
                               class="modal fade"
@@ -772,7 +780,7 @@
                               </div>
                             </div>
 
-                            <div class="collapse-more-section">
+                            <!-- <div class="collapse-more-section">
                               <div>
                                 <h2>تفاصيل الطلب</h2>
                               </div>
@@ -786,7 +794,7 @@
                                 
                                 <span>إجمالي المبلغ : {{d.totalPrice}} جنيه</span>
                               </div>
-                            </div>
+                            </div> -->
 
                             <div class="collapse-more-section">
                               <div>
@@ -804,7 +812,7 @@
                               </div>
                             </div>
 
-                            <a href="#">تقييم الصيدلية</a>
+                            
                           </div>
                         </div>
                       </div>
@@ -859,26 +867,27 @@
                     aria-labelledby="pills-current-booking-tab"
                   >
                     <div class="my-current-booking">
-                      <div class="order-card">
+                      <div class="order-card" ng-repeat="b in currentBookingList">
                         <div class="order-card-body">
                           <div class="pharmacy-img">
+                            <!-- <img  ng-src={{b.doctor.image[0].name}} /> -->
                             <img src="images/boy.svg" />
                           </div>
 
                           <div class="orders-details">
-                            <h4>د. أحمد علي</h4>
-                            <p>إستشاري أمراض القلب والأوعية الدموية</p>
-                            <span>ميعاد الكشف : 30 مايو (09:00 ص )</span><br />
-                            <span>سعر الكشف : 200 جنيه</span>
+                            <h4>د. {{b.doctor.name}}</h4>
+                            <p>{{b.doctor.department.name_##session.lang##}}</p>
+                            <span>ميعاد الكشف : {{b.date}} - {{b.time}}</span><br />
+                            <span>سعر الكشف : {{b.doctor.price}} جنيه</span>
                           </div>
 
                           <div class="orders-action">
                             <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
+                              <span> {{b.createdAt | date : 'dd- MM -yyyy , hh:mm a'}}</span
                               ><br />
                             </div>
 
-                            <a href="#cancel-booking" data-toggle="modal"
+                            <a href="#cancel-booking" data-toggle="modal" 
                               >إلغاء الحجز</a
                             ><br />
                             <div
@@ -904,15 +913,17 @@
                                   <div class="modal-body">
                                     <div style="text-align: center">
                                       <img
-                                        src="images/Group 15107.svg"
+                                        src="images/Group15107.svg"
                                         alt=""
                                       /><br />
                                       <p>
                                         هل أنت متأكد بالفعل انك تريد إلغاء الحجز
                                         ؟
                                       </p>
-                                      <a href="#">نعم</a>
-                                      <a href="#">إلغاء</a>
+                                      <a href="#"data-dismiss="modal"
+                                      aria-label="Close" ng-click="cancelBooking(b)">نعم</a>
+                                      <a href="#"data-dismiss="modal"
+                                      aria-label="Close">إلغاء</a>
                                     </div>
                                   </div>
                                   <div class="modal-footer"></div>
@@ -927,141 +938,7 @@
                         </div>
                       </div>
 
-                      <div class="order-card">
-                        <div class="order-card-body">
-                          <div class="pharmacy-img">
-                            <img src="images/boy.svg" />
-                          </div>
-
-                          <div class="orders-details">
-                            <h4>د. أحمد علي</h4>
-                            <p>إستشاري أمراض القلب والأوعية الدموية</p>
-                            <span>ميعاد الكشف : 30 مايو (09:00 ص )</span><br />
-                            <span>سعر الكشف : 200 جنيه</span>
-                          </div>
-
-                          <div class="orders-action">
-                            <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
-                              ><br />
-                            </div>
-
-                            <a href="#cancel-booking" data-toggle="modal"
-                              >إلغاء الحجز</a
-                            ><br />
-                            <div
-                              class="modal fade"
-                              id="cancel-booking"
-                              tabindex="-1"
-                              aria-labelledby="exampleModalLabel"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div style="text-align: center">
-                                      <img
-                                        src="images/Group 15107.svg"
-                                        alt=""
-                                      /><br />
-                                      <p>
-                                        هل أنت متأكد بالفعل انك تريد إلغاء الحجز
-                                        ؟
-                                      </p>
-                                      <a href="#">نعم</a>
-                                      <a href="#">إلغاء</a>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="delete-orders">
-                            <a href="#">&times;</a>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="order-card">
-                        <div class="order-card-body">
-                          <div class="pharmacy-img">
-                            <img src="images/boy.svg" />
-                          </div>
-
-                          <div class="orders-details">
-                            <h4>د. أحمد علي</h4>
-                            <p>إستشاري أمراض القلب والأوعية الدموية</p>
-                            <span>ميعاد الكشف : 30 مايو (09:00 ص )</span><br />
-                            <span>سعر الكشف : 200 جنيه</span>
-                          </div>
-
-                          <div class="orders-action">
-                            <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
-                              ><br />
-                            </div>
-
-                            <a href="#cancel-booking" data-toggle="modal"
-                              >إلغاء الحجز</a
-                            ><br />
-                            <div
-                              class="modal fade"
-                              id="cancel-booking"
-                              tabindex="-1"
-                              aria-labelledby="exampleModalLabel"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div style="text-align: center">
-                                      <img
-                                        src="images/Group 15107.svg"
-                                        alt=""
-                                      /><br />
-                                      <p>
-                                        هل أنت متأكد بالفعل انك تريد إلغاء الحجز
-                                        ؟
-                                      </p>
-                                      <a href="#">نعم</a>
-                                      <a href="#">إلغاء</a>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="delete-orders">
-                            <a href="#">&times;</a>
-                          </div>
-                        </div>
-                      </div>
+                    
                     </div>
                   </div>
                   <div
@@ -1070,7 +947,7 @@
                     role="tabpanel"
                     aria-labelledby="pills-previous-booking-tab"
                   >
-                    <div class="my-previous-booking">
+                    <div class="my-previous-booking" ng-repeat="b in doneBookingList">
                       <div class="order-card">
                         <div class="order-card-body">
                           <div class="pharmacy-img">
@@ -1078,19 +955,19 @@
                           </div>
 
                           <div class="orders-details">
-                            <h4>د. أحمد علي</h4>
-                            <p>إستشاري أمراض القلب والأوعية الدموية</p>
-                            <span>ميعاد الكشف : 30 مايو (09:00 ص )</span><br />
-                            <span>سعر الكشف : 200 جنيه</span>
+                            <h4>د. {{b.doctor.name}}</h4>
+                            <p>{{b.doctor.department.name_##session.lang##}}</p>
+                            <span>ميعاد الكشف : {{b.date}} - {{b.time}}</span><br />
+                            <span>سعر الكشف : {{b.doctor.price}} جنيه</span>
                           </div>
 
                           <div class="orders-action">
                             <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
+                              <span> {{b.createdAt | date : 'dd- MM -yyyy , hh:mm a'}}</span
                               ><br />
                             </div>
                             <a href="#">تقييم</a>
-                            <a href="#">حجز مرة أخري</a>
+                            
                           </div>
 
                           <div class="delete-orders">
@@ -1099,65 +976,13 @@
                         </div>
                       </div>
 
-                      <div class="order-card">
-                        <div class="order-card-body">
-                          <div class="pharmacy-img">
-                            <img src="images/boy.svg" />
-                          </div>
-
-                          <div class="orders-details">
-                            <h4>د. أحمد علي</h4>
-                            <p>إستشاري أمراض القلب والأوعية الدموية</p>
-                            <span>ميعاد الكشف : 30 مايو (09:00 ص )</span><br />
-                            <span>سعر الكشف : 200 جنيه</span>
-                          </div>
-
-                          <div class="orders-action">
-                            <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
-                              ><br />
-                            </div>
-                            <a href="#">تقييم</a>
-                            <a href="#">حجز مرة أخري</a>
-                          </div>
-
-                          <div class="delete-orders">
-                            <a href="#">&times;</a>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="order-card">
-                        <div class="order-card-body">
-                          <div class="pharmacy-img">
-                            <img src="images/boy.svg" />
-                          </div>
-
-                          <div class="orders-details">
-                            <h4>د. أحمد علي</h4>
-                            <p>إستشاري أمراض القلب والأوعية الدموية</p>
-                            <span>ميعاد الكشف : 30 مايو (09:00 ص )</span><br />
-                            <span>سعر الكشف : 200 جنيه</span>
-                          </div>
-
-                          <div class="orders-action">
-                            <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
-                              ><br />
-                            </div>
-                            <a href="#">تقييم</a>
-                            <a href="#">حجز مرة أخري</a>
-                          </div>
-
-                          <div class="delete-orders">
-                            <a href="#">&times;</a>
-                          </div>
-                        </div>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
+              
               </div>
+              
 
               <!-- location tab -->
 
@@ -1183,7 +1008,7 @@
                           >{{gov.name_##session.lang##}}-{{l.city.name_##session.lang##}}-{{l.district}}-{{l.streetName}}-{{l.buildingNumber}}-{{l.role}}-{{l.apartmentNumber}}-{{l.specialMark}}</span
                         ><br />
 
-                        <a href="#">تعديل</a>
+                        <a href="#edit-location" data-toggle="modal" ng-click="getAddressData(l)">تعديل</a>
                       </div>
 
                       <div class="delete-orders">
@@ -1191,7 +1016,87 @@
                       </div>
                     </div>
                   </div>
+                </div>
+                <div class="modal fade" id="edit-location" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <label>العنوان</label><br>
+                          <input ng-model="addresses.addressLocation" type="text">
+                        </div>
+                      </div>
 
+                      <div class="row">
+                        <div class="col-sm-6">
+                      <label>المحافظة</label>
+                      <br />
+                      <select ng-change="getCitiesList()" ng-model="addresses.gov" ng-options="s.name_##session.lang## for s in govesList">
+                        <option selected disabled>اختر اسم المحافظة</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-6">
+                      <label> المدينة</label>
+                      <br />
+                      <select ng-model="addresses.city" ng-options="s.name_##session.lang## for s in citiesList">
+                        <option selected disabled>اختر اسم المدينة</option>
+                      </select>
+                    </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <label>المنطقة أو الحي</label><br>
+                          <input ng-model="addresses.district" type="text">
+                        </div>
+                        <div class="col-sm-6">
+                          <label>الشارع</label><br>
+                          <input ng-model="addresses.streetName" type="text">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-2">
+
+                          <label>رقم المبني</label><br>
+                          <input ng-model="addresses.buildingNumber" type="text">
+
+                        </div>
+                        <div class="col-sm-2">
+
+                          <label>الدور</label><br>
+                          <input ng-model="addresses.role" type="text">
+
+                        </div>
+                        <div class="col-sm-2">
+
+                          <label>الشقة</label><br>
+                          <input ng-model="addresses.apartmentNumber" type="text">
+
+                        </div>
+                        <div class="col-sm-6">
+
+                          <label> أقرب مكان مميز</label><br>
+                          <input ng-model="addresses.specialMark" type="text">
+                        </div>
+                      </div>
+
+                    </div>
+                    
+                    <div class="modal-footer">
+                      
+                      <button type="button" class="btn btn-primary" aria-label="Close" data-dismiss="modal" ng-click="editLocation(addresses)">تعديل</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
                   
                 <div class="location-main-footer">
                   <a href="#add-location" data-toggle="modal">إضافة عنوان جديد</a>
@@ -1276,6 +1181,9 @@
                 </div>
               </div>
               </div>
+            
+          
+
 
               <!-- wallet tab -->
 

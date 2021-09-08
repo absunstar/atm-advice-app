@@ -313,10 +313,40 @@ app.controller("main", function ($scope, $http, $timeout) {
       }
     );
   };
+
+  $scope.getFirstLocation = function () {
+    let where = {};
+    let str = JSON.parse('##user.ref_info._id##');
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "api/patients/getAddressesByPatient",
+      data : {
+        user:{
+          _id : str
+        },
+      },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+      console.log("rrrrrrrrrrr" , response.data.docs);
+         $scope.order.address = response.data.docs[0];
+
+        
+        console.log($scope.cityList);
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.getOrdersList();
   $scope.getGovesList();
   $scope.getCitiesList();
   $scope.getUsersList();
 $scope.getCurrentPatient();
   $scope.getInsuranceCompanyList();
+  $scope.getFirstLocation();
 });
