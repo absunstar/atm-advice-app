@@ -1,8 +1,16 @@
-app.controller("patients", function ($scope, $http, $timeout) {
+app.controller("main", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.patients = {};
+  $scope.patients = {
+    profile:{}
+  };
+  $scope.CurrentOrderList = {};
+  $scope.canceledOrderList = {};
+  $scope.previousOrderList = {};
+  $scope.currentBookingList = {};
+  $scope.doneBookingList = {};
 
+  
   $scope.displayAddPatients = function () {
     $scope.error = '';
     $scope.patients = {
@@ -15,13 +23,249 @@ app.controller("patients", function ($scope, $http, $timeout) {
     site.showModal('#patientsAddModal');
 
   };
-
-
-
  
 
 
+
+  $scope.myCurrentOrders = function (order) {
+    $scope.busy = true;
+    $scope.list = [];
+    $http({
+      method: "POST",
+      url: "/api/orders/getActiveOrders",
+      data: {
+        where: { 'user._id': '##user.ref_info._id##'  }
+
+      }
+    }).then(
+      function (response) {
+        console.log(response.data.data);
+        $scope.busy = false;
+        if (response.data.data && response.data.data.docs.length > 0) {
+          $scope.currentOrderList =response.data.data.docs;
+         
+          $scope.count = response.data.totalDocs;
+         
+          $scope.search = {};
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+  $scope.myCanceledOrders = function (order) {
+    $scope.busy = true;
+    $scope.list = [];
+    
+    let str = '##user.ref_info._id##';
+    let xx = {};
+    xx.user = {_id : str};
+    
+    $http({
+      method: "POST",
+      url: "/api/orders/getCanceledOrdersByUser",
+      data:xx
+    }).then(
+      function (response) {
+        console.log(response.data);
+        $scope.busy = false;
+        if (response.data.data && response.data.data.docs.length > 0) {
+          $scope.canceledOrderList =response.data.data.docs;
+         
+          $scope.count = response.data.totalDocs;
+         
+          $scope.search = {};
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+  $scope.myPreviousOrders = function (order) {
+    $scope.busy = true;
+    $scope.list = [];
+    
+    let str = '##user.ref_info._id##';
+    let xx = {};
+    xx.user = {_id : str};
+    $http({
+      method: "POST",
+      url: "/api/orders/getShippedOrdersByUser",
+      data:xx
+    }).then(
+      function (response) {
+        console.log(response.data);
+        $scope.busy = false;
+        if (response.data.data && response.data.data.docs.length > 0) {
+          $scope.previousOrderList =response.data.data.docs;
+         
+          $scope.count = response.data.totalDocs;
+         
+          $scope.search = {};
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
+  $scope.cancelOrder = function (order) {
+    console.log(order);
+     $scope.busy = true;
+     $scope.list = [];
+     $http({
+       method: "POST",
+       url: "/api/orders/updateToStatusCanceled",
+       data:order
+     }).then(
+       function (response) {
+         $scope.busy = false;
+         location.reload();
  
+         if (response.data.data && response.data.data.docs.length > 0) {
+           
+           
+         }
+       },
+       function (err) {
+         $scope.busy = false;
+         $scope.error = err;
+       }
+ 
+     )
+   };
+
+
+   $scope.reOrder = function (order) {
+    console.log(order);
+     $scope.busy = true;
+     $scope.list = [];
+     $http({
+       method: "POST",
+       url: "/api/orders/reOrderPreviousOrder",
+       data:order
+     }).then(
+       function (response) {
+         $scope.busy = false;
+         location.reload();
+ 
+         if (response.data.data && response.data.data.docs.length > 0) {
+           
+           
+         }
+       },
+       function (err) {
+         $scope.busy = false;
+         $scope.error = err;
+       }
+ 
+     )
+   };
+
+
+
+   
+
+   /* $scope.myCurrentBooking = function (order) {
+    $scope.busy = true;
+    $scope.list = [];
+    let str = '##user.ref_info._id##';
+    str = str.substr(1);
+    str = str.substr(0, str.length - 1);
+    let user=str;
+    $http({
+      method: "POST",
+      url: "/api/booking/getPatientsCurrentBooking",
+      data: {
+        where: { 'user._id': user , status:"accepted" }
+
+      }
+    }).then(
+      function (response) {
+        console.log(response.data.data);
+        $scope.busy = false;
+        if (response.data.data && response.data.docs.length > 0) {
+          $scope.currentBookingList =response.data.docs;
+         
+          $scope.count = response.data.totalDocs;
+         
+          $scope.search = {};
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  }; */
+
+ 
+
+  $scope.myLocation = function () {
+     $scope.busy = true;
+     $scope.list = [];
+     $http({
+       method: "POST",
+       url: "api/patients/getAddressesByPatient",
+       data: {
+        where: { 'user._id': '##user.ref_info._id##' }
+
+      }
+     }).then(
+       function (response) {
+         $scope.busy = false;
+         
+ 
+         if (response.data.data && response.data.data.docs.length > 0) {
+           
+           
+         }
+       },
+       function (err) {
+         $scope.busy = false;
+         $scope.error = err;
+       }
+ 
+     )
+   };
+
+
+   
+
+
+  $scope.getCurrentPatient = function () {
+    let where = {};
+  
+    $scope.busy = true;
+    $scope.cityList = [];
+    $http({
+      method: "POST",
+      url: "api/patients/getProfile",
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+         $scope.patients.profile = response.data.data;
+
+        }
+        console.log($scope.cityList);
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
 
 
   $scope.sendPhone = function (where) {
@@ -288,95 +532,14 @@ $scope.success = "varification code success"
   };
 
 
-  $scope.myCurrentOrders = function (order) {
-    $scope.busy = true;
-    $scope.list = [];
-    $http({
-      method: "POST",
-      url: "/api/orders/getActiveOrders",
-      data: {
-        where: { 'user._id': '##user.ref_info._id##'  }
-
-      }
-    }).then(
-      function (response) {
-        
-        $scope.busy = false;
-        if (response.data.data && response.data.data.docs.length > 0) {
-          $scope.currentOrderList =response.data.data.docs;
-         
-          $scope.count = response.data.totalDocs;
-         
-          $scope.search = {};
-        }
-      },
-      function (err) {
-        $scope.busy = false;
-        $scope.error = err;
-      }
-
-    )
-  };
+  
 
 
-  $scope.myCanceledOrders = function (order) {
-    $scope.busy = true;
-    $scope.list = [];
-    
-    let str = '##user.ref_info._id##';
-    str = str.substr(1);
-    str = str.substr(0,str.length-1);
-    let xx = {};
-    xx.user = {_id : str};
-    console.log("xxxxxxxxxxxxxxxxx" , xx);
-    $http({
-      method: "POST",
-      url: "/api/orders/getCanceledOrdersByUser",
-      data:xx
-    }).then(
-      function (response) {
-        console.log(response.data);
-        $scope.busy = false;
-        if (response.data.data && response.data.data.docs.length > 0) {
-          $scope.canceledOrderList =response.data.data.docs;
-         
-          $scope.count = response.data.totalDocs;
-         
-          $scope.search = {};
-        }
-      },
-      function (err) {
-        $scope.busy = false;
-        $scope.error = err;
-      }
-
-    )
-  };
+  
 
 
 
-  $scope.cancelOrder = function (order) {
-   console.log(order);
-    $scope.busy = true;
-    $scope.list = [];
-    $http({
-      method: "POST",
-      url: "/api/orders/updateToStatusCanceled",
-      data:order
-    }).then(
-      function (response) {
-        $scope.busy = false;
-        if (response.data.data && response.data.data.docs.length > 0) {
-          $scope.search = {};
-        }
-      },
-      function (err) {
-        $scope.busy = false;
-        $scope.error = err;
-      }
-
-    )
-  };
+ 
 
   
 
@@ -411,4 +574,15 @@ $scope.success = "varification code success"
   $scope.getPatientsList();
   $scope.getGenderList();
   $scope.getInsuranceCompanyList();
+  $scope.myCurrentOrders();
+  $scope.getCurrentPatient();
+  $scope.myCanceledOrders();
+ 
+  
+  $scope.myPreviousOrders();
+  /*$scope.myCurrentBooking();*/
+  $scope.myLocation();
+
+  
+
 });

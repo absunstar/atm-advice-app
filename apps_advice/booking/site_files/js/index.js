@@ -1,7 +1,13 @@
 app.controller("booking", function ($scope, $http, $timeout) {
   $scope._search = {};
 
-  $scope.booking = {};
+  $scope.booking = {
+    cardImage:[
+      {
+        name: "/images/id-card.svg ",
+      }
+    ]
+  };
 
   $scope.confirmBooking = function () {
     $scope.error = "";
@@ -10,9 +16,13 @@ app.controller("booking", function ($scope, $http, $timeout) {
       $scope.error = v.messages[0].ar;
       return;
     }*/
+    let str = '##user.ref_info._id##';
+      str = str.substr(1);
+      str = str.substr(0, str.length - 1);
     $scope.booking.user = {
-      _id: "##user.ref_info._id##",
+      _id: str,
     };
+   
     $scope.busy = true;
     $http({
       method: "POST",
@@ -168,70 +178,68 @@ app.controller("booking", function ($scope, $http, $timeout) {
     );
   };
 
-  // $scope.bookTime = function (t) {
-  //   $scope.booking.time = t.startSession;
-  //   t.status = "unAvailable";
-  //   document.querySelector("#step4").click();
-  // };
+  $scope.bookTime = function (t) {
+    $scope.booking.time = t.startSession;
+    t.status = "unAvailable";
+    document.querySelector("#step4").click();
+  };
 
-  // $scope.getAppointmentsByDate = function () {
-  //   let d = new Date($scope.booking.date2);
-  //   d.setDate(d.getDate() + 1);
-  //   $scope.booking.date = d.toISOString().split("T")[0];
-  //   $scope.busy = true;
-  //   $scope.list = [];
-  //   $http({
-  //     method: "POST",
-  //     url: "api/doctors/getAppointmentsByDate",
-  //     data: {
-  //       doctor: { _id: $scope.booking.doctor._id },
-  //       date: $scope.booking.date,
-  //     },
-  //   }).then(
-  //     function (response) {
-  //       $scope.busy = false;
-  //       if (response.data.done) {
-  //         $scope.booking.times = response.data.data;
-  //       }
-  //       console.log(response);
-  //     },
-  //     function (err) {
-  //       $scope.busy = false;
-  //       $scope.error = err;
-  //     }
-  //   );
-  // };
+  $scope.getAppointmentsByDate = function () {
+    let d = new Date($scope.booking.date2);
+    d.setDate(d.getDate() + 1);
+    $scope.booking.date = d.toISOString().split("T")[0];
+    $scope.busy = true;
+    $scope.list = [];
+    $http({
+      method: "POST",
+      url: "api/doctors/getAppointmentsByDate",
+      data: {
+        doctor: { _id: $scope.booking.doctor._id },
+        date: $scope.booking.date,
+      },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.booking.times = response.data.data;
+        }
+        console.log(response);
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
 
 
 
-  // $scope.getCurrentPatient = function () {
-  //   let where = {};
-  //   if (gov) {
-  //     where["gov"] = gov;
-  //   }
-  //   $scope.busy = true;
-  //   $scope.cityList = [];
-  //   $http({
-  //     method: "POST",
-  //     url: "api/patients/getProfile",
-  //   }).then(
-  //     function (response) {
-  //       $scope.busy = false;
-  //       if (response.data.done) {
-  //        $scope.booking.fullName = response.data.fullName;
+  $scope.getCurrentPatient = function () {
+    let where = {};
+  
+    $scope.busy = true;
+    $scope.cityList = [];
+    $http({
+      method: "POST",
+      url: "api/patients/getProfile",
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+         $scope.booking.fullName = response.data.data.fullName;
 
-  //       }
-  //       console.log($scope.cityList);
-  //     },
-  //     function (err) {
-  //       $scope.busy = false;
-  //       $scope.error = err;
-  //     }
-  //   );
-  // };
+        }
+        console.log($scope.cityList);
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
 
   $scope.getspecialtyList();
   $scope.getGovesList();
-  // $scope.getCurrentPatient();
-
+  $scope.getCurrentPatient();
+$scope.getInsuranceCompanyList();
 });

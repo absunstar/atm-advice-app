@@ -157,6 +157,11 @@
                             type="text"
                             ng-model="booking.patient.fullName"
                           />
+                          <input
+                            type="text"
+                            ng-model="booking.patient._id"
+                            style="display: none;"
+                          />
                         </div>
                         <div class="col-sm-12">
                           <label> رقم الهاتف </label><br />
@@ -203,12 +208,12 @@
 
                               <div class="col-sm-6">
                                 <label>الرقم التأميني</label><br />
-                                <input type="text" ng-model="insuranceNumber" />
+                                <input type="text" ng-model="booking.patient.insuranceNumber" />
                               </div>
-                              <div class="col-sm-6 insurance-card">
+                              <div class="col-sm-6 insurance-card" ng-repeat="i in booking.cardImage">
                                 <label>صوره كارت التأمين</label><br />
                                 <i-image
-                                  ng-model="patient.insuranceImg"
+                                  ng-model="i.name"
                                 ></i-image>
                                 <!-- <label
                         for="insurance-img"
