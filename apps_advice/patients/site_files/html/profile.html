@@ -20,7 +20,7 @@
             <div>
               <div class="main-profile-user">
                 <img src="images/Group13687@2x.png" width="40px" /><span
-                  >أهلا أحمد</span
+                  >{{patients.profile.fullName}}اهلا</span
                 >
               </div>
               <div
@@ -497,7 +497,7 @@
                                 <span
                                   >استلام من صيدلية : {{c.pharmacy ? c.pharmacy.pharmacyName:""}}</span
                                 ><br />
-                                <span>مدة التوصيل :  {{c.deliveryTime}}</span><br />
+                                <span>مدة التوصيل :  {{c.deliveryTime}} دقيقة</span><br />
                                 <span>المبلغ : {{c.price}} جنيه</span><br />
                                 <span>الخصم :  {{c.discountPercentage / c.price }} جنيه</span><br />
                                 
@@ -535,24 +535,23 @@
                     aria-labelledby="pills-previous-orders-tab"
                   >
                     <div class="my-previous-orders">
-                      <div class="order-card">
+                      <div class="order-card" ng-repeat="p in previousOrderList">
                         <div class="order-card-body">
                           <div class="pharmacy-img">
                             <img src="images/heart.svg" />
                           </div>
 
                           <div class="orders-details">
-                            <h4>صيدلية العزبي فرع 6 أكتوبر - الحصري</h4>
+                            <h4>{{p.pharmacy ? p.pharmacy.pharmacyName:""}}</h4>
                             <span
-                              >العنوان : الحصري - الحي الثاني-مجاورة ثانية-فرسان
-                              جيم</span
+                              >{{p.pharmacy.address}}</span
                             ><br />
-                            <span>مدة التوصيل : 30 دقيقة</span><br />
+                            <span>مدة التوصيل : {{p.deliveryTime}} دقيقة</span><br />
                           </div>
 
                           <div class="orders-action">
                             <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
+                              <span> {{p.createdAt | date : 'dd- MM -yyyy , hh:mm a'}}</span
                               ><br />
                             </div>
                             <a
@@ -620,16 +619,16 @@
                                 <h2>بيانات شخصية</h2>
                               </div>
                               <div>
-                                <span>الاسم بالكامل : أحمد محمد محمود</span
-                                ><br />
-                                <span>رقم التليفون : 01065874456</span><br />
-                                <span
-                                  >العنوان : الحصري - الحي الثاني-مجاورة
-                                  ثانية-فرسان جيم</span
-                                ><br />
-                                <span>شركة التأمين التابع لها : فارما سكان</span
-                                ><br />
-                                <span>الرقم التأميني : 4587523</span>
+                                <span>الاسم بالكامل :{{patients.profile.fullName}}</span
+                                  ><br />
+                                  <span>رقم التليفون : {{patients.profile.phone}}</span><br />
+                                  <span
+                                    >العنوان : الحصري - الحي الثاني-مجاورة
+                                    ثانية-فرسان جيم</span
+                                  ><br />
+                                  <span>شركة التأمين التابع لها : {{patients.profile.insuranceCompany.name_##session.lang##}}</span
+                                  ><br />
+                                  <span>الرقم التأميني : {{patients.profile.insuranceNumber}}</span>
                               </div>
                             </div>
 
@@ -639,13 +638,13 @@
                               </div>
                               <div>
                                 <span
-                                  >استلام من صيدلية : العزبي فرع 6 اكتوبر</span
+                                  >استلام من صيدلية : {{c.pharmacy ? c.pharmacy.pharmacyName:""}}</span
                                 ><br />
-                                <span>مدة التوصيل : 30 دقيقة</span><br />
-                                <span>المبلغ : 320 جنيه</span><br />
-                                <span>الخصم : 100 جنيه</span><br />
-                                <span>خدمة توصيل : 20 جنيه</span><br />
-                                <span>إجمالي المبلغ : 200 جنيه</span>
+                                <span>مدة التوصيل :  {{c.deliveryTime}} دقيقة</span><br />
+                                <span>المبلغ : {{c.price}} جنيه</span><br />
+                                <span>الخصم :  {{c.discountPercentage / c.price }} جنيه</span><br />
+                                
+                                <span>إجمالي المبلغ : {{c.totalPrice}} جنيه</span>
                               </div>
                             </div>
 
@@ -654,30 +653,14 @@
                                 <h2>صور الطلب</h2>
                               </div>
                               <div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
+                                <div class="img-with-details" ng-repeat="i in p.image">
+                                  <img ng-src={{i.name}} style="height: 100px;"/>
                                   <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
+                                    تفاصيل مع الطلب : {{i.description}}
                                   </p>
                                 </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
+                                
+                                
                               </div>
                             </div>
 
@@ -694,7 +677,7 @@
                     role="tabpanel"
                     aria-labelledby="pills-cancelled-orders-tab"
                   >
-                    <div class="my-cancelled-orders">
+                    <div class="my-cancelled-orders" ng-repeat="d in cancelledOrderList">
                       <div class="order-card">
                         <div class="order-card-body">
                           <div class="pharmacy-img">
@@ -702,13 +685,13 @@
                           </div>
 
                           <div class="orders-details">
-                            <h4>صيدلية العزبي فرع 6 أكتوبر - الحصري</h4>
+                            <h4>{{d.pharmacy ? d.pharmacy.pharmacyName:""}}</h4>
                             <span>قمت بالغاء الطلب بعد قبول الصيدلية</span>
                           </div>
 
                           <div class="orders-action">
                             <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
+                              <span> {{p.createdAt | date : 'dd- MM -yyyy , hh:mm a'}}</span
                               ><br />
                             </div>
                             <a
@@ -776,16 +759,16 @@
                                 <h2>بيانات شخصية</h2>
                               </div>
                               <div>
-                                <span>الاسم بالكامل : أحمد محمد محمود</span
-                                ><br />
-                                <span>رقم التليفون : 01065874456</span><br />
-                                <span
-                                  >العنوان : الحصري - الحي الثاني-مجاورة
-                                  ثانية-فرسان جيم</span
-                                ><br />
-                                <span>شركة التأمين التابع لها : فارما سكان</span
-                                ><br />
-                                <span>الرقم التأميني : 4587523</span>
+                                <span>الاسم بالكامل :{{patients.profile.fullName}}</span
+                                  ><br />
+                                  <span>رقم التليفون : {{patients.profile.phone}}</span><br />
+                                  <span
+                                    >العنوان : الحصري - الحي الثاني-مجاورة
+                                    ثانية-فرسان جيم</span
+                                  ><br />
+                                  <span>شركة التأمين التابع لها : {{patients.profile.insuranceCompany.name_##session.lang##}}</span
+                                  ><br />
+                                  <span>الرقم التأميني : {{patients.profile.insuranceNumber}}</span>
                               </div>
                             </div>
 
@@ -795,13 +778,13 @@
                               </div>
                               <div>
                                 <span
-                                  >استلام من صيدلية : العزبي فرع 6 اكتوبر</span
+                                  >استلام من صيدلية : {{d.pharmacy ? d.pharmacy.pharmacyName:""}}</span
                                 ><br />
-                                <span>مدة التوصيل : 30 دقيقة</span><br />
-                                <span>المبلغ : 320 جنيه</span><br />
-                                <span>الخصم : 100 جنيه</span><br />
-                                <span>خدمة توصيل : 20 جنيه</span><br />
-                                <span>إجمالي المبلغ : 200 جنيه</span>
+                                <span>مدة التوصيل :  {{d.deliveryTime}} دقيقة</span><br />
+                                <span>المبلغ : {{d.price}} جنيه</span><br />
+                                <span>الخصم :  {{d.discountPercentage / d.price }} جنيه</span><br />
+                                
+                                <span>إجمالي المبلغ : {{d.totalPrice}} جنيه</span>
                               </div>
                             </div>
 
@@ -810,30 +793,14 @@
                                 <h2>صور الطلب</h2>
                               </div>
                               <div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
+                                <div class="img-with-details" ng-repeat="i in d.image">
+                                  <img ng-src={{i.name}} style="height: 100px;"/>
                                   <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
+                                    تفاصيل مع الطلب : {{i.description}}
                                   </p>
                                 </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
+                                
+                                
                               </div>
                             </div>
 
@@ -841,736 +808,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="order-card">
-                        <div class="order-card-body">
-                          <div class="pharmacy-img">
-                            <img src="images/heart.svg" />
-                          </div>
-
-                          <div class="orders-details">
-                            <h4>صيدلية العزبي فرع 6 أكتوبر - الحصري</h4>
-                            <span>قمت بالغاء الطلب بعد قبول الصيدلية</span>
-                          </div>
-
-                          <div class="orders-action">
-                            <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
-                              ><br />
-                            </div>
-                            <a
-                              href="#canceled-order"
-                              class="btn"
-                              data-toggle="modal"
-                              >الغاء الطلب</a
-                            >
-                            <div
-                              class="modal fade"
-                              id="canceled-order"
-                              tabindex="-1"
-                              aria-labelledby="exampleModalLabel"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div style="text-align: center">
-                                      <img
-                                        src="images/Group15143.svg"
-                                        alt=""
-                                      /><br />
-                                      <p>هل انت متأكد من الغاء طلبك بالفعل؟</p>
-                                      <a href="#">نعم</a>
-                                      <a href="#">إلغاء</a>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer"></div>
-                                </div>
-                              </div>
-                            </div>
-                            <a
-                              class="btn"
-                              data-toggle="collapse"
-                              href="#my-c-more2"
-                              role="button"
-                              aria-expanded="false"
-                              aria-controls="my-c-more2"
-                            >
-                              المزيد </a
-                            ><br />
-                          </div>
-
-                          <div class="delete-orders">
-                            <a href="#">&times;</a>
-                          </div>
-                        </div>
-
-                        <div class="collapse" id="my-c-more2">
-                          <div class="card card-body">
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>بيانات شخصية</h2>
-                              </div>
-                              <div>
-                                <span>الاسم بالكامل : أحمد محمد محمود</span
-                                ><br />
-                                <span>رقم التليفون : 01065874456</span><br />
-                                <span
-                                  >العنوان : الحصري - الحي الثاني-مجاورة
-                                  ثانية-فرسان جيم</span
-                                ><br />
-                                <span>شركة التأمين التابع لها : فارما سكان</span
-                                ><br />
-                                <span>الرقم التأميني : 4587523</span>
-                              </div>
-                            </div>
-
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>تفاصيل الطلب</h2>
-                              </div>
-                              <div>
-                                <span
-                                  >استلام من صيدلية : العزبي فرع 6 اكتوبر</span
-                                ><br />
-                                <span>مدة التوصيل : 30 دقيقة</span><br />
-                                <span>المبلغ : 320 جنيه</span><br />
-                                <span>الخصم : 100 جنيه</span><br />
-                                <span>خدمة توصيل : 20 جنيه</span><br />
-                                <span>إجمالي المبلغ : 200 جنيه</span>
-                              </div>
-                            </div>
-
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>صور الطلب</h2>
-                              </div>
-                              <div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-
-                            <a href="#">تقييم الصيدلية</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="order-card">
-                        <div class="order-card-body">
-                          <div class="pharmacy-img">
-                            <img src="images/heart.svg" />
-                          </div>
-
-                          <div class="orders-details">
-                            <h4>صيدلية العزبي فرع 6 أكتوبر - الحصري</h4>
-                            <span>قمت بالغاء الطلب بعد قبول الصيدلية</span>
-                          </div>
-
-                          <div class="orders-action">
-                            <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
-                              ><br />
-                            </div>
-                            <a
-                              href="#canceled-order"
-                              class="btn"
-                              data-toggle="modal"
-                              >الغاء الطلب</a
-                            >
-                            <div
-                              class="modal fade"
-                              id="canceled-order"
-                              tabindex="-1"
-                              aria-labelledby="exampleModalLabel"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div style="text-align: center">
-                                      <img
-                                        src="images/Group15143.svg"
-                                        alt=""
-                                      /><br />
-                                      <p>هل انت متأكد من الغاء طلبك بالفعل؟</p>
-                                      <a href="#">نعم</a>
-                                      <a href="#">إلغاء</a>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer"></div>
-                                </div>
-                              </div>
-                            </div>
-                            <a
-                              class="btn"
-                              data-toggle="collapse"
-                              href="#my-c-more3"
-                              role="button"
-                              aria-expanded="false"
-                              aria-controls="my-c-more3"
-                            >
-                              المزيد </a
-                            ><br />
-                          </div>
-
-                          <div class="delete-orders">
-                            <a href="#">&times;</a>
-                          </div>
-                        </div>
-
-                        <div class="collapse" id="my-c-more3">
-                          <div class="card card-body">
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>بيانات شخصية</h2>
-                              </div>
-                              <div>
-                                <span>الاسم بالكامل : أحمد محمد محمود</span
-                                ><br />
-                                <span>رقم التليفون : 01065874456</span><br />
-                                <span
-                                  >العنوان : الحصري - الحي الثاني-مجاورة
-                                  ثانية-فرسان جيم</span
-                                ><br />
-                                <span>شركة التأمين التابع لها : فارما سكان</span
-                                ><br />
-                                <span>الرقم التأميني : 4587523</span>
-                              </div>
-                            </div>
-
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>تفاصيل الطلب</h2>
-                              </div>
-                              <div>
-                                <span
-                                  >استلام من صيدلية : العزبي فرع 6 اكتوبر</span
-                                ><br />
-                                <span>مدة التوصيل : 30 دقيقة</span><br />
-                                <span>المبلغ : 320 جنيه</span><br />
-                                <span>الخصم : 100 جنيه</span><br />
-                                <span>خدمة توصيل : 20 جنيه</span><br />
-                                <span>إجمالي المبلغ : 200 جنيه</span>
-                              </div>
-                            </div>
-
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>صور الطلب</h2>
-                              </div>
-                              <div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-
-                            <a href="#">تقييم الصيدلية</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="order-card">
-                        <div class="order-card-body">
-                          <div class="pharmacy-img">
-                            <img src="images/heart.svg" />
-                          </div>
-
-                          <div class="orders-details">
-                            <h4>صيدلية العزبي فرع 6 أكتوبر - الحصري</h4>
-                            <span>قمت بالغاء الطلب بعد قبول الصيدلية</span>
-                          </div>
-
-                          <div class="orders-action">
-                            <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
-                              ><br />
-                            </div>
-                            <a
-                              href="#canceled-order"
-                              class="btn"
-                              data-toggle="modal"
-                              >الغاء الطلب</a
-                            >
-                            <div
-                              class="modal fade"
-                              id="canceled-order"
-                              tabindex="-1"
-                              aria-labelledby="exampleModalLabel"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div style="text-align: center">
-                                      <img
-                                        src="images/Group15143.svg"
-                                        alt=""
-                                      /><br />
-                                      <p>هل انت متأكد من الغاء طلبك بالفعل؟</p>
-                                      <a href="#">نعم</a>
-                                      <a href="#">إلغاء</a>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer"></div>
-                                </div>
-                              </div>
-                            </div>
-                            <a
-                              class="btn"
-                              data-toggle="collapse"
-                              href="#my-c-more4"
-                              role="button"
-                              aria-expanded="false"
-                              aria-controls="my-c-more4"
-                            >
-                              المزيد </a
-                            ><br />
-                          </div>
-
-                          <div class="delete-orders">
-                            <a href="#">&times;</a>
-                          </div>
-                        </div>
-
-                        <div class="collapse" id="my-c-more4">
-                          <div class="card card-body">
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>بيانات شخصية</h2>
-                              </div>
-                              <div>
-                                <span>الاسم بالكامل : أحمد محمد محمود</span
-                                ><br />
-                                <span>رقم التليفون : 01065874456</span><br />
-                                <span
-                                  >العنوان : الحصري - الحي الثاني-مجاورة
-                                  ثانية-فرسان جيم</span
-                                ><br />
-                                <span>شركة التأمين التابع لها : فارما سكان</span
-                                ><br />
-                                <span>الرقم التأميني : 4587523</span>
-                              </div>
-                            </div>
-
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>تفاصيل الطلب</h2>
-                              </div>
-                              <div>
-                                <span
-                                  >استلام من صيدلية : العزبي فرع 6 اكتوبر</span
-                                ><br />
-                                <span>مدة التوصيل : 30 دقيقة</span><br />
-                                <span>المبلغ : 320 جنيه</span><br />
-                                <span>الخصم : 100 جنيه</span><br />
-                                <span>خدمة توصيل : 20 جنيه</span><br />
-                                <span>إجمالي المبلغ : 200 جنيه</span>
-                              </div>
-                            </div>
-
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>صور الطلب</h2>
-                              </div>
-                              <div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-
-                            <a href="#">تقييم الصيدلية</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="order-card">
-                        <div class="order-card-body">
-                          <div class="pharmacy-img">
-                            <img src="images/heart.svg" />
-                          </div>
-
-                          <div class="orders-details">
-                            <h4>صيدلية العزبي فرع 6 أكتوبر - الحصري</h4>
-                            <span>قمت بالغاء الطلب بعد قبول الصيدلية</span>
-                          </div>
-
-                          <div class="orders-action">
-                            <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
-                              ><br />
-                            </div>
-                            <a
-                              href="#canceled-order"
-                              class="btn"
-                              data-toggle="modal"
-                              >الغاء الطلب</a
-                            >
-                            <div
-                              class="modal fade"
-                              id="canceled-order"
-                              tabindex="-1"
-                              aria-labelledby="exampleModalLabel"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div style="text-align: center">
-                                      <img
-                                        src="images/Group15143.svg"
-                                        alt=""
-                                      /><br />
-                                      <p>هل انت متأكد من الغاء طلبك بالفعل؟</p>
-                                      <a href="#">نعم</a>
-                                      <a href="#">إلغاء</a>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer"></div>
-                                </div>
-                              </div>
-                            </div>
-                            <a
-                              class="btn"
-                              data-toggle="collapse"
-                              href="#my-c-more5"
-                              role="button"
-                              aria-expanded="false"
-                              aria-controls="my-c-more5"
-                            >
-                              المزيد </a
-                            ><br />
-                          </div>
-
-                          <div class="delete-orders">
-                            <a href="#">&times;</a>
-                          </div>
-                        </div>
-
-                        <div class="collapse" id="my-c-more5">
-                          <div class="card card-body">
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>بيانات شخصية</h2>
-                              </div>
-                              <div>
-                                <span>الاسم بالكامل : أحمد محمد محمود</span
-                                ><br />
-                                <span>رقم التليفون : 01065874456</span><br />
-                                <span
-                                  >العنوان : الحصري - الحي الثاني-مجاورة
-                                  ثانية-فرسان جيم</span
-                                ><br />
-                                <span>شركة التأمين التابع لها : فارما سكان</span
-                                ><br />
-                                <span>الرقم التأميني : 4587523</span>
-                              </div>
-                            </div>
-
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>تفاصيل الطلب</h2>
-                              </div>
-                              <div>
-                                <span
-                                  >استلام من صيدلية : العزبي فرع 6 اكتوبر</span
-                                ><br />
-                                <span>مدة التوصيل : 30 دقيقة</span><br />
-                                <span>المبلغ : 320 جنيه</span><br />
-                                <span>الخصم : 100 جنيه</span><br />
-                                <span>خدمة توصيل : 20 جنيه</span><br />
-                                <span>إجمالي المبلغ : 200 جنيه</span>
-                              </div>
-                            </div>
-
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>صور الطلب</h2>
-                              </div>
-                              <div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-
-                            <a href="#">تقييم الصيدلية</a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="order-card">
-                        <div class="order-card-body">
-                          <div class="pharmacy-img">
-                            <img src="images/heart.svg" />
-                          </div>
-
-                          <div class="orders-details">
-                            <h4>صيدلية العزبي فرع 6 أكتوبر - الحصري</h4>
-                            <span>قمت بالغاء الطلب بعد قبول الصيدلية</span>
-                          </div>
-
-                          <div class="orders-action">
-                            <div>
-                              <span> 20-3-2021 </span><span> , 06:40 ص</span
-                              ><br />
-                            </div>
-                            <a
-                              href="#canceled-order"
-                              class="btn"
-                              data-toggle="modal"
-                              >الغاء الطلب</a
-                            >
-                            <div
-                              class="modal fade"
-                              id="canceled-order"
-                              tabindex="-1"
-                              aria-labelledby="exampleModalLabel"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div style="text-align: center">
-                                      <img
-                                        src="images/Group15143.svg"
-                                        alt=""
-                                      /><br />
-                                      <p>هل انت متأكد من الغاء طلبك بالفعل؟</p>
-                                      <a href="#">نعم</a>
-                                      <a href="#">إلغاء</a>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer"></div>
-                                </div>
-                              </div>
-                            </div>
-                            <a
-                              class="btn"
-                              data-toggle="collapse"
-                              href="#my-c-more6"
-                              role="button"
-                              aria-expanded="false"
-                              aria-controls="my-c-more6"
-                            >
-                              المزيد </a
-                            ><br />
-                          </div>
-
-                          <div class="delete-orders">
-                            <a href="#">&times;</a>
-                          </div>
-                        </div>
-
-                        <div class="collapse" id="my-c-more6">
-                          <div class="card card-body">
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>بيانات شخصية</h2>
-                              </div>
-                              <div>
-                                <span>الاسم بالكامل : أحمد محمد محمود</span
-                                ><br />
-                                <span>رقم التليفون : 01065874456</span><br />
-                                <span
-                                  >العنوان : الحصري - الحي الثاني-مجاورة
-                                  ثانية-فرسان جيم</span
-                                ><br />
-                                <span>شركة التأمين التابع لها : فارما سكان</span
-                                ><br />
-                                <span>الرقم التأميني : 4587523</span>
-                              </div>
-                            </div>
-
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>تفاصيل الطلب</h2>
-                              </div>
-                              <div>
-                                <span
-                                  >استلام من صيدلية : العزبي فرع 6 اكتوبر</span
-                                ><br />
-                                <span>مدة التوصيل : 30 دقيقة</span><br />
-                                <span>المبلغ : 320 جنيه</span><br />
-                                <span>الخصم : 100 جنيه</span><br />
-                                <span>خدمة توصيل : 20 جنيه</span><br />
-                                <span>إجمالي المبلغ : 200 جنيه</span>
-                              </div>
-                            </div>
-
-                            <div class="collapse-more-section">
-                              <div>
-                                <h2>صور الطلب</h2>
-                              </div>
-                              <div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                                <div class="img-with-details">
-                                  <img src="images/medicine.svg" />
-                                  <p>
-                                    تفاصيل مع الطلب : علبتين دواء مع شريط
-                                    كيتوفان وشريط اسبرين مع العلم ان لدي حساسية
-                                    جيوب أنفية
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-
-                            <a href="#">تقييم الصيدلية</a>
-                          </div>
-                        </div>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -1934,7 +1172,7 @@
                 </div>
 
                 <div class="location-main-body">
-                  <div class="order-card">
+                  <div class="order-card" ng-repeat="l in addresses">
                     <div class="order-card-body">
                       <div class="pharmacy-img">
                         <img src="images/Icon material-location-on.svg" />
@@ -1942,9 +1180,7 @@
 
                       <div class="orders-details">
                         <span
-                          >السادس من أكتوبر - الحي الثاني - التوحيد والنور -
-                          فرسان جيم المبني الثالث - عمارة 74 - الدور الأول - شقة
-                          4</span
+                          >{{l.gov.name_##session_lang##}}-{{l.city.name_##session_lang##}}-{{l.district}}-{{l.streetName}}-{{l.buildingNumber}}-{{l.role}}-{{l.apartmentNumber}}-{{l.specialMark}}</span
                         ><br />
 
                         <a href="#">تعديل</a>
@@ -1956,73 +1192,7 @@
                     </div>
                   </div>
 
-                  <div class="order-card">
-                    <div class="order-card-body">
-                      <div class="pharmacy-img">
-                        <img src="images/Icon material-location-on.svg" />
-                      </div>
-
-                      <div class="orders-details">
-                        <span
-                          >السادس من أكتوبر - الحي الثاني - التوحيد والنور -
-                          فرسان جيم المبني الثالث - عمارة 74 - الدور الأول - شقة
-                          4</span
-                        ><br />
-
-                        <a href="#">تعديل</a>
-                      </div>
-
-                      <div class="delete-orders">
-                        <a href="#">&times;</a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="order-card">
-                    <div class="order-card-body">
-                      <div class="pharmacy-img">
-                        <img src="images/Icon material-location-on.svg" />
-                      </div>
-
-                      <div class="orders-details">
-                        <span
-                          >السادس من أكتوبر - الحي الثاني - التوحيد والنور -
-                          فرسان جيم المبني الثالث - عمارة 74 - الدور الأول - شقة
-                          4</span
-                        ><br />
-
-                        <a href="#">تعديل</a>
-                      </div>
-
-                      <div class="delete-orders">
-                        <a href="#">&times;</a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="order-card">
-                    <div class="order-card-body">
-                      <div class="pharmacy-img">
-                        <img src="images/Icon material-location-on.svg" />
-                      </div>
-
-                      <div class="orders-details">
-                        <span
-                          >السادس من أكتوبر - الحي الثاني - التوحيد والنور -
-                          فرسان جيم المبني الثالث - عمارة 74 - الدور الأول - شقة
-                          4</span
-                        ><br />
-
-                        <a href="#">تعديل</a>
-                      </div>
-
-                      <div class="delete-orders">
-                        <a href="#">&times;</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
+                  
                 <div class="location-main-footer">
                   <a href="#add-location" data-toggle="modal">إضافة عنوان جديد</a>
                 </div>
