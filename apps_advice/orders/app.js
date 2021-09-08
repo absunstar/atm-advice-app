@@ -1173,7 +1173,7 @@ module.exports = function init(site) {
         for (const iterator of docs) {
           let end = new Date(iterator['createdAt']);
           let xDiff = Math.abs(now - end) / 36e5
-          let time = 3
+          let time = 5
           if (xDiff > time == true) {
             $orders.edit({
               where: {

@@ -127,6 +127,14 @@
         "en": "Date Alraedy Exist",
         "ar": "هذا التاريخ متواجد من قبل"
         
+    },
+
+
+    {
+        "name": "cantRemoveDate",
+        "en": "You can't delete this day because there are appointments booked inside of it",
+        "ar": "لا يمكنك مسح هذا اليوم لوجود مواعيد محجوزة بداخله"
+        
     }
 
 ]

@@ -419,10 +419,17 @@ module.exports = function init(site) {
             },
             (err, docs, count) => {
               if (!err) {
-                response.docs = docs;
-                response.totalDocs = count;
-                response.limit = 10;
-                response.totalPages = Math.ceil(response.totalDocs / response.limit);
+                response.done = true;
+                response.data = {
+                  docs: docs,
+                  totalDocs: docs.length,
+                  limit: 10,
+                  totalPages: Math.ceil(docs.length / 10),
+                  
+                };
+                response.errorCode = site.var('succeed');
+                response.message = site.word('findSuccessfully')[req.headers.language];
+                res.json(response);
               } else {
                 response.error = err.message;
               }
@@ -900,7 +907,17 @@ module.exports = function init(site) {
 
             if (String(date) == String(bodyDate)) {
               // console.log(_d);
-              doc.days.splice(doc.days.indexOf(_d), 1);
+             if (_d.times && _d.times.length>0) {
+              response.done = false
+              response.errorCode = site.var('failed')
+              response.message = site.word('cantRemoveDate')[req.headers.language];
+
+              res.json(response);
+              return
+             }
+             if(_d.times && _d.times.length == 0){
+               doc.days.splice(doc.days.indexOf(_d), 1);
+             }
             }
           });
           $doctors.update(doc, (err, result) => {

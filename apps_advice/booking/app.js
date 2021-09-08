@@ -326,7 +326,7 @@ module.exports = function init(site) {
 
 
 
-  
+
   // update Booking To Status Done By Patient
   site.post('/api/booking/updateToStatusDoneByPatient', (req, res) => {
     req.headers.language = req.headers.language || 'en'
@@ -382,11 +382,11 @@ module.exports = function init(site) {
     }, (err, result) => {
       if (result.count > 0) {
         $booking.findOne({
-            where: {
-              _id: new ObjectID(booking_doc.bookingId)
-            },
-
+          where: {
+            _id: new ObjectID(booking_doc.bookingId)
           },
+
+        },
           (err, doc) => {
             if (!err && doc) {
               let notificationObj = {
@@ -425,7 +425,7 @@ module.exports = function init(site) {
     let booking_doc = req.body;
     let start = new Date();
     start.setHours(0, 0, 0, 0);
-// console.log("1111111111111111111111" , new Date().toISOString().split("T")[0]);
+    // console.log("1111111111111111111111" , new Date().toISOString().split("T")[0]);
     let end = new Date();
     end.setHours(23, 59, 59, 999);
 
@@ -433,7 +433,7 @@ module.exports = function init(site) {
       where: {
         'status': site.var('done'),
         'doctor._id': booking_doc.doctor._id,
-      
+
         date: {
           $eq: end.toISOString().split("T")[0]
         }
@@ -477,7 +477,7 @@ module.exports = function init(site) {
       where: {
         'status': site.var('done'),
         'doctor._id': booking_doc.doctor._id,
-      
+
         date: {
           $eq: end.toISOString().split("T")[0]
         }
@@ -490,8 +490,8 @@ module.exports = function init(site) {
     }, (err, docs, count) => {
       if (docs && docs.length > 0) {
         response.done = true
-        
-      response.data = {
+
+        response.data = {
           docs: docs,
           totalDocs: count,
           limit: 10,
@@ -500,7 +500,7 @@ module.exports = function init(site) {
         response.message = site.word('findBooking')[req.headers.language],
           response.errorCode = site.var('succeed')
       }
-      response.date={docs:[]}
+      response.date = { docs: [] }
       response.done = true
       response.message = site.word('noFindBooking')[req.headers.language],
         response.errorCode = site.var('succeed')
@@ -525,7 +525,7 @@ module.exports = function init(site) {
       where: {
         'status': site.var('accepted'),
         'doctor._id': booking_doc.doctor._id,
-      
+
         date: {
           $eq: end.toISOString().split("T")[0]
         }
@@ -538,8 +538,8 @@ module.exports = function init(site) {
     }, (err, docs, count) => {
       if (docs && docs.length > 0) {
         response.done = true
-        
-      response.data = {
+
+        response.data = {
           docs: docs,
           totalDocs: count,
           limit: 10,
@@ -548,7 +548,7 @@ module.exports = function init(site) {
         response.message = site.word('findBooking')[req.headers.language],
           response.errorCode = site.var('succeed')
       }
-response.date={docs:[]}
+      response.date = { docs: [] }
       response.done = true
       response.message = site.word('noFindBooking')[req.headers.language],
         response.errorCode = site.var('succeed')
@@ -576,7 +576,7 @@ response.date={docs:[]}
       where: {
         'status': site.var('accepted'),
         'doctor._id': booking_doc.doctor._id,
-      
+
       },
       set: {
         'status': site.var('accepted'),
@@ -586,8 +586,8 @@ response.date={docs:[]}
     }, (err, docs, count) => {
       if (docs && docs.length > 0) {
         response.done = true
-        
-      response.data = {
+
+        response.data = {
           docs: docs,
           totalDocs: count,
           limit: 10,
@@ -596,7 +596,7 @@ response.date={docs:[]}
         response.message = site.word('findBooking')[req.headers.language],
           response.errorCode = site.var('succeed')
       }
-response.date={docs:[]}
+      response.date = { docs: [] }
       response.done = true
       response.message = site.word('noFindBooking')[req.headers.language],
         response.errorCode = site.var('succeed')
@@ -622,7 +622,7 @@ response.date={docs:[]}
       where: {
         'status': site.var('done'),
         'doctor._id': booking_doc.doctor._id,
-      
+
       },
       set: {
         'status': site.var('done'),
@@ -632,8 +632,8 @@ response.date={docs:[]}
     }, (err, docs, count) => {
       if (docs && docs.length > 0) {
         response.done = true
-        
-      response.data = {
+
+        response.data = {
           docs: docs,
           totalDocs: count,
           limit: 10,
@@ -642,7 +642,7 @@ response.date={docs:[]}
         response.message = site.word('findBooking')[req.headers.language],
           response.errorCode = site.var('succeed')
       }
-      response.date={docs:[]}
+      response.date = { docs: [] }
       response.done = true
       response.message = site.word('noFindBooking')[req.headers.language],
         response.errorCode = site.var('succeed')
@@ -711,7 +711,7 @@ response.date={docs:[]}
 
     let end = new Date();
     end.setHours(23, 59, 59, 999);
-console.log(end.toISOString().split("T")[0]);
+    console.log(end.toISOString().split("T")[0]);
     $booking.findMany({
       where: {
         'status': site.var('accepted'),
@@ -720,7 +720,7 @@ console.log(end.toISOString().split("T")[0]);
           $eq: end.toISOString().split("T")[0]
         }
       },
-      
+
       $req: req,
       $res: res
     }, (err, docs, count) => {
@@ -735,7 +735,7 @@ console.log(end.toISOString().split("T")[0]);
       response.done = true
       response.message = site.word('noFindBooking')[req.headers.language],
         response.errorCode = site.var('succeed')
-        response.totalDocs = count
+      response.totalDocs = count
       res.json(response)
     })
   });
@@ -757,7 +757,7 @@ console.log(end.toISOString().split("T")[0]);
     $booking.findMany({
       where: {
         'status': {
-          $in: [site.var('done'), site.var('accepted'), ]
+          $in: [site.var('done'), site.var('accepted'),]
         },
         'doctor._id': booking_doc.doctor._id,
         date: {
@@ -802,7 +802,7 @@ console.log(end.toISOString().split("T")[0]);
 
     $booking.findMany({
       where: {
-        'status': booking_doc.status ,
+        'status': booking_doc.status,
         'doctor._id': booking_doc.doctor._id,
         date: booking_doc.date
       },
@@ -833,35 +833,91 @@ console.log(end.toISOString().split("T")[0]);
 
 
 
- // get All Booking For date
- site.post('/api/booking/getPatientsBooking', (req, res) => {
-  req.headers.language = req.headers.language || 'en'
-  let response = {}
+  // get Patients Booking
+  site.post('/api/booking/getPatientsBooking', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
 
-  $booking.findMany({
-    select: req.body.select || {},
-    sort: req.body.sort || {
-      id: -1,
+    $booking.findMany({
+      select: req.body.select || {},
+      sort: req.body.sort || {
+        id: -1,
+      },
+      where: {
+        'patient._id': req.body.patient._id,
+      }
     },
-    where: {
-      'patient._id': req.body.patient._id,
-    }
-  },
-  (err, docs, count) => {
-    if (!err) {
-      response.docs = docs
-      response.totalDocs = count
-      response.limit = 10
-      response.totalPages = Math.ceil(response.totalDocs / response.limit)
-    } else {
-      response.error = err.message;
-    }
-    res.json(response);
-  },
-);
-  
+      (err, docs, count) => {
+        if (!err) {
+          response.docs = docs
+          response.totalDocs = count
+          response.limit = 10
+          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
 
-});
+  // get Patients Current Booking
+  site.post('/api/booking/getPatientsCurrentBooking', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    $booking.findMany({
+      select: req.body.select || {},
+      sort: req.body.sort || {
+        id: -1,
+      },
+      where: {
+        'patient._id': req.body.patient._id,
+        status:"accepted"
+      }
+    },
+      (err, docs, count) => {
+        if (!err) {
+          response.docs = docs
+          response.totalDocs = count
+          response.limit = 10
+          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+
+   // get Patients Done Booking
+   site.post('/api/booking/getPatientsDoneBooking', (req, res) => {
+    req.headers.language = req.headers.language || 'en'
+    let response = {}
+
+    $booking.findMany({
+      select: req.body.select || {},
+      sort: req.body.sort || {
+        id: -1,
+      },
+      where: {
+        'patient._id': req.body.patient._id,
+        status:"done"
+      }
+    },
+      (err, docs, count) => {
+        if (!err) {
+          response.docs = docs
+          response.totalDocs = count
+          response.limit = 10
+          response.totalPages = Math.ceil(response.totalDocs / response.limit)
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
 
 
 
@@ -882,25 +938,25 @@ console.log(end.toISOString().split("T")[0]);
 
     console.log(booking_doc.doctor._id);
     $booking.aggregate([{
-        "$match": {
-          "doctor._id": booking_doc.doctor._id
-        }
-      },
-      {
-        "$match": {
-          "status": "done"
-        }
-      },
-      
-        { 
-          "$group" : {
-              "_id" : null, 
-              "count" : {
-                  "$sum" : 1.0
-              }
-          }
-      
+      "$match": {
+        "doctor._id": booking_doc.doctor._id
       }
+    },
+    {
+      "$match": {
+        "status": "done"
+      }
+    },
+
+    {
+      "$group": {
+        "_id": null,
+        "count": {
+          "$sum": 1.0
+        }
+      }
+
+    }
     ], (err, docs) => {
       if (docs) {
         response.done = true
@@ -929,26 +985,26 @@ console.log(end.toISOString().split("T")[0]);
     let booking_doc = req.body;
 
     $booking.aggregate([{
-        "$match": {
-          "doctor._id": booking_doc.doctor._id
-        }
-      },
+      "$match": {
+        "doctor._id": booking_doc.doctor._id
+      }
+    },
 
-      {
-        "$group": {
-          "_id": null,
-          "count": {
-            "$sum": 1.0
-          }
-        }
-      },
-      {
-        "$project": {
-
-          "count": "$count",
-          "_id": 0.0
+    {
+      "$group": {
+        "_id": null,
+        "count": {
+          "$sum": 1.0
         }
       }
+    },
+    {
+      "$project": {
+
+        "count": "$count",
+        "_id": 0.0
+      }
+    }
     ], (err, docs) => {
       if (docs) {
         response.done = true
@@ -985,33 +1041,33 @@ console.log(end.toISOString().split("T")[0]);
 
     console.log(booking_doc.doctor._id);
     $booking.aggregate([{
-        "$match": {
-          "doctor._id": booking_doc.doctor._id
+      "$match": {
+        "doctor._id": booking_doc.doctor._id
+      }
+    },
+    {
+      "$match": {
+        "status": site.var('accepted')
+      }
+    },
+    {
+      "$group": {
+        "_id": {
+          "date": "$date"
+        },
+        "count": {
+          "$sum": 1.0
         }
-      },
-      {
-        "$match": {
-          "status": site.var('accepted')
-        }
-      },
-      {
-        "$group": {
-          "_id" : {
-            "date" : "$date"
-        }, 
-          "count": {
-            "$sum": 1.0
-          }
-        }
-      },
-      { 
-        "$project" : {
-            "date" : "$_id.date",
-            count : "$count",
-            _id:0
-        }
+      }
+    },
+    {
+      "$project": {
+        "date": "$_id.date",
+        count: "$count",
+        _id: 0
+      }
     }
-     
+
     ], (err, docs) => {
       if (docs) {
         response.done = true
@@ -1042,35 +1098,35 @@ console.log(end.toISOString().split("T")[0]);
 
     console.log(booking_doc.doctor._id);
     $booking.aggregate([{
-        "$match": {
-          "doctor._id": booking_doc.doctor._id
-        }
-      },
+      "$match": {
+        "doctor._id": booking_doc.doctor._id
+      }
+    },
 
-      {
-        "$match": {
-          "status": 'done'
-        }
-      },
+    {
+      "$match": {
+        "status": 'done'
+      }
+    },
 
 
-      {
-        "$group": {
-          "_id": {
-            "date": "$date"
-          },
-          "count": {
-            "$sum": 1.0
-          }
-        }
-      },
-      {
-        "$project": {
-          "date": "$_id.date",
-          "count": "$count",
-          "_id": 0.0
+    {
+      "$group": {
+        "_id": {
+          "date": "$date"
+        },
+        "count": {
+          "$sum": 1.0
         }
       }
+    },
+    {
+      "$project": {
+        "date": "$_id.date",
+        "count": "$count",
+        "_id": 0.0
+      }
+    }
     ], (err, docs) => {
       if (docs) {
         response.done = true
@@ -1113,7 +1169,7 @@ console.log(end.toISOString().split("T")[0]);
   //     where: {
   //       'status': site.var('done'),
   //       'doctor._id': booking_doc.doctor._id,
-      
+
   //     },
   //     set: {
   //       'status': site.var('done'),
@@ -1123,7 +1179,7 @@ console.log(end.toISOString().split("T")[0]);
   //   }, (err, docs, count) => {
   //     if (docs && docs.length > 0) {
   //       response.done = true
-        
+
   //     response.data = {
   //         docs: docs,
   //         totalDocs: count,
@@ -1163,13 +1219,13 @@ console.log(end.toISOString().split("T")[0]);
     }
     let response = {}
     $booking.findMany({
-        select: req.body.select || {},
-        sort: req.body.sort || {
-          id: -1,
-        },
-        limit: limit,
-        skip: skip
+      select: req.body.select || {},
+      sort: req.body.sort || {
+        id: -1,
       },
+      limit: limit,
+      skip: skip
+    },
       (err, docs, count) => {
         if (!err) {
 
@@ -1194,11 +1250,11 @@ console.log(end.toISOString().split("T")[0]);
     req.headers.language = req.headers.language || 'en'
     let response = {}
     $booking.findOne({
-        where: {
-          _id: req.params.id,
-        },
-
+      where: {
+        _id: req.params.id,
       },
+
+    },
       (err, doc) => {
         if (!err && doc) {
           response.data = doc
@@ -1227,10 +1283,10 @@ console.log(end.toISOString().split("T")[0]);
 
     if (id) {
       $booking.delete({
-          _id: id,
-          $req: req,
-          $res: res,
-        },
+        _id: id,
+        $req: req,
+        $res: res,
+      },
         (err, result) => {
           if (!err) {
             response.done = true,
@@ -1252,7 +1308,7 @@ console.log(end.toISOString().split("T")[0]);
 
 
 
-  
+
   // Search packageses By Name 
   site.post('/api/booking/search', (req, res) => {
     req.headers.language = req.headers.language || 'en'
@@ -1273,14 +1329,14 @@ console.log(end.toISOString().split("T")[0]);
       skip = (parseInt(req.query.page) - 1) * 10
     }
     $booking.findMany({
-        select: req.body.select || {},
-        where: where,
-        sort: req.body.sort || {
-          id: -1,
-        },
-        limit: limit,
-        skip: skip
+      select: req.body.select || {},
+      where: where,
+      sort: req.body.sort || {
+        id: -1,
       },
+      limit: limit,
+      skip: skip
+    },
       (err, docs, count) => {
         if (docs.length > 0) {
           response.done = true

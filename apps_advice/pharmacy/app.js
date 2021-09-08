@@ -850,7 +850,7 @@ module.exports = function init(site) {
               response.data = {
                 docs,
                 totalDocs: docs.length,
-                totalPages: Math.ceil(result.length / 10)
+                totalPages: Math.ceil(docs.length / 10)
               }
               response.errorCode = site.var('succeed')
               response.done = true
@@ -873,6 +873,8 @@ module.exports = function init(site) {
                   where: {
                     "status.statusId": site.var('activeId'),
                   },
+                  limit: limit,
+        skip: skip
                 },
                 (err, docs, count) => {
                   if (!err) {
@@ -882,10 +884,11 @@ module.exports = function init(site) {
                   //     }
                       
                   // });
-                    response.docs = docs;
-                    response.totalDocs = count;
-                    response.limit = 10;
-                    response.totalPages = Math.ceil(result.length /10);
+                  response.data = {
+                    docs,
+                    totalDocs: count,
+                    totalPages: Math.ceil(count / 10)
+                  }
                   } else {
                     response.error = err.message;
                   }
