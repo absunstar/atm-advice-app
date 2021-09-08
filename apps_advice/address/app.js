@@ -37,10 +37,10 @@ module.exports = function init(site) {
     address_doc.isActive = true,
       address_doc.createdAt = new Date()
     address_doc.updatedAt = new Date()
-    if (!address_doc.gov._id) {
+    if (address_doc.gov == undefined) {
       delete address_doc.gov
     }
-    if (!address_doc.city._id) {
+    if (address_doc.city == undefined) {
       delete address_doc.city
     }
     // address_doc.add_user_info = site.security.getUserFinger({

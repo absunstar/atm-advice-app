@@ -133,6 +133,7 @@ module.exports = function init(site) {
     let response = {
       accessToken: req.session.accessToken,
     };
+    req.headers.language = req.headers.language || 'en';
 
     // if (req.body.$encript) {
     //   if (req.body.$encript === '64') {
@@ -393,6 +394,12 @@ module.exports = function init(site) {
             isAvailable: true,
           },
         },
+        {
+          $skip: skip || 0,
+        },
+        {
+          $limit: limit,
+        },
       ],
       (err, docs) => {
         if (docs && docs.length > 0) {
@@ -416,6 +423,8 @@ module.exports = function init(site) {
               where: {
                 isActive: false,
               },
+              limit: limit,
+              skip: skip,
             },
             (err, docs, count) => {
               if (!err) {
@@ -425,7 +434,7 @@ module.exports = function init(site) {
                   totalDocs: docs.length,
                   limit: 10,
                   totalPages: Math.ceil(docs.length / 10),
-                  
+
                 };
                 response.errorCode = site.var('succeed');
                 response.message = site.word('findSuccessfully')[req.headers.language];
@@ -450,6 +459,12 @@ module.exports = function init(site) {
     let where = {
       ...req.body,
     };
+    let limit = 10;
+    let skip;
+
+    if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+      skip = (parseInt(req.query.page) - 1) * 10;
+    }
     if (where['department'] && where['department']._id != '') {
       where['department._id'] = where['department']._id;
       delete where['department'];
@@ -477,6 +492,12 @@ module.exports = function init(site) {
             rating: -1.0,
           },
         },
+        {
+          $skip: skip || 0,
+        },
+        {
+          $limit: limit,
+        },
       ],
       (err, docs) => {
         if (docs && docs.length > 0) {
@@ -497,15 +518,23 @@ module.exports = function init(site) {
                 id: -1,
               },
               where: {
-                isActive: false,
+                isActive: true,
+
               },
+              limit: limit,
+              skip: skip,
             },
             (err, docs, count) => {
               if (!err) {
-                response.docs = docs;
-                response.totalDocs = count;
-                response.limit = 10;
-                response.totalPages = Math.ceil(response.totalDocs / response.limit);
+                response.data = {
+                  docs: docs,
+                  totalDocs: count,
+                  limit: 10,
+                  totalPages: Math.ceil(count / 10),
+                };
+                response.errorCode = site.var('succeed');
+                response.message = site.word('findSuccessfully')[req.headers.language];
+                res.json(response);
               } else {
                 response.error = err.message;
               }
@@ -571,14 +600,14 @@ module.exports = function init(site) {
             let bodyDate = doctor_doc.date;
 
             if (String(date) == String(bodyDate)) {
-              let xx = _d.times.some(li=>li.startSession == doctor_doc.startSession)
+              let xx = _d.times.some(li => li.startSession == doctor_doc.startSession)
               if (xx == true) {
                 response.done = false
                 response.errorCode = site.var('failed');
                 response.message = site.word('appointmentAlreadyExist')[req.headers.language];
                 res.json(response);
               }
-              else{
+              else {
 
                 _d.times.push(OBJ);
               }
@@ -665,7 +694,7 @@ module.exports = function init(site) {
               }
             });
           }
-          else{
+          else {
 
           }
 
@@ -720,11 +749,11 @@ module.exports = function init(site) {
             $req: req,
             $res: res
           }, (err, result) => {
-  
+
             response.done = true
             response.message = site.word('updatePassword')[req.headers.language]
             response.errorCode = site.var('succeed')
-  
+
             res.json(response)
           })
         }
@@ -794,21 +823,21 @@ module.exports = function init(site) {
             weekdays[5] = 'Friday';
             weekdays[6] = 'Saturday';
             var r = weekdays[a.getDay()];
-            let xx = doc.days.some(li=>li.date == req.body.date)
+            let xx = doc.days.some(li => li.date == req.body.date)
             if (xx == true) {
               response.done = false
               response.errorCode = site.var('failed');
               response.message = site.word('dateAlreadyExist')[req.headers.language];
               res.json(response);
             }
-            else{
+            else {
               doc.days.push({
                 dayName: r,
                 date: doctor_doc.date,
                 times: [],
               });
             }
-            
+
           } else {
             var a = new Date(req.body.date);
             var weekdays = new Array(7);
@@ -820,7 +849,7 @@ module.exports = function init(site) {
             weekdays[5] = 'Friday';
             weekdays[6] = 'Saturday';
             var r = weekdays[a.getDay()];
-            
+
             doc.days = [
               {
                 dayName: r,
@@ -907,17 +936,17 @@ module.exports = function init(site) {
 
             if (String(date) == String(bodyDate)) {
               // console.log(_d);
-             if (_d.times && _d.times.length>0) {
-              response.done = false
-              response.errorCode = site.var('failed')
-              response.message = site.word('cantRemoveDate')[req.headers.language];
+              if (_d.times && _d.times.length > 0) {
+                response.done = false
+                response.errorCode = site.var('failed')
+                response.message = site.word('cantRemoveDate')[req.headers.language];
 
-              res.json(response);
-              return
-             }
-             if(_d.times && _d.times.length == 0){
-               doc.days.splice(doc.days.indexOf(_d), 1);
-             }
+                res.json(response);
+                return
+              }
+              if (_d.times && _d.times.length == 0) {
+                doc.days.splice(doc.days.indexOf(_d), 1);
+              }
             }
           });
           $doctors.update(doc, (err, result) => {
@@ -1037,7 +1066,7 @@ module.exports = function init(site) {
                 if (doc) {
                   $users_info.edit({
                     where: {
-                     '_id': doc.user_info._id
+                      '_id': doc.user_info._id
                     },
                     set: {
                       password: doc.password,
@@ -1283,8 +1312,8 @@ module.exports = function init(site) {
       delete where['long'];
     }
     let doctor_doc = req.body;
-    let lat = doctor_doc.lat||0;
-    let long = doctor_doc.long||0;
+    let lat = doctor_doc.lat || 0;
+    let long = doctor_doc.long || 0;
 
     let limit = 10;
     let skip;
@@ -1292,80 +1321,78 @@ module.exports = function init(site) {
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10;
     }
-//     $doctors.aggregate(
-//       [
-//         {
-//           $geoNear: {
-//             near: {
-//               type: 'Point',
-//               coordinates: [lat, long],
-//             },
-//             distanceField: 'distance',
-//             spherical: true,
-//           },
-//         },
+    //     $doctors.aggregate(
+    //       [
+    //         {
+    //           $geoNear: {
+    //             near: {
+    //               type: 'Point',
+    //               coordinates: [lat, long],
+    //             },
+    //             distanceField: 'distance',
+    //             spherical: true,
+    //           },
+    //         },
 
-//         {
-//           $match: where,
-//         },
-//         {
-//           $sort: {
-//             rating: -1.0,
-//           },
-//         },
-//         {
-//           $skip: skip || 0,
-//         },
-//         {
-//           $limit: limit,
-//         },
-//       ],
-//       (err, docs) => {
-//         if (docs && docs.length > 0) {
-//           response.done = true;
-//           response.data = {
-//             docs: docs,
-//             totalDocs: docs.length,
-//             limit: 10,
-//             totalPages: Math.ceil(docs.length / 10),
-//           };
-//           res.json(response);
-//         } if(docs &&docs.length == 0) {
-        
-          
-
-
-// console.log(2222222222222);
+    //         {
+    //           $match: where,
+    //         },
+    //         {
+    //           $sort: {
+    //             rating: -1.0,
+    //           },
+    //         },
+    //         {
+    //           $skip: skip || 0,
+    //         },
+    //         {
+    //           $limit: limit,
+    //         },
+    //       ],
+    //       (err, docs) => {
+    //         if (docs && docs.length > 0) {
+    //           response.done = true;
+    //           response.data = {
+    //             docs: docs,
+    //             totalDocs: docs.length,
+    //             limit: 10,
+    //             totalPages: Math.ceil(docs.length / 10),
+    //           };
+    //           res.json(response);
+    //         } if(docs &&docs.length == 0) {
 
 
 
-//           $doctors.findMany({
-//             select: req.body.select || {},
-//             where: where,
-//             sort: req.body.sort || {
-//               id: -1,
-//             },
-//             limit: limit,
-//             skip: skip
-//           },
-//             (err, docs1, count) => {
-//               if (docs1.length > 0) {
-//                 response.done = true
-//                 response.docs = docs1
-//                 response.totalDocs = count
-//                 response.limit = 10
-//                 response.totalPages = Math.ceil(response.totalDocs / response.limit)
-//               } else {
-//                 response.docs = docs1
-//                 response.errorCode = site.var('failed')
-//                 response.message = site.word('findFailed')[req.headers.language]
-//                 response.done = false;
-//               }
-//               res.json(response);
-//             },
-//           );
+
+    // console.log(2222222222222);
 
 
+
+    //           $doctors.findMany({
+    //             select: req.body.select || {},
+    //             where: where,
+    //             sort: req.body.sort || {
+    //               id: -1,
+    //             },
+    //             limit: limit,
+    //             skip: skip
+    //           },
+    //             (err, docs1, count) => {
+    //               if (docs1.length > 0) {
+    //                 response.done = true
+    //                 response.docs = docs1
+    //                 response.totalDocs = count
+    //                 response.limit = 10
+    //                 response.totalPages = Math.ceil(response.totalDocs / response.limit)
+    //               } else {
+    //                 response.docs = docs1
+    //                 response.errorCode = site.var('failed')
+    //                 response.message = site.word('findFailed')[req.headers.language]
+    //                 response.done = false;
+    //               }
+    //               res.json(response);
+    //             },
+    //           );
 
 
 
@@ -1379,9 +1406,11 @@ module.exports = function init(site) {
 
 
 
-//         }
-//       },
-//     );
+
+
+    //         }
+    //       },
+    //     );
 
     $doctors.findMany({
       select: req.body.select || {},
@@ -1393,7 +1422,7 @@ module.exports = function init(site) {
     },
       (err, docs, count) => {
         if (docs.length > 0) {
-                   response.done = true;
+          response.done = true;
           response.data = {
             docs: docs,
             totalDocs: docs.length,
