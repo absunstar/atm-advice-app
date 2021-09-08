@@ -2,6 +2,7 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope._search = {};
 
   $scope.patients = {
+
     profile:{}
   };
   $scope.CurrentOrderList = {};
@@ -10,8 +11,61 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope.currentBookingList = {};
   $scope.doneBookingList = {};
   $scope.addresses = {};
+  $scope.govesList = {};
+  $scope.citiesList ={};
 
-  
+  $scope.getGovesList = function (where) {
+    $scope.busy = true;
+    $http({
+      method: "GET",
+      url: "/api/gov",
+      data: {
+        where: {
+          active: true,
+        },
+        select: {
+          id: 1,
+          name_ar: 1,
+          name_en: 1,
+        },
+      },
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.docs.length > 0) {
+          $scope.govesList = response.data.docs;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+  $scope.getCitiesList = function (where) {
+    if (!$scope.addresses.gov) {
+      return false;
+    }
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/city/getCityByGov/" + $scope.addresses.gov._id,
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.citiesList = response.data.data;
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.displayAddPatients = function () {
     $scope.error = '';
     $scope.patients = {
@@ -260,22 +314,23 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope.myLocation = function () {
      $scope.busy = true;
      $scope.list = [];
+     let str = '##user.ref_info._id##';
+    str = str.substr(1);
+    str = str.substr(0, str.length - 1);
      $http({
        method: "POST",
        url: "api/patients/getAddressesByPatient",
        data: {
-        where: { 'user._id': '##user.ref_info._id##' }
-
+         user:{
+           _id :str 
+         }
+        
       }
      }).then(
        function (response) {
          $scope.busy = false;
-         
- 
-         if (response.data.data && response.data.data.docs.length > 0) {
-           
-           
-         }
+         console.log("my location" , response.data.docs);
+ $scope.locationsList = response.data.docs
        },
        function (err) {
          $scope.busy = false;
@@ -319,12 +374,7 @@ app.controller("main", function ($scope, $http, $timeout) {
     }).then(
       function (response) {
         $scope.busy = false;
-
-
-        if (response.data.data && response.data.data.docs.length > 0) {
-
-
-        }
+location.reload();
       },
       function (err) {
         $scope.busy = false;
@@ -698,7 +748,7 @@ $scope.success = "varification code success"
   $scope.myCurrentOrders();
   $scope.getCurrentPatient();
   $scope.myCanceledOrders();
- 
+  $scope.getGovesList();
   $scope.myDoneBooking();
   $scope.myPreviousOrders();
   $scope.myCurrentBooking();
