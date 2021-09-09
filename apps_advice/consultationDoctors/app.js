@@ -338,6 +338,7 @@ module.exports = function init(site) {
     $consultationDoctors.findOne({
         where: {
           _id: req.session.user.ref_info._id,
+          isAvailable : true
         },
 
       },
@@ -351,6 +352,7 @@ module.exports = function init(site) {
                 id: -1,
               },
               where: {
+
                 'department._id': String(doc.department._id),
                 'status.statusId': {
                   $in: [site.var('acceptedId'), site.var('activeId')]

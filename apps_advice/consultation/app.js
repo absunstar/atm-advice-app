@@ -1541,21 +1541,21 @@ module.exports = function init(site) {
       },
     }, (err, docs, count) => {
       if (docs.length > 0) {
+        let now = new Date();
         for (const iterator of docs) {
-          console.log(docs);
-          var startTime = new Date();
-          var endTime = new Date(iterator['createdAt']);
-          var difference = startTime.getTime() - endTime.getTime(); // This will give difference in milliseconds
-          var resultInMinutes = Math.round(difference / 60000);
-          let time = 3
-          if (resultInMinutes > time == true) {
+          let end = new Date(iterator['createdAt']);
+          let xDiff = Math.abs(now - end)
+          var minutes = Math.floor((xDiff/1000)/60)
+          console.log(minutes);
+          let time = 1
+          if (minutes > time == true) {
             $consultation.edit({
               where: {
                 'status.statusId': site.var('activeId'),
               },
               set: {
-                'status.statusId': site.var('canceledId'),
-                'status.name':'canceled'
+                'status.statusId': site.var('notActiveId'),
+                'status.name': site.var('notActive')
               },
             })
           }
@@ -1567,6 +1567,6 @@ module.exports = function init(site) {
         return
       }
     })
-  }, 2*60*1000);
+  }, 60000);
 
 };

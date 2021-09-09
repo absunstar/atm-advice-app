@@ -836,6 +836,11 @@ module.exports = function init(site) {
   // get Patients Booking
   site.post('/api/booking/getPatientsBooking', (req, res) => {
     req.headers.language = req.headers.language || 'en'
+    let limit = 10
+let skip
+if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+  skip = (parseInt(req.query.page) - 1) * 10
+}
     let response = {}
 
     $booking.findMany({
@@ -845,7 +850,9 @@ module.exports = function init(site) {
       },
       where: {
         'patient._id': req.body.patient._id,
-      }
+      },
+      limit: limit,
+      skip: skip
     },
       (err, docs, count) => {
         if (!err) {
@@ -991,6 +998,12 @@ module.exports = function init(site) {
     },
 
     {
+      "$match": {
+        "status": 'accepted'
+      }
+    },
+
+    {
       "$group": {
         "_id": null,
         "count": {
@@ -1007,8 +1020,10 @@ module.exports = function init(site) {
     }
     ], (err, docs) => {
       if (docs) {
+        let ss = [{"_id": null,
+        "count": 0}]
         response.done = true
-        response.data = docs
+        response.data = docs.length>0 ?docs:ss
         response.errorCode = site.var('succeed')
         response.message = site.word('findSuccessfully')[req.headers.language]
         res.json(response)

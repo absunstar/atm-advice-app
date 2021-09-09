@@ -46,7 +46,7 @@ module.exports = function init(site) {
     // }
 
     let orders_doc = req.body;
-    if (orders_doc.user._id.length > 24) {
+    if (orders_doc.user && orders_doc.user._id.length > 24) {
       let str = orders_doc.user._id;
       str = str.substr(1);
       str = str.substr(0, str.length - 1);
@@ -55,10 +55,10 @@ module.exports = function init(site) {
       }
     }
 
-    if (orders_doc.address.lat == 0) {
+    if (orders_doc.address && orders_doc.address.lat == 0) {
       orders_doc.address.lat = 0.0
     }
-    if (orders_doc.address.long == 0) {
+    if (orders_doc.address && orders_doc.address.long == 0) {
       orders_doc.address.long = 0.0
     }
 
