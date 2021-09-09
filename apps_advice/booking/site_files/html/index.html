@@ -22,6 +22,7 @@
                   <p>التخصص</p>
 
                   <select
+                
                     name="specialize"
                     ng-model="booking.specialty"
                     ng-options="s.name_##session.lang## for s in specialtyList"
@@ -72,7 +73,7 @@
               <div class="col-sm-1">
                 <div class="text">
                   <br />
-                  <input type="submit" ng-click="getDoctorsList()" value="" />
+                  <input type="submit" ng-click="getDoctorsList()" value="" class="searchDoctorBtn"/>
                 </div>
               </div>
             </div>
@@ -140,7 +141,7 @@
                         </div>
                       </div>
 
-                      <a id="step4" class="steps-action" href="#">التالي</a>
+                      <a id="step4" class="steps-action" style="display: none;" href="#">التالي</a>
 
                       <br />
                       <br />
@@ -314,8 +315,8 @@
                           </h4>
                         </div>
                       </div>
-                      <a href="#">حجوزاتي</a>
-                      <a href="#">مواصلة التصفح</a>
+                      <a href="/profile#v-pills-booking">حجوزاتي</a>
+                      <a href="/">مواصلة التصفح</a>
                     </div>
                   </div>
                 </div>
@@ -328,17 +329,16 @@
           <div class="dr-result container">
             <div class="row">
               <div class="col dr-filter" style="margin-left: 15px">
-                <input type="search" id="filter-search" style="display: none" />
-                <label
-                  for="filter-search"
-                  style="
-                    height: 40px;
-                    width: 100%;
-                    background-color: white;
-                    margin-top: 20px;
-                  "
-                  >بحث ب</label
-                >
+                <div class="input-group" style="margin-top: 30px;">
+                  <div class="form-outline">
+                    
+                    
+                      <input type="search" id="form1" class="form-control" placeholder="بحث " />
+                     
+                    
+                  </div>
+                </div>
+               
 
                 <div class="accordion" id="accordionExample">
                   <div class="card">
@@ -647,5 +647,30 @@
     <script src="/x-js/all.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script x-import="booking/index.js"></script>
+    <script>
+      app.controller('nav', function ($scope, $http) {
+        $scope.busy = false;
+
+        $scope.logout = function () {
+          $scope.error = '';
+          $scope.busy = true;
+
+          $http.post('/api/user/logout').then(
+            function (response) {
+              if (response.data.done) {
+                window.location.href = '/';
+              } else {
+                $scope.error = response.data.error;
+                $scope.busy = false;
+              }
+            },
+            function (error) {
+              $scope.busy = false;
+              $scope.error = error;
+            },
+          );
+        };
+      });
+    </script>
   </body>
 </html>

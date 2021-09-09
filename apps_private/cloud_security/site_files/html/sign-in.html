@@ -17,12 +17,13 @@
         <div class="row">
           <div class="col-sm-12">
             <h1>تسجيل الدخول</h1>
+            
           </div>
         </div>
         <form>
           <div class="row">
             <div class="col-sm-12">
-              <label>  البريد الإلكتروني </label><br />
+              <label>  اسم المستخدم / البريد الإلكتروني </label><br />
               <input type="email" ng-model="user.email" />
             </div>
           </div>
@@ -39,7 +40,9 @@
           </div>
           <div class="row">
             <div class="col-sm-12 login-btn">
-              <a class="btn" ng-click="login()">دخول</a>
+              <p class="red" style="text-align: center; color: red ;
+              font-weight: 700;">{{error}}</p>
+              <a class="btn" ng-click="login()"ng-hide="busy">دخول</a>
             </div>
           </div>
         </form>

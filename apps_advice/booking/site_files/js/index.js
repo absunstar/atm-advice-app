@@ -1,4 +1,5 @@
 app.controller("booking", function ($scope, $http, $timeout) {
+ 
   $scope._search = {};
 
   $scope.booking = {
@@ -33,7 +34,7 @@ app.controller("booking", function ($scope, $http, $timeout) {
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          alert("done");
+        
         } else {
           $scope.error = response.data.error;
           if (response.data.error.like("*Must Enter Code*")) {
@@ -49,8 +50,8 @@ app.controller("booking", function ($scope, $http, $timeout) {
   $scope.getInsuranceCompanyList = function (where) {
     $scope.busy = true;
     $http({
-      method: "GET",
-      url: "/api/insuranceCompany",
+      method: 'GET',
+      url: '/api/insuranceCompany',
       data: {
         where: {
           active: true,
@@ -68,6 +69,11 @@ app.controller("booking", function ($scope, $http, $timeout) {
         $scope.busy = false;
         if (response.data.docs.length > 0) {
           $scope.insuranceCompanyList = response.data.docs;
+          $scope.insuranceCompanyList.forEach((g) => {
+            if (g.id == $scope.booking.patient.insuranceCompany.id) {
+              $scope.booking.patient.insuranceCompany = g;
+            }
+          });
         }
       },
       function (err) {
@@ -76,7 +82,6 @@ app.controller("booking", function ($scope, $http, $timeout) {
       }
     );
   };
-
   $scope.getspecialtyList = function (where) {
     $scope.busy = true;
     $scope.specialtyList = [];
@@ -239,9 +244,16 @@ app.controller("booking", function ($scope, $http, $timeout) {
       }
     );
   };
-
+  
   $scope.getspecialtyList();
   $scope.getGovesList();
   $scope.getCurrentPatient();
 $scope.getInsuranceCompanyList();
+
+
+document.querySelector(".searchDoctorBtn").click();
 });
+
+window.addEventListener('load' , ()=>{
+  document.querySelector(".searchDoctorBtn").click();
+})

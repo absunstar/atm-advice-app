@@ -34,7 +34,7 @@ body {
 }
 .header nav .account, .header2 nav .account {
   width: 350px;
-  height: 200px;
+  height: auto;
   position: relative;
   right: -150px;
   border-radius: 15px;
@@ -953,7 +953,11 @@ color: #ccc;
   padding: 20px;
 }
 .img-with-description img {
-  width: 90px;
+  width: 70px;
+  margin: 0px 0px 0px 20px;
+}
+.bg-white{
+  background-color: transparent !important;
 }
 
 
@@ -1108,7 +1112,7 @@ color: #ccc;
 .dr-filter .card {
   border: none;
 }
-.dr-filter .card .collapse {
+.dr-filter .card .collapse, .dr-filter .card .collapsing {
   background-color: #f4f5f8 !important;
 }
 .dr-filter .card-body label {
@@ -1440,11 +1444,26 @@ color: #ccc;
   font-weight: 700;
 }
 .account-profile .order-card-body span {
-  color: #616e8d;
+   color: #616e8d;
   font-size: 12px;
+}
+.account-profile .location-main-body .order-card-body .order-span{
+font-size: 25px;
+}
+.my-current-orders .finding-pharmacy{
+  font-size: 22px;
+  margin: 30px;
 }
 .account-profile .order-card-body .orders-details {
   width: 45%;
+}
+label{
+  color: #0071b7;
+  margin-top: 10px;
+  font-weight: 700;
+}
+select{
+  color: #0071b7;
 }
 .account-profile .order-card-body .orders-action a {
   padding: 4px 30px;
@@ -1918,4 +1937,7 @@ padding: 0px 20px;
  color: white;
 
 
+}
+.modal-body input{
+  padding: 10px;
 }

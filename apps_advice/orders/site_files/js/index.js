@@ -1,58 +1,58 @@
-app.controller("main", function ($scope, $http, $timeout) {
+app.controller('main', function ($scope, $http, $timeout) {
   $scope._search = {};
 
   $scope.order = {
-    patient:{},
+    patient: {},
     address: {},
     image: [
       {
-        name: "/images/Group14203(2).svg ",
+        name: '/images/upload.svg ',
       },
     ],
     cardImage: [
       {
-        name: "/images/id-card.svg ",
+        name: '/images/id-card.svg ',
       },
     ],
   };
   $scope.prescription = {};
 
   $scope.displayAddOrders = function () {
-    $scope.error = "";
+    $scope.error = '';
     $scope.orders = {
-      image_url: "/images/orders.png",
-      card_url: "/images/cardImage.png",
+      image_url: '/images/orders.png',
+      card_url: '/images/cardImage.png',
       active: true,
       hasInsurance: false,
     };
 
-    site.showModal("#ordersAddModal");
+    site.showModal('#ordersAddModal');
   };
 
   $scope.confirmOrder = function () {
-    $scope.error = "";
+    $scope.error = '';
     /* const v = site.validated("#ordersAddModal");
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
     }*/
     $scope.order.user = {
-      _id: '##user.ref_info._id##',
+      _id: JSON.parse('##user.ref_info._id##'),
     };
     $scope.busy = true;
     $http({
-      method: "POST",
-      url: "/api/orders/add",
+      method: 'POST',
+      url: '/api/orders/add',
       data: $scope.order,
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          alert("done");
+         
         } else {
           $scope.error = response.data.error;
-          if (response.data.error.like("*Must Enter Code*")) {
-            $scope.error = "##word.must_enter_code##";
+          if (response.data.error.like('*Must Enter Code*')) {
+            $scope.error = '##word.must_enter_code##';
           }
         }
       },
@@ -63,32 +63,32 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
 
   $scope.displayUpdateOrders = function (orders) {
-    $scope.error = "";
+    $scope.error = '';
     $scope.viewOrders(orders);
     $scope.orders = {};
-    site.showModal("#ordersUpdateModal");
+    site.showModal('#ordersUpdateModal');
   };
 
   $scope.updateOrders = function () {
-    $scope.error = "";
-    const v = site.validated("#ordersUpdateModal");
+    $scope.error = '';
+    const v = site.validated('#ordersUpdateModal');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
     }
     $scope.busy = true;
     $http({
-      method: "POST",
-      url: "/api/orders/update1",
+      method: 'POST',
+      url: '/api/orders/update1',
       data: $scope.orders,
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal("#ordersUpdateModal");
+          site.hideModal('#ordersUpdateModal');
           $scope.getOrdersList();
         } else {
-          $scope.error = "Please Login First";
+          $scope.error = 'Please Login First';
         }
       },
       function (err) {
@@ -98,18 +98,18 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
 
   $scope.displayDetailsOrders = function (orders) {
-    $scope.error = "";
+    $scope.error = '';
     $scope.viewOrders(orders);
     $scope.orders = {};
-    site.showModal("#ordersViewModal");
+    site.showModal('#ordersViewModal');
   };
 
   $scope.viewOrders = function (orders) {
     $scope.busy = true;
-    $scope.error = "";
+    $scope.error = '';
     $http({
-      method: "POST",
-      url: "/api/orders/view",
+      method: 'POST',
+      url: '/api/orders/view',
       data: {
         id: orders.id,
       },
@@ -129,19 +129,19 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
 
   $scope.displayDeleteOrders = function (orders) {
-    $scope.error = "";
+    $scope.error = '';
     $scope.viewOrders(orders);
     $scope.orders = {};
-    site.showModal("#ordersDeleteModal");
+    site.showModal('#ordersDeleteModal');
   };
 
   $scope.deleteOrders = function () {
     $scope.busy = true;
-    $scope.error = "";
+    $scope.error = '';
 
     $http({
-      method: "POST",
-      url: "/api/orders/delete1",
+      method: 'POST',
+      url: '/api/orders/delete1',
       data: {
         id: $scope.orders.id,
       },
@@ -149,7 +149,7 @@ app.controller("main", function ($scope, $http, $timeout) {
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-          site.hideModal("#ordersDeleteModal");
+          site.hideModal('#ordersDeleteModal');
           $scope.getOrdersList();
         } else {
           $scope.error = response.data.error;
@@ -165,8 +165,8 @@ app.controller("main", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: "POST",
-      url: "/api/orders/search",
+      method: 'POST',
+      url: '/api/orders/search',
       data: where,
     }).then(
       function (response) {
@@ -174,7 +174,7 @@ app.controller("main", function ($scope, $http, $timeout) {
         if (response.data.docs.length > 0) {
           $scope.list = response.data.docs;
           $scope.count = response.data.totalDocs;
-          site.hideModal("#ordersSearchModal");
+          site.hideModal('#ordersSearchModal');
           $scope.search = {};
         }
       },
@@ -188,13 +188,14 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope.getGovesList = function (where) {
     $scope.busy = true;
     $http({
-      method: "GET",
-      url: "/api/gov",
+      method: 'GET',
+      url: '/api/gov',
       data: {
         where: {
           active: true,
         },
         select: {
+          _id: 1,
           id: 1,
           name_ar: 1,
           name_en: 1,
@@ -205,6 +206,13 @@ app.controller("main", function ($scope, $http, $timeout) {
         $scope.busy = false;
         if (response.data.docs.length > 0) {
           $scope.govesList = response.data.docs;
+
+          $scope.govesList.forEach((g) => {
+            if (g.id == $scope.order.address.gov.id) {
+              $scope.order.address.gov = g;
+              $scope.getCitiesList();
+            }
+          });
         }
       },
       function (err) {
@@ -217,8 +225,8 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope.getUsersList = function (where) {
     $scope.busy = true;
     $http({
-      method: "GET",
-      url: "/api/patients",
+      method: 'GET',
+      url: '/api/patients',
       data: {
         where: {
           active: true,
@@ -244,14 +252,19 @@ app.controller("main", function ($scope, $http, $timeout) {
     }
     $scope.busy = true;
     $http({
-      method: "POST",
-      url: "/api/city/getCityByGov/" + $scope.order.address.gov._id,
+      method: 'POST',
+      url: '/api/city/getCityByGov/' + $scope.order.address.gov._id,
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
           $scope.citiesList = response.data.data;
+          $scope.citiesList.forEach((g) => {
+            if (g.id == $scope.order.address.city.id) {
+              $scope.order.address.city = g;
+            }
+          });
         }
       },
       function (err) {
@@ -263,8 +276,8 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope.getInsuranceCompanyList = function (where) {
     $scope.busy = true;
     $http({
-      method: "GET",
-      url: "/api/insuranceCompany",
+      method: 'GET',
+      url: '/api/insuranceCompany',
       data: {
         where: {
           active: true,
@@ -282,6 +295,11 @@ app.controller("main", function ($scope, $http, $timeout) {
         $scope.busy = false;
         if (response.data.docs.length > 0) {
           $scope.insuranceCompanyList = response.data.docs;
+          $scope.insuranceCompanyList.forEach((g) => {
+            if (g.id == $scope.order.patient.insuranceCompany.id) {
+              $scope.order.insuranceCompany = g;
+            }
+          });
         }
       },
       function (err) {
@@ -292,18 +310,20 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
   $scope.getCurrentPatient = function () {
     let where = {};
-  
+
     $scope.busy = true;
     $scope.cityList = [];
     $http({
-      method: "POST",
-      url: "api/patients/getProfile",
+      method: 'POST',
+      url: 'api/patients/getProfile',
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-         $scope.order.patient = response.data.data;
+          $scope.order.patient = response.data.data;
 
+          $scope.getFirstLocation();
+          $scope.getInsuranceCompanyList();
         }
         console.log($scope.cityList);
       },
@@ -319,20 +339,21 @@ app.controller("main", function ($scope, $http, $timeout) {
     let str = JSON.parse('##user.ref_info._id##');
     $scope.busy = true;
     $http({
-      method: "POST",
-      url: "api/patients/getAddressesByPatient",
-      data : {
-        user:{
-          _id : str
+      method: 'POST',
+      url: 'api/patients/getAddressesByPatient',
+      data: {
+        user: {
+          _id: str,
         },
       },
     }).then(
       function (response) {
         $scope.busy = false;
-      console.log("rrrrrrrrrrr" , response.data.docs);
-         $scope.order.address = response.data.docs[0];
+        console.log('rrrrrrrrrrr', response.data.docs);
+        $scope.order.address = response.data.docs[0];
+        $scope.getGovesList();
+        $scope.getCitiesList();
 
-        
         console.log($scope.cityList);
       },
       function (err) {
@@ -342,11 +363,5 @@ app.controller("main", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.getOrdersList();
-  $scope.getGovesList();
-  $scope.getCitiesList();
-  $scope.getUsersList();
-$scope.getCurrentPatient();
-  $scope.getInsuranceCompanyList();
-  $scope.getFirstLocation();
+  $scope.getCurrentPatient();
 });

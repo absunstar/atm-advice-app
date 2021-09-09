@@ -84,7 +84,7 @@
                         <i-image id="add-img" ng-model="im.name" ></i-image>
                         <textarea ng-model="im.description"  placeholder="...اكتب تفاصيل اذا تريد"></textarea>
                        
-                        <a ng-click="order.image.push({name : '/images/Group14203(2).svg'})" style="margin: auto 5px; color: #b1cee0;font-size: 20px;"> <i class="fas fa-plus-circle"></i> </a>
+                        <a ng-click="order.image.push({name : '/images/upload.svg'})" style="margin: auto 5px; color: #b1cee0;font-size: 20px;"> <i class="fas fa-plus-circle"></i> </a>
 
                       </div>
                     </div>
@@ -251,9 +251,9 @@
                     بالسعر مع العلم انه يمكنك الغاء الطلب خلاص خمس دقائق من قبول
                     الصيدلية
                   </p>
-                  <a href="#" style="background-color: #0071b7">طلباتي</a>
+                  <a href="/profile#v-pills-orders" style="background-color: #0071b7">طلباتي</a>
                   <a
-                    href="#"
+                    href="/"
                     style="
                       border: 1px solid #0071b7;
                       color: #0071b7;
@@ -363,6 +363,31 @@
         level5.classList.add("active");
         level6.classList.add("active");
 
+      });
+    </script>
+     <script>
+      app.controller('nav', function ($scope, $http) {
+        $scope.busy = false;
+
+        $scope.logout = function () {
+          $scope.error = '';
+          $scope.busy = true;
+
+          $http.post('/api/user/logout').then(
+            function (response) {
+              if (response.data.done) {
+                window.location.href = '/';
+              } else {
+                $scope.error = response.data.error;
+                $scope.busy = false;
+              }
+            },
+            function (error) {
+              $scope.busy = false;
+              $scope.error = error;
+            },
+          );
+        };
       });
     </script>
 

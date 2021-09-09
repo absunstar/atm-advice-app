@@ -10,7 +10,7 @@
     <title>Advice | Home Page</title>
   </head>
 
-  <body class="##session.lang##" ng-controller="main">
+  <body class="##session.lang##">
     <section class="header">
       <nav class="sitebar" x-import="sitebar/nav.html"></nav>
       <div class="container ser-btn">
@@ -301,7 +301,7 @@
     <script src="/x-js/all.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script>
-      app.controller('main', function ($scope, $http) {
+      app.controller('nav', function ($scope, $http) {
         $scope.busy = false;
 
         $scope.logout = function () {
