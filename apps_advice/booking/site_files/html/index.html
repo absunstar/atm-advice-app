@@ -264,8 +264,8 @@
                               >
                                 <h4>{{booking.patient.fullName}}</h4>
                                 <h4>{{booking.patient.phone}}</h4>
-                                <h4 ng-show="booking.patient.hasInsurance==true">يوجد لديه تأمين صحي</h4>
-                                <h4 ng-show="booking.patient.hasInsurance">لا يوجد لديه تأمين صحي</h4>
+                                <h4 ng-show="booking.patient.hasInsurance">يوجد لديه تأمين صحي</h4>
+                                <h4 ng-show="!booking.patient.hasInsurance">لا يوجد لديه تأمين صحي</h4>
                               </div>
                             </div>
                           </div>
