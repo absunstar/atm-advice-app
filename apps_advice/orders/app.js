@@ -46,6 +46,16 @@ module.exports = function init(site) {
     // }
 
     let orders_doc = req.body;
+    if (orders_doc.patient) {
+      orders_doc.fullName = orders_doc.patient.fullName
+      orders_doc.phone = orders_doc.patient.phone
+      orders_doc.hasInsurance = orders_doc.patient.hasInsurance
+      orders_doc.contractingCompany = orders_doc.patient.contractingCompany
+      orders_doc.insuranceCompany = orders_doc.patient.insuranceCompany
+      orders_doc.insuranceNumber = orders_doc.patient.insuranceNumber
+
+     
+    }
     if (orders_doc.user && orders_doc.user._id.length > 24) {
       let str = orders_doc.user._id;
       str = str.substr(1);
