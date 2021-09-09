@@ -177,11 +177,13 @@
                             <input
                               type="radio"
                               name="insurance"
+                              value= "false"
                               checked="checked"
                             />لا
                             <input
                               type="radio"
                               name="insurance"
+                              value="true"
                               ng-model="booking.patient.hasInsurance"
                             />نعم
 
@@ -260,9 +262,10 @@
                                   border-radius: 8px;
                                 "
                               >
-                                <h4>هاجر الحديدي توفيق</h4>
-                                <h4>01245784457</h4>
-                                <h4>يوجد لديه تأمين صحي</h4>
+                                <h4>{{booking.patient.fullName}}</h4>
+                                <h4>{{booking.patient.phone}}</h4>
+                                <h4 ng-show="booking.patient.hasInsurance">يوجد لديه تأمين صحي</h4>
+                                <h4 ng-show="!booking.patient.hasInsurance">لا يوجد لديه تأمين صحي</h4>
                               </div>
                             </div>
                           </div>
@@ -270,17 +273,9 @@
                           <br />
 
                           <h4>ميعاد الحجز</h4>
-                          <span>الثلاثاء 31 مايو 2021 08:00 مساءا</span
+                          <span>{{booking.date}} - {{booking.time}}</span
                           ><br /><br />
-                          <input type="radio" name="privacy" /><label
-                            style="display: contents"
-                            >أؤكد أن عمري يزيد عن 18 عامًا وأوافق على سياسة
-                            الخصوصية والشروط والأحكام</label
-                          ><br />
-                          <input type="radio" name="privacy" /><label
-                            >أرغب في تلقي النشرة الإخبارية والرسائل
-                            الإلكترونية</label
-                          ><br />
+                          
                           <a
                             href="#"
                             id="step6"
@@ -542,13 +537,13 @@
                     <div class="dr-details">
                       <span
                         ><img src="/images/Iconmaterial-location-on.svg" />دكتور
-                        باطنة متخصص في سكر ، جهاز هضمي ومناظير</span
+                        {{doctor.department.name}}</span
                       >
                     </div>
                     <div class="dr-details">
                       <span
                         ><img src="/images/Iconmaterial-location-on.svg" />
-                        {{address}}
+                        {{doctor.address}}
                       </span>
                     </div>
                     <div class="dr-details">

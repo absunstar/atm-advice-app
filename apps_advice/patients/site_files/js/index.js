@@ -8,8 +8,8 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope.CurrentOrderList = {};
   $scope.canceledOrderList = {};
   $scope.previousOrderList = {};
-  $scope.currentBookingList = {};
-  $scope.doneBookingList = {};
+  $scope.currentBookingList = [];
+  $scope.doneBookingList = [];
   $scope.addresses = {};
   $scope.govesList = {};
   $scope.citiesList ={};
@@ -80,6 +80,48 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
  
 
+  $scope.updatePatientsUser = function (where) {
+    if (!$scope.patients.profile) {
+      return false;
+    }
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/patients/update/" + $scope.patients.profile._id,
+      data: $scope.patients,
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+
+  $scope.changePassword = function (data) {
+    if (!$scope.patients.profile) {
+      return false;
+    }
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/patients/changePassword",
+      data: data,
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
 
 
   $scope.myCurrentOrders = function (order) {
@@ -115,7 +157,7 @@ app.controller("main", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     
-    let str = '##user.ref_info._id##';
+    let str = JSON.parse('##user.ref_info._id##');
     let xx = {};
     xx.user = {_id : str};
     
@@ -146,9 +188,10 @@ app.controller("main", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     
-    let str = '##user.ref_info._id##';
+    let str = JSON.parse('##user.ref_info._id##');
     let xx = {};
     xx.user = {_id : str};
+    console.log(xx);
     $http({
       method: "POST",
       url: "/api/orders/getShippedOrdersByUser",
@@ -158,6 +201,7 @@ app.controller("main", function ($scope, $http, $timeout) {
         console.log(response.data);
         $scope.busy = false;
         if (response.data.data && response.data.data.docs.length > 0) {
+          console.log("response.data.data.docs" , response.data.data.docs);
           $scope.previousOrderList =response.data.data.docs;
          
           $scope.count = response.data.totalDocs;
@@ -177,6 +221,7 @@ app.controller("main", function ($scope, $http, $timeout) {
     console.log(order);
      $scope.busy = true;
      $scope.list = [];
+
      $http({
        method: "POST",
        url: "/api/orders/updateToStatusCanceled",
@@ -201,22 +246,24 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
    $scope.reOrder = function (order) {
-    console.log(order);
+    console.log("11111111111111" , order);
      $scope.busy = true;
      $scope.list = [];
      $http({
        method: "POST",
        url: "/api/orders/reOrderPreviousOrder",
-       data:order
+       data:{
+         _id : order._id,
+         user:{
+           _id : order.user._id
+         },
+         status : order.status.statusId
+       }
      }).then(
        function (response) {
          $scope.busy = false;
          location.reload();
  
-         if (response.data.data && response.data.data.docs.length > 0) {
-           
-           
-         }
        },
        function (err) {
          $scope.busy = false;
@@ -233,9 +280,8 @@ app.controller("main", function ($scope, $http, $timeout) {
    $scope.myCurrentBooking = function (order) {
     $scope.busy = true;
     $scope.list = [];
-    let str = '##user.ref_info._id##';
-    str = str.substr(1);
-    str = str.substr(0, str.length - 1);
+    let str = JSON.parse('##user.ref_info._id##');
+    
     let patient={};
     patient._id = str;
     console.log(patient._id);
@@ -252,11 +298,9 @@ app.controller("main", function ($scope, $http, $timeout) {
       }
     }).then(
       function (response) {
-        console.log(response.data.data);
         $scope.busy = false;
-        if (response.data.data && response.data.docs.length > 0) {
+        if (response.data && response.data.docs.length > 0) {
           $scope.currentBookingList =response.data.docs;
-         
           $scope.count = response.data.totalDocs;
          
           $scope.search = {};
@@ -270,12 +314,41 @@ app.controller("main", function ($scope, $http, $timeout) {
     )
   };
 
-  $scope.myDoneBooking = function (order) {
+
+  $scope.cancelBooking = function (booking) {
     $scope.busy = true;
     $scope.list = [];
-    let str = '##user.ref_info._id##';
-    str = str.substr(1);
-    str = str.substr(0, str.length - 1);
+    booking.bookingId = booking._id;
+    console.log("11111111111111111111111" , booking);
+    $http({
+      method: "POST",
+      url: "/api/booking/updateToStatusCanceled",
+      data: {
+        bookingId:booking._id,
+       
+        doctor:{
+          _id : booking.doctor._id
+        },
+
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+       location.reload();
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
+
+  $scope.myDoneBooking = function () {
+    $scope.busy = true;
+    $scope.list = [];
+    let str = JSON.parse('##user.ref_info._id##');
     let patient={};
     patient._id = str;
     $http({
@@ -291,10 +364,10 @@ app.controller("main", function ($scope, $http, $timeout) {
       }
     }).then(
       function (response) {
-        console.log(response.data.data);
+        console.log(response.data);
         $scope.busy = false;
-        if (response.data.data && response.data.docs.length > 0) {
-          $scope.currentBookingList =response.data.docs;
+        if (response.data && response.data.docs.length > 0) {
+          $scope.doneBookingList =response.data.docs;
          
           $scope.count = response.data.totalDocs;
          
@@ -309,6 +382,11 @@ app.controller("main", function ($scope, $http, $timeout) {
     )
   };
 
+
+  $scope.getAddressData = function (data) {
+    $scope.addresses = data;
+    
+  };
  
 
   $scope.myLocation = function () {
@@ -329,7 +407,6 @@ app.controller("main", function ($scope, $http, $timeout) {
      }).then(
        function (response) {
          $scope.busy = false;
-         console.log("my location" , response.data.docs);
  $scope.locationsList = response.data.docs
        },
        function (err) {
@@ -340,7 +417,28 @@ app.controller("main", function ($scope, $http, $timeout) {
      )
    };
 
-   $scope.addLocation = function () {
+   $scope.editLocation = function (data) {
+    
+    
+    $http({
+      method: "POST",
+      url: "/api/address/update/" + data._id,
+      data: $scope.addresses
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        location.reload();
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
+
+  $scope.addLocation = function () {
     $scope.busy = true;
     let str = '##user.ref_info._id##';
     str = str.substr(1);
@@ -374,7 +472,7 @@ app.controller("main", function ($scope, $http, $timeout) {
     }).then(
       function (response) {
         $scope.busy = false;
-location.reload();
+        location.reload();
       },
       function (err) {
         $scope.busy = false;
@@ -383,6 +481,8 @@ location.reload();
 
     )
   };
+   
+
    
   $scope.rechargeBalance = function (balance) {
     let where = {};
@@ -753,7 +853,7 @@ $scope.success = "varification code success"
   $scope.myPreviousOrders();
   $scope.myCurrentBooking();
   $scope.myLocation();
-  $scope.addLocation();
+
   
 
 });
