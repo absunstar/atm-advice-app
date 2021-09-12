@@ -124,6 +124,9 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
 
 
+  
+
+
   $scope.myCurrentOrders = function (order) {
     $scope.busy = true;
     $scope.list = [];
@@ -423,10 +426,11 @@ app.controller("main", function ($scope, $http, $timeout) {
     $http({
       method: "POST",
       url: "/api/address/update/" + data._id,
-      data: $scope.addresses
+      data: data
     }).then(
       function (response) {
         $scope.busy = false;
+        console.log("11111111111" , data.docs);
         location.reload();
       },
       function (err) {
