@@ -24,7 +24,7 @@
                   <select
                 
                     name="specialize"
-                    ng-model="booking.specialty"
+                    ng-model="booking.filter.department"
                     ng-options="s.name_##session.lang## for s in specialtyList"
                   >
                     <option selected disabled>اخترالتخصص</option>
@@ -38,7 +38,7 @@
                   <select
                     ng-change="getCityList(s)"
                     name="specialize"
-                    ng-model="booking.gov"
+                    ng-model="booking.filter.gov"
                     ng-options="s.name_##session.lang## for s in govesList"
                   >
                     <option selected disabled>أختر المحافظة</option>
@@ -51,7 +51,7 @@
 
                   <select
                     name="specialize"
-                    ng-model="booking.city"
+                    ng-model="booking.filter.city"
                     ng-options="s.name_##session.lang## for s in cityList"
                   >
                     <option selected disabled>أختر المنطقة</option>
@@ -65,7 +65,7 @@
                   <input
                     type="text"
                     placeholder="ادخل اسم الطبيب او المستشفى"
-                    ng.model="doctor.name"
+                    ng-model="booking.filter.name"
                   />
                 </div>
               </div>
@@ -74,6 +74,7 @@
                 <div class="text">
                   <br />
                   <input type="submit" ng-click="getDoctorsList()" value="" class="searchDoctorBtn"/>
+                  <input type="submit" ng-click="doctorFilter(booking.filter)" value="" class="searchDoctorBtn"/>
                 </div>
               </div>
             </div>
@@ -401,9 +402,9 @@
                       data-parent="#accordionExample"
                     >
                       <div class="card-body">
-                        <input type="radio" name="gender" />&nbsp;
+                        <input type="radio" ng-model="booking.filter.gender" name="gender" value="male" />&nbsp;
                         <label>طبيب</label><br />
-                        <input type="radio" name="gender" />&nbsp;<label
+                        <input type="radio" name="gender" ng-model="booking.filter.gender" value="female" />&nbsp;<label
                           >طبيبة</label
                         ><br />
                       </div>

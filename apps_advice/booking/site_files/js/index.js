@@ -3,6 +3,7 @@ app.controller("booking", function ($scope, $http, $timeout) {
   $scope._search = {};
 
   $scope.booking = {
+    filter:{},
     patient:{},
     cardImage:[
       {
@@ -47,6 +48,51 @@ app.controller("booking", function ($scope, $http, $timeout) {
       }
     );
   };
+
+
+
+
+
+  $scope.doctorFilter = function (data) {
+    $scope.error = "";
+  
+    let str = '##user.ref_info._id##';
+      str = str.substr(1);
+      str = str.substr(0, str.length - 1);
+    $scope.booking.user = {
+      _id: str,
+    };
+   console.log("111111111111111" , data);
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/doctors/search",
+      data: data,
+    }).then(
+      function (response) {
+        console.log("1111111111111" , response.data.data);
+        console.log(response.data.data.docs);
+        if (response.data.data && response.data.data.docs && response.data.data.docs.length > 0) {
+          
+          $scope.DoctorsList = response.data.data.docs || [];
+        }
+        if (response.data.data && response.data.data.docs && response.data.data.docs.length == 0) {
+          
+          $scope.DoctorsList =  [];
+        }
+        $scope.busy = false;
+       
+      },
+      function (err) {
+        console.log(err);
+      }
+    );
+  };
+
+
+
+
+
   $scope.getInsuranceCompanyList = function (where) {
     $scope.busy = true;
     $http({
@@ -225,7 +271,7 @@ app.controller("booking", function ($scope, $http, $timeout) {
     let where = {};
   
     $scope.busy = true;
-    $scope.cityList = [];
+    
     $http({
       method: "POST",
       url: "api/patients/getProfile",
@@ -236,7 +282,7 @@ app.controller("booking", function ($scope, $http, $timeout) {
          $scope.booking.patient = response.data.data;
 
         }
-        console.log($scope.cityList);
+        
       },
       function (err) {
         $scope.busy = false;
@@ -249,7 +295,7 @@ app.controller("booking", function ($scope, $http, $timeout) {
   $scope.getGovesList();
   $scope.getCurrentPatient();
 $scope.getInsuranceCompanyList();
-
+$scope.getCityList();
 
 document.querySelector(".searchDoctorBtn").click();
 });

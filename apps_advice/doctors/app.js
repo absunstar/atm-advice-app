@@ -1203,7 +1203,6 @@ module.exports = function init(site) {
     let where = {
       ...req.body,
     };
-
     if (where['gender'] == undefined) {
       delete where['gender'];
     }
@@ -1430,7 +1429,7 @@ module.exports = function init(site) {
             totalPages: Math.ceil(docs.length / 10),
           };
         } else {
-          response.docs = []
+          response.data = {docs}
           response.errorCode = site.var('failed')
           response.message = site.word('findFailed')[req.headers.language]
           response.done = false;
