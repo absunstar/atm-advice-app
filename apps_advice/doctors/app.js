@@ -182,7 +182,7 @@ module.exports = function init(site) {
                 if (doc && doc.isActive == false) {
                   delete response.accessToken;
                   (response.done = false), (response.errorCode = site.var('failed'));
-                  response.message = site.word('activateDoctorFirst')[req.headers.language];
+                  response.error = site.word('activateDoctorFirst')[req.headers.language];
                   res.json(response);
                   return;
                 } else {
@@ -1297,6 +1297,14 @@ module.exports = function init(site) {
 
     if (where['city'] && where['city']._id == '') {
       delete where['city'];
+    }
+    if (where['gov'] && where['gov']._id != '') {
+      where['gov._id'] = where['gov']._id;
+      delete where['gov'];
+    }
+
+    if (where['gov'] && where['gov']._id == '') {
+      delete where['gov'];
     }
     where.isActive = true;
 
