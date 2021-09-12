@@ -585,7 +585,44 @@
 
                           <div class="orders-action">
                             <div><span> {{b.createdAt | date : 'dd- MM -yyyy , hh:mm a'}}</span><br /></div>
-                            <a href="#">تقييم</a>
+                            <a href="#star-rating" data-toggle="modal">ارسال</a>
+                          </div>
+                          <div class="modal fade" id="star-rating" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog star-rating modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                
+                                </div>
+                                <div style="display: flex; margin: auto;">
+                                  <h5>ما هو تقييمك للزيارة ؟</h5>
+                                </div>
+                                <div class="modal-body">
+                                 <input type="radio" name="rate" id="rate-1" value="1">
+                                 <label for="rate-1" class="fas fa-star"></label>
+                                 <input type="radio" name="rate" id="rate-2" value="2">
+                                 <label for="rate-2" class="fas fa-star"></label>
+                                 <input type="radio" name="rate" id="rate-3" value="3">
+                                 <label for="rate-3" class="fas fa-star"></label>
+                                 <input type="radio" name="rate" id="rate-4" value="4">
+                                 <label for="rate-4" class="fas fa-star"></label>
+                                 <input type="radio" name="rate" id="rate-5" value="5">
+                                 <label for="rate-5" class="fas fa-star"></label>
+                                </div>
+                                <div class="text">
+                                  
+                                  <span>اكتب رسالة اذا تريد</span>
+                                  <textarea name="" id="" cols="30" placeholder="... اكتب رسالتك هنا">
+                                    
+                                  </textarea>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" ng-click="" style="font-size: 14px; margin-bottom: 40px;">ارسال</button>
+                                </div>
+                              </div>
+                            </div>
                           </div>
 
                           <div class="delete-orders">
