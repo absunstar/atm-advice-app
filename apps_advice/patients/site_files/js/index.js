@@ -388,7 +388,6 @@ app.controller("main", function ($scope, $http, $timeout) {
 
   $scope.getAddressData = function (data) {
     $scope.addresses = data;
-    
   };
  
 
@@ -845,6 +844,12 @@ $scope.success = "varification code success"
     site.hideModal('#patientsSearchModal');
     $scope.search = {};
   };
+setInterval(() => {
+  $scope.myCurrentOrders();
+  $scope.myCanceledOrders();
+  $scope.myPreviousOrders();
+}, 10000);
+  
 
   $scope.getPatientsList();
   $scope.getGenderList();
