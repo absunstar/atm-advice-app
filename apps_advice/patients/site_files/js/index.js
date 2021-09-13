@@ -5,6 +5,7 @@ app.controller("main", function ($scope, $http, $timeout) {
 
     profile:{}
   };
+  $scope.editAddresses = {};
   $scope.CurrentOrderList = {};
   $scope.canceledOrderList = {};
   $scope.previousOrderList = {};
@@ -387,7 +388,7 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.getAddressData = function (data) {
-    $scope.addresses = data;
+    $scope.editAddresses = data;
   };
  
 

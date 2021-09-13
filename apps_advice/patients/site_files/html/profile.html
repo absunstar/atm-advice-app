@@ -676,7 +676,7 @@
                         <div class="row">
                           <div class="col-sm-12">
                             <label>العنوان</label><br />
-                            <input ng-model="addresses.addressLocation" type="text" />
+                            <input ng-model="editAddresses.addressLocation" type="text" />
                           </div>
                         </div>
 
@@ -684,14 +684,14 @@
                           <div class="col-sm-6">
                             <label>المحافظة</label>
                             <br />
-                            <select ng-change="getCitiesList()" ng-model="addresses.gov" ng-options="s.name_##session.lang## for s in govesList">
+                            <select ng-change="getCitiesList()" ng-model="editAddresses.gov" ng-options="s.name_##session.lang## for s in govesList">
                               <option selected disabled>اختر اسم المحافظة</option>
                             </select>
                           </div>
                           <div class="col-sm-6">
                             <label> المدينة</label>
                             <br />
-                            <select ng-model="addresses.city" ng-options="s.name_##session.lang## for s in citiesList">
+                            <select ng-model="editAddresses.city" ng-options="s.name_##session.lang## for s in citiesList">
                               <option selected disabled>اختر اسم المدينة</option>
                             </select>
                           </div>
@@ -700,35 +700,35 @@
                         <div class="row">
                           <div class="col-sm-6">
                             <label>المنطقة أو الحي</label><br />
-                            <input ng-model="addresses.district" type="text" />
+                            <input ng-model="editAddresses.district" type="text" />
                           </div>
                           <div class="col-sm-6">
                             <label>الشارع</label><br />
-                            <input ng-model="addresses.streetName" type="text" />
+                            <input ng-model="editAddresses.streetName" type="text" />
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-sm-2">
-                            <label>رقم المبني</label><br />
-                            <input ng-model="addresses.buildingNumber" type="text" />
+                            <label> المبني</label><br />
+                            <input ng-model="editAddresses.buildingNumber" type="text" />
                           </div>
                           <div class="col-sm-2">
                             <label>الدور</label><br />
-                            <input ng-model="addresses.role" type="text" />
+                            <input ng-model="editAddresses.role" type="text" />
                           </div>
                           <div class="col-sm-2">
                             <label>الشقة</label><br />
-                            <input ng-model="addresses.apartmentNumber" type="text" />
+                            <input ng-model="editAddresses.apartmentNumber" type="text" />
                           </div>
                           <div class="col-sm-6">
                             <label> أقرب مكان مميز</label><br />
-                            <input ng-model="addresses.specialMark" type="text" />
+                            <input ng-model="editAddresses.specialMark" type="text" />
                           </div>
                         </div>
                       </div>
 
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" aria-label="Close" data-dismiss="modal" ng-click="editLocation(addresses)">تعديل</button>
+                        <button type="button" class="btn btn-primary" aria-label="Close" data-dismiss="modal" ng-click="editLocation(editAddresses)">تعديل</button>
                       </div>
                     </div>
                   </div>
@@ -783,7 +783,7 @@
                         </div>
                         <div class="row">
                           <div class="col-sm-2">
-                            <label>رقم المبني</label><br />
+                            <label> المبني</label><br />
                             <input ng-model="addresses.buildingNumber" type="text" />
                           </div>
                           <div class="col-sm-2">
