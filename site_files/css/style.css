@@ -1356,7 +1356,9 @@ display: none;
   margin: auto;
 }
 .star-rating textarea::placeholder{
-  color: black;
+  color: #D5DEE3;
+  padding: 5px;
+  font-size: 13px;
 }
 .star-rating .text span{
   color: #475A76;
