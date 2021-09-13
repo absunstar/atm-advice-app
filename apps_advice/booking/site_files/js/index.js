@@ -65,13 +65,7 @@ app.controller("booking", function ($scope, $http, $timeout) {
        
         if (response.data.data && response.data.data.docs && response.data.data.docs.length > 0) {
           
-          $scope.DoctorsList =  [];
-          for (const iterator of response.data.data.docs) {
-           let xx =  parseInt(iterator.rating, 10);
-           iterator.rating = xx;
-            $scope.DoctorsList.push(iterator);
-          }
-
+          $scope.DoctorsList = response.data.data.docs || [];
         }
         if (response.data.data && response.data.data.docs && response.data.data.docs.length == 0) {
           
@@ -217,21 +211,7 @@ app.controller("booking", function ($scope, $http, $timeout) {
       function (response) {
         $scope.busy = false;
 
-        if (response.data.data && response.data.data.docs && response.data.data.docs.length > 0) {
-          
-          $scope.DoctorsList =  [];
-          for (const iterator of response.data.data.docs) {
-           let xx =  parseInt(iterator.rating, 10);
-           iterator.rating = xx;
-            $scope.DoctorsList.push(iterator);
-          }
-
-        }
-        if (response.data.data && response.data.data.docs && response.data.data.docs.length == 0) {
-          
-          $scope.DoctorsList =  [];
-        }
-        
+        $scope.DoctorsList = response.data.data.docs || [];
       },
       function (err) {
         $scope.busy = false;
