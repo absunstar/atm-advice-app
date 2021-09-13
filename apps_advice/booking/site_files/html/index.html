@@ -530,16 +530,18 @@
                       style="margin: 0px 15px"
                     /><br /> -->
                     <div class="doctor-rating">
-                      <input type="radio" name="rate" id="rate-1" value="1">
-                      <label for="rate-1" class="fas fa-star"></label>
-                      <input type="radio" name="rate" id="rate-2" value="2">
-                      <label for="rate-2" class="fas fa-star"></label>
-                      <input type="radio" name="rate" id="rate-3" value="3">
-                      <label for="rate-3" class="fas fa-star"></label>
-                      <input type="radio" name="rate" id="rate-4" value="4">
-                      <label for="rate-4" class="fas fa-star"></label>
-                      <input type="radio" name="rate" id="rate-5" value="5">
-                      <label for="rate-5" class="fas fa-star"></label>
+                      <input type="radio" name="rate"  id="rate-1" value=1>
+                      <label for="rate-1" ng-show="doctor.rating==1" class="fas fa-star"></label>
+                      <input type="radio" name="rate" id="rate-2"  value=2>
+                      <label for="rate-2" ng-show="doctor.rating==2" class="fas fa-star"></label>
+                      <input type="radio" name="rate" id="rate-3"  value=3>
+                      <label for="rate-3" ng-show="doctor.rating==3" class="fas fa-star"></label>
+                      <input type="radio" name="rate" id="rate-4"  value="4">
+                      <label for="rate-4" ng-show="doctor.rating==4" class="fas fa-star"></label>
+                      <input type="radio" name="rate" id="rate-5"  value="5">
+                      <label for="rate-5" ng-show="doctor.rating==5" class="fas fa-star"></label>
+                      <input type="radio" name="rate" id="rate-0"  value="0">
+                      <label for="rate-0" ng-show="doctor.rating==0" class="fas fa-star"></label>
                      </div>
                     <div class="dr-details">
                       <span
