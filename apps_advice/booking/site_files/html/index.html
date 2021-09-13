@@ -530,16 +530,48 @@
                       style="margin: 0px 15px"
                     /><br /> -->
                     <div class="doctor-rating">
-                      <input type="radio" name="rate" id="rate-1" value="1">
-                      <label for="rate-1" class="fas fa-star"></label>
-                      <input type="radio" name="rate" id="rate-2" value="2">
-                      <label for="rate-2" class="fas fa-star"></label>
-                      <input type="radio" name="rate" id="rate-3" value="3">
-                      <label for="rate-3" class="fas fa-star"></label>
-                      <input type="radio" name="rate" id="rate-4" value="4">
-                      <label for="rate-4" class="fas fa-star"></label>
-                      <input type="radio" name="rate" id="rate-5" value="5">
-                      <label for="rate-5" class="fas fa-star"></label>
+                      <label ng-show="doctor.rating == 0">
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                      </label>
+                      <label ng-show="doctor.rating == 1">
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                      </label>
+                      <label ng-show="doctor.rating == 2">
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                      </label>
+                      <label ng-show="doctor.rating == 3">
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                      </label>
+                      <label ng-show="doctor.rating == 4">
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                      </label>
+                      <label ng-show="doctor.rating == 5">
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                      </label>
                      </div>
                     <div class="dr-details">
                       <span

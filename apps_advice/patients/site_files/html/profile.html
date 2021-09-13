@@ -333,8 +333,8 @@
                               <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
+                                    <button type="button"  class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true" >&times;</span>
                                     </button>
                                   </div>
                                   <div class="modal-body">
@@ -353,7 +353,7 @@
                           </div>
 
                           <div class="delete-orders">
-                            <a href="#">&times;</a>
+                            <a ng-click="deletePreviousOrder(p)" href="#">&times;</a>
                           </div>
                         </div>
 
@@ -600,26 +600,26 @@
                                   <h5>ما هو تقييمك للزيارة ؟</h5>
                                 </div>
                                 <div class="modal-body">
-                                 <input type="radio" name="rate" id="rate-1" value="1">
-                                 <label for="rate-1" class="fas fa-star"></label>
-                                 <input type="radio" name="rate" id="rate-2" value="2">
+                                 <input type="radio" name="rate" ng-model="rating.value" id="rate-1" value=5>
+                                 <label for="rate-1"  class="fas fa-star"></label>
+                                 <input type="radio" name="rate" ng-model="rating.value" id="rate-2" value=4>
                                  <label for="rate-2" class="fas fa-star"></label>
-                                 <input type="radio" name="rate" id="rate-3" value="3">
+                                 <input type="radio" name="rate" ng-model="rating.value" id="rate-3" value=3>
                                  <label for="rate-3" class="fas fa-star"></label>
-                                 <input type="radio" name="rate" id="rate-4" value="4">
+                                 <input type="radio" name="rate" ng-model="rating.value" id="rate-4" value=2>
                                  <label for="rate-4" class="fas fa-star"></label>
-                                 <input type="radio" name="rate" id="rate-5" value="5">
+                                 <input type="radio" name="rate" ng-model="rating.value" id="rate-5" value=1>
                                  <label for="rate-5" class="fas fa-star"></label>
                                 </div>
                                 <div class="text">
                                   
                                   <span>اكتب رسالة اذا تريد</span>
-                                  <textarea name="" id="" cols="30" placeholder="... اكتب رسالتك هنا">
+                                  <textarea ng-model="rating.description" name="" id="" cols="30" placeholder="... اكتب رسالتك هنا">
                                     
                                   </textarea>
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" ng-click="" style="font-size: 14px; margin-bottom: 40px;">ارسال</button>
+                                  <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" ng-click="rateDoctor(b,rating)" style="font-size: 14px; margin-bottom: 40px;">ارسال</button>
                                 </div>
                               </div>
                             </div>
@@ -684,7 +684,7 @@
                           <div class="col-sm-6">
                             <label>المحافظة</label>
                             <br />
-                            <select ng-change="getCitiesList()" ng-model="editAddresses.gov" ng-options="s.name_##session.lang## for s in govesList">
+                            <select ng-change="getCitiesListEdit()" ng-model="editAddresses.gov" ng-options="s.name_##session.lang## for s in govesList">
                               <option selected disabled>اختر اسم المحافظة</option>
                             </select>
                           </div>

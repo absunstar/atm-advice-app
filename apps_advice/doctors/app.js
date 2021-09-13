@@ -966,6 +966,7 @@ module.exports = function init(site) {
     req.headers.language = req.headers.language || 'en';
     let response = {};
     let doctors_doc = req.body;
+    console.log("88888888888888888" , doctors_doc);
     Number.prototype.between = function (a, b) {
       var min = Math.min.apply(Math, [a, b]),
         max = Math.max.apply(Math, [a, b]);
@@ -987,10 +988,10 @@ module.exports = function init(site) {
 
     $rating.add(createdObj, (err1, doc1) => {
       if (!err1) {
+        console.log("222222222222222222", doctors_doc);
         response.data = doc1;
         response.errorCode = site.var('succeed');
         (response.message = site.word('ratingCreated')[req.headers.language]), res.json(response);
-
         $rating.aggregate(
           [
             {

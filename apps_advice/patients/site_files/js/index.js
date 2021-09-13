@@ -3,7 +3,7 @@ app.controller("main", function ($scope, $http, $timeout) {
 
   $scope.patients = {
 
-    profile:{}
+    profile: {}
   };
   $scope.editAddresses = {};
   $scope.CurrentOrderList = {};
@@ -13,7 +13,9 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope.doneBookingList = [];
   $scope.addresses = {};
   $scope.govesList = {};
-  $scope.citiesList ={};
+  $scope.citiesList = {};
+  $scope.rating = {};
+
 
   $scope.getGovesList = function (where) {
     $scope.busy = true;
@@ -36,8 +38,12 @@ app.controller("main", function ($scope, $http, $timeout) {
         if (response.data.docs.length > 0) {
           $scope.govesList = response.data.docs;
           $scope.govesList.forEach((g) => {
-            if (g.id == $scope.editAddresses.gov.id) {
+            if ($scope.editAddresses.gov && g.id == $scope.editAddresses.gov.id) {
               $scope.editAddresses.gov = g;
+              $scope.getCitiesListEdit();
+            };
+            if ($scope.addresses.gov && g.id == $scope.addresses.gov.id) {
+              $scope.addresses.gov = g;
               $scope.getCitiesList();
             }
           });
@@ -50,7 +56,32 @@ app.controller("main", function ($scope, $http, $timeout) {
     );
   };
 
-  $scope.getCitiesList = function (where) {
+
+
+
+  
+
+  $scope.deletePreviousOrder = function (order) {
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/orders/delete/" + order._id,
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        location.reload();
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
+
+
+  $scope.getCitiesListEdit = function (where) {
     if (!$scope.editAddresses.gov) {
       return false;
     }
@@ -78,6 +109,34 @@ app.controller("main", function ($scope, $http, $timeout) {
     );
   };
 
+  $scope.getCitiesList = function (where) {
+    if (!$scope.addresses.gov) {
+      return false;
+    }
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/city/getCityByGov/" + $scope.addresses.gov._id,
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        if (response.data.done) {
+          $scope.citiesList = response.data.data;
+          $scope.citiesList.forEach((g) => {
+            if (g.id == $scope.addresses.city.id) {
+              $scope.addresses.city = g;
+            };
+          });
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+
   $scope.displayAddPatients = function () {
     $scope.error = '';
     $scope.patients = {
@@ -90,7 +149,7 @@ app.controller("main", function ($scope, $http, $timeout) {
     site.showModal('#patientsAddModal');
 
   };
- 
+
 
   $scope.updatePatientsUser = function (where) {
     if (!$scope.patients.profile) {
@@ -104,7 +163,7 @@ app.controller("main", function ($scope, $http, $timeout) {
     }).then(
       function (response) {
         $scope.busy = false;
-        
+
       },
       function (err) {
         $scope.busy = false;
@@ -126,7 +185,7 @@ app.controller("main", function ($scope, $http, $timeout) {
     }).then(
       function (response) {
         $scope.busy = false;
-        
+
       },
       function (err) {
         $scope.busy = false;
@@ -136,7 +195,7 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
 
 
-  
+
 
 
   $scope.myCurrentOrders = function (order) {
@@ -146,7 +205,7 @@ app.controller("main", function ($scope, $http, $timeout) {
       method: "POST",
       url: "/api/orders/getActiveOrders",
       data: {
-        where: { 'user._id': '##user.ref_info._id##'  }
+        where: { 'user._id': '##user.ref_info._id##' }
 
       }
     }).then(
@@ -154,10 +213,10 @@ app.controller("main", function ($scope, $http, $timeout) {
         console.log(response.data.data);
         $scope.busy = false;
         if (response.data.data && response.data.data.docs.length > 0) {
-          $scope.currentOrderList =response.data.data.docs;
-         
+          $scope.currentOrderList = response.data.data.docs;
+
           $scope.count = response.data.totalDocs;
-         
+
           $scope.search = {};
         }
       },
@@ -168,27 +227,34 @@ app.controller("main", function ($scope, $http, $timeout) {
 
     )
   };
-  $scope.myCanceledOrders = function (order) {
+  $scope.myCanceledOrders = function () {
     $scope.busy = true;
     $scope.list = [];
     
-    let str = JSON.parse('##user.ref_info._id##');
     let xx = {};
-    xx.user = {_id : str};
-    
+    if ('##user.ref_info._id##') {
+      let str = JSON.parse('##user.ref_info._id##');
+
+      xx.user = { _id: str };
+
+    }
+    else {
+      return false
+    };
+
     $http({
       method: "POST",
       url: "/api/orders/getCanceledOrdersByUser",
-      data:xx
+      data: xx
     }).then(
       function (response) {
         console.log(response.data);
         $scope.busy = false;
         if (response.data.data && response.data.data.docs.length > 0) {
-          $scope.canceledOrderList =response.data.data.docs;
-         
+          $scope.canceledOrderList = response.data.data.docs;
+
           $scope.count = response.data.totalDocs;
-         
+
           $scope.search = {};
         }
       },
@@ -199,28 +265,28 @@ app.controller("main", function ($scope, $http, $timeout) {
 
     )
   };
-  $scope.myPreviousOrders = function (order) {
+  $scope.myPreviousOrders = function () {
     $scope.busy = true;
     $scope.list = [];
-    
-    let str = JSON.parse('##user.ref_info._id##');
     let xx = {};
-    xx.user = {_id : str};
-    console.log(xx);
+    if ('##user.ref_info._id##') {
+      let str = JSON.parse('##user.ref_info._id##');
+      xx.user = { _id: str };
+
+    };
     $http({
       method: "POST",
       url: "/api/orders/getShippedOrdersByUser",
-      data:xx
+      data: xx
     }).then(
       function (response) {
-        console.log(response.data);
         $scope.busy = false;
         if (response.data.data && response.data.data.docs.length > 0) {
-          console.log("response.data.data.docs" , response.data.data.docs);
-          $scope.previousOrderList =response.data.data.docs;
-         
+          console.log("response.data.data.docs", response.data.data.docs);
+          $scope.previousOrderList = response.data.data.docs;
+
           $scope.count = response.data.totalDocs;
-         
+
           $scope.search = {};
         }
       },
@@ -234,90 +300,93 @@ app.controller("main", function ($scope, $http, $timeout) {
 
   $scope.cancelOrder = function (order) {
     console.log(order);
-     $scope.busy = true;
-     $scope.list = [];
-
-     $http({
-       method: "POST",
-       url: "/api/orders/updateToStatusCanceled",
-       data:order
-     }).then(
-       function (response) {
-         $scope.busy = false;
-         location.reload();
- 
-         if (response.data.data && response.data.data.docs.length > 0) {
-           
-           
-         }
-       },
-       function (err) {
-         $scope.busy = false;
-         $scope.error = err;
-       }
- 
-     )
-   };
-
-
-   $scope.reOrder = function (order) {
-    console.log("11111111111111" , order);
-     $scope.busy = true;
-     $scope.list = [];
-     $http({
-       method: "POST",
-       url: "/api/orders/reOrderPreviousOrder",
-       data:{
-         _id : order._id,
-         user:{
-           _id : order.user._id
-         },
-         status : order.status.statusId
-       }
-     }).then(
-       function (response) {
-         $scope.busy = false;
-         location.reload();
- 
-       },
-       function (err) {
-         $scope.busy = false;
-         $scope.error = err;
-       }
- 
-     )
-   };
-
-
-
-   
-
-   $scope.myCurrentBooking = function (order) {
     $scope.busy = true;
     $scope.list = [];
-    let str = JSON.parse('##user.ref_info._id##');
-    
-    let patient={};
-    patient._id = str;
-    console.log(patient._id);
+
+    $http({
+      method: "POST",
+      url: "/api/orders/updateToStatusCanceled",
+      data: order
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        location.reload();
+
+        if (response.data.data && response.data.data.docs.length > 0) {
+
+
+        }
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
+
+  $scope.reOrder = function (order) {
+    console.log("11111111111111", order);
+    $scope.busy = true;
+    $scope.list = [];
+    $http({
+      method: "POST",
+      url: "/api/orders/reOrderPreviousOrder",
+      data: {
+        _id: order._id,
+        user: {
+          _id: order.user._id
+        },
+        status: order.status.statusId
+      }
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        location.reload();
+
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
+
+
+
+
+  $scope.myCurrentBooking = function (order) {
+    $scope.busy = true;
+    $scope.list = [];
+    let patient = {};
+    if ('##user.ref_info._id##') {
+      let str = JSON.parse('##user.ref_info._id##');
+
+      patient._id = str;
+
+    };
+
     $http({
       method: "POST",
       url: "/api/booking/getPatientsCurrentBooking",
       data: {
-        patient:{
-          _id : patient._id
+        patient: {
+          _id: patient._id
         },
-        status : "accepted"
-        
+        status: "accepted"
+
 
       }
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data && response.data.docs.length > 0) {
-          $scope.currentBookingList =response.data.docs;
+          $scope.currentBookingList = response.data.docs;
           $scope.count = response.data.totalDocs;
-         
+
           $scope.search = {};
         }
       },
@@ -334,22 +403,22 @@ app.controller("main", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     booking.bookingId = booking._id;
-    console.log("11111111111111111111111" , booking);
+    console.log("11111111111111111111111", booking);
     $http({
       method: "POST",
       url: "/api/booking/updateToStatusCanceled",
       data: {
-        bookingId:booking._id,
-       
-        doctor:{
-          _id : booking.doctor._id
+        bookingId: booking._id,
+
+        doctor: {
+          _id: booking.doctor._id
         },
 
       }
     }).then(
       function (response) {
         $scope.busy = false;
-       location.reload();
+        location.reload();
       },
       function (err) {
         $scope.busy = false;
@@ -360,21 +429,60 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
 
 
+
+  $scope.rateDoctor = function (data, rating) {
+    $scope.busy = true;
+    console.log(11111, data.doctor, rating);
+    let data1 = {
+      patient: data.user
+    };
+    console.log(2222, data1);
+    let xx = {
+      user: data.patient,
+      doctor: data.doctor,
+      rating: parseInt(rating.value),
+      description: rating.description
+    };
+
+    console.log("555555555555555555", xx);
+
+    $http({
+      method: "POST",
+      url: "/api/doctors/ratingDoctors",
+      data: xx
+    }).then(
+      function (response) {
+        location.reload();
+        $scope.busy = false;
+
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
   $scope.myDoneBooking = function () {
     $scope.busy = true;
     $scope.list = [];
-    let str = JSON.parse('##user.ref_info._id##');
-    let patient={};
-    patient._id = str;
+    let patient = {};
+    if ('##user.ref_info._id##') {
+
+      let str = JSON.parse('##user.ref_info._id##');
+
+      patient._id = str;
+    };
     $http({
       method: "POST",
       url: "/api/booking/getPatientsDoneBooking",
       data: {
-        patient:{
-          _id : patient._id
+        patient: {
+          _id: patient._id
         },
-        status : "done"
-        
+        status: "done"
+
 
       }
     }).then(
@@ -382,10 +490,10 @@ app.controller("main", function ($scope, $http, $timeout) {
         console.log(response.data);
         $scope.busy = false;
         if (response.data && response.data.docs.length > 0) {
-          $scope.doneBookingList =response.data.docs;
-         
+          $scope.doneBookingList = response.data.docs;
+
           $scope.count = response.data.totalDocs;
-         
+
           $scope.search = {};
         }
       },
@@ -402,39 +510,37 @@ app.controller("main", function ($scope, $http, $timeout) {
     $scope.editAddresses = data;
     $scope.getGovesList();
   };
- 
+
 
   $scope.myLocation = function () {
-     $scope.busy = true;
-     $scope.list = [];
-     let str = '##user.ref_info._id##';
-    str = str.substr(1);
-    str = str.substr(0, str.length - 1);
-     $http({
-       method: "POST",
-       url: "api/patients/getAddressesByPatient",
-       data: {
-         user:{
-           _id :str 
-         }
-        
-      }
-     }).then(
-       function (response) {
-         $scope.busy = false;
- $scope.locationsList = response.data.docs
-       },
-       function (err) {
-         $scope.busy = false;
-         $scope.error = err;
-       }
- 
-     )
-   };
+    $scope.busy = true;
+    $scope.list = [];
+    let xx = {};
+    if ('##user.ref_info._id##') {
+      let str = JSON.parse('##user.ref_info._id##');
+      xx.user = { _id: str };
 
-   $scope.editLocation = function (data) {
-    
-    
+    };
+    $http({
+      method: "POST",
+      url: "api/patients/getAddressesByPatient",
+      data: xx
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        $scope.locationsList = response.data.docs
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
+  $scope.editLocation = function (data) {
+
+
     $http({
       method: "POST",
       url: "/api/address/update/" + data._id,
@@ -442,7 +548,7 @@ app.controller("main", function ($scope, $http, $timeout) {
     }).then(
       function (response) {
         $scope.busy = false;
-        console.log("11111111111" , data.docs);
+        console.log("11111111111", data.docs);
         location.reload();
       },
       function (err) {
@@ -456,6 +562,7 @@ app.controller("main", function ($scope, $http, $timeout) {
 
   $scope.addLocation = function () {
     $scope.busy = true;
+
     let str = '##user.ref_info._id##';
     str = str.substr(1);
     str = str.substr(0, str.length - 1);
@@ -480,7 +587,7 @@ app.controller("main", function ($scope, $http, $timeout) {
     };
 
 
-    
+
     $http({
       method: "POST",
       url: "/api/address/add",
@@ -497,30 +604,30 @@ app.controller("main", function ($scope, $http, $timeout) {
 
     )
   };
-   
 
-   
+
+
   $scope.rechargeBalance = function (balance) {
     let where = {};
     let str = '##user.ref_info._id##';
     str = str.substr(1);
     str = str.substr(0, str.length - 1);
     _id = str;
-    
+
     $scope.busy = true;
     $scope.cityList = [];
     $http({
       method: "POST",
       url: "/api/patients/chargeBalance",
-      data : {
-        _id : str,
-        balance : Number(balance)
+      data: {
+        _id: str,
+        balance: Number(balance)
       }
     }).then(
       function (response) {
-location.reload();
+        location.reload();
         $scope.busy = false;
-        
+
       },
       function (err) {
         $scope.busy = false;
@@ -532,7 +639,7 @@ location.reload();
 
   $scope.getCurrentPatient = function () {
     let where = {};
-  
+
     $scope.busy = true;
     $scope.cityList = [];
     $http({
@@ -542,7 +649,7 @@ location.reload();
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-         $scope.patients.profile = response.data.data;
+          $scope.patients.profile = response.data.data;
 
         }
         console.log($scope.cityList);
@@ -621,13 +728,13 @@ location.reload();
 
 
 
-  
+
   $scope.checkVarificationCode = function (where) {
 
     let code = JSON.parse(localStorage.user).code;
 
     if (where == code) {
-$scope.success = "varification code success"
+      $scope.success = "varification code success"
     }
 
 
@@ -819,16 +926,16 @@ $scope.success = "varification code success"
   };
 
 
-  
-
-
-  
 
 
 
- 
 
-  
+
+
+
+
+
+
 
   $scope.displayGetCurrentOrders = function () {
     $scope.myCurrentOrders();
@@ -857,12 +964,12 @@ $scope.success = "varification code success"
     site.hideModal('#patientsSearchModal');
     $scope.search = {};
   };
-setInterval(() => {
-  $scope.myCurrentOrders();
-  $scope.myCanceledOrders();
-  $scope.myPreviousOrders();
-}, 10000);
-  
+  setInterval(() => {
+    $scope.myCurrentOrders();
+    $scope.myCanceledOrders();
+    $scope.myPreviousOrders();
+  }, 10000);
+
 
   $scope.getPatientsList();
   $scope.getGenderList();
@@ -876,6 +983,6 @@ setInterval(() => {
   $scope.myCurrentBooking();
   $scope.myLocation();
 
-  
+
 
 });

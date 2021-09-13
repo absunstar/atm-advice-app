@@ -776,14 +776,22 @@ module.exports = function init(site) {
 
   // get Canceled Orders By User
   site.post('/api/orders/getCanceledOrdersByUser', (req, res) => {
+    let response = {}
+    let orders_doc = req.body;
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
     let limit = 10
     let skip
     if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
       skip = (parseInt(req.query.page) - 1) * 10
     }
     req.headers.language = req.headers.language || 'en'
-    let response = {}
-    let orders_doc = req.body;
+    
     $orders.findMany({
         where: {
           'user._id': orders_doc.user._id,
@@ -829,6 +837,13 @@ module.exports = function init(site) {
     req.headers.language = req.headers.language || 'en'
     let response = {}
     let orders_doc = req.body;
+    if (!req.session.user) {
+      response.errorCode = site.var('failed')
+      response.message = site.word('loginFirst')[req.headers.language]
+      response.done = false;
+      res.json(response);
+      return;
+    }
     $orders.findMany({
         where: {
           'user._id': orders_doc.user._id,
