@@ -104,7 +104,6 @@ module.exports = function init(site) {
                     response.user = user_login
                     response.done = true
                   } else {
-                    console.log(err)
                     response.error = err.message
                   }
 

@@ -113,12 +113,10 @@ module.exports = function init(site) {
         response.done = true;
         // site.onWS('/chat', (client) => {
         //   client.onMessage = function (message) {
-        //     console.log(message);
         //     if (message.type === 'connected') {
         //       client.send({ type: 'ready' });
         //     }
         //   };
-        //   console.log('New Client ...' + client.ip);
         // });
         let notificationObj = {
           title: site.word('bookingAdded')[req.headers.language],
@@ -425,7 +423,6 @@ module.exports = function init(site) {
     let booking_doc = req.body;
     let start = new Date();
     start.setHours(0, 0, 0, 0);
-    // console.log("1111111111111111111111" , new Date().toISOString().split("T")[0]);
     let end = new Date();
     end.setHours(23, 59, 59, 999);
 
@@ -670,7 +667,6 @@ module.exports = function init(site) {
   //     $req: req,
   //     $res: res
   //   }, (err, docs, count) => {
-  //     console.log(docs);
   //     if (docs && docs.length > 0) {
   //       response.data = {
   //         docs: docs,
@@ -711,7 +707,6 @@ module.exports = function init(site) {
 
     let end = new Date();
     end.setHours(23, 59, 59, 999);
-    console.log(end.toISOString().split("T")[0]);
     $booking.findMany({
       where: {
         'status': site.var('accepted'),
@@ -943,7 +938,6 @@ if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)
 
     let booking_doc = req.body;
 
-    console.log(booking_doc.doctor._id);
     $booking.aggregate([{
       "$match": {
         "doctor._id": booking_doc.doctor._id
@@ -1054,7 +1048,6 @@ if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)
 
     let booking_doc = req.body;
 
-    console.log(booking_doc.doctor._id);
     $booking.aggregate([{
       "$match": {
         "doctor._id": booking_doc.doctor._id
@@ -1111,7 +1104,6 @@ if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)
 
     let booking_doc = req.body;
 
-    console.log(booking_doc.doctor._id);
     $booking.aggregate([{
       "$match": {
         "doctor._id": booking_doc.doctor._id

@@ -784,7 +784,6 @@ module.exports = function init(site) {
     req.headers.language = req.headers.language || 'en'
     let response = {}
     let orders_doc = req.body;
-    console.log(orders_doc);
     $orders.findMany({
         where: {
           'user._id': orders_doc.user._id,

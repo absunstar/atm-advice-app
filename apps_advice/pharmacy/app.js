@@ -34,7 +34,6 @@ module.exports = function init(site) {
 
   site.on('[orders][pharmacy][show]', (obj, callback) => {
     let response = {}
-    console.log("from pharmacy", obj);
     $pharmacy.findMany({
 
       where: {
@@ -45,13 +44,10 @@ module.exports = function init(site) {
       if (!err && docs && docs.length > 0) {
         // fcm.send(obj.message, function (err, response) {
         //   if (err) {
-        //     console.log("Something has gone wrong!", err);
         //   } else {
-        //     console.log("Successfully sent with response: ", response);
         //   }
         // })
       } else {
-        console.log("not found pharmacies");
       }
     })
 
@@ -714,7 +710,6 @@ module.exports = function init(site) {
       }
     }
     ], (err, docs) => {
-      console.log(docs);
       if (docs && docs.length > 0) {
 
         response.docs = docs

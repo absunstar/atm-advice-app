@@ -31,7 +31,6 @@ module.exports = function init(site) {
     // }
     
     let address_doc = req.body;
-    console.log(address_doc);
     address_doc.$req = req;
     address_doc.$res = res;
     address_doc.isActive = true,
@@ -337,7 +336,6 @@ module.exports = function init(site) {
         skip: skip
       },
       (err, docs, count) => {
-        console.log(docs);
         if (docs.length > 0) {
           response.done = true
           response.docs = docs

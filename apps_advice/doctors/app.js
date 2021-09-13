@@ -935,7 +935,6 @@ module.exports = function init(site) {
             let bodyDate = doctor_doc.date;
 
             if (String(date) == String(bodyDate)) {
-              // console.log(_d);
               if (_d.times && _d.times.length > 0) {
                 response.done = false
                 response.errorCode = site.var('failed')
@@ -1013,7 +1012,6 @@ module.exports = function init(site) {
             },
           ],
           (err, docs) => {
-            console.log(docs);
             if (docs && docs.length > 0) {
               let avg = docs[0];
 
@@ -1371,7 +1369,6 @@ module.exports = function init(site) {
 
 
 
-    // console.log(2222222222222);
 
 
 

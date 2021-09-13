@@ -35,6 +35,12 @@ app.controller("main", function ($scope, $http, $timeout) {
         $scope.busy = false;
         if (response.data.docs.length > 0) {
           $scope.govesList = response.data.docs;
+          $scope.govesList.forEach((g) => {
+            if (g.id == $scope.editAddresses.gov.id) {
+              $scope.editAddresses.gov = g;
+              $scope.getCitiesList();
+            }
+          });
         }
       },
       function (err) {
@@ -45,19 +51,24 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
 
   $scope.getCitiesList = function (where) {
-    if (!$scope.addresses.gov) {
+    if (!$scope.editAddresses.gov) {
       return false;
     }
     $scope.busy = true;
     $http({
       method: "POST",
-      url: "/api/city/getCityByGov/" + $scope.addresses.gov._id,
+      url: "/api/city/getCityByGov/" + $scope.editAddresses.gov._id,
       data: {},
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
           $scope.citiesList = response.data.data;
+          $scope.citiesList.forEach((g) => {
+            if (g.id == $scope.editAddresses.city.id) {
+              $scope.editAddresses.city = g;
+            };
+          });
         }
       },
       function (err) {
@@ -389,6 +400,7 @@ app.controller("main", function ($scope, $http, $timeout) {
 
   $scope.getAddressData = function (data) {
     $scope.editAddresses = data;
+    $scope.getGovesList();
   };
  
 

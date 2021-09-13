@@ -867,7 +867,6 @@ module.exports = function init(site) {
               if (doc2) {
 
                 if (doc2 && doc2.status && doc2.status.statusId == site.var('acceptedId')) {
-                  console.log(doc2);
                   if (req.body.patientType == 'hasInsurance') {
                     $insuranceCompany.findOne({
                       where: {
@@ -968,7 +967,6 @@ module.exports = function init(site) {
     }, (err, doc, count) => {
       if (doc) {
 
-        console.log(doc);
 
       }
       if (!doc) {
@@ -1247,7 +1245,6 @@ module.exports = function init(site) {
             _id: (doc.user._id)
           }
         }, (err, userDoc) => {
-          console.log("userDoc", userDoc);
           if (userDoc.hasInsurance == true) {
 
             $insuranceCompany.edit({
@@ -1390,7 +1387,6 @@ module.exports = function init(site) {
       },
     }, (err, doc, count) => {
       if (doc) {
-        console.log(doc);
         let notificationObj = {
           consultationId: req.body.consultationId,
           title: doc.user.fullName + ': ' + site.word('thisPatientSendNotificationToSendHimDiagnosisFile')[req.headers.language],
@@ -1546,7 +1542,6 @@ module.exports = function init(site) {
           let end = new Date(iterator['createdAt']);
           let xDiff = Math.abs(now - end)
           var minutes = Math.floor((xDiff/1000)/60)
-          console.log(minutes);
           let time = 1
           if (minutes > time == true) {
             $consultation.edit({

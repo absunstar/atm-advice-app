@@ -65,7 +65,6 @@ module.exports = function init(site) {
               response.message = site.word('settingExist')[req.headers.language]
               response.done = false;
               res.json(response);
-          console.log(666666);
         }
       },
     );
