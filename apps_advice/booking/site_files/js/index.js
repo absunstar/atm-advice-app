@@ -14,6 +14,10 @@ app.controller("booking", function ($scope, $http, $timeout) {
 
   $scope.confirmBooking = function () {
     $scope.error = "";
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     /* const v = site.validated("#ordersAddModal");
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
@@ -54,7 +58,10 @@ app.controller("booking", function ($scope, $http, $timeout) {
 
 
   $scope.doctorFilter = function (data) {
-  
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $http({
       method: "POST",
@@ -90,6 +97,10 @@ app.controller("booking", function ($scope, $http, $timeout) {
 
 
   $scope.getInsuranceCompanyList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $http({
       method: 'GET',
@@ -125,6 +136,10 @@ app.controller("booking", function ($scope, $http, $timeout) {
     );
   };
   $scope.getspecialtyList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $scope.specialtyList = [];
     $http({
@@ -151,6 +166,10 @@ app.controller("booking", function ($scope, $http, $timeout) {
   };
 
   $scope.getGovesList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $scope.govesList = [];
     $http({
@@ -185,6 +204,10 @@ app.controller("booking", function ($scope, $http, $timeout) {
     if (gov) {
       where["gov"] = gov;
     }
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $scope.cityList = [];
     $http({
@@ -207,6 +230,10 @@ app.controller("booking", function ($scope, $http, $timeout) {
   };
 
   $scope.getDoctorsList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $scope.list = [];
     $http({
@@ -240,12 +267,20 @@ app.controller("booking", function ($scope, $http, $timeout) {
   };
 
   $scope.bookTime = function (t) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.booking.time = t.startSession;
     t.status = "unAvailable";
     document.querySelector("#step4").click();
   };
 
   $scope.getAppointmentsByDate = function () {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     let d = new Date($scope.booking.date2);
     d.setDate(d.getDate() + 1);
     $scope.booking.date = d.toISOString().split("T")[0];
@@ -277,7 +312,10 @@ app.controller("booking", function ($scope, $http, $timeout) {
 
   $scope.getCurrentPatient = function () {
     let where = {};
-  
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     
     $http({

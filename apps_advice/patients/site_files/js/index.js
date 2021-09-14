@@ -18,6 +18,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.getGovesList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $http({
       method: "GET",
@@ -62,6 +66,10 @@ app.controller("main", function ($scope, $http, $timeout) {
   
 
   $scope.deletePreviousOrder = function (order) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $http({
       method: "POST",
@@ -82,6 +90,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.getCitiesListEdit = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     if (!$scope.editAddresses.gov) {
       return false;
     }
@@ -110,6 +122,10 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
 
   $scope.getCitiesList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     if (!$scope.addresses.gov) {
       return false;
     }
@@ -138,6 +154,7 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
 
   $scope.displayAddPatients = function () {
+    
     $scope.error = '';
     $scope.patients = {
       image_url: '/images/patients.png',
@@ -152,6 +169,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.updatePatientsUser = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     if (!$scope.patients.profile) {
       return false;
     }
@@ -174,6 +195,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.changePassword = function (data) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     if (!$scope.patients.profile) {
       return false;
     }
@@ -199,6 +224,7 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.myCurrentOrders = function (order) {
+    
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
@@ -233,7 +259,10 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope.myCanceledOrders = function () {
     $scope.busy = true;
     $scope.list = [];
-    
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     let xx = {};
     if ('##user.ref_info._id##' != '') {
       let str = JSON.parse('##user.ref_info._id##');
@@ -241,10 +270,7 @@ app.controller("main", function ($scope, $http, $timeout) {
       xx.user = { _id: str };
 
     };
-    if ('##user.ref_info._id##' == '') {
-      location.href = '/signin';
-      return;
-    };
+   
 
     $http({
       method: "POST",
@@ -307,7 +333,10 @@ app.controller("main", function ($scope, $http, $timeout) {
   };
 
   $scope.cancelOrder = function (order) {
-    console.log(order);
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $scope.list = [];
 
@@ -335,7 +364,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.reOrder = function (order) {
-    console.log("11111111111111", order);
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $scope.list = [];
     $http({
@@ -367,13 +399,14 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.myCurrentBooking = function (order) {
-    $scope.busy = true;
-    $scope.list = [];
-    let patient = {};
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
     };
+    $scope.busy = true;
+    $scope.list = [];
+    let patient = {};
+    
     if ('##user.ref_info._id##' != '') {
       let str = JSON.parse('##user.ref_info._id##');
 
@@ -415,7 +448,10 @@ app.controller("main", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     booking.bookingId = booking._id;
-    console.log("11111111111111111111111", booking);
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $http({
       method: "POST",
       url: "/api/booking/updateToStatusCanceled",
@@ -444,11 +480,14 @@ app.controller("main", function ($scope, $http, $timeout) {
 
   $scope.rateDoctor = function (data, rating) {
     $scope.busy = true;
-    console.log(11111, data.doctor, rating);
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     let data1 = {
       patient: data.user
     };
-    console.log(2222, data1);
+    
     let xx = {
       user: data.patient,
       doctor: data.doctor,
@@ -456,7 +495,7 @@ app.controller("main", function ($scope, $http, $timeout) {
       description: rating.description
     };
 
-    console.log("555555555555555555", xx);
+   
 
     $http({
       method: "POST",
@@ -523,6 +562,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.getAddressData = function (data) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.editAddresses = data;
     $scope.getGovesList();
   };
@@ -560,7 +603,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
   $scope.editLocation = function (data) {
 
-
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $http({
       method: "POST",
       url: "/api/address/update/" + data._id,
@@ -568,7 +614,6 @@ app.controller("main", function ($scope, $http, $timeout) {
     }).then(
       function (response) {
         $scope.busy = false;
-        console.log("11111111111", data.docs);
         location.reload();
       },
       function (err) {
@@ -589,9 +634,7 @@ app.controller("main", function ($scope, $http, $timeout) {
     let str = '##user.ref_info._id##';
     str = str.substr(1);
     str = str.substr(0, str.length - 1);
-    let user = {
-      _id: str
-    };
+   
     let xx = $scope.addresses;
     $scope.addresses = {
       location: xx.location,
@@ -666,7 +709,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
   $scope.getCurrentPatient = function () {
     let where = {};
-
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $scope.cityList = [];
     $http({
@@ -690,6 +736,7 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.sendPhone = function (where) {
+    
     $scope.busy = true;
     $http({
       method: "POST",
@@ -769,6 +816,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.getInsuranceCompanyList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $http({
       method: "GET",

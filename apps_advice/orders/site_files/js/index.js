@@ -30,6 +30,10 @@ app.controller('main', function ($scope, $http, $timeout) {
   };
 
   $scope.confirmOrder = function () {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.error = '';
     /* const v = site.validated("#ordersAddModal");
     if (!v.ok) {
@@ -63,6 +67,10 @@ app.controller('main', function ($scope, $http, $timeout) {
   };
 
   $scope.displayUpdateOrders = function (orders) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.error = '';
     $scope.viewOrders(orders);
     $scope.orders = {};
@@ -70,6 +78,10 @@ app.controller('main', function ($scope, $http, $timeout) {
   };
 
   $scope.updateOrders = function () {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.error = '';
     const v = site.validated('#ordersUpdateModal');
     if (!v.ok) {
@@ -98,6 +110,10 @@ app.controller('main', function ($scope, $http, $timeout) {
   };
 
   $scope.displayDetailsOrders = function (orders) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.error = '';
     $scope.viewOrders(orders);
     $scope.orders = {};
@@ -129,6 +145,10 @@ app.controller('main', function ($scope, $http, $timeout) {
   };
 
   $scope.displayDeleteOrders = function (orders) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.error = '';
     $scope.viewOrders(orders);
     $scope.orders = {};
@@ -162,6 +182,10 @@ app.controller('main', function ($scope, $http, $timeout) {
   };
 
   $scope.getOrdersList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $scope.list = [];
     $http({
@@ -186,6 +210,10 @@ app.controller('main', function ($scope, $http, $timeout) {
   };
 
   $scope.getGovesList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $http({
       method: 'GET',
@@ -223,6 +251,10 @@ app.controller('main', function ($scope, $http, $timeout) {
   };
 
   $scope.getUsersList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $http({
       method: 'GET',
@@ -247,6 +279,10 @@ app.controller('main', function ($scope, $http, $timeout) {
   };
 
   $scope.getCitiesList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     if (!$scope.order.address.gov) {
       return false;
     }
@@ -274,6 +310,10 @@ app.controller('main', function ($scope, $http, $timeout) {
     );
   };
   $scope.getInsuranceCompanyList = function (where) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $http({
       method: 'GET',
@@ -309,6 +349,10 @@ app.controller('main', function ($scope, $http, $timeout) {
     );
   };
   $scope.getCurrentPatient = function () {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     let where = {};
 
     $scope.busy = true;
@@ -335,6 +379,10 @@ app.controller('main', function ($scope, $http, $timeout) {
   };
 
   $scope.getFirstLocation = function () {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     let where = {};
     let str = JSON.parse('##user.ref_info._id##');
     $scope.busy = true;
@@ -349,7 +397,6 @@ app.controller('main', function ($scope, $http, $timeout) {
     }).then(
       function (response) {
         $scope.busy = false;
-        console.log('rrrrrrrrrrr', response.data.docs);
         $scope.order.address = response.data.docs[0];
         $scope.getGovesList();
         $scope.getCitiesList();
