@@ -199,6 +199,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
 
   $scope.myCurrentOrders = function (order) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     $scope.busy = true;
     $scope.list = [];
     $http({
@@ -210,7 +214,6 @@ app.controller("main", function ($scope, $http, $timeout) {
       }
     }).then(
       function (response) {
-        console.log(response.data.data);
         $scope.busy = false;
         if (response.data.data && response.data.data.docs.length > 0) {
           $scope.currentOrderList = response.data.data.docs;
@@ -232,14 +235,15 @@ app.controller("main", function ($scope, $http, $timeout) {
     $scope.list = [];
     
     let xx = {};
-    if ('##user.ref_info._id##') {
+    if ('##user.ref_info._id##' != '') {
       let str = JSON.parse('##user.ref_info._id##');
 
       xx.user = { _id: str };
 
-    }
-    else {
-      return false
+    };
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
     };
 
     $http({
@@ -269,7 +273,11 @@ app.controller("main", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     let xx = {};
-    if ('##user.ref_info._id##') {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
+    if ('##user.ref_info._id##' != '') {
       let str = JSON.parse('##user.ref_info._id##');
       xx.user = { _id: str };
 
@@ -362,7 +370,11 @@ app.controller("main", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     let patient = {};
-    if ('##user.ref_info._id##') {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
+    if ('##user.ref_info._id##' != '') {
       let str = JSON.parse('##user.ref_info._id##');
 
       patient._id = str;
@@ -468,7 +480,11 @@ app.controller("main", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     let patient = {};
-    if ('##user.ref_info._id##') {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
+    if ('##user.ref_info._id##' != '') {
 
       let str = JSON.parse('##user.ref_info._id##');
 
@@ -516,7 +532,11 @@ app.controller("main", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     let xx = {};
-    if ('##user.ref_info._id##') {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
+    if ('##user.ref_info._id##' != '') {
       let str = JSON.parse('##user.ref_info._id##');
       xx.user = { _id: str };
 
@@ -562,7 +582,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
   $scope.addLocation = function () {
     $scope.busy = true;
-
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     let str = '##user.ref_info._id##';
     str = str.substr(1);
     str = str.substr(0, str.length - 1);
@@ -609,6 +632,10 @@ app.controller("main", function ($scope, $http, $timeout) {
 
   $scope.rechargeBalance = function (balance) {
     let where = {};
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
     let str = '##user.ref_info._id##';
     str = str.substr(1);
     str = str.substr(0, str.length - 1);
