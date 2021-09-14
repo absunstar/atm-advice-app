@@ -29,6 +29,11 @@ app.controller("booking", function ($scope, $http, $timeout) {
     $scope.booking.user = {
       _id: str,
     };
+    if (!$scope.booking.date2) {
+      $scope.error = "##word.mustEnterDate##";
+      return;
+    }
+   
    
     $scope.busy = true;
     $http({
@@ -94,11 +99,11 @@ app.controller("booking", function ($scope, $http, $timeout) {
           
           $scope.DoctorsList =  [];
         }
-        console.log(data != undefined);
+        
         if (data != undefined) {
-          Object.observe(data);
+          for (var member in data) delete data[member];
         };
-        console.log("data 2" , data);
+       
 
       },
       function (err) {

@@ -76,5 +76,12 @@
         "en": "Bookings Not Found",
         "ar": "لا يوجد حجوزات"
         
+    },
+    {
+
+        "name": "mustEnterDate",
+        "en": "Must Enter Date",
+        "ar": "يجب اضافة تاريخ"
+        
     }
 ]
