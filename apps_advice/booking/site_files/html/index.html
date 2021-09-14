@@ -425,7 +425,12 @@
                       aria-labelledby="headingThree"
                       data-parent="#accordionExample"
                     >
-                      <div class="card-body"></div>
+                      <div class="card-body">
+                        <label style="padding: 0px 1px;">من</label>&nbsp;&nbsp;
+                        <input type="number" placeholder="100" style="width:50px"><br>
+                        <label>الي</label>&nbsp;&nbsp;
+                        <input type="number" placeholder="600" style="width:50px">
+                      </div>
                     </div>
                   </div>
                   <div class="card">
@@ -451,12 +456,9 @@
                       data-parent="#accordionExample"
                     >
                       <div class="card-body">
-                        <input type="radio" name="day" />&nbsp;
-                        <label>اليوم</label><br />
-                        <input type="radio" name="day" />&nbsp;<label>غدا</label
-                        ><br />
-                        <input type="radio" name="day" />&nbsp;<label>أي </label
-                        ><br />
+                        <label>اختر التاريخ</label><br />
+                        <input type="date" style="width: 140px;" placeholder="تاريخ"/>&nbsp;
+                        
                       </div>
                     </div>
                   </div>
@@ -482,20 +484,50 @@
                       aria-labelledby="headingFive"
                       data-parent="#accordionExample"
                     >
+
+                    
+                    
                       <div class="card-body">
                         <input type="radio" ng-model="booking.filter.rating" value=1 name="rating" />&nbsp;
-                        <label>نجمه </label><br />
-                        <input type="radio" ng-model="booking.filter.rating" value=2 name="rating" />&nbsp;<label
-                          >نجمتين </label
-                        ><br />
-                        <input type="radio" ng-model="booking.filter.rating" value=3 name="rating" />&nbsp;<label
-                          >3 نجوم </label
-                        ><br />
-                        <input type="radio" ng-model="booking.filter.rating" value=4 name="rating" />&nbsp;<label
-                          >4 نجوم </label
-                        ><br />
+                        <label>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                          <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                          <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                          <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        </label><br>
+                        <input type="radio" ng-model="booking.filter.rating" value=2 name="rating" />&nbsp;
+                        <label>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                          <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                          <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        </label><br>
+                        <input type="radio" ng-model="booking.filter.rating" value=3 name="rating" />&nbsp;
+                        <label>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                          <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        </label><br />
+                        <input type="radio" ng-model="booking.filter.rating" value=4 name="rating" />&nbsp;
+                        <label>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F4CFA0;"></i>
+                        </label><br />
                         <input type="radio" ng-model="booking.filter.rating" value=5 name="rating" />&nbsp;
-                        <label>5 نجوم </label><br />
+                        <label>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                          <i class="fas fa-star" style="color: #F5AA4B;"></i>
+                        </label><br />
                       </div>
                     </div>
                   </div>
