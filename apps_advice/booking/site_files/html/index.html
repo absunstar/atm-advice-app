@@ -359,15 +359,15 @@
                       data-parent="#accordionExample"
                     >
                       <div class="card-body">
-                        <input type="radio" name="degree" />&nbsp;
+                        <input type="radio" ng-model="booking.filter.degree" value=2 name="degree" />&nbsp;
                         <label>أستاذ</label><br />
-                        <input type="radio" name="degree" />&nbsp;<label
+                        <input type="radio" ng-model="booking.filter.degree" value=3 name="degree" />&nbsp;<label
                           >مدرس</label
                         ><br />
-                        <input type="radio" name="degree" />&nbsp;<label
+                        <input type="radio" ng-model="booking.filter.degree" value=4 name="degree" />&nbsp;<label
                           >أخصائي</label
                         ><br />
-                        <input type="radio" name="degree" />&nbsp;<label
+                        <input type="radio" ng-model="booking.filter.degree" value=1 name="degree" />&nbsp;<label
                           >استشاري</label
                         ><br />
                       </div>
@@ -483,17 +483,19 @@
                       data-parent="#accordionExample"
                     >
                       <div class="card-body">
-                        <input type="radio" name="degree" />&nbsp;
-                        <label>نجمه و اعلي</label><br />
-                        <input type="radio" name="degree" />&nbsp;<label
-                          >نجمتين و اعلي</label
+                        <input type="radio" ng-model="booking.filter.rating" value=1 name="rating" />&nbsp;
+                        <label>نجمه </label><br />
+                        <input type="radio" ng-model="booking.filter.rating" value=2 name="rating" />&nbsp;<label
+                          >نجمتين </label
                         ><br />
-                        <input type="radio" name="degree" />&nbsp;<label
-                          >3 نجوم و اعلي</label
+                        <input type="radio" ng-model="booking.filter.rating" value=3 name="rating" />&nbsp;<label
+                          >3 نجوم </label
                         ><br />
-                        <input type="radio" name="degree" />&nbsp;<label
-                          >4 نجوم و اعلي</label
+                        <input type="radio" ng-model="booking.filter.rating" value=4 name="rating" />&nbsp;<label
+                          >4 نجوم </label
                         ><br />
+                        <input type="radio" ng-model="booking.filter.rating" value=5 name="rating" />&nbsp;
+                        <label>5 نجوم </label><br />
                       </div>
                     </div>
                   </div>

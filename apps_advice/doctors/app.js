@@ -966,7 +966,6 @@ module.exports = function init(site) {
     req.headers.language = req.headers.language || 'en';
     let response = {};
     let doctors_doc = req.body;
-    console.log("88888888888888888" , doctors_doc);
     Number.prototype.between = function (a, b) {
       var min = Math.min.apply(Math, [a, b]),
         max = Math.max.apply(Math, [a, b]);
@@ -988,7 +987,6 @@ module.exports = function init(site) {
 
     $rating.add(createdObj, (err1, doc1) => {
       if (!err1) {
-        console.log("222222222222222222", doctors_doc);
         response.data = doc1;
         response.errorCode = site.var('succeed');
         (response.message = site.word('ratingCreated')[req.headers.language]), res.json(response);
@@ -1021,7 +1019,7 @@ module.exports = function init(site) {
                   _id: doctors_doc.doctor._id,
                 },
                 set: {
-                  rating: avg ? avg.avgRating : 0,
+                  rating: avg ? Number(avg.avgRating.toPrecision(1))  : 0,
                   ratingArr: avg ? avg.docs : [],
                 },
                 $req: req,
@@ -1272,12 +1270,17 @@ module.exports = function init(site) {
     }
 
 
-    if (where['degree'] && where['degree']._id != '') {
+    if (where['degree'] && where['degree']._id != '' && where['degree']._id != undefined) {
       where['degree._id'] = where['degree']._id;
       delete where['degree'];
     }
 
-    if (where['degree'] && where['degree']._id == '') {
+    if (where['degree'] && where['degree'].id != '' && where['degree'].id != undefined ) {
+      where['degree.id'] = Number(where['degree'].id);
+      delete where['degree'];
+    }
+
+    if (where['degree'] && where['degree']._id == '' && !where['degree'].id ) {
       delete where['degree'];
     }
 

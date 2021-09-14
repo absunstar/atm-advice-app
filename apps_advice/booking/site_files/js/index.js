@@ -63,13 +63,23 @@ app.controller("booking", function ($scope, $http, $timeout) {
       return;
     };
     $scope.busy = true;
+    if (data.degree != '') {
+      data.degree={
+        id : data.degree 
+      };
+    };
+    if (data.degree.id == undefined) {
+      delete data.degree.id;
+      delete data.degree;
+    };
+    console.log(data);
     $http({
       method: "POST",
       url: "/api/doctors/search",
       data: data,
     }).then(
       function (response) {
-       
+      
         if (response.data.data && response.data.data.docs && response.data.data.docs.length > 0) {
           
           $scope.DoctorsList =  [];
@@ -84,7 +94,12 @@ app.controller("booking", function ($scope, $http, $timeout) {
           
           $scope.DoctorsList =  [];
         }
-       
+        console.log(data != undefined);
+        if (data != undefined) {
+          Object.observe(data);
+        };
+        console.log("data 2" , data);
+
       },
       function (err) {
         console.log(err);
