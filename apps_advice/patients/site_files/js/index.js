@@ -60,8 +60,96 @@ app.controller("main", function ($scope, $http, $timeout) {
     );
   };
 
+  
+ 
+  $scope.deletePreviousBooking = function (booking) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/booking/delete/" + booking._id,
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        location.reload();
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+  
+  $scope.deleteLocation = function (loc) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/address/delete/" + loc._id,
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        location.reload();
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
+  
+  
+  $scope.deleteCurrentBookingList = function (booking) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/booking/delete/" + booking._id,
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        location.reload();
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
 
-
+  $scope.deleteCanceledOrder = function (order) {
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    };
+    $scope.busy = true;
+    $http({
+      method: "POST",
+      url: "/api/orders/delete/" + order._id,
+      data: {},
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        location.reload();
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+    );
+  };
 
   
 
