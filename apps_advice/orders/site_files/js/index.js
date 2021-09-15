@@ -29,17 +29,79 @@ app.controller('main', function ($scope, $http, $timeout) {
     site.showModal('#ordersAddModal');
   };
 
+  
+
+  $scope.validateImage = function () {
+    let aa = $scope.order.image.some(li=>li.name == "/images/upload.svg ");
+    console.log(aa);
+    if (aa == true) {
+      $scope.imgError = 'add image';
+      return false
+    }
+    else{
+      $scope.error = '';
+      document.querySelector(".upload-now").style.display = "none";
+      document.querySelector(".flow1").style.display = "none";
+      document.querySelector(".flow2").style.display = "flex";
+      document.querySelector(".flow3").style.display = "none";
+      document.querySelector(".signnup").style.display = "block";
+      document.querySelector(".success").style.display = "none";
+
+      level4.classList.add("active");
+      level5.classList.add("active");
+      level6.classList.remove("active");
+
+      level4.addEventListener("click", () => {
+        document.querySelector(".upload-now").style.display = "block";
+        document.querySelector(".flow1").style.display = "block";
+        document.querySelector(".flow2").style.display = "flex";
+        document.querySelector(".flow3").style.display = "flex";
+        document.querySelector(".signnup").style.display = "none";
+        document.querySelector(".success").style.display = "none";
+
+        level4.classList.add("active");
+        level5.classList.remove("active");
+        level6.classList.remove("active");
+      });
+      return true
+    }
+  };
+
   $scope.confirmOrder = function () {
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
     };
     $scope.error = '';
-    /* const v = site.validated("#ordersAddModal");
+     const v = site.validated("body");
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
-    }*/
+    }
+    else{
+      level3.addEventListener("click", () => {
+        document.querySelector(".upload-now").style.display = "none";
+        document.querySelector(".flow1").style.display = "none";
+        document.querySelector(".flow2").style.display = "none";
+        document.querySelector(".flow3").style.display = "none";
+        document.querySelector(".signnup").style.display = "none";
+        document.querySelector(".success").style.display = "block";
+
+        level4.classList.add("active");
+        level5.classList.add("active");
+        level6.classList.add("active");
+
+        
+
+      });
+    }
+    console.log($scope.order.image);
+    let aa = $scope.order.image.some(li=>li.name == "/images/upload.svg ");
+    console.log(aa);
+    if (aa == true) {
+      $scope.error = 'add image';
+      return
+    };
     $scope.order.user = {
       _id: JSON.parse('##user.ref_info._id##'),
     };
