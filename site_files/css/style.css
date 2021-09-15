@@ -791,6 +791,12 @@ textarea {
 }
 
 /*   sign up page   */
+.red-error{
+  text-align: center;
+color: red;
+margin-bottom: 50px;
+font-weight: 700;
+}
 .sign-up .error-head p{
 text-align: center;
 color: red;

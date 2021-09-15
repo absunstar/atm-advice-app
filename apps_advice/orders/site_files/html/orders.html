@@ -67,6 +67,7 @@
 
 
              <h2 class="text-center flow1" style="margin: 60px 0px;">تحميل الروشتة او المنتج</h2>
+             <p class="red">{{imgError}}</p>
              <div class="upload-now">
                <div class="row repeat-row" ng-repeat="im in order.image">
                 <!-- <img src="images/Group14203(2).svg" alt="" />
@@ -100,7 +101,7 @@
           </div>
 
           <a href="#"class="flow3 pay-now" ng-click="validateImage()" id="stage1">اطلب</a>
-          <p>{{imgError}}</p>
+         
         
             <!-- stage 3 -->
             <div class="container sign-up" style="margin-top: 20px">
@@ -108,6 +109,10 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <h1>ادخل بياناتك</h1>
+                    <p  class="red-error">
+                    
+                      {{error}}
+                    </p>
                   </div>
                 </div>
                 <form>
@@ -119,26 +124,26 @@
                     </div>
                     <div class="col-sm-12">
                       <label> رقم الهاتف </label><br />
-                      <input type="tel" ng-model="order.patient.phone"  />
+                      <input type="tel" ng-model="order.patient.phone"  v="r" />
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-12">
                       <label> العنوان</label><br />
-                      <input type="text" ng-model="order.address.addressLocation"  />
+                      <input type="text" ng-model="order.address.addressLocation"  v="r" />
                     </div>
                     <br /><br />
                     <div class="col-sm-6">
                       <label>المحافظة</label>
                       <br />
-                      <select ng-change="getCitiesList()" ng-model="order.address.gov" ng-options="s.name_##session.lang## for s in govesList">
+                      <select ng-change="getCitiesList()" ng-model="order.address.gov" ng-options="s.name_##session.lang## for s in govesList" v="r">
                         <option selected disabled>اختر اسم المحافظة</option>
                       </select>
                     </div>
                     <div class="col-sm-6">
                       <label> المدينة</label>
                       <br />
-                      <select ng-model="order.address.city" ng-options="s.name_##session.lang## for s in citiesList">
+                      <select ng-model="order.address.city" ng-options="s.name_##session.lang## for s in citiesList" v="r">
                         <option selected disabled>اختر اسم المدينة</option>
                       </select>
                     </div>
@@ -149,25 +154,26 @@
                       <input
                         type="text"
                         ng-model="order.address.district"
+                        v="r"
                       />
                     </div>
                     <div class="col-sm-6">
                       <label>الشارع</label><br />
-                      <input type="text" ng-model="order.address.streetName"/>
+                      <input type="text" ng-model="order.address.streetName"  v="r"/>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-2">
                       <label>رقم المبني</label><br />
-                      <input type="text" ng-model="order.address.buildingNumber" />
+                      <input type="text" ng-model="order.address.buildingNumber" v="r" />
                     </div>
                     <div class="col-sm-2">
                       <label>الدور</label><br />
-                      <input type="text" ng-model="order.address.role" />
+                      <input type="text" ng-model="order.address.role"  v="r"/>
                     </div>
                     <div class="col-sm-2">
                       <label>الشقة </label><br />
-                      <input type="text" ng-model="order.address.apartmentNumber" />
+                      <input type="text" ng-model="order.address.apartmentNumber"  v="r"/>
                     </div>
                     <div class="col-sm-6">
                       <label>أقرب مكان مميز</label><br />
@@ -175,6 +181,7 @@
                         type="text"
                         
                         ng-model="order.address.specialMark"
+                        v="r"
                       />
                     </div>
                   </div>
@@ -234,10 +241,7 @@
                       <a href="#" id="stage" class="login-btn" ng-click="confirmOrder()"> تاكيد الحجز</a>
                     </div>
                   </div>
-                  <p>
-                    
-                    {{error}}
-                  </p>
+                  
                 </form>
                 <!-- <div class="row">
                   <div class="col-sm-12 create-account">

@@ -142,7 +142,7 @@
                         </div>
                       </div>
 
-                      <a id="step4" class="steps-action" style="display: none;" href="#">التالي</a>
+                      <a id="step4" class="steps-action" ng-click="confirmBooking()" style="display: none;" href="#">التالي</a>
 
                       <br />
                       <br />
@@ -152,12 +152,14 @@
                       <div class="second-step">
                         <h4>ادخل بياناتك</h4>
                         <br />
+                        <p class="red-error">{{error}}</p>
 
                         <div class="col-sm-12">
                           <label>الاسم</label><br />
                           <input
                             type="text"
                             ng-model="booking.patient.fullName"
+                            v="r"
                           />
                           <input
                             type="text"
@@ -171,6 +173,7 @@
                             type="tel"
                             ng-model="booking.patient.phone"
                             style="width: 100%"
+                            v="r"
                           />
                         </div>
                         <div class="col-sm-12">
@@ -233,7 +236,7 @@
                       /> -->
                               </div>
                             </div>
-                            <a href="#" id="step5" class="steps-action"
+                            <a href="#" id="step5" class="steps-action" ng-click="confirmBooking()"
                               >التالي</a
                             >
                           </div>
@@ -455,9 +458,9 @@
                       aria-labelledby="headingFour"
                       data-parent="#accordionExample"
                     >
-                      <div class="card-body">
-                        <label>اختر التاريخ</label><br />
-                        <input type="date" style="width: 140px;" ng-model="booking.filter.date1"  placeholder="تاريخ"/>&nbsp;
+                      <div class="card-body" style="padding: 0px;">
+                        <label style="padding: 0px 32px;">اختر التاريخ</label><br />
+                        <input type="date" style="width:170px ; border: 1px solid #707789 ; border-radius: 20px; padding: 7px;" ng-model="booking.filter.date1"  placeholder="تاريخ"/>&nbsp;
                         
                       </div>
                     </div>
@@ -536,7 +539,7 @@
               <div class="col-sm-9 dr-booking">
                 <div class="booking-head">
                   <h2>اختار واحجز طبيبك من بين أفضل أطباء الباطنة</h2>
-                  <span> ترتيب حسب : الأكثر تطابقا : </span>
+                 
                 </div>
                 <div
                   class="doctor-details"
@@ -674,7 +677,7 @@
         two.classList.add("active");
         three.classList.remove("active");
       });
-      two.addEventListener("click", () => {
+     /*  two.addEventListener("click", () => {
         document.querySelector(".first-step").style.display = "none";
         document.querySelector(".second-step").style.display = "block";
         document.querySelector(".third-step").style.display = "none";
@@ -683,8 +686,8 @@
         one.classList.add("active");
         two.classList.add("active");
         three.classList.remove("active");
-      });
-      five.addEventListener("click", () => {
+      }); */
+      /* five.addEventListener("click", () => {
         document.querySelector(".first-step").style.display = "none";
         document.querySelector(".second-step").style.display = "none";
         document.querySelector(".third-step").style.display = "block";
@@ -693,8 +696,8 @@
         one.classList.add("active");
         two.classList.add("active");
         three.classList.add("active");
-      });
-      three.addEventListener("click", () => {
+      }); */
+     /*  three.addEventListener("click", () => {
         document.querySelector(".first-step").style.display = "none";
         document.querySelector(".second-step").style.display = "none";
         document.querySelector(".third-step").style.display = "block";
@@ -703,7 +706,7 @@
         one.classList.add("active");
         two.classList.add("active");
         three.classList.add("active");
-      });
+      }); */
       six.addEventListener("click", () => {
         document.querySelector(".first-step").style.display = "none";
         document.querySelector(".second-step").style.display = "none";

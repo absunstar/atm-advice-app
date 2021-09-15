@@ -18,11 +18,23 @@ app.controller("booking", function ($scope, $http, $timeout) {
       location.href = '/signin';
       return;
     };
-    /* const v = site.validated("#ordersAddModal");
+    const v = site.validated("body");
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
-    }*/
+    }
+    else{
+      five.addEventListener("click", () => {
+        document.querySelector(".first-step").style.display = "none";
+        document.querySelector(".second-step").style.display = "none";
+        document.querySelector(".third-step").style.display = "block";
+        document.querySelector(".final-step").style.display = "none";
+
+        one.classList.add("active");
+        two.classList.add("active");
+        three.classList.add("active");
+      });
+    }
     let str = '##user.ref_info._id##';
       str = str.substr(1);
       str = str.substr(0, str.length - 1);
@@ -297,6 +309,19 @@ app.controller("booking", function ($scope, $http, $timeout) {
     $scope.booking.time = t.startSession;
     t.status = "unAvailable";
     document.querySelector("#step4").click();
+
+
+    two.addEventListener("click", () => {
+      document.querySelector(".first-step").style.display = "none";
+      document.querySelector(".second-step").style.display = "block";
+      document.querySelector(".third-step").style.display = "none";
+      document.querySelector(".final-step").style.display = "none";
+
+      one.classList.add("active");
+      two.classList.add("active");
+      three.classList.remove("active");
+    });
+
   };
 
   $scope.getAppointmentsByDate = function () {
