@@ -77,6 +77,9 @@ app.controller("booking", function ($scope, $http, $timeout) {
       delete data.degree.id;
       delete data.degree;
     };
+    if (data.date) {
+      data.date1 = data.date.toLocaleDateString('fr-CA');
+    };
     console.log(data);
     $http({
       method: "POST",

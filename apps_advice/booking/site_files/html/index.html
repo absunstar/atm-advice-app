@@ -427,9 +427,9 @@
                     >
                       <div class="card-body">
                         <label style="padding: 0px 1px;">من</label>&nbsp;&nbsp;
-                        <input type="number" placeholder="100" style="width:50px"><br>
+                        <input type="number" placeholder="100" ng-model="booking.filter.fromPrice" style="width:50px"><br>
                         <label>الي</label>&nbsp;&nbsp;
-                        <input type="number" placeholder="600" style="width:50px">
+                        <input type="number" placeholder="600" ng-model="booking.filter.toPrice" style="width:50px">
                       </div>
                     </div>
                   </div>
@@ -457,7 +457,7 @@
                     >
                       <div class="card-body">
                         <label>اختر التاريخ</label><br />
-                        <input type="date" style="width: 140px;" placeholder="تاريخ"/>&nbsp;
+                        <input type="date" style="width: 140px;" ng-model="booking.filter.date1"  placeholder="تاريخ"/>&nbsp;
                         
                       </div>
                     </div>

@@ -1309,10 +1309,14 @@ module.exports = function init(site) {
       delete where['gov'];
     }
     where.isActive = true;
-
+console.log("where['date1']" , new Date((where['date1'])).toLocaleDateString('fr-CA'));
     if (where['dayName']) {
       where['days.dayName'] = where['dayName'];
       delete where['dayName'];
+    }
+    if (where['date1']) {
+      where['days.date'] = new Date((where['date1'])).toLocaleDateString('fr-CA');
+      delete where['date1'];
     }
     if (where['lat']) {
       delete where['lat'];
