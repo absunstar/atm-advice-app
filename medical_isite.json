@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b5248557-9b4d-47c4-8bb1-a84d4d899737",
+		"_postman_id": "a4fbf2a2-128a-4300-a83f-9477cda3d9f4",
 		"name": "isite Smart Code",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2486,6 +2486,64 @@
 												"clinics",
 												"shifts",
 												"all"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getDoctors",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"where\":{\r\n        \"company\":{\r\n            \"id\" : 1\r\n        },\r\n        \"specialty\":{\r\n            \"id\" : 1\r\n        }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost/api/clinics/getDoctorsList",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"path": [
+												"api",
+												"clinics",
+												"getDoctorsList"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "getDoctorAppointment",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"where\":{\r\n      \"doctor\":{\r\n          \"id\":1\r\n      }\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost/api/clinics/getDoctorAppointment",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"path": [
+												"api",
+												"clinics",
+												"getDoctorAppointment"
 											]
 										}
 									},
