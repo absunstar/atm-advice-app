@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4e2b658e-4954-42c3-9c39-94ffc1da2583",
+		"_postman_id": "64bee681-f39e-4162-94c6-0946d649dfdd",
 		"name": "isite Copy 2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -30,10 +30,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9090/api/city/add",
+							"raw": "http://134.209.219.21:9090/api/city/add",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"134",
+								"209",
+								"219",
+								"21"
 							],
 							"port": "9090",
 							"path": [
@@ -299,13 +302,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://134.209.219.21:9090/api/Consultation/add",
+							"raw": "http://localhost:9090/api/Consultation/add",
 							"protocol": "http",
 							"host": [
-								"134",
-								"209",
-								"219",
-								"21"
+								"localhost"
 							],
 							"port": "9090",
 							"path": [
@@ -1378,10 +1378,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{baseurl}}:9090/api/departments",
+							"raw": "http://134.209.219.21:9090/api/departments",
 							"protocol": "http",
 							"host": [
-								"{{baseurl}}"
+								"134",
+								"209",
+								"219",
+								"21"
 							],
 							"port": "9090",
 							"path": [
@@ -2269,10 +2272,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{baseurl}}:9090/api/gov",
+							"raw": "http://134.209.219.21:9090/api/gov",
 							"protocol": "http",
 							"host": [
-								"{{baseurl}}"
+								"134",
+								"209",
+								"219",
+								"21"
 							],
 							"port": "9090",
 							"path": [
@@ -3816,7 +3822,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Dr Amr halawani\",\r\n    \"image\": [\r\n        {\r\n            \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n        }\r\n    ],\r\n    \"degree\": {\r\n        \"_id\": \"6109319f8b635abfd51dcc15\",\r\n        \"name_ar\": \"degree 4\",\r\n        \"name_en\": \"degree 4\",\r\n        \"isActive\": true,\r\n        \"createdAt\": \"2021-08-03T12:07:59.903Z\",\r\n        \"updatedAt\": \"2021-08-03T12:07:59.903Z\",\r\n        \"id\": 6\r\n    },\r\n    \"department\": \r\n        {\r\n            \"_id\": \"612b9f870ccecaee2bc70962\",\r\n            \"name_ar\": \"قسم العظام\",\r\n            \"name_en\": \"Orthopedic department\"\r\n        },\r\n        \"phone\": \"01090281077\",\r\n        \"hint\": \"test hint \",\r\n        \"price\": 100,\r\n        \"periodPerMinutes\": 30,\r\n        \"email\": \"amrbooking@gmail.com\",\r\n        \"password\": \"111111111\",\r\n        \"lat\": 30.974077,\r\n        \"long\": 31.272066,\r\n        \"title\": \"Clinic Amr Halawni\",\r\n        \"city\": {\r\n            \"_id\": \"6109535711b184cc9eeeabd2\",\r\n            \"image_url\": \"/images/city.png\",\r\n            \"name_ar\": \"مدينة 2\",\r\n            \"name_en\": \"city 2\",\r\n            \"id\": 2\r\n        },\r\n        \"address\": \"cairo cetadel\",\r\n        \"gender\": \"male\"\r\n    }",
+							"raw": "{\r\n    \"phone\": \"01231231231\",\r\n    \"long\": 30.9188,\r\n    \"degree\": {\r\n        \"_id\": \"6139e34edaf33132299b141a\",\r\n        \"name\": \"Consultant doctor\"\r\n    },\r\n    \"title\": \"\",\r\n    \"price\": 400,\r\n    \"password\": \"123123\",\r\n    \"image\": [\r\n        {\r\n            \"name\": \"\"\r\n        }\r\n    ],\r\n    \"city\": {\r\n        \"_id\": \"6139df1edaf33132299b140c\",\r\n        \"name_ar\": \"التجمع\",\r\n        \"name_en\": \"new cairo\",\r\n        \"gov\": {\r\n            \"_id\": \"61376c0bedff9b2353cfcfab\",\r\n            \"name_ar\": \"القاهرة\",\r\n            \"name_en\": \"cairo\"\r\n        },\r\n        \"id\": 5\r\n    },\r\n    \"gov\": {\r\n        \"_id\": \"61376c0bedff9b2353cfcfab\",\r\n        \"name_ar\": \"القاهرة\",\r\n        \"name_en\": \"cairo\",\r\n        \"id\": 1\r\n    },\r\n    \"periodPerMinutes\": 200,\r\n    \"lat\": 29.9285,\r\n    \"hint\": \"Very Good Doctor with 5 years experience\",\r\n    \"address\": \" 6th Of October Second,  6th Of October,  Egypt,  12556\",\r\n    \"department\": {\r\n        \"_id\": \"6139e065daf33132299b1410\",\r\n        \"name_ar\": \"dermatology\",\r\n        \"name_en\": \"dermatology\",\r\n        \"id\": 1\r\n    },\r\n    \"email\": \"dr.diaa@gmail.com\",\r\n    \"name\": \"Dr.diaa saeed\",\r\n    \"gender\": \"male\",\r\n    \"isActive\": true,\r\n    \"rating\": 0,\r\n    \"status\": {\r\n        \"statusId\": 1,\r\n        \"name\": \"active\"\r\n    },\r\n    \"location\": {\r\n        \"type\": \"Point\",\r\n        \"coordinates\": [\r\n            29.9285,\r\n            30.9188\r\n        ]\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3824,13 +3830,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://134.209.219.21:9090/api/doctors/add",
+							"raw": "http://localhost:9090/api/doctors/add",
 							"protocol": "http",
 							"host": [
-								"134",
-								"209",
-								"219",
-								"21"
+								"localhost"
 							],
 							"port": "9090",
 							"path": [
@@ -3855,7 +3858,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"diaaxxpp@gmail.com\"\r\n   \r\n}",
+							"raw": "{\r\n    \"password\": \"123\"\r\n   \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3972,7 +3975,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"lat\": 30.974077,\r\n    \"long\": 31.272066,\r\n    \"name\": \"\",\r\n    \"degree\": {\r\n        \"_id\": \"\"\r\n    },\r\n    \"department\": {\r\n        \"_id\": \"\"\r\n    },\r\n    \"gender\": \"male\",\r\n    \"rating\": 0,\r\n    \"dayName\": \"lllll\"\r\n}",
+							"raw": "{\r\n\r\n \"rating\" : 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4213,7 +4216,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"61000a1853b67d1fe4f888a1\",\r\n        \"name\": \"ahmed_test9\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n            }\r\n        ],\r\n        \"degree\": {\r\n            \"_id\": \"60ed450882d81933a43c3a4e\",\r\n            \"name\": \"degree 2\"\r\n        },\r\n        \"department\": {\r\n            \"name\": \"surgary\",\r\n            \"period\": 30,\r\n            \"price\": 100\r\n        },\r\n        \"hint\": \"test hint \",\r\n        \"price\": 100,\r\n        \"periodPerMinutes\": 30,\r\n        \"email\": \"a.a@a.com\",\r\n        \"lat\": 30.974077,\r\n        \"long\": 31.272066,\r\n        \"title\": \"proff at ttt \",\r\n        \"city\": {\r\n            \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"gender\": \"male\"\r\n    },\r\n    \"user\": {\r\n        \"_id\": \"60ec132bda6e010f5827fd10\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"roles\": [],\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n                }\r\n            ],\r\n            \"balance\": 300\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"rating\": 4,\r\n    \"description\": \"too late\"\r\n}",
+							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"61000a1853b67d1fe4f888a1\",\r\n        \"name\": \"ahmed_test9\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n            }\r\n        ],\r\n        \"degree\": {\r\n            \"_id\": \"60ed450882d81933a43c3a4e\",\r\n            \"name\": \"degree 2\"\r\n        },\r\n        \"department\": {\r\n            \"name\": \"surgary\",\r\n            \"period\": 30,\r\n            \"price\": 100\r\n        },\r\n        \"hint\": \"test hint \",\r\n        \"price\": 100,\r\n        \"periodPerMinutes\": 30,\r\n        \"email\": \"a.a@a.com\",\r\n        \"lat\": 30.974077,\r\n        \"long\": 31.272066,\r\n        \"title\": \"proff at ttt \",\r\n        \"city\": {\r\n            \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"gender\": \"male\"\r\n    },\r\n    \"user\": {\r\n        \"_id\": \"60ec132bda6e010f5827fd10\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"roles\": [],\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n                }\r\n            ],\r\n            \"balance\": 300\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"rating\": 1,\r\n    \"description\": \"too late\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4443,7 +4446,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"6105159cd4aeaf609705cfa5\"\r\n    },\r\n    \"date\": \"2021-08-1\"\r\n  \r\n}",
+							"raw": "{\r\n    \"doctor\": {\r\n        \"_id\": \"613633a420c764bb75b0ce12\"\r\n    },\r\n    \"date\": \"2021-09-09\"\r\n  \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4451,10 +4454,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:9090/api/doctors/getAppointmentsByDate",
+							"raw": "http://134.209.219.21:9090/api/doctors/getAppointmentsByDate",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"134",
+								"209",
+								"219",
+								"21"
 							],
 							"port": "9090",
 							"path": [
@@ -4647,7 +4653,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"doctor\" : {\r\n        \"_id\" : \"61029deef68c911fc41b721c\"\r\n    },\r\n   \"password\" : \"123\",\r\n\"newPassword\" : \"444\",\r\n\"repeatNewPassword\" : \"444\" \r\n}",
+							"raw": "{\r\n    \"doctor\" : {\r\n        \"_id\" : \"612ba12e0ccecaee2bc70964\"\r\n    },\r\n   \"password\" : \"123\",\r\n\"newPassword\" : \"444\",\r\n\"repeatNewPassword\" : \"444\" \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4709,7 +4715,47 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "AddInsuranceCompany",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "language",
+										"value": "enLang",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name_ar\" : \"company 1\",\r\n    \"name_en\" : \"company 1\",\r\n    \r\n\"balance\" : 300,\r\n\"insuranceNumbers\":[{\r\n    \"number\" : \"123456789\"\r\n},\r\n{\r\n    \"number\" : \"0258369\"\r\n},\r\n{\r\n    \"number\" : \"147258\"\r\n},\r\n{\r\n    \"number\" : \"159635\"\r\n}]\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{baseurl}}:9090/api/insuranceCompany/add",
+									"protocol": "http",
+									"host": [
+										"{{baseurl}}"
+									],
+									"port": "9090",
+									"path": [
+										"api",
+										"insuranceCompany",
+										"add"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
 				},
 				{
 					"name": "getInsuranceCompany",
@@ -4891,6 +4937,15 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
 				}
 			],
 			"auth": {
@@ -4936,7 +4991,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"gov\": {\r\n        \"_id\": \"60d9da4400cbb91f389aba3f\",\r\n        \"name\": \"gov2\"\r\n    },\r\n    \"city\": {\r\n        \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n        \"name\": \"city1\"\r\n    },\r\n    \"lat\": \"19.311143\",\r\n    \"long\": \"8.684994\",\r\n    \"district\": \"1-october\",\r\n    \"streetName\": \"5 st\",\r\n    \"buildingNumber\": \"1 d\",\r\n    \"role\": \"3\",\r\n    \"apartmentNumber\": \"3\",\r\n    \"specialMark\": \"diaa school\",\r\n    \"title\": \"title1\",\r\n    \"addressLocation\": \"location 1\",\r\n    \"user\": {\r\n        \"_id\": \"60d9da4400cbb91f389aba3f\"\r\n    }\r\n}",
+							"raw": "{\r\n   \"gov\": {\r\n        \"_id\": \"60ee9b85f8a8ee52ca3f5b4e\",\r\n        \"name_ar\": \"gov1\",\r\n        \"name_en\": \"gov1\"\r\n    },\r\n    \"city\": {\r\n        \"_id\": \"60ee9b9cf8a8ee52ca3f5b4f\",\r\n        \"name_ar\": \"city1\",\r\n        \"name_en\": \"city1\",\r\n        \"gov\": {\r\n            \"_id\": \"60ee9b85f8a8ee52ca3f5b4e\",\r\n            \"name_ar\": \"gov1\",\r\n            \"name_en\": \"gov1\"\r\n        }\r\n    },\r\n    \"lat\": \"19.311143\",\r\n    \"long\": \"8.684994\",\r\n    \"district\": \"1-october\",\r\n    \"streetName\": \"5 st\",\r\n    \"buildingNumber\": \"1 d\",\r\n    \"role\": \"3\",\r\n    \"apartmentNumber\": \"3\",\r\n    \"specialMark\": \"diaa school\",\r\n    \"title\": \"title1\",\r\n    \"addressLocation\": \"location 1\",\r\n    \"user\": {\r\n        \"_id\": \"60d9da4400cbb91f389aba3f\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5200,7 +5255,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"patient\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"password\": \"123\",\r\n        \"roles\": [],\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n                }\r\n            ],\r\n            \"balance\": 300\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"doctor\": {\r\n        \"_id\":\"610124fc8e4256390c847d9b\",\r\n        \"name\": \"ahmed_test9\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n            }\r\n        ],\r\n        \"degree\": {\r\n            \"_id\": \"60ed450882d81933a43c3a4e\",\r\n            \"name\": \"degree 2\"\r\n        },\r\n        \"department\": {\r\n            \"name\": \"surgary\",\r\n            \"period\": 30,\r\n            \"price\": 100\r\n        },\r\n        \"days\": [\r\n            {\r\n                \"date\": \"2021-07-13T07:20:56.355Z\",\r\n                \"times\": [\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    },\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"date\": \"2021-07-13T07:20:56.355Z\",\r\n                \"times\": [\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    },\r\n                    {\r\n                        \"startSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"sessionPeriod\": 20,\r\n                        \"endSession\": \"2021-07-13T07:20:56.355Z\",\r\n                        \"status\": \"available\"\r\n                    }\r\n                ]\r\n            }\r\n        ],\r\n        \"hint\": \"test hint \",\r\n        \"price\": 100,\r\n        \"periodPerMinutes\": 30,\r\n        \"email\": \"a.a@a.com\",\r\n        \"lat\": 30.974077,\r\n        \"long\": 31.272066,\r\n        \"title\": \"proff at ttt \",\r\n        \"city\": {\r\n            \"_id\": \"60daf31d2cb52a320079c8ed\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"gender\": \"male\",\r\n        \"address\":\"cairo\"\r\n    },\r\n    \"date\" : \"2021-07-19\",\r\n    \"time\" : \"07:20\"\r\n}",
+							"raw": "{\r\n    \"patient\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"password\": \"123\",\r\n        \"roles\": [],\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n                }\r\n            ],\r\n            \"balance\": 300\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"doctor\": {\r\n        \"_id\": \"610124fc8e4256390c847d9b\",\r\n        \"name\": \"ahmed_test9\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/doctors/image_1625848689389.png\"\r\n            }\r\n        ],\r\n        \"degree\": {\r\n            \"_id\": \"60ed450882d81933a43c3a4e\",\r\n            \"name_ar\": \"degree 4\",\r\n            \"name_en\": \"degree 4\"\r\n        },\r\n        \"department\": {\r\n            \"name_ar\": \"department 5\",\r\n            \"name_en\": \"department 5\",\r\n            \"image\": [\r\n                {\r\n                    \"name\": \"/api/image/departments/image_1627208886204.png\"\r\n                }\r\n            ],\r\n            \"period\": 30,\r\n            \"price\": 100\r\n        },\r\n        \"hint\": \"test hint \",\r\n        \"price\": 100,\r\n        \"periodPerMinutes\": 30,\r\n        \"email\": \"a.a@a.com\",\r\n        \"lat\": 30.974077,\r\n        \"long\": 31.272066,\r\n        \"title\": \"proff at ttt \",\r\n        \"city\": {\r\n            \"_id\": \"6139df1edaf33132299b140c\",\r\n            \"name_ar\": \"التجمع\",\r\n            \"name_en\": \"new cairo\",\r\n            \"gov\": {\r\n                \"_id\": \"61376c0bedff9b2353cfcfab\",\r\n                \"name_ar\": \"القاهرة\",\r\n                \"name_en\": \"cairo\"\r\n            },\r\n            \"id\": 5\r\n        },\r\n        \"gender\": \"male\",\r\n        \"address\": \"cairo\"\r\n    },\r\n    \"date\": \"2021-07-19\",\r\n    \"time\": \"07:20\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5314,7 +5369,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n    \"doctor\":{\r\n        \"_id\" : \"6106f7f1464237089eb53973\"\r\n    }\r\n}",
+							"raw": "{\r\n    \r\n    \"doctor\":{\r\n        \"_id\" : \"6138be8253a41298ef170aa0\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5747,7 +5802,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n     \"doctor\":{\r\n        \"_id\" : \"6106f7f1464237089eb53973\"\r\n    }\r\n}",
+							"raw": "{\r\n     \"doctor\":{\r\n        \"_id\" : \"6138be8253a41298ef170aa0\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6093,6 +6148,132 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getPatientsBooking",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"patient\":{\r\n        \"_id\" : \"612b746f0ccecaee2bc70907\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://134.209.219.21:9090/api/booking/getPatientsBooking",
+							"protocol": "http",
+							"host": [
+								"134",
+								"209",
+								"219",
+								"21"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"booking",
+								"getPatientsBooking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPatientsCurrentBooking",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"patient\":{\r\n        \"_id\" : \"612b746f0ccecaee2bc70907\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://134.209.219.21:9090/api/booking/getPatientsCurrentBooking",
+							"protocol": "http",
+							"host": [
+								"134",
+								"209",
+								"219",
+								"21"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"booking",
+								"getPatientsCurrentBooking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPatientsDoneBooking",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"patient\":{\r\n        \"_id\" : \"612b746f0ccecaee2bc70907\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://134.209.219.21:9090/api/booking/getPatientsDoneBooking",
+							"protocol": "http",
+							"host": [
+								"134",
+								"209",
+								"219",
+								"21"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"booking",
+								"getPatientsDoneBooking"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"auth": {
@@ -6145,7 +6326,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fullName\": \"mohamed\",\r\n    \"phone\": \"0123456789\",\r\n    \"hasInsurance\": false,\r\n    \"contractingCompany\": \"innovalz\",\r\n    \"insuranceCompany\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"name\": \"company 1\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n            }\r\n        ],\r\n        \"balance\": 300\r\n    },\r\n    \"insuranceNumber\": \"1111\",\r\n    \"address\": {\r\n        \"_id\": \"60dc2d33f29bf01398dd92dc\",\r\n        \"gov\": {\r\n            \"_id\": \"6101382ba057241b4416309e\",\r\n            \"name\": \"gov2\"\r\n        },\r\n        \"city\": {\r\n            \"_id\": \"61013bf5d4d40f2e2cd09139\",\r\n            \"name\": \"city1\"\r\n        },\r\n        \"lat\": 0,\r\n        \"long\": 0,\r\n        \"district\": \"1-october\",\r\n        \"streetName\": \"5 st\",\r\n        \"buildingNumber\": \"1 d\",\r\n        \"role\": \"3\",\r\n        \"apartmentNumber\": \"3\",\r\n        \"specialMark\": \"diaa school\",\r\n        \"title\": \"title1\",\r\n        \"addressLocation\": \"location 1\"\r\n    },\r\n    \"user\": {\r\n        \"_id\": \"60f97d6c87147c16dcef30e2\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\"\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"image\": [\r\n        {\r\n            \"name\": \"/api/image/orders/image_1626607945789.png\",\r\n            \"description\": \"-1\"\r\n        },\r\n        {\r\n            \"name\": \"/api/image/orders/image_1626607971089.png\",\r\n            \"description\": \"description 2\"\r\n        }\r\n    ],\r\n    \"cardImage\": [\r\n        {\r\n            \"name\": \"/api/image/orders/image_1626607860772.png\"\r\n            \r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"fullName\": \"mohamed\",\r\n    \"phone\": \"0123456789\",\r\n    \"hasInsurance\": false,\r\n    \"contractingCompany\": \"innovalz\",\r\n    \"insuranceCompany\": {\r\n        \"_id\": \"60dc34da9bf545255844e30d\",\r\n        \"name_ar\" : \"company 1\",\r\n    \"name_en\" : \"company 1\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n            }\r\n        ],\r\n        \"balance\": 300\r\n    },\r\n    \"insuranceNumber\": \"1111\",\r\n    \"address\": {\r\n        \"_id\": \"60dc2d33f29bf01398dd92dc\",\r\n        \"gov\": {\r\n                \"_id\": \"61376c0bedff9b2353cfcfab\",\r\n                \"name_ar\": \"القاهرة\",\r\n                \"name_en\": \"cairo\"\r\n            },\r\n        \"city\": {\r\n            \"_id\": \"6139df1edaf33132299b140c\",\r\n            \"name_ar\": \"التجمع\",\r\n            \"name_en\": \"new cairo\",\r\n            \"gov\": {\r\n                \"_id\": \"61376c0bedff9b2353cfcfab\",\r\n                \"name_ar\": \"القاهرة\",\r\n                \"name_en\": \"cairo\"\r\n            },\r\n            \"id\": 5\r\n        },\r\n        \"lat\": 0,\r\n        \"long\": 0,\r\n        \"district\": \"1-october\",\r\n        \"streetName\": \"5 st\",\r\n        \"buildingNumber\": \"1 d\",\r\n        \"role\": \"3\",\r\n        \"apartmentNumber\": \"3\",\r\n        \"specialMark\": \"diaa school\",\r\n        \"title\": \"title1\",\r\n        \"addressLocation\": \"location 1\"\r\n    },\r\n    \"user\": {\r\n        \"_id\": \"60f97d6c87147c16dcef30e2\",\r\n        \"idNumber\": \"1111\",\r\n        \"phone\": \"01004500950\",\r\n        \"fullName\": \"ahmed\",\r\n        \"insuranceCompany\": {\r\n            \"_id\": \"60dc34da9bf545255844e30d\",\r\n            \"name\": \"company 1\"\r\n        },\r\n        \"gender\": \"male\",\r\n        \"hasInsurance\": false,\r\n        \"contractingCompany\": \"innovalz\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n            }\r\n        ],\r\n        \"email\": \"test3@test.com\"\r\n    },\r\n    \"image\": [\r\n        {\r\n            \"name\": \"/api/image/orders/image_1626607945789.png\",\r\n            \"description\": \"-1\"\r\n        },\r\n        {\r\n            \"name\": \"/api/image/orders/image_1626607971089.png\",\r\n            \"description\": \"description 2\"\r\n        }\r\n    ],\r\n    \"cardImage\": [\r\n        {\r\n            \"name\": \"/api/image/orders/image_1626607860772.png\"\r\n            \r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6860,7 +7041,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idNumber\": \"1111\",\r\n    \"phone\": \"01004500951\",\r\n    \"password\": \"123\",\r\n    \"roles\": [],\r\n    \"fullName\": \"ahmed\",\r\n    \"insuranceCompany\": {\r\n        \"_id\": \"61092e3e8b635abfd51dcc0a\",\r\n        \"name_ar\": \"company 1\",\r\n        \"name_en\": \"company 1\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n            }\r\n        ],\r\n        \"balance\": 300\r\n    },\r\n    \"gender\": \"male\",\r\n    \"hasInsurance\": false,\r\n    \"contractingCompany\": \"innovalz\",\r\n    \"image\": [\r\n        {\r\n            \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n        }\r\n    ],\r\n    \"email\": \"test28@test.com\",\r\n    \"insuranceNumber\": \"123456789\",\r\n    \"cardImage\": [\r\n        {\r\n            \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"idNumber\": \"1111\",\r\n    \"phone\": \"010404500951\",\r\n    \"password\": \"123\",\r\n    \"roles\": [],\r\n    \"fullName\": \"ahmed\",\r\n    \"insuranceCompany\": {\r\n        \"_id\": \"61092e3e8b635abfd51dcc0a\",\r\n        \"name_ar\": \"company 1\",\r\n        \"name_en\": \"company 1\",\r\n        \"image\": [\r\n            {\r\n                \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n            }\r\n        ],\r\n        \"balance\": 300\r\n    },\r\n    \"gender\": \"male\",\r\n    \"hasInsurance\": false,\r\n    \"contractingCompany\": \"innovalz\",\r\n    \"image\": [\r\n        {\r\n            \"name\": \"//api/image/patients/image_1625738816594.png\"\r\n        }\r\n    ],\r\n    \"email\": \"Test28@Test.com\",\r\n    \"insuranceNumber\": \"123456789\",\r\n    \"cardImage\": [\r\n        {\r\n            \"name\": \"/api/image/insuranceCompany/image_1626087049776.png\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6868,13 +7049,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://134.209.219.21:9090/api/patients/add",
+							"raw": "http://localhost:9090/api/patients/add",
 							"protocol": "http",
 							"host": [
-								"134",
-								"209",
-								"219",
-								"21"
+								"localhost"
 							],
 							"port": "9090",
 							"path": [
@@ -6902,7 +7080,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"testone@gmail.com\",\r\n    \"password\": \"12341234\",\r\n    \"type\": \"patient\"\r\n}",
+							"raw": "{\r\n    \"email\": \"Test28@Test.com\",\r\n    \"password\": \"456\",\r\n    \"type\": \"patient\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6910,13 +7088,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://134.209.219.21:9090/api/user/login",
+							"raw": "http://localhost:9090/api/user/login",
 							"protocol": "http",
 							"host": [
-								"134",
-								"209",
-								"219",
-								"21"
+								"localhost"
 							],
 							"port": "9090",
 							"path": [
@@ -7387,13 +7562,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://134.209.219.21:9090/api/user/logout",
+							"raw": "http://localhost:9090/api/user/logout",
 							"protocol": "http",
 							"host": [
-								"134",
-								"209",
-								"219",
-								"21"
+								"localhost"
 							],
 							"port": "9090",
 							"path": [
@@ -7445,7 +7617,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"password\" : \"777\",\r\n\"newPassword\" : \"888\",\r\n\"repeatNewPassword\" : \"888\" \r\n}",
+							"raw": "{\r\n   \"password\" : \"123\",\r\n\"newPassword\" : \"456\",\r\n\"repeatNewPassword\" : \"456\" \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -7550,7 +7722,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"gov\": {\r\n        \"_id\": \"60ee9b85f8a8ee52ca3f5b4e\",\r\n        \"name\": \"gov1\"\r\n    },\r\n    \"city\": {\r\n        \"_id\": \"60ee9b9cf8a8ee52ca3f5b4f\",\r\n        \"name\": \"city1\"\r\n    },\r\n    \"pharmacyName\": \"ph_d14\",\r\n    \"userName\": \"td5\",\r\n    \"branch\": \"33636535\",\r\n    \"email\": \"test@test.com\",\r\n    \"phone\": \"0104500958\",\r\n    \"password\": \"123\",\r\n    \"address\": \"elmahalla elkobra\",\r\n    \"lat\": 31.009394,\r\n    \"long\": 31.390248,\r\n    \"image\" : [\r\n        {\r\n            \"name\" : \"/api/image/pharmacy/image_1627663233639.png\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"gov\": {\r\n        \"_id\": \"60ee9b85f8a8ee52ca3f5b4e\",\r\n        \"name_ar\": \"gov1\",\r\n        \"name_en\": \"gov1\"\r\n    },\r\n    \"city\": {\r\n        \"_id\": \"60ee9b9cf8a8ee52ca3f5b4f\",\r\n        \"name_ar\": \"city1\",\r\n        \"name_en\": \"city1\",\r\n        \"gov\": {\r\n            \"_id\": \"60ee9b85f8a8ee52ca3f5b4e\",\r\n            \"name_ar\": \"gov1\",\r\n            \"name_en\": \"gov1\"\r\n        }\r\n    },\r\n    \"pharmacyName\": \"ph_d14\",\r\n    \"userName\": \"td5\",\r\n    \"branch\": \"33636535\",\r\n    \"email\": \"test@test.com\",\r\n    \"phone\": \"0104500958\",\r\n    \"password\": \"123\",\r\n    \"address\": \"elmahalla elkobra\",\r\n    \"lat\": 31.009394,\r\n    \"long\": 31.390248,\r\n    \"image\": [\r\n        {\r\n            \"name\": \"/api/image/pharmacy/image_1627663233639.png\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
