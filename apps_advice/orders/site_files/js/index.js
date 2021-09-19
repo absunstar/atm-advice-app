@@ -276,10 +276,15 @@ app.controller('main', function ($scope, $http, $timeout) {
           $scope.govesList = response.data.docs;
 
           $scope.govesList.forEach((g) => {
-            if (g.id == $scope.order.address.gov.id) {
-              $scope.order.address.gov = g;
-              $scope.getCitiesList();
-            }
+           
+           if ($scope.order.address && $scope.order.address.gov ) {
+             
+             if (g.id == $scope.order.address.gov.id) {
+               $scope.order.address.gov = g;
+               $scope.getCitiesList();
+             }
+           }
+           
           });
         }
       },
@@ -323,7 +328,10 @@ app.controller('main', function ($scope, $http, $timeout) {
       location.href = '/signin';
       return;
     }
-    if (!$scope.order.address.gov) {
+    if(!$scope.order.address){
+      return false;
+    }
+    if ($scope.order.address && !$scope.order.address.gov) {
       return false;
     }
     $scope.busy = true;
@@ -376,9 +384,13 @@ app.controller('main', function ($scope, $http, $timeout) {
         if (response.data.docs.length > 0) {
           $scope.insuranceCompanyList = response.data.docs;
           $scope.insuranceCompanyList.forEach((g) => {
-            if (g.id == $scope.order.patient.insuranceCompany.id) {
-              $scope.order.insuranceCompany = g;
+            if ($scope.order.patient && $scope.order.patient.insuranceCompany) {
+              if (g.id == $scope.order.patient.insuranceCompany.id ) {
+                $scope.order.insuranceCompany = g;
+              }
+              
             }
+            
           });
         }
       },
