@@ -12,6 +12,32 @@ app.controller("booking", function ($scope, $http, $timeout) {
     ]
   };
 
+  $scope.validateBooking = function () {
+    $scope.error = "";
+    const v = site.validated("body");
+    if ('##user.ref_info._id##' == '') {
+      location.href = '/signin';
+      return;
+    }
+    else if (!v.ok) {
+      $scope.error = v.messages[0].ar;
+      return;
+    }
+    else{
+     
+        document.querySelector(".first-step").style.display = "none";
+        document.querySelector(".second-step").style.display = "none";
+        document.querySelector(".third-step").style.display = "block";
+        document.querySelector(".final-step").style.display = "none";
+
+        one.classList.add("active");
+        two.classList.add("active");
+        three.classList.add("active");
+      
+    };
+  
+};
+
   $scope.confirmBooking = function () {
     $scope.error = "";
     if ('##user.ref_info._id##' == '') {
@@ -158,9 +184,12 @@ app.controller("booking", function ($scope, $http, $timeout) {
         if (response.data.docs.length > 0) {
           $scope.insuranceCompanyList = response.data.docs;
           $scope.insuranceCompanyList.forEach((g) => {
-            if (g.id == $scope.booking.patient.insuranceCompany.id) {
-              $scope.booking.patient.insuranceCompany = g;
+            if ($scope.booking && $scope.booking.patient.insuranceCompany && $scope.booking.patient.insuranceCompany.id) {
+              if (g.id == $scope.booking.patient.insuranceCompany.id) {
+                $scope.booking.patient.insuranceCompany = g;
+              }
             }
+            
           });
         }
       },
@@ -308,10 +337,10 @@ app.controller("booking", function ($scope, $http, $timeout) {
     };
     $scope.booking.time = t.startSession;
     t.status = "unAvailable";
-    document.querySelector("#step4").click();
+  
 
 
-    two.addEventListener("click", () => {
+   
       document.querySelector(".first-step").style.display = "none";
       document.querySelector(".second-step").style.display = "block";
       document.querySelector(".third-step").style.display = "none";
@@ -320,7 +349,7 @@ app.controller("booking", function ($scope, $http, $timeout) {
       one.classList.add("active");
       two.classList.add("active");
       three.classList.remove("active");
-    });
+    
 
   };
 
