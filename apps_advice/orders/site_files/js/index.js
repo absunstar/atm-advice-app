@@ -83,6 +83,11 @@ app.controller('main', function ($scope, $http, $timeout) {
       $scope.order.user = {
         _id: JSON.parse('##user.ref_info._id##'),
       };
+      if ($scope.order.address) {
+        $scope.order.address.lat= 0;
+        $scope.order.address.long= 0;
+      };
+     
       $scope.busy = true;
       $http({
         method: 'POST',
