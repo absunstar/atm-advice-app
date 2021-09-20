@@ -1,92 +1,90 @@
-app.controller("booking", function ($scope, $http, $timeout) {
- 
+app.controller('booking', function ($scope, $http, $timeout) {
   $scope._search = {};
 
   $scope.booking = {
-    filter:{},
-    patient:{},
-    cardImage:[
+    filter: {},
+    patient: {},
+    cardImage: [
       {
-        name: "/images/id-card.svg ",
-      }
-    ]
+        name: '/images/id-card.svg ',
+      },
+    ],
   };
 
   $scope.validateBooking = function () {
-    $scope.error = "";
-    const v = site.validated("body");
+    $scope.error = '';
+    const v = site.validated('body');
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    }
-    else if (!v.ok) {
+    } else if ($scope.booking.patient.hasInsurance == 'true' && !v.ok) {
       $scope.error = v.messages[0].ar;
       return;
-    }
-    else{
-     
-        document.querySelector(".first-step").style.display = "none";
-        document.querySelector(".second-step").style.display = "none";
-        document.querySelector(".third-step").style.display = "block";
-        document.querySelector(".final-step").style.display = "none";
+    } else {
+      document.querySelector('.first-step').style.display = 'none';
+      document.querySelector('.second-step').style.display = 'none';
+      document.querySelector('.third-step').style.display = 'block';
+      document.querySelector('.final-step').style.display = 'none';
 
-        one.classList.add("active");
-        two.classList.add("active");
-        three.classList.add("active");
-      
-    };
-  
-};
+      one.classList.add('active');
+      two.classList.add('active');
+      three.classList.add('active');
+    }
+  };
 
   $scope.confirmBooking = function () {
-    $scope.error = "";
+    $scope.error = '';
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    };
-    const v = site.validated("body");
+    }
+    const v = site.validated('body');
     if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
-    }
-    else{
-      five.addEventListener("click", () => {
-        document.querySelector(".first-step").style.display = "none";
-        document.querySelector(".second-step").style.display = "none";
-        document.querySelector(".third-step").style.display = "block";
-        document.querySelector(".final-step").style.display = "none";
+    } else {
+      five.addEventListener('click', () => {
+        document.querySelector('.first-step').style.display = 'none';
+        document.querySelector('.second-step').style.display = 'none';
+        document.querySelector('.third-step').style.display = 'block';
+        document.querySelector('.final-step').style.display = 'none';
 
-        one.classList.add("active");
-        two.classList.add("active");
-        three.classList.add("active");
+        one.classList.add('active');
+        two.classList.add('active');
+        three.classList.add('active');
       });
     }
     let str = '##user.ref_info._id##';
-      str = str.substr(1);
-      str = str.substr(0, str.length - 1);
+    str = str.substr(1);
+    str = str.substr(0, str.length - 1);
     $scope.booking.user = {
       _id: str,
     };
     if (!$scope.booking.date2) {
-      $scope.error = "##word.mustEnterDate##";
+      $scope.error = '##word.mustEnterDate##';
       return;
     }
-   
-   
+
+    if ($scope.booking.patient.hasInsurance == 'true') {
+      $scope.booking.patient.hasInsurance = true;
+    }
+    if ($scope.booking.patient.hasInsurance == 'false') {
+      $scope.booking.patient.hasInsurance = false;
+    }
+
     $scope.busy = true;
     $http({
-      method: "POST",
-      url: "/api/booking/add",
+      method: 'POST',
+      url: '/api/booking/add',
       data: $scope.booking,
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-        
         } else {
           $scope.error = response.data.error;
-          if (response.data.error.like("*Must Enter Code*")) {
-            $scope.error = "##word.must_enter_code##";
+          if (response.data.error.like('*Must Enter Code*')) {
+            $scope.error = '##word.must_enter_code##';
           }
         }
       },
@@ -95,57 +93,47 @@ app.controller("booking", function ($scope, $http, $timeout) {
       }
     );
   };
-
-
-
-
 
   $scope.doctorFilter = function (data) {
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    };
+    }
     $scope.busy = true;
     if (data.degree != '') {
-      data.degree={
-        id : data.degree 
+      data.degree = {
+        id: data.degree,
       };
-    };
+    }
     if (data.degree.id == undefined) {
       delete data.degree.id;
       delete data.degree;
-    };
+    }
     if (data.date) {
       data.date1 = data.date.toLocaleDateString('fr-CA');
-    };
+    }
     console.log(data);
     $http({
-      method: "POST",
-      url: "/api/doctors/search",
+      method: 'POST',
+      url: '/api/doctors/search',
       data: data,
     }).then(
       function (response) {
-      
         if (response.data.data && response.data.data.docs && response.data.data.docs.length > 0) {
-          
-          $scope.DoctorsList =  [];
+          $scope.DoctorsList = [];
           for (const iterator of response.data.data.docs) {
-           let xx =  parseInt(iterator.rating, 10);
-           iterator.rating = xx;
+            let xx = parseInt(iterator.rating, 10);
+            iterator.rating = xx;
             $scope.DoctorsList.push(iterator);
           }
-
         }
         if (response.data.data && response.data.data.docs && response.data.data.docs.length == 0) {
-          
-          $scope.DoctorsList =  [];
+          $scope.DoctorsList = [];
         }
-        
+
         if (data != undefined) {
           for (var member in data) delete data[member];
-        };
-       
-
+        }
       },
       function (err) {
         console.log(err);
@@ -153,15 +141,11 @@ app.controller("booking", function ($scope, $http, $timeout) {
     );
   };
 
-
-
-
-
   $scope.getInsuranceCompanyList = function (where) {
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    };
+    }
     $scope.busy = true;
     $http({
       method: 'GET',
@@ -189,7 +173,6 @@ app.controller("booking", function ($scope, $http, $timeout) {
                 $scope.booking.patient.insuranceCompany = g;
               }
             }
-            
           });
         }
       },
@@ -203,21 +186,18 @@ app.controller("booking", function ($scope, $http, $timeout) {
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    };
+    }
     $scope.busy = true;
     $scope.specialtyList = [];
     $http({
-      method: "POST",
-      url: "/api/departments/search",
+      method: 'POST',
+      url: '/api/departments/search',
       data: where,
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.docs.length > 0) {
-          $scope.specialtyList = [
-            ...$scope.specialtyList,
-            ...response.data.docs,
-          ];
+          $scope.specialtyList = [...$scope.specialtyList, ...response.data.docs];
           $scope.count = response.data.totalDocs;
           $scope.search = {};
         }
@@ -233,12 +213,12 @@ app.controller("booking", function ($scope, $http, $timeout) {
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    };
+    }
     $scope.busy = true;
     $scope.govesList = [];
     $http({
-      method: "GET",
-      url: "/api/gov",
+      method: 'GET',
+      url: '/api/gov',
       data: {
         where: {
           active: true,
@@ -266,17 +246,17 @@ app.controller("booking", function ($scope, $http, $timeout) {
   $scope.getCityList = function (gov) {
     let where = {};
     if (gov) {
-      where["gov"] = gov;
+      where['gov'] = gov;
     }
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    };
+    }
     $scope.busy = true;
     $scope.cityList = [];
     $http({
-      method: "POST",
-      url: "/api/city/search",
+      method: 'POST',
+      url: '/api/city/search',
       data: where,
     }).then(
       function (response) {
@@ -297,31 +277,28 @@ app.controller("booking", function ($scope, $http, $timeout) {
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    };
+    }
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: "GET",
-      url: "api/doctors",
+      method: 'GET',
+      url: 'api/doctors',
       data: where,
     }).then(
       function (response) {
         $scope.busy = false;
 
-         if (response.data.data && response.data.data.docs && response.data.data.docs.length > 0) {
-          $scope.DoctorsList =  [];
+        if (response.data.data && response.data.data.docs && response.data.data.docs.length > 0) {
+          $scope.DoctorsList = [];
           for (const iterator of response.data.data.docs) {
-           let xx =  parseInt(iterator.rating, 10);
-           iterator.rating = xx;
+            let xx = parseInt(iterator.rating, 10);
+            iterator.rating = xx;
             $scope.DoctorsList.push(iterator);
           }
-
         }
         if (response.data.data && response.data.data.docs && response.data.data.docs.length == 0) {
-          
-          $scope.DoctorsList =  [];
+          $scope.DoctorsList = [];
         }
-        
       },
       function (err) {
         $scope.busy = false;
@@ -334,38 +311,33 @@ app.controller("booking", function ($scope, $http, $timeout) {
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    };
+    }
     $scope.booking.time = t.startSession;
-    t.status = "unAvailable";
-  
+    t.status = 'unAvailable';
 
+    document.querySelector('.first-step').style.display = 'none';
+    document.querySelector('.second-step').style.display = 'block';
+    document.querySelector('.third-step').style.display = 'none';
+    document.querySelector('.final-step').style.display = 'none';
 
-   
-      document.querySelector(".first-step").style.display = "none";
-      document.querySelector(".second-step").style.display = "block";
-      document.querySelector(".third-step").style.display = "none";
-      document.querySelector(".final-step").style.display = "none";
-
-      one.classList.add("active");
-      two.classList.add("active");
-      three.classList.remove("active");
-    
-
+    one.classList.add('active');
+    two.classList.add('active');
+    three.classList.remove('active');
   };
 
   $scope.getAppointmentsByDate = function () {
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    };
+    }
     let d = new Date($scope.booking.date2);
     d.setDate(d.getDate() + 1);
-    $scope.booking.date = d.toISOString().split("T")[0];
+    $scope.booking.date = d.toISOString().split('T')[0];
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: "POST",
-      url: "api/doctors/getAppointmentsByDate",
+      method: 'POST',
+      url: 'api/doctors/getAppointmentsByDate',
       data: {
         doctor: { _id: $scope.booking.doctor._id },
         date: $scope.booking.date,
@@ -385,27 +357,23 @@ app.controller("booking", function ($scope, $http, $timeout) {
     );
   };
 
-
-
   $scope.getCurrentPatient = function () {
     let where = {};
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    };
+    }
     $scope.busy = true;
-    
+
     $http({
-      method: "POST",
-      url: "api/patients/getProfile",
+      method: 'POST',
+      url: 'api/patients/getProfile',
     }).then(
       function (response) {
         $scope.busy = false;
         if (response.data.done) {
-         $scope.booking.patient = response.data.data;
-
+          $scope.booking.patient = response.data.data;
         }
-        
       },
       function (err) {
         $scope.busy = false;
@@ -413,16 +381,16 @@ app.controller("booking", function ($scope, $http, $timeout) {
       }
     );
   };
-  
+
   $scope.getspecialtyList();
   $scope.getGovesList();
   $scope.getCurrentPatient();
-$scope.getInsuranceCompanyList();
-$scope.getCityList();
+  $scope.getInsuranceCompanyList();
+  $scope.getCityList();
 
-document.querySelector(".searchDoctorBtn").click();
+  document.querySelector('.searchDoctorBtn').click();
 });
 
-window.addEventListener('load' , ()=>{
-  document.querySelector(".searchDoctorBtn").click();
-})
+window.addEventListener('load', () => {
+  document.querySelector('.searchDoctorBtn').click();
+});

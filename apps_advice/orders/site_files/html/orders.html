@@ -109,9 +109,13 @@
                 <div class="row">
                   <div class="col-sm-12">
                     <h1>ادخل بياناتك</h1>
-                    <p  class="red-error">
+                    <p ng-show="error" class="red-error">
                     
                       {{error}}
+                    </p>
+                    <p ng-show="error1" class="red-error">
+                    
+                      {{error1}}
                     </p>
                   </div>
                 </div>
@@ -192,19 +196,23 @@
                         <input
                           type="radio"
                           name="insurance"
+                          id="no-had"
                           checked="checked"
+                          ng-change="test()"
+                          ng-model="order.patient.hasInsurance"
+                          value= false
                         />لا
-                        <input type="radio" name="insurance" ng-model="order.patient.hasInsurance" />نعم
+                        <input type="radio" id="yes-had" ng-change="test()" name="insurance" ng-model="order.patient.hasInsurance" value= true />نعم
 
                         <div class="row tab">
                           <div class="col-sm-6">
                             <label>مكان العمل</label><br />
-                            <input type="text" placeholder="ماهي شركتك؟" ng-model="order.patient.contractingCompany" />
+                            <input type="text" placeholder="ماهي شركتك؟" ng-model="order.patient.contractingCompany" v="r"/>
                           </div>
                           <div class="col-sm-6">
                             <label>شركه التأمين</label>
                             <br />
-                            <select ng-model="order.insuranceCompany" ng-options="s.name_##session.lang## for s in insuranceCompanyList">
+                            <select ng-model="order.insuranceCompany" ng-options="s.name_##session.lang## for s in insuranceCompanyList" >
                               <option selected disabled>
                                 اختر شركه التأمين
                               </option>
@@ -213,13 +221,13 @@
 
                           <div class="col-sm-6">
                             <label>الرقم التأميني</label><br />
-                            <input type="text" ng-model="order.patient.insuranceNumber"/>
+                            <input type="text" ng-model="order.patient.insuranceNumber" />
                           </div>
-                          <div class="col-sm-6 insurance-card" ng-repeat="i in order.cardImage">
+                          <div class="col-sm-6 insurance-card" ng-repeat="i in order.cardImage" >
 
                             
                             <label>صوره كارت التأمين</label><br />
-                            <i-image ng-model="i.name"></i-image>
+                            <i-image ng-model="i.name" ></i-image>
                             <!-- <label for="insurance-img" class="label-for-file"
                               >ارفع صورة كارت التأمين الخاصة بك</label
                             > -->

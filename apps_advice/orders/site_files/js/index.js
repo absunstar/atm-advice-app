@@ -52,16 +52,32 @@ app.controller('main', function ($scope, $http, $timeout) {
     }
   };
 
+$scope.test = function (val) {
+  console.log($scope.order.patient.hasInsurance);
+  const v = site.validated('body');
+  $scope.error1 = "";
+  if (!v.ok && $scope.order.patient.hasInsurance == 'true') {
+      
+    $scope.error1 = v.messages[0].ar;
+    return;
+  } 
+};
+
   $scope.confirmOrder = function () {
     $scope.error = '';
+    console.log("xxxxxxxxxxxxx" , $scope.order.patient.hasInsurance , typeof ($scope.order.patient.hasInsurance));
     const v = site.validated('body');
+    
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    } else if (!v.ok) {
+    } else if (!v.ok && $scope.order.patient.hasInsurance == 'false')  {
+      
       $scope.error = v.messages[0].ar;
       return;
-    } else {
+    } 
+   
+    else {
       document.querySelector('.upload-now').style.display = 'none';
       document.querySelector('.flow1').style.display = 'none';
       document.querySelector('.flow2').style.display = 'none';
@@ -86,6 +102,12 @@ app.controller('main', function ($scope, $http, $timeout) {
       if ($scope.order.address) {
         $scope.order.address.lat= 0;
         $scope.order.address.long= 0;
+      };
+      if ($scope.order.hasInsurance == 'true') {
+        $scope.order.hasInsurance = true
+      };
+      if ($scope.order.hasInsurance == 'false') {
+        $scope.order.hasInsurance = false
       };
      
       $scope.busy = true;

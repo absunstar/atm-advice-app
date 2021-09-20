@@ -182,13 +182,14 @@
                             <input
                               type="radio"
                               name="insurance"
-                              value= "false"
+                              value= false
                               checked="checked"
+                              ng-model="booking.patient.hasInsurance"
                             />لا
                             <input
                               type="radio"
                               name="insurance"
-                              value="true"
+                              value=true
                               ng-model="booking.patient.hasInsurance"
                             />نعم
 
@@ -198,12 +199,14 @@
                                 <input
                                   type="text"
                                   ng-model="booking.patient.contractingCompany"
+                                  v="r"
                                 />
                               </div>
                               <div class="col-sm-6">
                                 <label>شركه التأمين</label>
                                 <br />
                                 <select
+                                v="r"
                                   ng-model="booking.patient.insuranceCompany"
                                   ng-options="s.name_##session.lang## for s in insuranceCompanyList"
                                 >
@@ -215,12 +218,13 @@
 
                               <div class="col-sm-6">
                                 <label>الرقم التأميني</label><br />
-                                <input type="text" ng-model="booking.patient.insuranceNumber" />
+                                <input type="text" ng-model="booking.patient.insuranceNumber" v="r"/>
                               </div>
                               <div class="col-sm-6 insurance-card" ng-repeat="i in booking.cardImage">
                                 <label>صوره كارت التأمين</label><br />
                                 <i-image
                                   ng-model="i.name"
+                                  v="r"
                                 ></i-image>
                                 <!-- <label
                         for="insurance-img"
@@ -269,8 +273,8 @@
                               >
                                 <h4>{{booking.patient.fullName}}</h4>
                                 <h4>{{booking.patient.phone}}</h4>
-                                <h4 ng-show="booking.patient.hasInsurance">يوجد لديه تأمين صحي</h4>
-                                <h4 ng-show="!booking.patient.hasInsurance">لا يوجد لديه تأمين صحي</h4>
+                                <h4  ng-show="booking.patient.hasInsurance == 'true'">يوجد لديه تأمين صحي</h4>
+                                <h4  ng-show="booking.patient.hasInsurance  == 'false'">لا يوجد لديه تأمين صحي</h4>
                               </div>
                             </div>
                           </div>
