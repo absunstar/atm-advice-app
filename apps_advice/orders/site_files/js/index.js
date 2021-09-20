@@ -52,30 +52,29 @@ app.controller('main', function ($scope, $http, $timeout) {
     }
   };
 
-$scope.test = function (val) {
-  console.log($scope.order.patient.hasInsurance);
-  const v = site.validated('body');
-  $scope.error1 = "";
-  if (!v.ok && $scope.order.patient.hasInsurance == 'true') {
-      
-    $scope.error1 = v.messages[0].ar;
-    return;
-  } 
-};
 
   $scope.confirmOrder = function () {
     $scope.error = '';
-    console.log("xxxxxxxxxxxxx" , $scope.order.patient.hasInsurance , typeof ($scope.order.patient.hasInsurance));
-    const v = site.validated('body');
     
     if ('##user.ref_info._id##' == '') {
       location.href = '/signin';
       return;
-    } else if (!v.ok && $scope.order.patient.hasInsurance == 'false')  {
-      
+    }
+    
+
+    const v = site.validated('#personalData');
+    if (!v.ok) {
       $scope.error = v.messages[0].ar;
       return;
-    } 
+    }
+
+    const v2 = site.validated('#induranceData');
+    if (!v2.ok && ($scope.order.patient.hasInsurance == "true" )) {
+      $scope.error = v.messages[0].ar;
+      return;
+    }
+
+
    
     else {
       document.querySelector('.upload-now').style.display = 'none';

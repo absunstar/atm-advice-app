@@ -1,153 +1,150 @@
 <!DOCTYPE html>
 <html lang="en" dir="rtl" ng-app="myApp">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/css/style.css" rel="stylesheet" />
-    <!-- <link href="/x-css/images.css" rel="stylesheet" /> -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/css/fontawesome.css" />
-    <link href="/x-css/fonts.css" rel="stylesheet" />
-    <title>Orders</title>
-  </head>
 
-  <body ng-controller="main">
-    <section class="order-now">
-      <nav class="sitebar" x-import="sitebar/nav.html"></nav>
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <h2>كيف تطلب دوائك من advice ؟</h2>
-            <div class="info-order">
-              <img src="images/Group14217.svg" />
-            </div>
-            <span
-              >باستخدام المعلومات والروشتة المقدمة سنبحث عن الدواء الخاص
-              بك</span
-            ><br /><br /><br />
-            <div class="info-order">
-              <img src="images/Group14217-1.svg" />
-            </div>
-            <span
-              >باستخدام المعلومات والروشتة المقدمة سنبحث عن الدواء الخاص
-              بك</span
-            ><br /><br /><br />
-            <div class="info-order">
-              <img src="images/Group14217-2.svg" />
-            </div>
-            <span
-              >باستخدام المعلومات والروشتة المقدمة سنبحث عن الدواء الخاص
-              بك</span
-            ><br /><br /><br />
-            <div class="info-order">
-              <img src="images/Group14217-3.svg" />
-            </div>
-            <span
-              >باستخدام المعلومات والروشتة المقدمة سنبحث عن الدواء الخاص
-              بك</span
-            ><br /><br /><br />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/css/style.css" rel="stylesheet" />
+  <!-- <link href="/x-css/images.css" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/fontawesome.css" />
+  <link href="/x-css/fonts.css" rel="stylesheet" />
+  <title>Orders</title>
+</head>
+
+<body ng-controller="main">
+  <section class="order-now">
+    <nav class="sitebar" x-import="sitebar/nav.html"></nav>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h2>كيف تطلب دوائك من advice ؟</h2>
+          <div class="info-order">
+            <img src="images/Group14217.svg" />
           </div>
-          <div class="col-sm-8">
+          <span>باستخدام المعلومات والروشتة المقدمة سنبحث عن الدواء الخاص
+            بك</span><br /><br /><br />
+          <div class="info-order">
+            <img src="images/Group14217-1.svg" />
+          </div>
+          <span>باستخدام المعلومات والروشتة المقدمة سنبحث عن الدواء الخاص
+            بك</span><br /><br /><br />
+          <div class="info-order">
+            <img src="images/Group14217-2.svg" />
+          </div>
+          <span>باستخدام المعلومات والروشتة المقدمة سنبحث عن الدواء الخاص
+            بك</span><br /><br /><br />
+          <div class="info-order">
+            <img src="images/Group14217-3.svg" />
+          </div>
+          <span>باستخدام المعلومات والروشتة المقدمة سنبحث عن الدواء الخاص
+            بك</span><br /><br /><br />
+        </div>
+        <div class="col-sm-8">
 
-            <div class="steps">
-                <div id="orderUpload" class="active">
-                  <a href="#"><i class="fas fa-upload"></i></a><br>
-                  <p> تحميل الروشتة</p>
-                </div>
-                <div id="orderInformation">
-                  <a href="#"><i class="fas fa-user" ng-click="validateImage()"></i></a><br>
-                  <p> ادخل بياناتك</p>
-                </div>
-                <div id="orderConfirmation">
-                  <a href="#"><i class="fas fa-check"></i></a><br>
-                  <p>تأكيد الحجز</p>
-                </div>
-             </div>
+          <div class="steps">
+            <div id="orderUpload" class="active">
+              <a href="#"><i class="fas fa-upload"></i></a><br>
+              <p> تحميل الروشتة</p>
+            </div>
+            <div id="orderInformation">
+              <a href="#"><i class="fas fa-user" ng-click="validateImage()"></i></a><br>
+              <p> ادخل بياناتك</p>
+            </div>
+            <div id="orderConfirmation">
+              <a href="#"><i class="fas fa-check"></i></a><br>
+              <p>تأكيد الحجز</p>
+            </div>
+          </div>
 
 
-             <h2 class="text-center flow1" style="margin: 60px 0px;">تحميل الروشتة او المنتج</h2>
-             <p class="red-error">{{imgError}}</p>
-             <div class="upload-now">
-               <div class="row repeat-row" ng-repeat="im in order.image">
-                <!-- <img src="images/Group14203(2).svg" alt="" />
+          <h2 class="text-center flow1" style="margin: 60px 0px;">تحميل الروشتة او المنتج</h2>
+          <p class="red-error">{{imgError}}</p>
+          <div class="upload-now">
+            <div class="row repeat-row" ng-repeat="im in order.image">
+              <!-- <img src="images/Group14203(2).svg" alt="" />
                   <p>قم بتحميل صورة الروشتة او المنتج</p> -->
-                  
-                  
-                  <!-- <input type="file" id="file_Pharmacy" style="display: none;" ng-model="order.image_url" accept="image/*">
+
+
+              <!-- <input type="file" id="file_Pharmacy" style="display: none;" ng-model="order.image_url" accept="image/*">
                     <label for="file_Pharmacy" id="add-img">معرض الصور</label> -->
-                    
-                  
-                    <!-- stage 2 -->
-                    
-                    <div class="img-info col-sm-12">
-                      <div class="img-with-description flow2">
-                        <i-image id="add-img" ng-model="im.name" ></i-image>
-                        <textarea ng-model="im.description"  placeholder="...اكتب تفاصيل اذا تريد"></textarea>
-                       
-                        <a ng-click="order.image.push({name : '/images/upload.svg'})" style="margin: auto 5px; color: #b1cee0;font-size: 20px;"> <i class="fas fa-plus-circle"></i> </a>
 
-                      </div>
-                    </div>
 
-                  </div>
-                  <!-- <div class="add-more" style="margin: 0px 15px;">
+              <!-- stage 2 -->
+
+              <div class="img-info col-sm-12">
+                <div class="img-with-description flow2">
+                  <i-image id="add-img" ng-model="im.name"></i-image>
+                  <textarea ng-model="im.description" placeholder="...اكتب تفاصيل اذا تريد"></textarea>
+
+                  <a ng-click="order.image.push({name : '/images/upload.svg'})"
+                    style="margin: auto 5px; color: #b1cee0;font-size: 20px;"> <i class="fas fa-plus-circle"></i> </a>
+
+                </div>
+              </div>
+
+            </div>
+            <!-- <div class="add-more" style="margin: 0px 15px;">
                   <a ng-click="order.image.push({name : '/images/file.svg'})"> <i class="fas fa-plus-circle"></i> </a>
                 </div> -->
-        </div>
+          </div>
           <div>
-        
-           
+
+
           </div>
 
-          <a href="#"class="flow3 pay-now" ng-click="validateImage()" id="stage1">اطلب</a>
-         
-        
-            <!-- stage 3 -->
-            <div class="container sign-up" style="margin-top: 20px">
-              <div class="signnup" style="display: none">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <h1>ادخل بياناتك</h1>
-                    <p ng-show="error" class="red-error">
-                    
-                      {{error}}
-                    </p>
-                    <p ng-show="error1" class="red-error">
-                    
-                      {{error1}}
-                    </p>
-                  </div>
+          <a href="#" class="flow3 pay-now" ng-click="validateImage()" id="stage1">اطلب</a>
+
+
+          <!-- stage 3 -->
+          <div class="container sign-up" style="margin-top: 20px">
+            <div class="signnup" style="display: none">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h1>ادخل بياناتك</h1>
+                  <p ng-show="error" class="red-error">
+
+                    {{error}}
+                  </p>
+                  <p ng-show="error1" class="red-error">
+
+                    {{error1}}
+                  </p>
                 </div>
-                <form>
+              </div>
+              <form>
+                <div id="personalData">
                   <div class="row">
-                    <div class="col-sm-12" >
+                    <div class="col-sm-12">
                       <label>الاسم</label><br />
-                      <input type="text" ng-model="order.patient.fullName" v="r"/>
-                      
+                      <input type="text" ng-model="order.patient.fullName" v="r" />
+
                     </div>
                     <div class="col-sm-12">
                       <label> رقم الهاتف </label><br />
-                      <input type="tel" ng-model="order.patient.phone"  v="r" />
+                      <input type="tel" ng-model="order.patient.phone" v="r" />
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-12">
                       <label> العنوان</label><br />
-                      <input type="text" ng-model="order.address.addressLocation"  v="r" />
+                      <input type="text" ng-model="order.address.addressLocation" v="r" />
                     </div>
                     <br /><br />
                     <div class="col-sm-6">
                       <label>المحافظة</label>
                       <br />
-                      <select ng-change="getCitiesList()" ng-model="order.address.gov" ng-options="s.name_##session.lang## for s in govesList" v="r">
+                      <select ng-change="getCitiesList()" ng-model="order.address.gov"
+                        ng-options="s.name_##session.lang## for s in govesList" v="r">
                         <option selected disabled>اختر اسم المحافظة</option>
                       </select>
                     </div>
                     <div class="col-sm-6">
                       <label> المدينة</label>
                       <br />
-                      <select ng-model="order.address.city" ng-options="s.name_##session.lang## for s in citiesList" v="r">
+                      <select ng-model="order.address.city" ng-options="s.name_##session.lang## for s in citiesList"
+                        v="r">
                         <option selected disabled>اختر اسم المدينة</option>
                       </select>
                     </div>
@@ -155,15 +152,11 @@
                   <div class="row">
                     <div class="col-sm-6">
                       <label>المنطقة أو الحي</label><br />
-                      <input
-                        type="text"
-                        ng-model="order.address.district"
-                        v="r"
-                      />
+                      <input type="text" ng-model="order.address.district" v="r" />
                     </div>
                     <div class="col-sm-6">
                       <label>الشارع</label><br />
-                      <input type="text" ng-model="order.address.streetName"  v="r"/>
+                      <input type="text" ng-model="order.address.streetName" v="r" />
                     </div>
                   </div>
                   <div class="row">
@@ -173,154 +166,141 @@
                     </div>
                     <div class="col-sm-2">
                       <label>الدور</label><br />
-                      <input type="text" ng-model="order.address.role"  v="r"/>
+                      <input type="text" ng-model="order.address.role" v="r" />
                     </div>
                     <div class="col-sm-2">
                       <label>الشقة </label><br />
-                      <input type="text" ng-model="order.address.apartmentNumber"  v="r"/>
+                      <input type="text" ng-model="order.address.apartmentNumber" v="r" />
                     </div>
                     <div class="col-sm-6">
                       <label>أقرب مكان مميز</label><br />
-                      <input
-                        type="text"
-                        
-                        ng-model="order.address.specialMark"
-                        v="r"
-                      />
+                      <input type="text" ng-model="order.address.specialMark" v="r" />
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <label>هل لديك اشتراك في تأمين صحي ؟</label><br />
-                      <div class="radio">
-                        <input
-                          type="radio"
-                          name="insurance"
-                          id="no-had"
-                          checked="checked"
-                          ng-change="test()"
-                          ng-model="order.patient.hasInsurance"
-                          value= false
-                        />لا
-                        <input type="radio" id="yes-had" ng-change="test()" name="insurance" ng-model="order.patient.hasInsurance" value= true />نعم
+                </div>
+                <div id="induranceData" class="row">
+                  <div class="col-sm-12">
+                    <label>هل لديك اشتراك في تأمين صحي ؟</label><br />
+                    <div class="radio">
+                      <input type="radio" name="insurance" id="no-had" checked="checked" 
+                        ng-model="order.patient.hasInsurance" value=false />لا
+                      <input type="radio" id="yes-had"  name="insurance"
+                        ng-model="order.patient.hasInsurance" value=true />نعم
 
-                        <div class="row tab">
-                          <div class="col-sm-6">
-                            <label>مكان العمل</label><br />
-                            <input type="text" placeholder="ماهي شركتك؟" ng-model="order.patient.contractingCompany" v="r"/>
-                          </div>
-                          <div class="col-sm-6">
-                            <label>شركه التأمين</label>
-                            <br />
-                            <select ng-model="order.insuranceCompany" ng-options="s.name_##session.lang## for s in insuranceCompanyList" >
-                              <option selected disabled>
-                                اختر شركه التأمين
-                              </option>
-                            </select>
-                          </div>
+                      <div class="row tab">
+                        <div class="col-sm-6">
+                          <label>مكان العمل</label><br />
+                          <input type="text" placeholder="ماهي شركتك؟" ng-model="order.patient.contractingCompany"
+                            v="r" />
+                        </div>
+                        <div class="col-sm-6">
+                          <label>شركه التأمين</label>
+                          <br />
+                          <select  v="r" ng-model="order.insuranceCompany"
+                            ng-options="s.name_##session.lang## for s in insuranceCompanyList">
+                            <option selected disabled>
+                              اختر شركه التأمين
+                            </option>
+                          </select>
+                        </div>
 
-                          <div class="col-sm-6">
-                            <label>الرقم التأميني</label><br />
-                            <input type="text" ng-model="order.patient.insuranceNumber" />
-                          </div>
-                          <div class="col-sm-6 insurance-card" ng-repeat="i in order.cardImage" >
+                        <div class="col-sm-6">
+                          <label>الرقم التأميني</label><br />
+                          <input  v="r" type="text" ng-model="order.patient.insuranceNumber" />
+                        </div>
+                        <div class="col-sm-6 insurance-card" ng-repeat="i in order.cardImage">
 
-                            
-                            <label>صوره كارت التأمين</label><br />
-                            <i-image ng-model="i.name" ></i-image>
-                            <!-- <label for="insurance-img" class="label-for-file"
+
+                          <label>صوره كارت التأمين</label><br />
+                          <i-image  v="r" ng-model="i.name"></i-image>
+                          <!-- <label for="insurance-img" class="label-for-file"
                               >ارفع صورة كارت التأمين الخاصة بك</label
                             > -->
-                            <!-- <input
+                          <!-- <input
                               type="file"
                               accept="image/*"
                               id="insurance-img"
                               style="display: none"
                               ng-model="patient.insuranceImg"
                             /> -->
-                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <a  id="stage" class="login-btn" ng-click="confirmOrder()"> تاكيد الحجز</a>
-                    </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <a id="stage" class="login-btn" ng-click="confirmOrder()"> تاكيد الحجز</a>
                   </div>
-                  
-                </form>
-                <!-- <div class="row">
+                </div>
+
+              </form>
+              <!-- <div class="row">
                   <div class="col-sm-12 create-account">
                     <span>
                       لديك حساب بالفعل؟ &nbsp;&nbsp;<a href="#">دخول</a></span
                     >
                   </div>
                 </div> -->
-              </div>
-              <div class="success" style="display: none">
-                <div class="order-sent" style="margin-top: 50px">
-                  <img src="images/thumbs-up.svg" />
-                  <h2 style="margin: 20px 0px">تم ارسال طلبك بنجاح</h2>
-                  <p>
-                    جاري البحث عن صيدلية وسيتم اشعارك فور توفر وتجهيز الطلب
-                    بالسعر مع العلم انه يمكنك الغاء الطلب خلاص خمس دقائق من قبول
-                    الصيدلية
-                  </p>
-                  <a href="/profile#v-pills-orders" style="background-color: #0071b7">طلباتي</a>
-                  <a
-                    href="/"
-                    style="
+            </div>
+            <div class="success" style="display: none">
+              <div class="order-sent" style="margin-top: 50px">
+                <img src="images/thumbs-up.svg" />
+                <h2 style="margin: 20px 0px">تم ارسال طلبك بنجاح</h2>
+                <p>
+                  جاري البحث عن صيدلية وسيتم اشعارك فور توفر وتجهيز الطلب
+                  بالسعر مع العلم انه يمكنك الغاء الطلب خلاص خمس دقائق من قبول
+                  الصيدلية
+                </p>
+                <a href="/profile#v-pills-orders" style="background-color: #0071b7">طلباتي</a>
+                <a href="/" style="
                       border: 1px solid #0071b7;
                       color: #0071b7;
                       padding: 10px 30px; ;
-                    "
-                    >مواصلة التصفح</a
-                  >
-                </div>
+                    ">مواصلة التصفح</a>
               </div>
             </div>
-
-            <!-- stage 4 -->
           </div>
+
+          <!-- stage 4 -->
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <nav class="sitebottom" x-import="sitebottom/footer2.html" style="margin-top: 250px;" ></nav>
-    <nav class="sitebottom" x-import="sitebottom/footer.html" ></nav>
-
-
-    <script src="/js/jquery-3.5.1.slim.min.js"></script>
-    <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/x-js/all.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script x-import="orders/index.js"></script>
-    <script>
-
-      const level1 = document.querySelector("#add-img");
-      const level2 = document.querySelector("#stage1");
-      const level3 = document.querySelector("#stage");
-      const level4 = document.querySelector("#orderUpload");
-      const level5 = document.querySelector("#orderInformation");
-      const level6 = document.querySelector("#orderConfirmation");
+  <nav class="sitebottom" x-import="sitebottom/footer2.html" style="margin-top: 250px;"></nav>
+  <nav class="sitebottom" x-import="sitebottom/footer.html"></nav>
 
 
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <script src="/x-js/all.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script x-import="orders/index.js"></script>
+  <script>
+    const level1 = document.querySelector("#add-img");
+    const level2 = document.querySelector("#stage1");
+    const level3 = document.querySelector("#stage");
+    const level4 = document.querySelector("#orderUpload");
+    const level5 = document.querySelector("#orderInformation");
+    const level6 = document.querySelector("#orderConfirmation");
 
-      level1.addEventListener("click", () => {
-        document.querySelector(".flow1").style.display = "block";
-        document.querySelector(".flow2").style.display = "flex";
-        document.querySelector(".flow3").style.display = "flex";
-        document.querySelector(".signnup").style.display = "none";
-        document.querySelector(".success").style.display = "none";
 
-        level4.classList.add("active");
-        level5.classList.remove("active");
-        level6.classList.remove("active");
-      });
-      /* level4.addEventListener("click", () => {
+
+    level1.addEventListener("click", () => {
+      document.querySelector(".flow1").style.display = "block";
+      document.querySelector(".flow2").style.display = "flex";
+      document.querySelector(".flow3").style.display = "flex";
+      document.querySelector(".signnup").style.display = "none";
+      document.querySelector(".success").style.display = "none";
+
+      level4.classList.add("active");
+      level5.classList.remove("active");
+      level6.classList.remove("active");
+    });
+    /* level4.addEventListener("click", () => {
         document.querySelector(".upload-now").style.display = "block";
         document.querySelector(".flow1").style.display = "block";
         document.querySelector(".flow2").style.display = "flex";
@@ -345,46 +325,47 @@
         level5.classList.add("active");
         level6.classList.remove("active");
       }); */
-      
-      /* level6.addEventListener("click", () => {
-        document.querySelector(".upload-now").style.display = "none";
-        document.querySelector(".flow1").style.display = "none";
-        document.querySelector(".flow2").style.display = "none";
-        document.querySelector(".flow3").style.display = "none";
-        document.querySelector(".signnup").style.display = "none";
-        document.querySelector(".success").style.display = "block";
 
-        level4.classList.add("active");
-        level5.classList.add("active");
-        level6.classList.add("active");
+    /* level6.addEventListener("click", () => {
+      document.querySelector(".upload-now").style.display = "none";
+      document.querySelector(".flow1").style.display = "none";
+      document.querySelector(".flow2").style.display = "none";
+      document.querySelector(".flow3").style.display = "none";
+      document.querySelector(".signnup").style.display = "none";
+      document.querySelector(".success").style.display = "block";
 
-      }); */
-    </script>
-     <script>
-      app.controller('nav', function ($scope, $http) {
-        $scope.busy = false;
+      level4.classList.add("active");
+      level5.classList.add("active");
+      level6.classList.add("active");
 
-        $scope.logout = function () {
-          $scope.error = '';
-          $scope.busy = true;
+    }); */
+  </script>
+  <script>
+    app.controller('nav', function ($scope, $http) {
+      $scope.busy = false;
 
-          $http.post('/api/user/logout').then(
-            function (response) {
-              if (response.data.done) {
-                window.location.href = '/';
-              } else {
-                $scope.error = response.data.error;
-                $scope.busy = false;
-              }
-            },
-            function (error) {
+      $scope.logout = function () {
+        $scope.error = '';
+        $scope.busy = true;
+
+        $http.post('/api/user/logout').then(
+          function (response) {
+            if (response.data.done) {
+              window.location.href = '/';
+            } else {
+              $scope.error = response.data.error;
               $scope.busy = false;
-              $scope.error = error;
-            },
-          );
-        };
-      });
-    </script>
+            }
+          },
+          function (error) {
+            $scope.busy = false;
+            $scope.error = error;
+          },
+        );
+      };
+    });
+  </script>
 
-  </body>
+</body>
+
 </html>
