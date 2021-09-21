@@ -38,11 +38,24 @@ app.controller('booking', function ($scope, $http, $timeout) {
       location.href = '/signin';
       return;
     }
-    const v = site.validated('body');
-    if (!v.ok) {
-      $scope.error = v.messages[0].ar;
-      return;
-    } else {
+    const v = site.validated('#bookingData');
+    const v2 = site.validated('#bookingInsurance');
+    if ($scope.booking.patient.hasInsurance == 'false' || !$scope.booking.patient.hasInsurance) {
+      if (!v.ok) {
+      
+        $scope.error = v.messages[0].ar;
+        return;
+      }
+    }
+    if ($scope.booking.patient.hasInsurance == 'true') {
+      if (!v2.ok) {
+      
+        $scope.error = v2.messages[0].ar;
+        return;
+      }
+    }
+    
+    else {
       five.addEventListener('click', () => {
         document.querySelector('.first-step').style.display = 'none';
         document.querySelector('.second-step').style.display = 'none';
@@ -57,6 +70,7 @@ app.controller('booking', function ($scope, $http, $timeout) {
     let str = '##user.ref_info._id##';
     str = str.substr(1);
     str = str.substr(0, str.length - 1);
+
     $scope.booking.user = {
       _id: str,
     };
@@ -68,7 +82,7 @@ app.controller('booking', function ($scope, $http, $timeout) {
     if ($scope.booking.patient.hasInsurance == 'true') {
       $scope.booking.patient.hasInsurance = true;
     }
-    if ($scope.booking.patient.hasInsurance == 'false') {
+    if ($scope.booking.patient.hasInsurance == 'false' || !$scope.booking.patient.hasInsurance) {
       $scope.booking.patient.hasInsurance = false;
     }
 
