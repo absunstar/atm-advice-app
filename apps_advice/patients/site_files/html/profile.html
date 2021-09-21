@@ -224,8 +224,8 @@
                             <h4>{{c.pharmacy ? c.pharmacy.pharmacyName:""}}</h4>
 
                             <span>{{c.pharmacy.address}} </span><br />
-                            <span ng-show="c.status.statusId == 2">جاري تجهيز الطلب </span>
-                            <span ng-show="c.status.statusId == 3">طلبك في الطريق اليك</span><br />
+                            <span ng-show="c.status.statusId == 2"> الحاله : جاري تجهيز الطلب  </span>
+                            <span ng-show="c.status.statusId == 3">الحاله : طلبك في الطريق اليك</span><br />
                             <span ng-show="c.status.statusId == 2 || c.status.statusId == 3">مدة التوصيل : {{c.deliveryTime}}</span><br />
                             <span>إجمالي المبلغ : {{c.totalPrice}} </span>
                           </div>

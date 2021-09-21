@@ -271,10 +271,10 @@
                                   border-radius: 8px;
                                 "
                               >
-                                <h4>{{booking.patient.fullName}}</h4>
-                                <h4>{{booking.patient.phone}}</h4>
-                                <h4  ng-show="booking.patient.hasInsurance == 'true'">يوجد لديه تأمين صحي</h4>
-                                <h4  ng-show="booking.patient.hasInsurance  == 'false'">لا يوجد لديه تأمين صحي</h4>
+                                <h4><i class="fas fa-user-circle" style="color: #5795BC;"></i>&nbsp;&nbsp;{{booking.patient.fullName}}</h4>
+                                <h4><i class="fas fa-phone-square" style="color: #5795BC;"></i>&nbsp;&nbsp;{{booking.patient.phone}}</h4>
+                                <h4  ng-show="booking.patient.hasInsurance == 'true'"><i class="fas fa-plus-circle" style="color: #5795BC;"></i>&nbsp;&nbsp;يوجد لديه تأمين صحي</h4>
+                                <h4  ng-show="booking.patient.hasInsurance  == 'false'"><i class="fas fa-plus-circle" style="color: #5795BC;"></i>&nbsp;&nbsp;لا يوجد لديه تأمين صحي</h4>
                               </div>
                             </div>
                           </div>
@@ -560,7 +560,7 @@
                       >احجز الآن</a
                     >
                   </div>
-                  <script></script>
+                  
 
                   <div class="dr-info">
                     <h2>{{doctor.name}}</h2>
@@ -616,25 +616,25 @@
                      </div>
                     <div class="dr-details">
                       <span
-                        ><img src="/images/Iconmaterial-location-on.svg" />دكتور
+                        ><i class="fas fa-stethoscope" style="color: #5795BC;"></i>&nbsp;&nbsp;دكتور
                         {{doctor.department.name}}</span
                       >
                     </div>
                     <div class="dr-details">
                       <span
-                        ><img src="/images/Iconmaterial-location-on.svg" />
+                        ><i class="fas fa-map-marker-alt" style="color: #5795BC;"></i>&nbsp;&nbsp;
                         {{doctor.address}}
                       </span>
                     </div>
                     <div class="dr-details">
                       <span
-                        ><img src="/images/Iconmaterial-location-on.svg" />الكشف
+                        ><i class="fas fa-money-bill-wave" style="color: #5795BC;"></i>&nbsp;&nbsp;الكشف
                         : {{doctor.price}} جنيه</span
                       >
                     </div>
                     <div class="dr-details">
                       <span
-                        ><img src="/images/Iconmaterial-location-on.svg" />مدة
+                        ><i class="fas fa-history" style="color: #5795BC;"></i>&nbsp;&nbsp; مدة
                         الكشف : {{doctor.periodPerMinutes}} دقيقة</span
                       >
                     </div>

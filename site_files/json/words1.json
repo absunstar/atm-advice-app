@@ -1,0 +1,818 @@
+[
+    {
+        "name": "aboutus",
+        "en": "About Us",
+        "ar": "من نحن"
+    },
+    {
+        "name": "contactus",
+        "en": "Contact Us",
+        "ar": "تواصل معنا"
+    },
+    {
+        "name": "english",
+        "en": "English",
+        "ar": "English"
+    },
+    {
+        "name": "arabic",
+        "en": "عربي",
+        "ar": "عربي"
+    },
+    {
+        "name": "homeHeader",
+        "en": "Health care for a better life",
+        "ar": "رعاية صحية لحياة أفضل ليك"
+    },
+    {
+        "name": "homeHeader2",
+        "en": "Health care for a better life",
+        "ar": "رعاية صحية لحياة أفضل ليك"
+    },
+    {
+        "name": "orderNow",
+        "en": "Order Now",
+        "ar": "اطلب دوائك"
+    },
+    {
+        "name": "bookNow",
+        "en": "Book Now",
+        "ar": "احجز دكتور"
+    },
+    {
+        "name": "bookNow",
+        "en": "Book Now",
+        "ar": "احجز دكتور"
+    },
+    {
+        "name": "welcome",
+        "en": "welcome",
+        "ar": "اهلا"
+    },
+    {
+        "name": "signout",
+        "en": "Logout",
+        "ar": "تسجيل الخروج"
+    },
+    {
+        "name": "signin",
+        "en": "Login",
+        "ar": "تسجيل الدخول"
+    },
+    {
+        "name": "profile",
+        "en": "Profile",
+        "ar": "الملف الشخصي"
+    },
+    {
+        "name": "signout",
+        "en": "Logout",
+        "ar": "تسجيل الخروج"
+    },
+    {
+        "name": "uploadProduct",
+        "en": "Upload the prescription or product",
+        "ar": "تحميل الروشتة او المنتج"
+    },
+    {
+        "name": "uploadP",
+        "en": "Upload the prescription",
+        "ar": "تحميل الروشتة"
+    },
+    {
+        "name": "order",
+        "en": "Order",
+        "ar": "اطلب"
+    },
+    {
+        "name": "orderDescription",
+        "en": "Write Your Description",
+        "ar": "اكتب تفاصيل اذا تريد"
+    },
+    {
+        "name": "yourInformation",
+        "en": "Information",
+        "ar": "ادخل بياناتك"
+    },
+    {
+        "name": "Name",
+        "en": "Name",
+        "ar": "الاسم"
+    },
+    {
+        "name": "phone",
+        "en": "Phone number",
+        "ar": "رقم الهاتف"
+    },
+    {
+        "name": "Address",
+        "en": "Address",
+        "ar": "العنوان"
+    },
+    {
+        "name": "Governorate",
+        "en": "Governorate",
+        "ar": "المحافظة"
+    },
+    {
+        "name": "City",
+        "en": "City",
+        "ar": "المدينة"
+    },
+    {
+        "name": "area",
+        "en": "area or neighborhood",
+        "ar": "المنطقة أو الحي"
+    },
+    {
+        "name": "Street",
+        "en": "Street",
+        "ar": "الشارع"
+    },
+    {
+        "name": "buildingNumber",
+        "en": "building number",
+        "ar": "رقم المبني"
+    },
+    {
+        "name": "Floor",
+        "en": "Floor",
+        "ar": "الدور"
+    },
+
+    {
+        "name": "Apartment",
+        "en": "Apartment",
+        "ar": "الشقة"
+    },
+    {
+        "name": "specialMarque",
+        "en": "special marque",
+        "ar": "أقرب مكان مميز"
+    },
+    {
+        "name": "healthSubscription",
+        "en": "Do you have a subscription to health insurance?",
+        "ar": "هل لديك اشتراك في تأمين صحي ؟"
+    },
+    {
+        "name": "yes",
+        "en": "Yes",
+        "ar": "نعم"
+    },
+    {
+        "name": "no",
+        "en": "No",
+        "ar": "لا"
+    },
+    {
+        "name": "confirm",
+        "en": "Confirm",
+        "ar": "تاكيد الحجز"
+    },
+    {
+        "name": "orderSent",
+        "en": "Your order has been successfully sent",
+        "ar": "تم ارسال طلبك بنجاح"
+    },
+    {
+        "name": "pharmacySearch",
+        "en": "We are searching for a pharmacy and you will be notified as soon as the order is available and the price is processed, knowing that you can cancel the order within five minutes of the pharmacy's acceptance",
+        "ar": "جاري البحث عن صيدلية وسيتم اشعارك فور توفر وتجهيز الطلب بالسعر مع العلم انه يمكنك الغاء الطلب خلاص خمس دقائق من قبول الصيدلية"
+    },
+    {
+        "name": "myOrder",
+        "en": "My Orders",
+        "ar": "طلباتي"
+    },
+    {
+        "name": "Browse",
+        "en": "Browse",
+        "ar": "مواصلة التصفح"
+    },
+    {
+        "name": "aboutQuote",
+        "en": "Contact us and consult senior doctors, book a visit, check on your health and the health of your family, and receive the medicine at your doorstep",
+        "ar": "تواصل معنا واستشير كبار لأطباء واحجز زيارة اطمن علي صحتك وصحة أسرتك واستلم الدوا لحد باب البيت"
+    },
+    {
+        "name": "footerQoute",
+        "en": "It provides you with booking a consultation with the best doctors, ordering and delivering medicine to your doorstep",
+        "ar": "يوفر لك حجز واستشارة مع افضل الأطباء وطلب وتوصيل الدواء لحد باب البيت"
+    },
+    {
+        "name": "about",
+        "en": "About",
+        "ar": "عن"
+    },
+    {
+        "name": "Pharmacy",
+        "en": "Pharmacy",
+        "ar": "صيدلية"
+    },
+    {
+        "name": "bookDoctor",
+        "en": "book a doctor",
+        "ar": "حجز طبيب"
+    },
+    {
+        "name": "footerDay",
+        "en": "We are at your service every day of the week for 24 hours",
+        "ar": "نحن في خدمتكم طوال أيام الأسبوع لمدة 24 ساعة"
+    },
+    {
+        "name": "wantHelp",
+        "en": "Do you want help?",
+        "ar": "هل تريد مساعدة؟"
+    },
+    {
+        "name": "rights",
+        "en": "All rights reserved design by",
+        "ar": " جميع الحقوق محفوظة في صمم بـــ"
+    },
+    {
+        "name": "department",
+        "en": "Specialization",
+        "ar": "التخصص"
+    },
+    {
+        "name": "doctorName",
+        "en": "Doctor name",
+        "ar": "اسم طبيب"
+    },
+    {
+        "name": "enterDrName",
+        "en": "Enter a doctor's name",
+        "ar": " ادخل اسم طبيب "
+    },
+    {
+        "name": "bookingQuote",
+        "en": "Choose and book your doctor among the best internal medicine doctors",
+        "ar": "اختار واحجز طبيبك من بين أفضل أطباء الباطنة"
+    },
+    {
+        "name": "examination",
+        "en": "examination",
+        "ar": "الكشف "
+    },
+    {
+        "name": "examinationTime",
+        "en": "Examination time",
+        "ar": "مدة الكشف "
+    },
+    {
+        "name": "doctor",
+        "en": "Doctor",
+        "ar": "دكتور "
+    },
+    {
+        "name": "Degree",
+        "en": "Degree",
+        "ar": "الدرجة العلمية"
+    },
+    {
+        "name": "price",
+        "en": "Price",
+        "ar": "السعر"
+    },
+    
+    {
+        "name": "appointments",
+        "en": "Appointments",
+        "ar": "المواعيد"
+    },
+    {
+        "name": "rate",
+        "en": "Rate",
+        "ar": "التقييم"
+    },
+    {
+        "name": "reserveNow",
+        "en": "Reserve Now",
+        "ar": "احجز الآن"
+    },
+    {
+        "name": "AppointmentInfo",
+        "en": "Appointment information",
+        "ar": "معلومات الميعاد"
+    },
+    {
+        "name": "date",
+        "en": "Date",
+        "ar": "التاريخ"
+    },
+    {
+        "name": "personalDetails",
+        "en": "personal details",
+        "ar": "تفاصيل شخصية "
+    },
+    {
+        "name": "next",
+        "en": "Next",
+        "ar": "التالي"
+    },
+    {
+        "name": "confirmReserve",
+        "en": "Confirm Reserve",
+        "ar": "تأكيد الحجز "
+    },
+    {
+        "name": "personalInfo",
+        "en": "personal information",
+        "ar": "معلومات شخصية"
+    },
+    {
+        "name": "ReservationTime",
+        "en": "Reservation time",
+        "ar": "ميعاد الحجز"
+    },
+    {
+        "name": "thankYou",
+        "en": "Your order has been successfully confirmed. Thank you for trusting ",
+        "ar": "تم تأكيد طلبك بنجاح شكرا لك على ثقتك في"
+    },
+    {
+        "name": "myReservations",
+        "en": "My reservations",
+        "ar": "حجوزاتي"
+    },
+    {
+        "name": "noAcount",
+        "en": "You don't have an account ?",
+        "ar": "ليس لديك حساب؟"
+    },
+    {
+        "name": "currentReservations",
+        "en": "Current reservations",
+        "ar": "حجوزاتي الحالية"
+    },
+    {
+        "name": "previousReservations",
+        "en": "Previous reservations",
+        "ar": "حجوزاتي السابقة"
+    },
+    {
+        "name": "cancelReservation",
+        "en": "Cancel Reservation",
+        "ar": "إلغاء الحجز"
+    },
+    {
+        "name": "editProfile",
+        "en": "Edit profile",
+        "ar": "تعديل الحساب الشخصي"
+    },
+    {
+        "name": "myOrders",
+        "en": "My Orders",
+        "ar": "طلباتي"
+    },
+    {
+        "name": "myReservations",
+        "en": "My Reservations",
+        "ar": "حجوزاتي"
+    },
+    {
+        "name": "myLocation",
+        "en": "My Location",
+        "ar": "عناويني"
+    },
+    {
+        "name": "myWallet",
+        "en": "My Wallet",
+        "ar": "محفظتي"
+    },
+    {
+        "name": "rateing",
+        "en": "Rate",
+        "ar": "تقييم"
+    },
+    {
+        "name": "bookagain",
+        "en": "Book again",
+        "ar": "حجز مرة أخري"
+    },
+    {
+        "name": "edit",
+        "en": "Edit",
+        "ar": "تعديل"
+    },
+    {
+        "name": "addLocation",
+        "en": "Add new location",
+        "ar": "إضافة عنوان جديد"
+    },
+    {
+        "name": "personalLocation",
+        "en": "My personal address",
+        "ar": "عناويني الشخصية"
+    },
+    {
+        "name": "yourBalance",
+        "en": "Your current balance",
+        "ar": " رصيدك الحالي"
+    },
+    {
+        "name": "addCredit",
+        "en": "Add credit",
+        "ar": "إضافة رصيد"
+    },
+    {
+        "name": "LE",
+        "en": "L.E",
+        "ar": "جنيه"
+    },
+    {
+        "name": "accountInformation",
+        "en": "Account Information",
+        "ar": "معلومات الحساب"
+    },
+    {
+        "name": "IDnumber",
+        "en": "ID number",
+        "ar": " الرقم القومي"
+    },
+    {
+        "name": "gender",
+        "en": "Gender",
+        "ar": " الجنس"
+    },
+    {
+        "name": "insuranceCard",
+        "en": "Insurance card",
+        "ar": "كارت التأمين"
+    },
+    {
+        "name": "InsuranceName",
+        "en": "Insurance company name",
+        "ar": "اسم شركه التأمين"
+    },
+    {
+        "name": "insuranceNumber",
+        "en": "Insurance number",
+        "ar": "الرقم التأميني"
+    },
+    {
+        "name": "currentOrders",
+        "en": "Current orders",
+        "ar": "طلباتي الحالية"
+    },
+    {
+        "name": "previousOrders",
+        "en": "Previous orders",
+        "ar": "طلباتي السابقة"
+    },
+    {
+        "name": "cancelledOrders",
+        "en": "Cancelled orders",
+        "ar": "طلباتي الملغية"
+    },
+    {
+        "name": "status",
+        "en": "Status",
+        "ar": "الحالة "
+    },
+
+    {
+        "name": "delieveryTime",
+        "en": "Delievery time",
+        "ar": "مدة التوصيل"
+    },
+    {
+        "name": "totalPrice",
+        "en": "Total Price",
+        "ar": "إجمالي المبلغ"
+    },
+    {
+        "name": "canCancelOrder",
+        "en": "You can cancel the order within",
+        "ar": "يمكنك الغاء الطلب خلال  *"
+    },
+    {
+        "name": "minute",
+        "en": "Minute",
+        "ar": " دقيقة"
+    },
+    {
+        "name": "more",
+        "en": "More",
+        "ar": "المزيد"
+    },
+    {
+        "name": "searchingPharmacy",
+        "en": "Searching for a pharmacy",
+        "ar": " جاري البحث عن صيدلية"
+    },
+
+    {
+        "name": "orderWay",
+        "en": "Your order is on way to you",
+        "ar": "طلبك في الطريق اليك"
+    },
+    {
+        "name": "inProgress",
+        "en": "In Progress",
+        "ar": "جاري تجهيز الطلب"
+    },
+    {
+        "name": "Delivered",
+        "en": "Delivered",
+        "ar": "تم التوصيل"
+    },
+    {
+        "name": "receiptPharmacy",
+        "en": "Receipt from pharmacy",
+        "ar": "استلام من صيدلية"
+    },
+    {
+        "name": "discount",
+        "en": "Discount",
+        "ar": "الخصم"
+    },
+    {
+        "name": "orderDetails",
+        "en": "Order Details",
+        "ar": "تفاصيل الطلب"
+    },
+    {
+        "name": "orderImg",
+        "en": "Order Image",
+        "ar": " صور الطلب"
+    },
+    {
+        "name": "areYouSure",
+        "en": "Are you sure you have already canceled your order?",
+        "ar": "هل انت متأكد من الغاء طلبك بالفعل؟"
+    },
+    {
+        "name": "cancel",
+        "en": "Cancel",
+        "ar": "إلغاء"
+    },
+    {
+        "name": "canceledQuote",
+        "en": "I canceled the order after accepting the pharmacy",
+        "ar": "قمت بالغاء الطلب بعد قبول الصيدلية"
+    },
+    {
+        "name": "orderNotComplete",
+        "en": "The order has not been completed",
+        "ar": "لم يتم استكمال الطلب"
+    },
+    {
+        "name": "forgetPassword",
+        "en": "Forget Password",
+        "ar": "نسيت كلمة المرور"
+    },
+    {
+        "name": "send",
+        "en": "Send",
+        "ar": "ارسال"
+    },
+    {
+        "name": "creditNumber",
+        "en": "Credit Number",
+        "ar": "رقم البطاقة"
+    },
+    {
+        "name": "Month",
+        "en": "Months",
+        "ar": "شهر"
+    },
+    {
+        "name": "year",
+        "en": "Year",
+        "ar": "سنة"
+    },
+    {
+        "name": "moneyWithdraw",
+        "en": "The amount you want to withdraw",
+        "ar": "المبلغ الذي تريد سحبه"
+    },
+    {
+        "name": "visitRate",
+        "en": "What is your rate of the visit?",
+        "ar": "ما هو تقييمك للزيارة ؟"
+    },
+    {
+        "name": "rateMessage",
+        "en": "Write a message if you want",
+        "ar": "اكتب رسالة اذا تريد"
+    },
+    {
+        "name": "newPassword",
+        "en": "New Password",
+        "ar": "كلمة المرور الجديدة"
+    },
+    {
+        "name": "save",
+        "en": "Save",
+        "ar": "حفظ"
+    },
+    {
+        "name": "message",
+        "en": "Message",
+        "ar": "الرسالة"
+    },
+    {
+        "name": "reserveCancel",
+        "en": "Are you already sure you want to cancel the reservation?",
+        "ar": "هل أنت متأكد بالفعل انك تريد إلغاء الحجز ؟"
+    },
+    {
+        "name": "workCompany",
+        "en": "Working company",
+        "ar": "مكان العمل"
+    },
+    {
+        "name": "insuranceImg",
+        "en": "Insurance Image",
+        "ar": "صوره كارت التأمين"
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    },
+    {
+        "name": "",
+        "en": "",
+        "ar": ""
+    }
+
+
+]

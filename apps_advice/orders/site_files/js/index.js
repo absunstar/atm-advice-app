@@ -68,7 +68,7 @@ app.controller('main', function ($scope, $http, $timeout) {
       return;
     }
 
-    const v2 = site.validated('#induranceData');
+    const v2 = site.validated('#insuranceData');
     if (!v2.ok && ($scope.order.patient.hasInsurance == "true" )) {
       $scope.error = v.messages[0].ar;
       return;
