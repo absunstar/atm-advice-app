@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "cb4b05de-6002-4654-9c5b-32a414ee8510",
+		"name": "medical app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "doctors_visits",
+			"item": [
+				{
+					"name": "search patients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"search\": \"ا\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://medical.egytag.com/api/customers/all",
+							"protocol": "https",
+							"host": [
+								"medical",
+								"egytag",
+								"com"
+							],
+							"path": [
+								"api",
+								"customers",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add doctors visits",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"image_url\": \"/images/doctors_visits.png\",\r\n    \"active\": true,\r\n    \"date\": \"2021-09-22T00:14:17.359Z\",\r\n    \"ex_before_detection\": {\r\n        \"Sugar\": \"ert\",\r\n        \"blood_pressure\": \"ert\",\r\n        \"body_temperature\": \"ert\",\r\n        \"breathing\": \"ert\",\r\n        \"heart_beats\": \"ert\",\r\n        \"notes\": \"ert\",\r\n        \"previous_operations\": \"ertert\",\r\n        \"tall\": \"ert\",\r\n        \"weight\": \"fggdfg\"\r\n    },\r\n    \"status\": {\r\n        \"id\": 1,\r\n        \"name\": \"without\",\r\n        \"en\": \"WithOut\",\r\n        \"ar\": \"قيد الإنتظار\"\r\n    },\r\n    \"scans_list\": [\r\n        {\r\n            \"active\": true\r\n        }\r\n    ],\r\n    \"analysis_list\": [\r\n        {\r\n            \"active\": true\r\n        }\r\n    ],\r\n    \"operation_list\": [\r\n        {\r\n            \"active\": true\r\n        }\r\n    ],\r\n    \"favorite_food_list\": [\r\n        {}\r\n    ],\r\n    \"favorite_drink_list\": [\r\n        {}\r\n    ],\r\n    \"forbidden_food_list\": [\r\n        {}\r\n    ],\r\n    \"forbidden_drink_list\": [\r\n        {}\r\n    ],\r\n    \"paid\": 0,\r\n    \"customer\": {\r\n        \"id\": 8\r\n    },\r\n    \"visit_type\": {\r\n        \"id\": 1,\r\n        \"name\": \"detection\",\r\n        \"en\": \"Detection\",\r\n        \"ar\": \"كشف\"\r\n    },\r\n    \"total_discount\": 0,\r\n    \"total_value\": 50,\r\n    \"net_value\": 50,\r\n    \"remain\": 50,\r\n    \"clinic_price\": {\r\n        \"detection\": 0,\r\n        \"re_detection\": 0,\r\n        \"consultation\": 0,\r\n        \"session\": 0,\r\n        \"urgent_visit\": {\r\n            \"price\": 0,\r\n            \"type\": \"number\"\r\n        }\r\n    },\r\n    \"doctor_price\": {\r\n        \"detection\": 50,\r\n        \"re_detection\": 30,\r\n        \"consultation\": 60,\r\n        \"session\": 70\r\n    },\r\n    \"selected_clinic\": {\r\n        \"id\": 3\r\n    },\r\n    \"selected_specialty\": {\r\n        \"id\": 6\r\n    },\r\n    \"selected_doctor\": {\r\n        \"id\": 11\r\n    },\r\n    \"selected_shift\": {\r\n        \"id\": 1\r\n    },\r\n    \"doctor_visit_price\": 50,\r\n    \"selected_time\": {\r\n        \"day\": {\r\n            \"id\": 3,\r\n            \"code\": 1,\r\n            \"name\": \"monday\",\r\n            \"en\": \"Monday\",\r\n            \"ar\": \"الاثنين\"\r\n        },\r\n        \"from\": {\r\n            \"hour\": 1,\r\n            \"minute\": 0,\r\n            \"date\": \"1899-12-30T22:54:51.000Z\"\r\n        },\r\n        \"to\": {\r\n            \"hour\": 24,\r\n            \"minute\": 0,\r\n            \"date\": \"1899-12-31T21:54:51.000Z\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://medical.egytag.com/api/doctors_visits/add",
+							"protocol": "https",
+							"host": [
+								"medical",
+								"egytag",
+								"com"
+							],
+							"path": [
+								"api",
+								"doctors_visits",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update to came to clinic",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 23,\r\n    \"status\": {\r\n        \"id\": 2,\r\n        \"name\": \"sellorder\",\r\n        \"name_en\": \"Sell Order\",\r\n        \"ar\": \"إنتظار في العيادة\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://medical.egytag.com/api/doctors_visits/update",
+							"protocol": "https",
+							"host": [
+								"medical",
+								"egytag",
+								"com"
+							],
+							"path": [
+								"api",
+								"doctors_visits",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update to at the doctor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 23,\r\n    \"status\": {\"id\": 3, \"name\": \"at_doctor\", \"name_en\": \"At the doctor\", \"ar\": \"عند الطبيب\"}\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://medical.egytag.com/api/doctors_visits/update",
+							"protocol": "https",
+							"host": [
+								"medical",
+								"egytag",
+								"com"
+							],
+							"path": [
+								"api",
+								"doctors_visits",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update to done visit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 23,\r\n    \"status\": {\r\n        \"id\": 4,\r\n        \"name\": \"done_detected\",\r\n        \"name_en\": \"Done Detected\",\r\n        \"ar\": \"تم الكشف\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://medical.egytag.com/api/doctors_visits/update",
+							"protocol": "https",
+							"host": [
+								"medical",
+								"egytag",
+								"com"
+							],
+							"path": [
+								"api",
+								"doctors_visits",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "view patient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\": 8}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://medical.egytag.com/api/customers/view",
+							"protocol": "https",
+							"host": [
+								"medical",
+								"egytag",
+								"com"
+							],
+							"path": [
+								"api",
+								"customers",
+								"view"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search doctors",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"search\": \"م\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://medical.egytag.com/api/doctors/all",
+							"protocol": "https",
+							"host": [
+								"medical",
+								"egytag",
+								"com"
+							],
+							"path": [
+								"api",
+								"doctors",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "patient profile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"patient_file\",\r\n    \"where\": {\r\n        \"customer\": {\r\n            \"id\": 8\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://medical.egytag.com/api/patients_tickets/display_data",
+							"protocol": "https",
+							"host": [
+								"medical",
+								"egytag",
+								"com"
+							],
+							"path": [
+								"api",
+								"patients_tickets",
+								"display_data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search  clinic",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"active\": true,\r\n    \"where\": {\r\n        \"clinic\": {\r\n            \"id\": 4\r\n        },\r\n        \"specialty\": {\r\n            \"id\": 4\r\n        },\r\n        \"doctor\": {\r\n            \"id\": 1\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://medical.egytag.com/api/clinics/all",
+							"protocol": "https",
+							"host": [
+								"medical",
+								"egytag",
+								"com"
+							],
+							"path": [
+								"api",
+								"clinics",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get doctor appointments",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\"shiftId\": 1, \"where\": {\"id\": 4}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://medical.egytag.com/api/clinics/shifts/all",
+							"protocol": "https",
+							"host": [
+								"medical",
+								"egytag",
+								"com"
+							],
+							"path": [
+								"api",
+								"clinics",
+								"shifts",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "authorizationLogin",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test\",\r\n    \"password\": \"test\",\r\n    \"company\": {\r\n        \"id\": 1,\r\n        \"name_ar\": \"test\",\r\n        \"name_en\": \"test\",\r\n        \"item\": 100,\r\n        \"store\": 5,\r\n        \"unit\": 5,\r\n        \"currency\": 5,\r\n        \"users_count\": 20,\r\n        \"customers_count\": 50,\r\n        \"employees_count\": 20,\r\n        \"host\": \"a.a.com\"\r\n    },\r\n    \"branch\": {\r\n        \"code\": 1,\r\n        \"name_ar\": \"الفرع الرئيسى\",\r\n        \"name_en\": \"Main Branch\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://medical.egytag.com/api/user/login",
+							"protocol": "https",
+							"host": [
+								"medical",
+								"egytag",
+								"com"
+							],
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "companies",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "language",
+								"value": "ar",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"image_url\": \"/images/company.png\",\r\n    \"calender_type\": \"gegorian\",\r\n    \"branch_count\": 3,\r\n    \"store\": 5,\r\n    \"item\": 100,\r\n    \"unit\": 5,\r\n    \"currency\": 5,\r\n    \"customers_count\": 50,\r\n    \"employees_count\": 20,\r\n    \"users_count\": 20,\r\n    \"branch_list\": [\r\n        {\r\n            \"code\": 1,\r\n            \"name_ar\": \"الفرع الرئيسى\",\r\n            \"name_en\": \"Main Branch\",\r\n            \"charge\": [\r\n                {}\r\n            ]\r\n        }\r\n    ],\r\n    \"name_ar\": \"test\",\r\n    \"name_en\": \"test\",\r\n    \"host\": \"a.a.com\",\r\n    \"username\": \"test@test.com\",\r\n    \"password\": \"123\",\r\n    \"code\": \"test-1\",\r\n    \"feature\": \"medical\",\r\n    \"id\": 1,\r\n    \"user_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/companies/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"companies",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
