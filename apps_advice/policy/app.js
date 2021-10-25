@@ -118,8 +118,11 @@ module.exports = function init(site) {
       done: false,
     };
 
-    let where = req.body || {};
-
+    let {
+      sufferingDiseases,diagnosis,attachments,
+      ...rest1
+    } = req.body;
+let where = rest1
     if (where['email']) {
       where['email'] = where['email'];
     }
@@ -136,16 +139,18 @@ module.exports = function init(site) {
     where['validTo'] = {
       '$gte': date
     }
-
-    let obj = {
-      policyNumber :req.body.policyNumber,
-      email :req.body.email,
-      sufferingDiseases :req.body.sufferingDiseases,
-      diagnosis :req.body.diagnosis,
+let obj = {... req.body}
+   let  obj1 = {
+     
+      policyNumber :obj.policyNumber,
+      email :obj.email,
+      sufferingDiseases :obj.sufferingDiseases,
+      diagnosis :obj.diagnosis,
+      attachments:obj.attachments
 
     }
     
-
+console.log("1111111111111111111111111111111111" , where);
     let limit = 10;
     let skip;
 
@@ -163,6 +168,7 @@ module.exports = function init(site) {
       skip: skip,
     },
       (err, docs, count) => {
+        console.log();
         if (docs.length > 0) {
 
           response.done = true
@@ -173,27 +179,9 @@ module.exports = function init(site) {
             where: {
               id: (docs[0].id)
             },
-            set: obj,
+            set: obj1,
             $req: req,
             $res: res
-          }, err => {
-    
-            if (!err) {
-               response.done = true,
-                   
-                  response.errorCode = site.var('succeed')
-                  response.message = site.word('updatedSuccessfully')[req.headers.language]
-                  res.json(response)
-              
-    
-            } else {
-              response.done = false,
-               
-              response.errorCode = site.var('failed')
-              response.message = site.word('failedUpdate')[req.headers.language]
-              res.json(response)
-            }
-    
           })
 
 
@@ -205,6 +193,11 @@ module.exports = function init(site) {
             referance Number : <b>${docs[0].id}<b> <br>
           policy Number : <b>${docs[0].policyNumber}<b> <br>
             email : <b>${docs[0].email}<b> <br>
+            diagnosis : <b>${docs[0].diagnosis}<b> <br>
+            sufferingDiseases : <b>${docs[0].sufferingDiseases}<b> <br>
+            attachments : <b>${docs[0].attachments}<b> <br>
+
+            
             `
           })
         } else {
@@ -223,6 +216,64 @@ module.exports = function init(site) {
 
 
 
+    // add image to Policy
+    site.post('/api/policy/upload/image/policy', (req, res) => {
+      site.createDir(site.dir + '/../../uploads/' + 'policy', () => {
+        site.createDir(site.dir + '/../../uploads/' + 'policy' + '/images', () => {
+          let response = {
+            done: !0,
+          };
+          let file = req.files.fileToUpload;
+          if (file) {
+            let newName = 'image_' + new Date().getTime().toString().replace('.', '_') + '.png';
+            let newpath = site.dir + '/../../uploads/' + 'policy' + '/images/' + newName;
+            site.mv(file.path, newpath, function (err) {
+              if (err) {
+                response.error = err;
+                response.done = !1;
+              }
+              response.image_url = '/api/image/' + 'policy' + '/' + newName;
+              res.json(response);
+            });
+          } else {
+            response.error = 'no file';
+            response.done = !1;
+            res.json(response);
+          }
+        });
+      });
+    });
+
+
+    // add file to Policy
+    site.post('/api/policy/upload/file/policy', (req, res) => {
+      site.createDir(site.dir + '/../../uploads/' + 'policy', () => {
+        site.createDir(site.dir + '/../../uploads/' + 'policy' + '/files', () => {
+          let response = {
+            done: !0,
+          };
+          let file = req.files.fileToUpload;
+          if (!file) {
+            response.done = !1;
+            response.error = 'no file uploaded';
+            res.json(response);
+            return;
+          }
+          let newName = 'file_' + new Date().getTime() + site.path.extname(file.name);
+          let newpath = site.dir + '/../../uploads/' + 'policy' + '/files/' + newName;
+          site.mv(file.path, newpath, function (err) {
+            if (err) {
+              response.error = err;
+              response.done = !1;
+            }
+            // response.file = {};
+            response.image_url = '/api/file/' + 'policy' + '/' + newName;
+            // response.file.name = file.name;
+            res.json(response);
+          });
+        });
+      });
+    });
 
 
   // Update Gov 
