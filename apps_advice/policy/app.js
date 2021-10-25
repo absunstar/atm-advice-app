@@ -195,7 +195,7 @@ console.log("1111111111111111111111111111111111" , where);
             email : <b>${docs[0].email}<b> <br>
             diagnosis : <b>${docs[0].diagnosis}<b> <br>
             sufferingDiseases : <b>${docs[0].sufferingDiseases}<b> <br>
-            attachments : <b>${docs[0].attachments}<b> <br>
+           
 
             
             `
