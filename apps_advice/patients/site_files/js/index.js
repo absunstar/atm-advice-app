@@ -1130,11 +1130,7 @@ app.controller("main", function ($scope, $http, $timeout) {
     site.hideModal('#patientsSearchModal');
     $scope.search = {};
   };
-  setInterval(() => {
-    $scope.myCurrentOrders();
-    $scope.myCanceledOrders();
-    $scope.myPreviousOrders();
-  }, 10000);
+
 
 
   $scope.getPatientsList();
@@ -1148,7 +1144,12 @@ app.controller("main", function ($scope, $http, $timeout) {
   $scope.myPreviousOrders();
   $scope.myCurrentBooking();
   $scope.myLocation();
-
+  /* setInterval(() => {
+    $scope.myCurrentOrders();
+    $scope.myCanceledOrders();
+    $scope.myPreviousOrders();
+    $scope.getPatientsList();
+  }, 10000); */
 
 
 });

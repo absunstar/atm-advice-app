@@ -193,23 +193,12 @@ app.controller("doctors", function ($scope, $http, $timeout) {
     $http({
       method: "GET",
       url: "api/doctors",
-      data: where
+      
     }).then(
       function (response) {
         $scope.busy = false;
-        for (const key in response.data) {
-          if (Object.hasOwnProperty.call(response.data, key)) {
-            const element = response.data[key];
-            if (element.docs.length > 0) {
-              $scope.list = element.docs;
-              $scope.count = element.totalDocs;
-              site.hideModal('#doctorsSearchModal');
-              $scope.search = {};
-    
-            }
-            
-          }
-        }
+        $scope.list = response.data.data.docs;
+        $scope.count = response.data.data.totalDocs;
        
       },
       function (err) {

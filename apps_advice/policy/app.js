@@ -86,17 +86,7 @@ module.exports = function init(site) {
       return
     }
 
-    // policy_doc.add_user_info = site.security.getUserFinger({
-    //   $req: req,
-    //   $res: res,
-    // });
-
-    // if (typeof policy_doc.active === 'undefined') {
-    //   policy_doc.active = true;
-    // }
-
-    // policy_doc.company = site.get_company(req);
-    // policy_doc.branch = site.get_branch(req);
+  
     $policy.add(policy_doc, (err, doc) => {
       if (!err) {
         response.data = doc;
@@ -147,6 +137,15 @@ module.exports = function init(site) {
       '$gte': date
     }
 
+    let obj = {
+      policyNumber :req.body.policyNumber,
+      email :req.body.email,
+      sufferingDiseases :req.body.sufferingDiseases,
+      diagnosis :req.body.diagnosis,
+
+    }
+    
+
     let limit = 10;
     let skip;
 
@@ -165,14 +164,48 @@ module.exports = function init(site) {
     },
       (err, docs, count) => {
         if (docs.length > 0) {
+
           response.done = true
           response.errorCode = site.var('succeed')
           response.message = site.word('findSuccessfully')[req.headers.language]
+
+          $policy.edit({
+            where: {
+              id: (docs[0].id)
+            },
+            set: obj,
+            $req: req,
+            $res: res
+          }, err => {
+    
+            if (!err) {
+               response.done = true,
+                   
+                  response.errorCode = site.var('succeed')
+                  response.message = site.word('updatedSuccessfully')[req.headers.language]
+                  res.json(response)
+              
+    
+            } else {
+              response.done = false,
+               
+              response.errorCode = site.var('failed')
+              response.message = site.word('failedUpdate')[req.headers.language]
+              res.json(response)
+            }
+    
+          })
+
+
           site.sendEmail({
             from: 'amr@egytag.com',
             to: 'a.yousry2122@gmail.com',
             subject: 'successfull message',
-            message: 'successfull message'
+            message: `
+            referance Number : <b>${docs[0].id}<b> <br>
+          policy Number : <b>${docs[0].policyNumber}<b> <br>
+            email : <b>${docs[0].email}<b> <br>
+            `
           })
         } else {
 
@@ -185,9 +218,7 @@ module.exports = function init(site) {
     );
 
 
-    function newFunction() {
-      return 'name_ar';
-    }
+    
   });
 
 
