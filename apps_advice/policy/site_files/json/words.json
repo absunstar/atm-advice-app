@@ -1,0 +1,53 @@
+[
+    {
+        "name": "policyCreated",
+        "en": "policy Created",
+        "ar": "تم انشاء بوليصة"
+    },
+    {
+        "name": "policyNumberNissing",
+        "en": "policy Number Missing",
+        "ar": "لا يوجد رقم بوليصة"
+    },
+    {
+        "name": "emailMissing",
+        "en": "email Missing",
+        "ar": "الايميل غير موجود"
+    },
+    {
+        "name": "policyDeleted",
+        "en": "policy Deleted",
+        "ar": "تم حذف البوليصة"
+    },
+    {
+        "name": "failedDelete",
+        "en": "failed Delete",
+        "ar": "لم يتم الحذف "
+    },
+    {
+        "name": "goves_delete",
+        "en": "Delete Gov",
+        "ar": "حذف محافظة "
+    },
+    {
+        "name": "goves_name",
+        "en": "Gov Name",
+        "ar": "إسم المحافظة "
+    },
+    {
+        "name": "nameExist",
+        "en": "Name Exist",
+        "ar": "الاسم موجود من قبل "
+    },
+    {
+        "name": "govDeleted",
+        "en": "Gov Deleted",
+        "ar": "تم حذف المحافظة"
+    },
+    {
+        "name":"govCreated",
+        "en": "Gov Created",
+        "ar": "تم انشاء المحافظة"
+    }
+   
+]

@@ -55,9 +55,9 @@ module.exports = function init(site) {
 
     // contactUs_doc.company = site.get_company(req);
     // contactUs_doc.branch = site.get_branch(req);
-
+console.log(contactUs_doc);
     $contactUs.add(contactUs_doc, (err, doc) => {
-      if (!err) {
+      if (!err && doc) {
         response.data = doc;
         response.errorCode = site.var('succeed')
         response.message = site.word('contactUsCreated')[req.headers.language]
