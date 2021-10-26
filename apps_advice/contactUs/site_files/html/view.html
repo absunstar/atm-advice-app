@@ -2,7 +2,7 @@
     <div id="basicInformation" class="">
         <fieldset>
             <legend> ##word.basic_information##</legend>
-            <div class="col9">
+            <div class="col12">
                 <table id="basicInformationTable" class="table hover bold">
 
                     <!-- <tr>
@@ -11,22 +11,28 @@
                     </tr> -->
 
                     <tr>
-                        <td class="title">##word.contactUs_name##</td>
-                        <td class="center">{{contactUs.name_##session.lang##}}</td>
+                        <td class="title">##word.fullName##</td>
+                        <td class="center">{{contactUs.fullName}}</td>
+                    </tr>
+                    <tr>
+                        <td class="title">##word.phone##</td>
+                        <td class="center">{{contactUs.phone}}</td>
+                    </tr>
+                    <tr>
+                        <td class="title">##word.contactReason##</td>
+                        <td class="center">{{contactUs.contactReason}}</td>
+                    </tr>
+                    <tr>
+                        <td class="title">##word.message##</td>
+                        <td class="center">{{contactUs.message}}</td>
                     </tr>
 
-                    <tr>
-                        <td class="title">##word.status##</td>
-                        <td ng-show="contactUs.active == true" class="green center"> ##word.active## </td>
-                        <td ng-show="contactUs.active == false" class="red center"> ##word.not_active## </td>
-                    </tr>
+                   
 
                 </table>
             </div>
 
-            <div class="col3">
-                <i-image view ng-model="contactUs.image_url"></i-image>
-            </div>
+            
 
         </fieldset>
     </div>
