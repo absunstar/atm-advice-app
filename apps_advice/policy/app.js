@@ -86,7 +86,7 @@ module.exports = function init(site) {
       return
     }
 
-  
+
     $policy.add(policy_doc, (err, doc) => {
       if (!err) {
         response.data = doc;
@@ -119,10 +119,10 @@ module.exports = function init(site) {
     };
 
     let {
-      sufferingDiseases,diagnosis,attachments,
+      sufferingDiseases, diagnosis, attachments,
       ...rest1
     } = req.body;
-let where = rest1
+    let where = rest1
     if (where['email']) {
       where['email'] = where['email'];
     }
@@ -139,17 +139,17 @@ let where = rest1
     where['validTo'] = {
       '$gte': date
     }
-let obj = {... req.body}
-   let  obj1 = {
-     
-      policyNumber :obj.policyNumber,
-      email :obj.email,
-      sufferingDiseases :obj.sufferingDiseases,
-      diagnosis :obj.diagnosis,
-      attachments:obj.attachments
+    let obj = { ...req.body }
+    let obj1 = {
+
+      policyNumber: obj.policyNumber,
+      email: obj.email,
+      sufferingDiseases: obj.sufferingDiseases,
+      diagnosis: obj.diagnosis,
+      attachments: obj.attachments
 
     }
-    
+
     let limit = 10;
     let skip;
 
@@ -209,69 +209,69 @@ let obj = {... req.body}
     );
 
 
-    
+
   });
 
 
 
-    // add image to Policy
-    site.post('/api/policy/upload/image/policy', (req, res) => {
-      site.createDir(site.dir + '/../../uploads/' + 'policy', () => {
-        site.createDir(site.dir + '/../../uploads/' + 'policy' + '/images', () => {
-          let response = {
-            done: !0,
-          };
-          let file = req.files.fileToUpload;
-          if (file) {
-            let newName = 'image_' + new Date().getTime().toString().replace('.', '_') + '.png';
-            let newpath = site.dir + '/../../uploads/' + 'policy' + '/images/' + newName;
-            site.mv(file.path, newpath, function (err) {
-              if (err) {
-                response.error = err;
-                response.done = !1;
-              }
-              response.image_url = '/api/image/' + 'policy' + '/' + newName;
-              res.json(response);
-            });
-          } else {
-            response.error = 'no file';
-            response.done = !1;
-            res.json(response);
-          }
-        });
-      });
-    });
-
-
-    // add file to Policy
-    site.post('/api/policy/upload/file/policy', (req, res) => {
-      site.createDir(site.dir + '/../../uploads/' + 'policy', () => {
-        site.createDir(site.dir + '/../../uploads/' + 'policy' + '/files', () => {
-          let response = {
-            done: !0,
-          };
-          let file = req.files.fileToUpload;
-          if (!file) {
-            response.done = !1;
-            response.error = 'no file uploaded';
-            res.json(response);
-            return;
-          }
-          let newName = 'file_' + new Date().getTime() + site.path.extname(file.name);
-          let newpath = site.dir + '/../../uploads/' + 'policy' + '/files/' + newName;
+  // add image to Policy
+  site.post('/api/policy/upload/image/policy', (req, res) => {
+    site.createDir(site.dir + '/../../uploads/' + 'policy', () => {
+      site.createDir(site.dir + '/../../uploads/' + 'policy' + '/images', () => {
+        let response = {
+          done: !0,
+        };
+        let file = req.files.fileToUpload;
+        if (file) {
+          let newName = 'image_' + new Date().getTime().toString().replace('.', '_') + '.png';
+          let newpath = site.dir + '/../../uploads/' + 'policy' + '/images/' + newName;
           site.mv(file.path, newpath, function (err) {
             if (err) {
               response.error = err;
               response.done = !1;
             }
-            // response.file = {};
-            response.image_url = '/api/file/' + 'policy' + '/' + newName;
-            // response.file.name = file.name;
+            response.image_url = '/api/image/' + 'policy' + '/' + newName;
             res.json(response);
           });
+        } else {
+          response.error = 'no file';
+          response.done = !1;
+          res.json(response);
+        }
+      });
+    });
+  });
+
+
+  // add file to Policy
+  site.post('/api/policy/upload/file/policy', (req, res) => {
+    site.createDir(site.dir + '/../../uploads/' + 'policy', () => {
+      site.createDir(site.dir + '/../../uploads/' + 'policy' + '/files', () => {
+        let response = {
+          done: !0,
+        };
+        let file = req.files.fileToUpload;
+        if (!file) {
+          response.done = !1;
+          response.error = 'no file uploaded';
+          res.json(response);
+          return;
+        }
+        let newName = 'file_' + new Date().getTime() + site.path.extname(file.name);
+        let newpath = site.dir + '/../../uploads/' + 'policy' + '/files/' + newName;
+        site.mv(file.path, newpath, function (err) {
+          if (err) {
+            response.error = err;
+            response.done = !1;
+          }
+          // response.file = {};
+          response.image_url = '/api/file/' + 'policy' + '/' + newName;
+          // response.file.name = file.name;
+          res.json(response);
         });
       });
     });
+  });
 
 
   // Update Gov 

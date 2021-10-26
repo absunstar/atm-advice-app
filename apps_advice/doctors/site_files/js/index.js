@@ -58,6 +58,9 @@ app.controller("doctors", function ($scope, $http, $timeout) {
       return;
     }
     $scope.busy = true;
+    if ($scope.doctors.isActive == true) {
+      $scope.doctors.isAvailable = true
+    }
     $http({
       method: "POST",
       url: "/api/doctors/update1",
@@ -191,9 +194,31 @@ app.controller("doctors", function ($scope, $http, $timeout) {
     $scope.busy = true;
     $scope.list = [];
     $http({
-      method: "GET",
-      url: "api/doctors",
-      
+      method: "POST",
+      url: "/api/getAllDoctors",
+      data:where
+    }).then(
+      function (response) {
+        $scope.busy = false;
+        $scope.list = response.data.data.docs;
+        $scope.count = response.data.data.totalDocs;
+       
+      },
+      function (err) {
+        $scope.busy = false;
+        $scope.error = err;
+      }
+
+    )
+  };
+
+  $scope.searchDoctorsList = function (where) {
+    $scope.busy = true;
+    $scope.list = [];
+    $http({
+      method: "POST",
+      url: "/api/doctors/searchData",
+      data:where
     }).then(
       function (response) {
         $scope.busy = false;
@@ -305,7 +330,7 @@ app.controller("doctors", function ($scope, $http, $timeout) {
 
   $scope.searchAll = function () {
 
-    $scope.getDoctorsList($scope.search);
+    $scope.searchDoctorsList($scope.search);
     site.hideModal('#doctorsSearchModal');
     $scope.search = {};
   };

@@ -1133,6 +1133,45 @@ module.exports = function init(site) {
     );
   });
 
+
+   // get All doctors1
+
+   site.post('/api/getAllDoctors', (req, res) => {
+    let limit = 10;
+    let skip;
+    if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+      skip = (parseInt(req.query.page) - 1) * 10;
+    }
+    let response = {
+      done: false,
+    };
+    $doctors.findMany(
+      {
+        select: req.body.select || {},
+        sort: req.body.sort || {
+          id: -1,
+        },
+       
+        limit: limit,
+        skip: skip,
+      },
+      (err, docs, count) => {
+        if (!err) {
+          response.done = true;
+          response.data = {
+            docs: docs,
+            totalDocs: docs.length,
+            limit: 10,
+            totalPages: Math.ceil(docs.length / 10),
+          };
+        } else {
+          response.error = err.message;
+        }
+        res.json(response);
+      },
+    );
+  });
+
   // get Doctors By Id
 
   site.get('/api/doctors/:id', (req, res) => {
@@ -1451,6 +1490,199 @@ console.log("where['date1']" , new Date((where['date1'])).toLocaleDateString('fr
       },
     );
   });
+
+
+
+
+
+
+
+
+
+
+
+ // Search doctors By Name
+ site.post('/api/doctors/searchData', (req, res) => {
+  req.headers.language = req.headers.language || 'en';
+  let response = {
+    done: false,
+  };
+
+  let where = {
+    ...req.body,
+  };
+  if (where['gender'] == undefined) {
+    delete where['gender'];
+  }
+  if (where['gender'] != undefined && where['gender'] != '') {
+    where['gender'] = String(where['gender']);
+  }
+  if (where['gender'] != undefined && where['gender'] == '') {
+    delete where['gender'];
+  }
+
+  if (where['rating'] && where['rating'] != -1) {
+    where['rating'] = Number(where['rating']);
+  }
+  if (where['rating'] && where['rating'] == -1) {
+    delete where['rating'];
+  }
+
+  if (where.fromPrice && where.fromPrice != -1 && where.toPrice && where.toPrice != -1) {
+    let d1 = Number(where.fromPrice);
+    let d2 = Number(where.toPrice);
+
+    where.price = {
+      $gte: d1,
+      $lte: d2,
+    };
+    delete where.toPrice;
+    delete where.fromPrice;
+  }
+  if (where.fromPrice && where.fromPrice == -1) {
+    delete where.fromPrice;
+  }
+  if (where.fromPrice && where.fromPrice != -1) {
+    let d1 = Number(where.fromPrice);
+    where.price = {
+      $gte: d1,
+    };
+    delete where.fromPrice;
+  }
+  if (where.toPrice && where.toPrice != -1) {
+    let d1 = Number(where.toPrice);
+    where.price = {
+      $lte: d1,
+    };
+    delete where.toPrice;
+  }
+  if (where.toPrice && where.toPrice == -1) {
+    delete where.toPrice;
+  }
+  if (where['name'] == undefined) {
+    delete where['name'];
+  }
+  if (where['name'] != undefined && where['name'] != '') {
+    where['name'] = site.get_RegExp(where['name'], 'i');
+  }
+  if (where['name'] != undefined && where['name'] == '') {
+    delete where['name'];
+  }
+
+
+  if (where['gender'] == undefined) {
+    delete where['gender'];
+  }
+  if (where['gender'] != undefined && where['gender'] != '') {
+    where['gender'] = where['gender'];
+  }
+  if (where['gender'] != undefined && where['gender'] == '') {
+    delete where['gender'];
+  }
+
+
+  if (where['degree'] && where['degree']._id != '' && where['degree']._id != undefined) {
+    where['degree._id'] = where['degree']._id;
+    delete where['degree'];
+  }
+
+  if (where['degree'] && where['degree'].id != '' && where['degree'].id != undefined ) {
+    where['degree.id'] = Number(where['degree'].id);
+    delete where['degree'];
+  }
+
+  if (where['degree'] && where['degree']._id == '' && !where['degree'].id ) {
+    delete where['degree'];
+  }
+
+  if (where['department'] && where['department']._id != '') {
+    where['department._id'] = where['department']._id;
+    delete where['department'];
+  }
+  if (where['department'] && where['department']._id == '') {
+    delete where['department'];
+  }
+
+  if (where['city'] && where['city']._id != '') {
+    where['city._id'] = where['city']._id;
+    delete where['city'];
+  }
+
+  if (where['city'] && where['city']._id == '') {
+    delete where['city'];
+  }
+  if (where['gov'] && where['gov']._id != '') {
+    where['gov._id'] = where['gov']._id;
+    delete where['gov'];
+  }
+
+  if (where['gov'] && where['gov']._id == '') {
+    delete where['gov'];
+  }
+  if (where['dayName']) {
+    where['days.dayName'] = where['dayName'];
+    delete where['dayName'];
+  }
+  if (where['date1']) {
+    where['days.date'] = new Date((where['date1'])).toLocaleDateString('fr-CA');
+    delete where['date1'];
+  }
+  if (where['lat']) {
+    delete where['lat'];
+  }
+  if (where['long']) {
+    delete where['long'];
+  }
+  let doctor_doc = req.body;
+  let lat = doctor_doc.lat || 0;
+  let long = doctor_doc.long || 0;
+
+  let limit = 10;
+  let skip;
+
+  if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+    skip = (parseInt(req.query.page) - 1) * 10;
+  }
+  
+
+  $doctors.findMany({
+    select: req.body.select || {},
+    where: where,
+    sort: req.body.sort || {
+      id: -1,
+    },
+    limit: req.body.limit || 10,
+  },
+    (err, docs, count) => {
+      if (docs.length > 0) {
+        response.done = true;
+        response.data = {
+          docs: docs,
+          totalDocs: docs.length,
+          limit: 10,
+          totalPages: Math.ceil(docs.length / 10),
+        };
+      } else {
+        response.data = {docs}
+        response.errorCode = site.var('failed')
+        response.message = site.word('findFailed')[req.headers.language]
+        response.done = false;
+      }
+      res.json(response);
+    },
+  );
+});
+
+
+
+
+
+
+
+
+
+
+
 
   // Search doctors By Available Days
   site.post('/api/doctors/searchByDays', (req, res) => {

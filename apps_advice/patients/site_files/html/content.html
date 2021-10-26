@@ -5,14 +5,17 @@
             <div class="row">
                 <div class="col9">
                     <div class="row">
-                        <i-control class="col4" v="r ll2" label="##word.name##" ng-model="patients.fullName">
+                        <i-control class="col3" v="r ll2" label="##word.name##" ng-model="patients.fullName">
                         </i-control>
                         </i-control>
-                        <i-control help-id="idNumber" class="col4" label="##word.idNumber##"
+                        <i-control help-id="idNumber" class="col3" label="##word.idNumber##"
                             ng-model="patients.idNumber"></i-control>
 
-                        <i-control help-id="phone" class="col4" label="##word.phone##" ng-model="patients.phone">
+                        <i-control help-id="phone" class="col3" label="##word.phone##" ng-model="patients.phone">
                         </i-control>
+                        <i-checkbox help-id="hasInsurance" class="col3" label="##word.active##"
+                            ng-model="patients.isActive">
+                        </i-checkbox>
                         <i-control help-id="password" class="col4" label="##word.password##"
                             ng-model="patients.password"></i-control>
 
@@ -35,8 +38,6 @@
                         <i-list ng-show="patients.hasInsurance" help-id=""  class="col3" label="##word.insuranceCompany##"
                             ng-model="patients.insuranceCompany" display="name_##session.lang##" items="insuranceCompanyList"
                             ng-search="_search.insuranceCompany"></i-list>
-
-                       
                     </div>
                     <div ng-show="patients.hasInsurance" class="col3">
                         <i-image   help-id="patients_logo" ng-model="patients.card_url"></i-image>
