@@ -27,6 +27,9 @@
                         ng-search="_search.department"></i-list>
                         <i-list class="col3" label="##word.city_name##" ng-model="doctors.city"
                         display="name_##session.lang##" items="citiesList" ng-search="_search.$city_gov"></i-list>
+                        <i-checkbox class="col3" label="##word.active##"
+                        ng-model="doctors.isActive">
+                    </i-checkbox>
                     </div>
 
                 </div>

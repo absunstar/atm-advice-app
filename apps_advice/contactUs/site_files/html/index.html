@@ -28,11 +28,8 @@
                 </div>
 
                 <div class="top-actions">
-                    <i-button  type="add" label="##word.contactUs_new##" ng-click="displayAddContactUs()"></i-button>
-
-                    <i-button  type="search" label="##word.search_all##"
-                        ng-click="displaySearchModal()"></i-button>
-
+                   
+                  
                     
                     <h3 class="bold text-center"> ##word.count## : {{count}}</h3>
                     <h3 class="bold text-center red"> {{error}}</h3>
@@ -41,32 +38,27 @@
 
                 <table  class="table hover bold loaded" id="t1">
                     <tr>
-                        <th class="not-print">##word.logo##</th>
-                        <!-- <th>##word.code##</th> -->
-                        <th>##word.contactUs_name##</th>
+                        
+                        
+                        <th>##word.fullName##</th>
+                        <th>##word.phone##</th>
+                        <th>##word.contactReason##</th>
 
-                        <th>##word.status##</th>
+                        
                         <th class="not-print">##word.actions##</th>
                     </tr>
                     <tr ng-repeat="c in list">
-                        <td class="center not-print">
-                            <i-image view class="logo" ng-model="c.image_url"></i-image>
-                        </td>
-                        <td class="center title">{{c.name_##session.lang##}}</td>
-                        <td class="center">
-                            <p ng-show="c.active ==true" class="green"> ##word.active## </p>
-                            <p ng-show="c.active ==false" class="red"> ##word.not_active## </p>
-                        </td>
-
+                        
+                        <td class="center title">{{c.fullName}}</td>
+                        <td class="center title">{{c.phone}}</td>
+                        <td class="center title">{{c.contactReason}}</td>
+                        
+                        
                         <td class="center not-print">
                             <i-button  type="view" label="##word.details##"
                                 ng-click="displayDetailsContactUs(c)"></i-button>
 
-                            <i-button  type="edit" label="##word.edit##"
-                                ng-click="displayUpdateContactUs(c)"></i-button>
-
-                            <i-button  type="delete" label="##word.delete##"
-                                ng-click="displayDeleteContactUs(c)"></i-button>
+                           
                         </td>
                     </tr>
                 </table>

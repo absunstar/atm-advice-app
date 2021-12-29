@@ -145,8 +145,8 @@ app.controller("pharmacy", function ($scope, $http, $timeout) {
     $scope.list = [];
     $http({
       method: "POST",
-      url: "/api/pharmacy/search",
-      data: where
+      url: "/api/pharmacy/searchData",
+      data:where
     }).then(
       function (response) {
         $scope.busy = false;

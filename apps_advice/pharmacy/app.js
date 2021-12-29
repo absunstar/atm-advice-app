@@ -1252,6 +1252,89 @@ module.exports = function init(site) {
       },
     );
   });
+
+
+
+
+
+
+
+// Search pharmacies By Name 
+site.post('/api/pharmacy/searchData', (req, res) => {
+  req.headers.language = req.headers.language || 'en'
+  let response = {
+    done: false,
+  };
+
+  let where = req.body || {};
+
+  if (where['pharmacyName']) {
+    where['pharmacyName'] = site.get_RegExp(where['pharmacyName'], 'i');
+  }
+  if (where['userName']) {
+    where['userName'] = site.get_RegExp(where['userName'], 'i');
+  }
+  if (where['branch']) {
+    where['branch'] = site.get_RegExp(where['branch'], 'i');
+  }
+  if (where['email']) {
+    where['email'] = String(where['email']);
+  }
+  if (where['phone']) {
+    where['phone'] = String(where['phone']);
+  }
+  if (where['gov']) {
+    where['gov._id'] = where['gov']._id;
+    delete where['gov']
+  }
+  if (where['city']) {
+    where['city._id'] = where['city']._id;
+    delete where['city']
+  }
+  if (where['address']) {
+    where['address._id'] = where['address']._id;
+    delete where['address']
+  }
+  let limit = 10;
+  let skip;
+
+  if (req.query.page || (parseInt(req.query.page) && parseInt(req.query.page) > 1)) {
+    skip = (parseInt(req.query.page) - 1) * 10
+  }
+
+
+  $pharmacy.findMany({
+    select: req.body.select || {},
+    where: where,
+    sort: req.body.sort || {
+      id: -1,
+    },
+    limit: limit,
+    skip: skip
+  },
+    (err, docs, count) => {
+      if (docs.length > 0) {
+        response.done = true
+        response.docs = docs
+        response.totalDocs = count
+        response.limit = 10
+        response.totalPages = Math.ceil(response.totalDocs / response.limit)
+      } else {
+        response.docs = docs
+        response.errorCode = site.var('failed')
+        response.message = site.word('findFailed')[req.headers.language]
+        response.done = false;
+      }
+      res.json(response);
+    },
+  );
+});
+
+
+
+
+
+
   site.post('/api/pharmacy/update1', (req, res) => {
     let response = {
       done: false,

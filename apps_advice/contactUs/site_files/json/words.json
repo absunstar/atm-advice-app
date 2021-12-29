@@ -1,23 +1,23 @@
 [
     {
-        "name": "degrees",
-        "en": "Degrees",
-        "ar": "الدرجات العلمية"
+        "name": "contactUs",
+        "en": "contact Us",
+        "ar": "تواصل معنا"
     },
     {
-        "name": "degree_new",
-        "en": "New Degree",
-        "ar": "درجة علمية جديدة"
+        "name": "contactReason",
+        "en": "contact Reason",
+        "ar": "سبب التواصل"
     },
     {
-        "name": "degrees_add",
-        "en": "Add Degree",
-        "ar": "إضافة درجة علمية "
+        "name": "message",
+        "en": "message",
+        "ar": "الرسالة"
     },
     {
-        "name": "degrees_edit",
-        "en": "Edit Degree",
-        "ar": "تعديل درجة علمية "
+        "name": "contactUs_details",
+        "en": "details",
+        "ar": "التفاصيل "
     },
     {
         "name": "degrees_details",
